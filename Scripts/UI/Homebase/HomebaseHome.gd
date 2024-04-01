@@ -12,11 +12,6 @@ func _ready() -> void:
 	# TODO: Get focus more elegantly.
 	get_child(0).get_child(0).grab_focus()
 	
-	var moist: Dictionary = {"cat": 3, "Gucci": 5}
-	for key in moist:
-		for value in moist[key]:
-			print(key)
-	
 	# Connect the needed button events
 	missions_button.button_down.connect( on_mission_button_pressed )
 	manage_characters_button.button_down.connect( on_manage_characters_button_pressed )
