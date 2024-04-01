@@ -1,0 +1,94 @@
+[gd_scene load_steps=5 format=3 uid="uid://c65rp21ut40w8"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Battle/CombatantBattleUI.gd" id="1_k7vii"]
+[ext_resource type="Texture2D" uid="uid://cyuyl8f5a5uw7" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Panel01.png" id="1_mcyht"]
+[ext_resource type="Texture2D" uid="uid://bme6mc2c4tf40" path="res://Imported Assets/coraxdigitalart-space-station-inhabitants/coraxdigitalart-space-station-portraits (36).png" id="2_2bkmu"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g8fcp"]
+texture = ExtResource("1_mcyht")
+texture_margin_left = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[node name="Player Character Battle UI" type="Control" node_paths=PackedStringArray("hp_display_text", "sp_display_text")]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 200.0
+offset_bottom = 100.0
+script = ExtResource("1_k7vii")
+hp_display_text = NodePath("Character Battle Panel/Vitals/HP Display")
+sp_display_text = NodePath("Character Battle Panel/Vitals/SP Display")
+
+[node name="Character Battle Panel" type="Panel" parent="."]
+texture_filter = 1
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_g8fcp")
+
+[node name="Character Portrait" type="Control" parent="Character Battle Panel"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -70.0
+offset_right = 50.0
+offset_bottom = -30.0
+grow_vertical = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="Character Battle Panel/Character Portrait"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.5
+offset_top = -37.5
+offset_right = 37.5
+offset_bottom = 37.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Character Battle Panel/Character Portrait/PanelContainer"]
+layout_mode = 2
+texture = ExtResource("2_2bkmu")
+expand_mode = 1
+
+[node name="Vitals" type="Control" parent="Character Battle Panel"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HP Display" type="RichTextLabel" parent="Character Battle Panel/Vitals"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 50.0
+offset_top = 20.0
+offset_right = 150.0
+offset_bottom = 60.0
+grow_horizontal = 0
+theme_override_font_sizes/normal_font_size = 18
+text = "HP: 99/99"
+
+[node name="SP Display" type="RichTextLabel" parent="Character Battle Panel/Vitals"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = 20.0
+offset_right = 150.0
+offset_bottom = 60.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/normal_font_size = 18
+text = "SP: 99/99"

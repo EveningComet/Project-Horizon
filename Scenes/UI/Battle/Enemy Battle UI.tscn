@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjy7rqj2i7mo8"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Battle/CombatantBattleUI.gd" id="1_bhbwu"]
+[ext_resource type="Texture2D" uid="uid://b2dvigjefvd7u" path="res://Imported Assets/Aekashics Librarium Sprites/Cyber Ogre.png" id="1_fx5ve"]
+
+[node name="Enemy Battle UI" type="Control"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 20.0
+offset_bottom = 20.0
+script = ExtResource("1_bhbwu")
+
+[node name="Enemy Portrait" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -168.0
+offset_top = -149.0
+offset_right = 168.0
+offset_bottom = 149.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_fx5ve")

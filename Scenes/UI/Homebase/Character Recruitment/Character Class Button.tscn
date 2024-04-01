@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8dv05151p3tj"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Homebase/Recruitment Menu/CharacterClassButton.gd" id="1_a8ind"]
+
+[node name="Character Class Button" type="Button"]
+custom_minimum_size = Vector2(200, 50)
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_font_sizes/font_size = 25
+text = "Class Name"
+script = ExtResource("1_a8ind")

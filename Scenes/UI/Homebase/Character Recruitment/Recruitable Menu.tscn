@@ -1,0 +1,101 @@
+[gd_scene load_steps=4 format=3 uid="uid://4er7ynu7iu7k"]
+
+[ext_resource type="Texture2D" uid="uid://c64t7fsrpym1t" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Panel02.png" id="1_6blpb"]
+[ext_resource type="Script" path="res://Scripts/UI/Homebase/Recruitment Menu/RecruitableMenu.gd" id="1_b7hrp"]
+[ext_resource type="PackedScene" uid="uid://b8dv05151p3tj" path="res://Scenes/UI/Homebase/Character Recruitment/Character Class Button.tscn" id="2_vb1q0"]
+
+[node name="Recruitable Menu" type="Control" node_paths=PackedStringArray("container")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_b7hrp")
+container = NodePath("ScrollContainer/VBoxContainer")
+character_class_button_template = ExtResource("2_vb1q0")
+
+[node name="Background" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_6blpb")
+
+[node name="Class Portraits Preview" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -320.0
+offset_top = 300.0
+offset_right = -280.0
+offset_bottom = 340.0
+grow_horizontal = 0
+
+[node name="Class Description" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -420.0
+offset_top = -205.0
+offset_right = -380.0
+offset_bottom = -165.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Panel" type="Panel" parent="Class Description"]
+custom_minimum_size = Vector2(700, 300)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -150.0
+offset_right = 250.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Class Description/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Class Description Label" type="Label" parent="Class Description/Panel/MarginContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "This is where the class description goes. The description will contain a tiny amount of lore and what the role of the class is."
+autowrap_mode = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(400, 600)
+layout_mode = 0
+offset_left = 200.0
+offset_top = 200.0
+offset_right = 600.0
+offset_bottom = 800.0
+follow_focus = true
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10

@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cojhji8fg6py0"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Battle/UIBattleCursor.gd" id="1_stnlq"]
+[ext_resource type="Texture2D" uid="uid://biecpg5er6my8" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Icons/Icon12.png" id="2_8wb6i"]
+
+[node name="UIBattleSelector" type="Control"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_stnlq")
+
+[node name="Selection Cursor Gfx" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_right = 57.0
+offset_bottom = 57.0
+texture = ExtResource("2_8wb6i")

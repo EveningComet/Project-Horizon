@@ -1,0 +1,56 @@
+[gd_scene load_steps=2 format=3 uid="uid://dk5bafb02fsas"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Homebase/HomebaseHome.gd" id="1_ordyh"]
+
+[node name="Homebase Home Menu" type="CanvasLayer"]
+
+[node name="HomebaseHome" type="Control" parent="." node_paths=PackedStringArray("missions_button", "manage_characters_button", "quit_button")]
+layout_mode = 3
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 30.0
+offset_top = -20.0
+offset_right = 70.0
+offset_bottom = 20.0
+grow_vertical = 2
+script = ExtResource("1_ordyh")
+battle_scene = "res://Scenes/Combat.tscn"
+recruitment_home_menu_scene = "res://Scenes/UI/Homebase/Character Recruitment/Recruitment Menu.tscn"
+missions_button = NodePath("VBoxContainer/Mission")
+manage_characters_button = NodePath("VBoxContainer/Manage Characters")
+quit_button = NodePath("VBoxContainer/Quit")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HomebaseHome"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -115.0
+offset_right = 200.0
+offset_bottom = 115.0
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Mission" type="Button" parent="HomebaseHome/VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+focus_neighbor_top = NodePath("../Quit")
+text = "Missions"
+
+[node name="Manage Characters" type="Button" parent="HomebaseHome/VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+text = "Manage Characters"
+
+[node name="Acquisitions" type="Button" parent="HomebaseHome/VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+text = "Acquisitions"
+
+[node name="Quit" type="Button" parent="HomebaseHome/VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../Mission")
+text = "Quit"

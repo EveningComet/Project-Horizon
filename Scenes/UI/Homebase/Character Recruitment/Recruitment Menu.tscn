@@ -1,0 +1,68 @@
+[gd_scene load_steps=8 format=3 uid="uid://887py14m8irs"]
+
+[ext_resource type="PackedScene" uid="uid://4er7ynu7iu7k" path="res://Scenes/UI/Homebase/Character Recruitment/Recruitable Menu.tscn" id="1_emqc0"]
+[ext_resource type="Script" path="res://Scripts/UI/Homebase/Recruitment Menu/RecruitmentMenuController.gd" id="1_vtc45"]
+[ext_resource type="PackedScene" uid="uid://b8dv05151p3tj" path="res://Scenes/UI/Homebase/Character Recruitment/Character Class Button.tscn" id="2_7ildh"]
+[ext_resource type="PackedScene" uid="uid://djrl0pgif0a4e" path="res://Scenes/UI/Homebase/Character Name Input Screen.tscn" id="2_083va"]
+[ext_resource type="Resource" uid="uid://t862v6s6esbv" path="res://Game Data/Player Character Classes/Class Data/Operative CD.tres" id="2_iydjd"]
+[ext_resource type="Resource" uid="uid://cwh3bxq7dikad" path="res://Game Data/Player Character Classes/Class Data/Aegis CD.tres" id="3_27exo"]
+[ext_resource type="Resource" uid="uid://b6rrgfkdd5wsv" path="res://Game Data/Player Character Classes/Class Data/Seeker CD.tres" id="7_ent0k"]
+
+[node name="Recruitment Menu" type="CanvasLayer"]
+
+[node name="Main Screen Buttons" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 30.0
+offset_top = -20.0
+offset_right = 70.0
+offset_bottom = 20.0
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main Screen Buttons"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -85.0
+offset_right = 200.0
+offset_bottom = 85.0
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Recruit" type="Button" parent="Main Screen Buttons/VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+focus_neighbor_top = NodePath("../Return")
+text = "Recruit"
+
+[node name="Manage" type="Button" parent="Main Screen Buttons/VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+text = "Manage"
+
+[node name="Return" type="Button" parent="Main Screen Buttons/VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../Recruit")
+text = "Return"
+
+[node name="Recruitable Menu" parent="." node_paths=PackedStringArray("character_name_entry") instance=ExtResource("1_emqc0")]
+visible = false
+character_name_entry = NodePath("../Character Name Input Screen")
+
+[node name="Character Name Input Screen" parent="." instance=ExtResource("2_083va")]
+visible = false
+
+[node name="RecruitmentMenuController" type="Node" parent="." node_paths=PackedStringArray("main_screen_button_holder", "recruitable_menu", "recruitment_button", "return_button")]
+script = ExtResource("1_vtc45")
+homebase_main_menu_scene = "res://Scenes/UI/Homebase/Homebase Home Menu.tscn"
+character_class_button_template = ExtResource("2_7ildh")
+main_screen_button_holder = NodePath("../Main Screen Buttons/VBoxContainer")
+recruitable_menu = NodePath("../Recruitable Menu")
+recruitment_button = NodePath("../Main Screen Buttons/VBoxContainer/Recruit")
+return_button = NodePath("../Main Screen Buttons/VBoxContainer/Return")
+pc_classes = Array[Resource("res://Scripts/Character/CharacterClass.gd")]([ExtResource("2_iydjd"), ExtResource("3_27exo"), ExtResource("7_ent0k")])

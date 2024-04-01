@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CharacterClass" load_steps=2 format=3 uid="uid://t862v6s6esbv"]
+
+[ext_resource type="Script" path="res://Scripts/Character/CharacterClass.gd" id="1_0so4e"]
+
+[resource]
+script = ExtResource("1_0so4e")
+localization_name = "Operative"
+localization_description = "Burned spies with nowhere else to go. Masters of infiltration, thievery, and assassanations."
+starting_vitality = 5
+starting_expertise = 7
+starting_will = 6
+vitality_on_increase = 5
+expertise_on_increase = 5
+will_on_increase = 5
+skills = Array[Resource("res://Scripts/Character/Skill/SkillData.gd")]([])

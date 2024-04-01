@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="DirectHealing" load_steps=2 format=3 uid="uid://b4r02cq3s3xe1"]
+
+[ext_resource type="Script" path="res://Scripts/Character/Skill/Skill Effects/DirectHealing.gd" id="1_ks8c1"]
+
+[resource]
+script = ExtResource("1_ks8c1")
+power_scale = 1.1
+use_special_stat = true
