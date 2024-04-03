@@ -1,12 +1,17 @@
 ## Responsible for executing the actions during the resolve phase.
 class_name ActionExecutor extends Node
 
-## Fired when the job is done.
-signal finished_processing_actions
+## Depending on how the action execution is halted, this will tell any listeners
+## the result.
+signal finished_processing_actions(results: Dictionary)
+
+## Used for checking for battle ends and if characters are dead.
+@export var death_handler: BattleDeathHandler
 
 ## The actions that will be executed during the resolve phase.
 var actions_to_execute: Array[StoredAction] = []
 
+## Loop through the passed actions that need to be performed.
 func execute_actions(actions: Array[StoredAction]) -> void:
 	actions_to_execute.append_array( actions )
 	
@@ -16,11 +21,17 @@ func execute_actions(actions: Array[StoredAction]) -> void:
 
 ## Continously executes actions until it is no longer able to.
 func next_action() -> void:
+	var results: Dictionary = {}
 	
-	# Before checking for the next action, see if the battle should end
+	# Check if a side has won
+	if death_handler.results.has("player_victory"):
+		results = death_handler.results
+		finished_processing_actions.emit( death_handler.results )
+		return
+	
 	# There are no more actions that need executing
 	if actions_to_execute.size() == 0:
-		finished_processing_actions.emit()
+		finished_processing_actions.emit(results)
 		return
 	
 	# Get the next action to execute

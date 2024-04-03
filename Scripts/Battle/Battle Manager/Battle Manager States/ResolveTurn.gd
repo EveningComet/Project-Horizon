@@ -6,13 +6,13 @@ class_name ResolveTurn extends BattleState
 
 func enter(msgs: Dictionary = {}) -> void:
 	print("ResolveTurn :: Entered.")
-	action_executer.finished_processing_actions.connect( on_actions_finished_processing )
+	action_executer.finished_processing_actions.connect( on_action_execution_finished )
 	# TODO: Sort the actions based on the activator's speed stat.
 	check_start_of_turn_status_effects()
 	execute_actions()
 
 func exit() -> void:
-	action_executer.finished_processing_actions.disconnect( on_actions_finished_processing )
+	action_executer.finished_processing_actions.disconnect( on_action_execution_finished )
 
 func check_start_of_turn_status_effects() -> void:
 	pass
@@ -21,10 +21,12 @@ func check_start_of_turn_status_effects() -> void:
 func execute_actions() -> void:
 	action_executer.execute_actions( my_state_machine.current_turn_actions )
 
-func on_actions_finished_processing() -> void:
-	# TODO: Check if the next turn should be started or if the battle should end
-	# TODO: Proper resolving of turn. For now, just go back to the player's turn.
-	my_state_machine.change_to_state("PlayerTurn")
+func on_action_execution_finished(results: Dictionary = {}) -> void:
+	match results:
+		# A side has won the battle, time to close things down
+		{"player_victory": var did_player_win, "experience_points_to_reward": var xp}:
+			print("ResolveTurn :: A side has won.")
+			my_state_machine.change_to_state("EndBattle", results)
+			return
 	
-func prepare_battle_end() -> void:
-	pass
+	my_state_machine.change_to_state("PlayerTurn")

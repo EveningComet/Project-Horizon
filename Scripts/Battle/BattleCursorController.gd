@@ -28,6 +28,9 @@ func spawn_needed_cursors(new_action: StoredAction) -> void:
 			# Set the target to the first enemy
 			# TODO: More robust system for remembering the previously selected target?
 			set_single_target( enemy_battle_ui.get_child(0) )
+		
+		ActionTypes.ActionTypes.HealSingleAlly:
+			pass
 			
 
 func clear_cursors() -> void:

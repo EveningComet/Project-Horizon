@@ -24,7 +24,6 @@ func check_for_unhandled_input(event: InputEvent) -> void:
 			my_state_machine.get_pac().open( my_state_machine.get_current_combatant() )
 			return
 		print("PBSelectAction :: Player pressed back button. Checking if we can go to a previous character.")
-		pass
 
 ## In the event that the player presses the attack button for the current
 ## character, create a stored action and pass it along using
@@ -47,4 +46,5 @@ func on_defend_button_pressed() -> void:
 	my_state_machine.change_to_state("PBSelectTarget", {stored_action = stored_action})
 
 func on_run_button_pressed() -> void:
+	# TODO: Handle running away.
 	pass

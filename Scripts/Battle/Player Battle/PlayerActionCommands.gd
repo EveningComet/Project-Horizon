@@ -28,8 +28,6 @@ func open(combatant: Combatant) -> void:
 	# TODO: Handle saving in memory. Also, getting the child like this is dumb.
 	get_child(0).get_child(0).grab_focus()
 	
-	# TODO: Handle the skills to be displayed for the passed character
-	
 	show()
 
 func close() -> void:

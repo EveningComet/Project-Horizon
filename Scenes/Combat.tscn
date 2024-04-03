@@ -70,12 +70,15 @@ action_executer = NodePath("../../ActionExecutor")
 
 [node name="EndBattle" type="Node" parent="BattleManager"]
 script = ExtResource("6_nchxf")
+homebase_home_scene = "res://Scenes/UI/Homebase/Homebase Home Menu.tscn"
 
-[node name="ActionExecutor" type="Node" parent="."]
+[node name="ActionExecutor" type="Node" parent="." node_paths=PackedStringArray("death_handler")]
 script = ExtResource("17_i3r5f")
+death_handler = NodePath("../BattleDeathHandler")
 
-[node name="BattleDeathHandler" type="Node" parent="."]
+[node name="BattleDeathHandler" type="Node" parent="." node_paths=PackedStringArray("spawned_combatants_node")]
 script = ExtResource("20_pja1n")
+spawned_combatants_node = NodePath("../Spawned Combatants")
 
 [node name="Spawned Combatants" type="Node" parent="."]
 

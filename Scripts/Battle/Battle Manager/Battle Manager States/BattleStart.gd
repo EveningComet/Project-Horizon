@@ -11,6 +11,9 @@ func physics_update(delta: float) -> void:
 	my_state_machine.change_to_state("PlayerTurn")
 
 func setup_battle() -> void:
+	# Refresh the death handler
+	my_state_machine.death_handler.refresh()
+	
 	# Spawn the necessary characters.
 	spawn_player_characters()
 	spawn_enemies()
@@ -27,7 +30,7 @@ func spawn_player_characters() -> void:
 		my_state_machine.player_battle_hud.create_hud_for_pc( copy )
 		copy.name = player_character.char_name
 		
-		# TODO: Connect to on hp depleted events.
+		# Connect to on hp depleted events.
 		copy.health_depleted.connect( my_state_machine.death_handler.on_player_character_death )
 		
 		# Make the state machine keep track of the character
@@ -39,4 +42,3 @@ func spawn_enemies() -> void:
 		if character is EnemyCombatant:
 			my_state_machine.add_combatant( character )
 			character.health_depleted.connect( my_state_machine.death_handler.on_enemy_death )
-	pass
