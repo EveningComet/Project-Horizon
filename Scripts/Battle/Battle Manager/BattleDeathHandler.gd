@@ -10,29 +10,31 @@ var results: Dictionary = {}
 ## characters after winning a battle.
 var experience_points_to_give: int = 0
 
+func _ready() -> void:
+	EventBus.hp_depleted.connect( on_combatant_hp_depleted )
+
 func refresh() -> void:
 	results.clear()
 	experience_points_to_give = 0
 
-func on_player_character_death(player_character: Combatant) -> void:
-	# Make it so that the character can't do anything until they've been revived
-	pass
+func on_combatant_hp_depleted(combatant: Combatant) -> void:
+	if combatant is EnemyCombatant:
+		var enemy                  = combatant as EnemyCombatant
+		experience_points_to_give += enemy.experience_to_give_on_death
+		enemy.queue_free()
+		
+		# Check if all the enemies have been defeated
+		for c in spawned_combatants_node.get_children():
+			if c is EnemyCombatant and enemy.is_queued_for_deletion() == false:
+				return
+		
+		# All of the enemies have been defeated
+		if OS.is_debug_build() == true:
+			print("DeathHandler :: All enemies have been defeated.")
+		results["player_victory"]              = true
+		results["experience_points_to_reward"] = experience_points_to_give
 	
-func on_enemy_death(enemy: Combatant) -> void:
-	enemy                      = enemy as EnemyCombatant
-	experience_points_to_give += enemy.experience_to_give_on_death
-	enemy.queue_free()
-	
-	# Check if all the enemies have been defeated
-	for combatant in spawned_combatants_node.get_children():
-		if combatant is EnemyCombatant and enemy.is_queued_for_deletion() == false:
-			return
-	
-	# All of the enemies have been defeated
-	if OS.is_debug_build() == true:
-		print("DeathHandler :: All enemies have been defeated.")
-	results["player_victory"]              = true
-	results["experience_points_to_reward"] = experience_points_to_give
+	# TODO: Handling the player characters falling in combat.
 
 func get_rewarded_experience_points() -> int:
 	return experience_points_to_give

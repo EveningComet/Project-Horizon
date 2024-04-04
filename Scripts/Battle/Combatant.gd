@@ -2,10 +2,7 @@
 class_name Combatant extends Node
 
 # TODO: const scale variables for the health, sp, and other numbers?
-# TODO: Variable for which team this character belongs to.
-
-## Called when this character has run out of health.
-signal health_depleted( combatant: Combatant )
+# TODO: Variable for which team this character belongs to?
 
 ## Called when a stat on this character has been changed.
 signal stat_changed( combatant: Combatant )
@@ -98,4 +95,4 @@ func regain_sp(gain_amount: int) -> void:
 ## When this character dies, notify anything that needs to know about it.
 ## Child classes will override this.
 func die() -> void:
-	health_depleted.emit( self )
+	EventBus.hp_depleted.emit( self )

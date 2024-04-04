@@ -31,15 +31,15 @@ func spawn_player_characters() -> void:
 		my_state_machine.player_battle_hud.create_hud_for_pc( copy )
 		copy.name = player_character.char_name
 		
-		# Connect to on hp depleted events.
-		copy.health_depleted.connect( my_state_machine.death_handler.on_player_character_death )
-		
 		# Make the state machine keep track of the character
 		my_state_machine.add_combatant( copy )
+		
+		# Fire the event to create UI for the character
+		EventBus.combatant_spawned_in_battle.emit( copy )
 
 func spawn_enemies() -> void:
 	# TODO: Spawn the enemies, add them to the scene, and add them to the tracked combatants list.
 	for character in my_state_machine.spawned_combatants_node.get_children():
 		if character is EnemyCombatant:
 			my_state_machine.add_combatant( character )
-			character.health_depleted.connect( my_state_machine.death_handler.on_enemy_death )
+			EventBus.combatant_spawned_in_battle.emit( character )

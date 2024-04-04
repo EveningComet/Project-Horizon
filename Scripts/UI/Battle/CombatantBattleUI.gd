@@ -19,7 +19,6 @@ func set_combatant(new_combatant: Combatant, is_player_owned: bool) -> void:
 	combatant            = new_combatant
 	is_player_controlled = is_player_owned
 	combatant.stat_changed.connect( on_stat_changed )
-	combatant.health_depleted.connect( on_health_depleted )
 	if is_player_controlled == true:
 		update_hp_display()
 		update_sp_display()
@@ -28,10 +27,10 @@ func on_stat_changed(monitored: Combatant) -> void:
 	if is_player_controlled == true:
 		update_hp_display()
 		update_sp_display()
-
-func on_health_depleted(monitored: Combatant) -> void:
-	if is_player_controlled == false:
-		queue_free()
+	
+	else:
+		if monitored.stats[StatTypes.stat_types.CurrentHP] <= 0:
+			queue_free()
 
 func get_combatant() -> Combatant:
 	return combatant
