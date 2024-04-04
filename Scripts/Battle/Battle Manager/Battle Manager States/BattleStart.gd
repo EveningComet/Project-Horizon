@@ -4,7 +4,8 @@ class_name BattleStart extends BattleState
 func enter(msgs: Dictionary = {}) -> void:
 	setup_battle()
 	
-	print("BattleStart :: Entered.")
+	if OS.is_debug_build() == true:
+		print("BattleStart :: Entered.")
 
 func physics_update(delta: float) -> void:
 	# TODO: This should really happen in an event after everything is finished being setup.

@@ -16,7 +16,9 @@ func execute_actions(actions: Array[StoredAction]) -> void:
 	actions_to_execute.append_array( actions )
 	
 	# Execute the actions
-	printerr("ResolveTurn :: Actions to execute: %s " % [actions])
+	if OS.is_debug_build() == true:
+		printerr("ResolveTurn :: Actions to execute: %s " % [actions])
+	
 	next_action()
 
 ## Continously executes actions until it is no longer able to.
@@ -56,7 +58,8 @@ func execute_action(action: StoredAction) -> void:
 				
 				# TODO: If enemy target is dead, and their are still enemies, target another enemy.
 				# TODO: Chance to hit + critical chance.
-				print("ResolveTurn :: %s now has %s hp." % [target.name, target.stats[StatTypes.stat_types.CurrentHP]])
+				if OS.is_debug_build() == true:
+					print("ResolveTurn :: %s now has %s hp." % [target.name, target.stats[StatTypes.stat_types.CurrentHP]])
 		
 		ActionTypes.ActionTypes.HealSingleAlly:
 			var healing_power: int = 0

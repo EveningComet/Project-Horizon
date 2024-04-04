@@ -36,7 +36,9 @@ func close() -> void:
 	close_battle_skills_menu()
 
 func on_attack_button_pressed() -> void:
-	print("PlayerActionCommands :: Attack button pressed.")
+	if OS.is_debug_build() == true:
+		print("PlayerActionCommands :: Attack button pressed.")
+	
 	attack_button_pressed.emit()
 
 func on_special_button_pressed() -> void:

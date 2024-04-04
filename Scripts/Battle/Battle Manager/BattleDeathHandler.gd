@@ -29,7 +29,8 @@ func on_enemy_death(enemy: Combatant) -> void:
 			return
 	
 	# All of the enemies have been defeated
-	print("DeathHandler :: All enemies have been defeated.")
+	if OS.is_debug_build() == true:
+		print("DeathHandler :: All enemies have been defeated.")
 	results["player_victory"]              = true
 	results["experience_points_to_reward"] = experience_points_to_give
 

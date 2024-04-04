@@ -84,6 +84,7 @@ spawned_combatants_node = NodePath("../Spawned Combatants")
 
 [node name="Enemy Combatant 1" type="Node" parent="Spawned Combatants"]
 script = ExtResource("15_rir6a")
+experience_to_give_on_death = 150
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

@@ -5,7 +5,9 @@ class_name ResolveTurn extends BattleState
 @export var action_executer: ActionExecutor
 
 func enter(msgs: Dictionary = {}) -> void:
-	print("ResolveTurn :: Entered.")
+	if OS.is_debug_build() == true:
+		print("ResolveTurn :: Entered.")
+	
 	action_executer.finished_processing_actions.connect( on_action_execution_finished )
 	# TODO: Sort the actions based on the activator's speed stat.
 	check_start_of_turn_status_effects()

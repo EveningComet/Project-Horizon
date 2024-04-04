@@ -19,9 +19,10 @@ func _ready() -> void:
 ## Display the skills of the passed character to the player.
 func open(user_to_display: PlayerCombatant) -> void:
 	skill_user = user_to_display
+	if OS.is_debug_build() == true:
+		print("BattleSkillsMenu :: Skills for character: ", skill_user.available_skills)
 	
 	# Spawn a selectable button for each usable skill
-	print("BattleSkillsMenu :: Skills for character: ", skill_user.available_skills)
 	for skill in skill_user.available_skills:
 		if skill.is_passive == false:
 			var b: BattleSkillMenuButton = battle_skill_button_template.instantiate() as BattleSkillMenuButton

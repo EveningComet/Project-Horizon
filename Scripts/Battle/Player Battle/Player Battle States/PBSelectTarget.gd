@@ -14,7 +14,9 @@ var stored_action: StoredAction
 func enter(msgs: Dictionary = {}) -> void:
 	match msgs:
 		{"stored_action": var sa}:
-			print("PBSelectTarget :: Entered with action. Action type is %s" % [ActionTypes.ActionTypes.keys()[sa.action_type]])
+			if OS.is_debug_build() == true:
+				print("PBSelectTarget :: Entered with action. Action type is %s" % [ActionTypes.ActionTypes.keys()[sa.action_type]])
+			
 			stored_action = sa
 			
 			# TODO: Depending on the action, just skip to the next character or phase.
@@ -77,8 +79,10 @@ func execute() -> void:
 	# Move to the desired state, based on whether or not the player
 	# selected an action for all the characters
 	if my_state_machine.has_finished_selecting_needed_actions() == true:
-		printerr("PBSelectTarget :: The player has finally finished selecting all the actions! Time for the enemy's turn.")
-		printerr("PBSelectTarget :: Action dictionary is: ", my_state_machine.stored_actions)
+		if OS.is_debug_build() == true:
+			printerr("PBSelectTarget :: The player has finally finished selecting all the actions! Time for the enemy's turn.")
+			printerr("PBSelectTarget :: Action dictionary is: ", my_state_machine.stored_actions)
+		
 		my_state_machine.change_to_state("PBIdle")
 		
 		# Tell the battle controller that it's now the enemy's turn
@@ -86,7 +90,9 @@ func execute() -> void:
 	
 	# The player still has characters to select actions for
 	else:
-		print("PBSelectTarget :: Action dictionary is: ", my_state_machine.stored_actions)
+		if OS.is_debug_build() == true:
+			print("PBSelectTarget :: Action dictionary is: ", my_state_machine.stored_actions)
+		
 		my_state_machine.advance_to_next_character()
 		my_state_machine.change_to_state("PBSelectAction")
 

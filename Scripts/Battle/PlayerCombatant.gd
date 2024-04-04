@@ -12,6 +12,12 @@ var curr_experience_points:  int = 0
 var experience_required:     int = get_experience_required( curr_level )
 var total_experience_points: int = 0
 
+## The points for boosting one of this character's skills or class levels.
+var available_skill_points:     int = 0
+
+## The points for boosting one of the three core attributes.
+var available_attribute_points: int = 0
+
 ## When a character levels up, this dictates the scale for how many experience
 ## points are required for the next level up.
 const EXPERIENCE_GROWTH_PERCENTAGE: float = 1.10
@@ -89,8 +95,10 @@ func gain_experience(gain_amount: int) -> void:
 ## Boost this character's level.
 func level_up() -> void:
 	
-	# Boost the level and the required experience.
+	# Boost the level and the required experience for the next level
 	curr_level += 1
 	experience_required = get_experience_required( curr_level )
 	
-	# TODO: Give the character skill points/attribute points/ etc.
+	# Give the character skill points/attribute points/ etc.
+	available_attribute_points += 1
+	available_skill_points     += 3

@@ -6,7 +6,8 @@ func enter(msgs: Dictionary = {}) -> void:
 	my_state_machine.get_pac().defend_button_pressed.connect( on_defend_button_pressed )
 	my_state_machine.get_pac().open( my_state_machine.get_current_combatant() )
 	
-	print("PBSelectAction :: Entered.")
+	if OS.is_debug_build() == true:
+		print("PBSelectAction :: Entered.")
 
 func exit() -> void:
 	my_state_machine.get_pac().attack_button_pressed.disconnect( on_attack_button_pressed )
@@ -23,12 +24,10 @@ func check_for_unhandled_input(event: InputEvent) -> void:
 			my_state_machine.get_pac().close_battle_skills_menu()
 			my_state_machine.get_pac().open( my_state_machine.get_current_combatant() )
 			return
-		print("PBSelectAction :: Player pressed back button. Checking if we can go to a previous character.")
 
 ## In the event that the player presses the attack button for the current
 ## character, create a stored action and pass it along using
 func on_attack_button_pressed() -> void:
-	print("PBSelectAction :: Player has selected attack for the current character.")
 	# TODO: Cleanup.
 	var stored_action: StoredAction = StoredAction.new(
 		my_state_machine.get_current_combatant(), 
@@ -37,7 +36,6 @@ func on_attack_button_pressed() -> void:
 	my_state_machine.change_to_state("PBSelectTarget", {stored_action = stored_action})
 
 func on_defend_button_pressed() -> void:
-	print("PBSelectAction :: Player has selected defend for the current character.")
 	# TODO: Cleanup.
 	var stored_action: StoredAction = StoredAction.new(
 		my_state_machine.get_current_combatant(),

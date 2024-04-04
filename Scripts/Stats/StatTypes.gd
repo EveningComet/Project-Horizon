@@ -13,7 +13,7 @@ enum stat_types {
 	CurrentSP,            # Our current mana/stamina/etc.
 	
 	# Other stats
-	Defense,              # Reduces physical damage
+	Defense,              # Reduces damage
 	Perception,           # (Hit chance) = Expertise + Will
 	Evasion,              # (Dodge)      = Vitality  + Expertise
 	Speed                 # (Vitality + Will) / 2

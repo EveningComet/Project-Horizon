@@ -2,7 +2,9 @@
 class_name PBIdle extends PlayerBattleState
 
 func enter(msgs: Dictionary = {}) -> void:
-	print("PBIdle :: Entered.")
+	if OS.is_debug_build() == true:
+		print("PBIdle :: Entered.")
+	pass
 
 func exit() -> void:
 	pass
