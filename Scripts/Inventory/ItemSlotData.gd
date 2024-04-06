@@ -18,3 +18,18 @@ func create_single_slot_data() -> ItemSlotData:
 	new_slot_data.quantity = 1
 	quantity -= 1
 	return new_slot_data
+
+## Check if the item matches, we can stack, and the item has enough space for a partial merge.
+func can_merge_with(other_slot_data: ItemSlotData) -> bool:
+	return stored_item == other_slot_data.stored_item \
+			and stored_item.stackable == true \
+			and quantity < stored_item.max_stack_size
+
+## Check if the item matches, we can stack, and the item has enough space for a full merge.
+func can_fully_merge_with(other_slot_data: ItemSlotData) -> bool:
+	return stored_item == other_slot_data.stored_item \
+			and stored_item.stackable == true \
+			and quantity + other_slot_data.quantity <= stored_item.max_stack_size
+
+func fully_merge_with(other_slot_data: ItemSlotData) -> void:
+	quantity += other_slot_data.quantity
