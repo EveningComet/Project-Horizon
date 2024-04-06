@@ -21,6 +21,7 @@ config/icon="res://icon.svg"
 SceneController="*res://Scripts/Autoloads/SceneController.gd"
 PlayerPartyController="*res://Scripts/Autoloads/PlayerPartyController.gd"
 EventBus="*res://Scripts/Autoloads/EventBus.gd"
+PlayerInventory="*res://Scripts/Autoloads/PlayerInventory.gd"
 
 [display]
 
