@@ -18,11 +18,13 @@ func exit() -> void:
 	pass
 
 func victory(xp_to_reward: int) -> void:
-	# Dish out experience based on the defeated enemies.
-	for pm: PlayerCombatant in PlayerPartyController.get_children():
-		pm.gain_experience( xp_to_reward )
+	# Put the party back where it belongs
+	for party_member: PlayerCombatant in PlayerPartyController.party_members:
+		party_member.reparent( PlayerPartyController )
 	
-	# Transfer any stat changes to the player's party from their batle copies
+	# Dish out experience based on the defeated enemies.
+	for pm: PlayerCombatant in PlayerPartyController.party_members:
+		pm.gain_experience( xp_to_reward )
 	
 	# Leave the battle scene
 	SceneController.switch_to_scene(homebase_home_scene)

@@ -7,10 +7,6 @@ func enter(msgs: Dictionary = {}) -> void:
 	if OS.is_debug_build() == true:
 		print("BattleStart :: Entered.")
 
-func physics_update(delta: float) -> void:
-	# TODO: This should really happen in an event after everything is finished being setup.
-	my_state_machine.change_to_state("PlayerTurn")
-
 func setup_battle() -> void:
 	# Refresh the death handler
 	my_state_machine.death_handler.refresh()
@@ -19,23 +15,23 @@ func setup_battle() -> void:
 	spawn_player_characters()
 	spawn_enemies()
 	
-	# TODO: Connect to any relevant events.
+	# TODO: Find a way to prevent having to wait- overcome the race condition.
+	await get_tree().create_timer(1.0).timeout
+	
+	# The battle can now begin
+	my_state_machine.change_to_state("PlayerTurn")
 
 func spawn_player_characters() -> void:
-	# Create copies of the player's characters and add them to this scene.
-	var player_party = PlayerPartyController.get_children()
-	for player_character: PlayerCombatant in player_party:
-		var copy: PlayerCombatant = PlayerCombatant.new()
-		copy.initialize_with_copy( player_character ) # Initialize the stats for safety.
-		my_state_machine.spawned_combatants_node.add_child( copy )
-		my_state_machine.player_battle_hud.create_hud_for_pc( copy )
-		copy.name = player_character.char_name
+	# Add the player's party to the battle
+	for player_character: PlayerCombatant in PlayerPartyController.party_members:
+		player_character.reparent( my_state_machine.spawned_combatants_node )
+		my_state_machine.player_battle_hud.create_hud_for_pc( player_character )
 		
 		# Make the state machine keep track of the character
-		my_state_machine.add_combatant( copy )
+		my_state_machine.add_combatant( player_character )
 		
 		# Fire the event to create UI for the character
-		EventBus.combatant_spawned_in_battle.emit( copy )
+		EventBus.combatant_spawned_in_battle.emit( player_character )
 
 func spawn_enemies() -> void:
 	# TODO: Spawn the enemies, add them to the scene, and add them to the tracked combatants list.

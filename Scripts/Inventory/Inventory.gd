@@ -21,10 +21,11 @@ func grab_slot_data(index: int) -> ItemSlotData:
 	var slot_data: ItemSlotData = stored_items[index]
 	
 	# If we have a slot to move, remove the slot and tell anyone caring about the change.
-	if slot_data:
-		stored_items[index] = null
+	if slot_data != null and slot_data.stored_item != null:
+		var return_slot_data: ItemSlotData = slot_data.duplicate()
+		stored_items[index].clear_data()
 		inventory_updated.emit( self )
-		return slot_data
+		return return_slot_data
 	else:
 		return null
 
@@ -32,7 +33,7 @@ func grab_slot_data(index: int) -> ItemSlotData:
 func drop_single_slot_data(grabbed_slot_data: ItemSlotData, index: int) -> ItemSlotData:
 	var slot_data: ItemSlotData = stored_items[index]
 	
-	if slot_data == null:
+	if slot_data.stored_item == null:
 		stored_items[index] = grabbed_slot_data.create_single_slot_data()
 	elif slot_data.can_merge_with(grabbed_slot_data) == true:
 		slot_data.fully_merge_with( grabbed_slot_data.create_single_slot_data() )
@@ -48,7 +49,7 @@ func drop_slot_data(grabbed_slot_data: ItemSlotData, index: int) -> ItemSlotData
 	var slot_data: ItemSlotData = stored_items[index]
 	
 	var return_slot_data: ItemSlotData
-	if slot_data != null and slot_data.can_fully_merge_with(grabbed_slot_data):
+	if slot_data != null and slot_data.stored_item != null and slot_data.can_fully_merge_with(grabbed_slot_data):
 		slot_data.fully_merge_with(grabbed_slot_data)
 	else:
 		stored_items[index] = grabbed_slot_data
@@ -63,7 +64,7 @@ func use_slot_data(index: int) -> void:
 	var slot_data: ItemSlotData = stored_items[index]
 	
 	# There is no item at the passed index, so do nothing.
-	if slot_data == null:
+	if slot_data == null || slot_data.stored_item == null:
 		return
 	
 	# Depending on the item, this is where we do stuff.
@@ -82,7 +83,7 @@ func use_slot_data(index: int) -> void:
 	if OS.is_debug_build() == true:
 		print("Inventory :: Attempting to use item: %s." % [slot_data.stored_item.item_name])
 
-## Used when picking up singular items on the ground.
+## Used when adding a single slot data.
 func pick_up_slot_data(slot_data: ItemSlotData) -> bool:
 	
 	# If we find a slot we can stack to, try it
@@ -95,6 +96,13 @@ func pick_up_slot_data(slot_data: ItemSlotData) -> bool:
 	# If we find an empty space, pickup the item.
 	for index in stored_items.size():
 		if stored_items[index] == null:
+			stored_items[index] = slot_data
+			inventory_updated.emit( self )
+			return true
+	
+	# Add an item to a slot if it has nothing
+	for index in stored_items.size():
+		if stored_items[index] != null and stored_items[index].stored_item == null:
 			stored_items[index] = slot_data
 			inventory_updated.emit( self )
 			return true

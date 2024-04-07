@@ -95,6 +95,7 @@ func on_player_finished_entering_name() -> void:
 	# TODO: Make sure we are not going over the party limit for the newly created character.
 	# TODO: Notify the player that the character has been added to their party.
 	new_character.reparent( PlayerPartyController )
+	PlayerPartyController.add_party_member( new_character )
 	character_name_entry.close()
 	player_is_doing_something = false
 	initial_class = null
