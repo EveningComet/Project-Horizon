@@ -5,6 +5,9 @@ class_name CharacterNameInputScreen extends Control
 ## Fired when the player finishes entering a name for the player.
 signal player_finished_entering_name()
 
+@export_multiline var names_list
+@export var randomize_name_button: BaseButton = null
+
 ## The node storing the entered name.
 @export var name_entry: LineEdit
 
@@ -13,6 +16,7 @@ var current_character: PlayerCombatant
 
 func _ready() -> void:
 	name_entry.text_submitted.connect( on_text_submitted )
+	randomize_name_button.button_down.connect( on_randomize_name_button_pressed )
 	
 func start_accepting_input(new_character: PlayerCombatant) -> void:
 	current_character = new_character
@@ -31,3 +35,8 @@ func on_text_submitted(new_text: String) -> void:
 	if OS.is_debug_build() == true:
 		print("CharacterNameInput :: The new character's name is %s and their class is: %s." % [current_character.char_name, current_character.pc_class.localization_name])
 	player_finished_entering_name.emit()
+
+func on_randomize_name_button_pressed() -> void:
+	var names = names_list.split('\n')
+	var random_index = randi_range(0, len(names) - 1)
+	name_entry.text = names[random_index]
