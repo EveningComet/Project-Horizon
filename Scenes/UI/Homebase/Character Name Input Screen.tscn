@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/UI/Homebase/CharacterNameInputScreen.gd" id="1_wq8uj"]
 
-[node name="Character Name Input Screen" type="Control" node_paths=PackedStringArray("name_entry")]
+[node name="Character Name Input Screen" type="Control" node_paths=PackedStringArray("randomize_name_button", "name_entry")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,6 +11,18 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_wq8uj")
+names_list = "Nyx
+Spock
+Natalya
+Gael
+Kirk
+Flynn
+Uhura
+Sulu
+Scotty
+Chekov
+Leonard"
+randomize_name_button = NodePath("VBoxContainer/Randomize Name Button")
 name_entry = NodePath("VBoxContainer/LineEdit")
 
 [node name="Background" type="Panel" parent="."]
