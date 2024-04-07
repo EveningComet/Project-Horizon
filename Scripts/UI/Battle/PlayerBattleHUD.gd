@@ -13,7 +13,10 @@ func _ready() -> void:
 
 func on_combatant_spawned_in_combat(combatant: Combatant) -> void:
 	if combatant is PlayerCombatant:
-		create_hud_for_pc( combatant as PlayerCombatant )
+		if OS.is_debug_build() == true:
+			print("PlayerBattleHud :: Spawning for a player.")
+		var pc: PlayerCombatant = combatant as PlayerCombatant
+		create_hud_for_pc( pc )
 
 func create_hud_for_pc(new_pc: PlayerCombatant) -> void:
 	var combatant_battle_ui: CombatantBattleUI = player_battle_ui_scene.instantiate()

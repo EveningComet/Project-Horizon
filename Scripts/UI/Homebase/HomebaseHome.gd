@@ -21,7 +21,7 @@ func _ready() -> void:
 	quit_button.button_down.connect( on_quit_button_pressed )
 
 func on_mission_button_pressed() -> void:
-	# TODO: Implement a better way of preventing the player from entering the battle scene.
+	# TODO: Instead of this, disable the button.
 	if PlayerPartyController.get_child_count() < 1:
 		return
 	SceneController.switch_to_scene( battle_scene )

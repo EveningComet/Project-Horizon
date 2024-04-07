@@ -75,7 +75,7 @@ func on_class_selected(pc_class: CharacterClass) -> void:
 	player_is_doing_something = true
 	new_character = PlayerCombatant.new()
 	initial_class = pc_class
-	new_character.set_pc_class( pc_class ) # TODO: Move setting the class to after the name has been entered.
+	new_character.set_pc_class( pc_class )
 	new_character.initialize_with_class_data( pc_class )
 	add_child( new_character )
 	
