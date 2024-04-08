@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://cwvvimlhjqt7d"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Homebase/Recruitment Menu/PartyMemberHolderUI.gd" id="1_qh1v0"]
+[ext_resource type="Texture2D" uid="uid://bme6mc2c4tf40" path="res://Imported Assets/coraxdigitalart-space-station-inhabitants/coraxdigitalart-space-station-portraits (36).png" id="2_48sb4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xfxkt"]
+
+[node name="Party Member Holder UI" type="PanelContainer" node_paths=PackedStringArray("portrait")]
+custom_minimum_size = Vector2(150, 150)
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xfxkt")
+script = ExtResource("1_qh1v0")
+portrait = NodePath("MarginContainer/Portrait")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Portrait" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+texture = ExtResource("2_48sb4")
+expand_mode = 1

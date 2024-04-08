@@ -1,0 +1,122 @@
+[gd_scene load_steps=4 format=3 uid="uid://t37lvdmqohit"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Homebase/Recruitment Menu/PartyManagement.gd" id="1_gp6rg"]
+[ext_resource type="PackedScene" uid="uid://cwvvimlhjqt7d" path="res://Scenes/UI/Homebase/Character Recruitment/Party Member Holder UI.tscn" id="2_1sm8x"]
+[ext_resource type="Script" path="res://Scripts/UI/Homebase/Recruitment Menu/PartyManagementHolder.gd" id="3_bhs6w"]
+
+[node name="Party Management Menu" type="Control" node_paths=PackedStringArray("party_holder", "recruited_holder", "grabbed_ui")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gp6rg")
+template = ExtResource("2_1sm8x")
+party_holder = NodePath("Party/PartyManagementHolder")
+recruited_holder = NodePath("Recruited Characters/Recruitment Holder")
+grabbed_ui = NodePath("Grabbed Character Slot")
+
+[node name="Party" type="Panel" parent="."]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 50.0
+offset_top = -250.0
+offset_right = 550.0
+offset_bottom = 250.0
+grow_vertical = 2
+
+[node name="PartyManagementHolder" type="Control" parent="Party" node_paths=PackedStringArray("own_pc_holder")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_bhs6w")
+own_pc_holder = NodePath("MarginContainer/Party Grid")
+
+[node name="Party Text" type="Label" parent="Party/PartyManagementHolder"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 69.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 50
+text = "Party"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Party/PartyManagementHolder"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Party Grid" type="GridContainer" parent="Party/PartyManagementHolder/MarginContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 3
+
+[node name="Recruited Characters" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Recruitment Holder" type="Control" parent="Recruited Characters" node_paths=PackedStringArray("own_pc_holder")]
+layout_mode = 2
+script = ExtResource("3_bhs6w")
+own_pc_holder = NodePath("MarginContainer/VBoxContainer/ScrollContainer/Recruited Grid")
+
+[node name="MarginContainer" type="MarginContainer" parent="Recruited Characters/Recruitment Holder"]
+layout_mode = 2
+offset_right = 1000.0
+offset_bottom = 1080.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Recruited Characters/Recruitment Holder/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Recruited Characters/Recruitment Holder/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Recruited"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Recruited Characters/Recruitment Holder/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+follow_focus = true
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="Recruited Grid" type="GridContainer" parent="Recruited Characters/Recruitment Holder/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 6
+
+[node name="Grabbed Character Slot" parent="." instance=ExtResource("2_1sm8x")]
+visible = false
+layout_mode = 0
+offset_right = 150.0
+offset_bottom = 150.0

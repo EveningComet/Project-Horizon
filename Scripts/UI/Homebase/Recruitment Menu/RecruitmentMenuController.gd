@@ -9,10 +9,16 @@ class_name RecruitmentMenuController extends Node
 ## The holder of the buttons of the recruitment's "main menu."
 @export var main_screen_button_holder: Control
 
+## The menu where the player can manage their party.
+@export var party_management_menu: PartyManagementMenu
+
 ## The screen that will display the classes the player can recruit from.
 @export var recruitable_menu: RecruitableMenu
 
 @export var recruitment_button: BaseButton = null
+
+## The management button.
+@export var management_button: BaseButton
 
 ## The button for returning to the "main menu" of the homebase.
 @export var return_button: BaseButton = null
@@ -26,7 +32,11 @@ func _ready() -> void:
 	
 	# Connect to relevant events
 	recruitable_menu.close_recruitable_menu.connect( on_close_recruitable_menu )
+	party_management_menu.close_party_management_menu.connect( on_close_party_management_menu )
+	
+	# Connect to the buttons
 	recruitment_button.button_down.connect( on_recruitment_button_pressed )
+	management_button.pressed.connect( on_manage_button_pressed )
 	return_button.button_down.connect( on_return_button_pressed )
 	
 	# Load the character classes and sort them
@@ -43,9 +53,21 @@ func on_close_recruitable_menu() -> void:
 	main_screen_button_holder.show()
 	main_screen_button_holder.get_child(0).grab_focus()
 
+func on_close_party_management_menu() -> void:
+	party_management_menu.close()
+	main_screen_button_holder.show()
+	main_screen_button_holder.get_child(0).grab_focus()
+
 func on_recruitment_button_pressed() -> void:
 	main_screen_button_holder.hide()
 	recruitable_menu.display_classes( pc_classes )
+
+func on_manage_button_pressed() -> void:
+	# TODO: Do this a proper way. This is for now.
+	if PlayerPartyController.get_child_count() < 1:
+		return
+	main_screen_button_holder.hide()
+	party_management_menu.display()
 
 func on_return_button_pressed() -> void:
 	SceneController.switch_to_scene( homebase_main_menu_scene )

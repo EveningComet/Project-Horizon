@@ -20,5 +20,8 @@ func get_party_count() -> int:
 func add_party_member(pm_to_add: PlayerCombatant) -> void:
 	party_members.append( pm_to_add )
 
+func add_at_index(pm_to_add: PlayerCombatant, index: int) -> void:
+	party_members.insert( index, pm_to_add ) 
+
 func remove_party_member(pm_to_remove: PlayerCombatant) -> void:
 	party_members.erase( pm_to_remove )
