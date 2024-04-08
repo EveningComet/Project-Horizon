@@ -5,8 +5,8 @@ class_name CharacterNameInputScreen extends Control
 ## Fired when the player finishes entering a name for the player.
 signal player_finished_entering_name()
 
-@export_multiline var names_list
 @export var randomize_name_button: BaseButton = null
+@export_multiline var names_list
 
 ## The node storing the entered name.
 @export var name_entry: LineEdit

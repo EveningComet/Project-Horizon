@@ -32,7 +32,6 @@ func _unhandled_input(event: InputEvent) -> void:
 				player_is_doing_something = false
 				return
 			close_recruitable_menu.emit()
-		
 
 func display_classes(pc_classes: Array[CharacterClass]) -> void:
 	# Delete the previously displayed classes.
@@ -92,10 +91,12 @@ func on_portrait_selected() -> void:
 ## see what has to be done. If the player's party has space, the created character
 ## will be added.
 func on_player_finished_entering_name() -> void:
-	# TODO: Make sure we are not going over the party limit for the newly created character.
 	# TODO: Notify the player that the character has been added to their party.
+	# Add the character to the party if there is a spot left
 	new_character.reparent( PlayerPartyController )
-	PlayerPartyController.add_party_member( new_character )
+	if PlayerPartyController.get_party_count() < PlayerPartyController.MAX_RECRUITABLE_SIZE:
+		PlayerPartyController.add_party_member( new_character )
+	
 	character_name_entry.close()
 	player_is_doing_something = false
 	initial_class = null
