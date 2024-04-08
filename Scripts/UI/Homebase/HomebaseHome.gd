@@ -11,19 +11,17 @@ class_name HomebaseHome extends Control
 @export var quit_button: BaseButton
 
 func _ready() -> void:
-	# TODO: Get focus more elegantly.
-	get_child(0).get_child(0).grab_focus()
-	
 	# Connect the needed button events
 	missions_button.button_down.connect( on_mission_button_pressed )
 	manage_characters_button.button_down.connect( on_manage_characters_button_pressed )
 	acquisition_button.pressed.connect( on_acquisition_button_pressed )
 	quit_button.button_down.connect( on_quit_button_pressed )
+	
+	missions_button.disabled = !PlayerPartyController.has_members()
+	
+	get_first_enabled_button_or_default().grab_focus()
 
 func on_mission_button_pressed() -> void:
-	# TODO: Instead of this, disable the button.
-	if PlayerPartyController.get_child_count() < 1:
-		return
 	SceneController.switch_to_scene( battle_scene )
 
 func on_manage_characters_button_pressed() -> void:
@@ -35,3 +33,10 @@ func on_acquisition_button_pressed() -> void:
 func on_quit_button_pressed() -> void:
 	# TODO: Return to the main menu.
 	get_tree().quit()
+
+func get_first_enabled_button_or_default() -> BaseButton:
+	for child in find_children("*", "BaseButton", true):
+		var button := child as BaseButton
+		if (!button.disabled):
+			return button
+	return quit_button

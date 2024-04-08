@@ -11,6 +11,9 @@ const MAX_LIMIT: int = 12
 
 var party_members: Array[PlayerCombatant] = []
 
+func has_members() -> bool:
+	return get_party_count() > 0
+
 func get_party_count() -> int:
 	return party_members.size()
 
