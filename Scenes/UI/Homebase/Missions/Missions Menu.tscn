@@ -4,7 +4,7 @@
 
 [node name="Missions Menu" type="CanvasLayer"]
 
-[node name="Missions" type="Control" parent="." node_paths=PackedStringArray("level_label")]
+[node name="Missions" type="Control" parent="." node_paths=PackedStringArray("level_label", "container", "prev_level_button", "next_level_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,7 +12,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_31vta")
-level_label = NodePath("VBoxContainer/LevelLabel")
+level_label = NodePath("VBoxContainer/HBoxContainer/LevelLabel")
+container = NodePath("VBoxContainer")
+prev_level_button = NodePath("VBoxContainer/HBoxContainer/PrevLevelButton")
+next_level_button = NodePath("VBoxContainer/HBoxContainer/NextLevelButton")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Missions"]
 custom_minimum_size = Vector2(50, 50)
@@ -28,29 +31,18 @@ grow_vertical = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="LevelLabel" type="Label" parent="Missions/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Missions/VBoxContainer"]
+layout_mode = 2
+
+[node name="LevelLabel" type="Label" parent="Missions/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Level: nn"
 
-[node name="Mission" type="Button" parent="Missions/VBoxContainer"]
-custom_minimum_size = Vector2(200, 50)
+[node name="PrevLevelButton" type="Button" parent="Missions/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../Quit")
-text = "Missions"
+text = "<<"
 
-[node name="Manage Characters" type="Button" parent="Missions/VBoxContainer"]
-custom_minimum_size = Vector2(200, 50)
+[node name="NextLevelButton" type="Button" parent="Missions/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-text = "Manage Characters"
-
-[node name="Acquisitions" type="Button" parent="Missions/VBoxContainer"]
-custom_minimum_size = Vector2(200, 50)
-layout_mode = 2
-text = "Acquisitions"
-
-[node name="Quit" type="Button" parent="Missions/VBoxContainer"]
-custom_minimum_size = Vector2(200, 50)
-layout_mode = 2
-focus_neighbor_bottom = NodePath("../Mission")
-text = "Quit"
+text = ">>"
