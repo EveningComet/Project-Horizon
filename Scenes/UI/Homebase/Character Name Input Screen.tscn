@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/UI/Homebase/CharacterNameInputScreen.gd" id="1_wq8uj"]
 
-[node name="Character Name Input Screen" type="Control" node_paths=PackedStringArray("randomize_name_button", "name_entry")]
+[node name="Character Name Input Screen" type="Control" node_paths=PackedStringArray("randomize_name_button", "accept_name_button", "name_entry")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,6 +11,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_wq8uj")
+randomize_name_button = NodePath("VBoxContainer/Randomize Name Button")
 names_list = "Nyx
 Spock
 Natalya
@@ -22,11 +23,11 @@ Sulu
 Scotty
 Chekov
 Leonard"
-randomize_name_button = NodePath("VBoxContainer/Randomize Name Button")
+accept_name_button = NodePath("VBoxContainer/Accept Name")
 name_entry = NodePath("VBoxContainer/LineEdit")
 
 [node name="Background" type="Panel" parent="."]
-custom_minimum_size = Vector2(400, 200)
+custom_minimum_size = Vector2(400, 250)
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -65,3 +66,9 @@ custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "Randomize Name"
+
+[node name="Accept Name" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Accept Name"

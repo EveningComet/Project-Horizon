@@ -8,6 +8,9 @@ signal player_finished_entering_name()
 @export var randomize_name_button: BaseButton = null
 @export_multiline var names_list
 
+## Convenience for when the player doesn't want to enter the name.
+@export var accept_name_button: BaseButton = null
+
 ## The node storing the entered name.
 @export var name_entry: LineEdit
 
@@ -17,6 +20,7 @@ var current_character: PlayerCombatant
 func _ready() -> void:
 	name_entry.text_submitted.connect( on_text_submitted )
 	randomize_name_button.button_down.connect( on_randomize_name_button_pressed )
+	accept_name_button.pressed.connect( on_accept_name_button_pressed )
 	
 func start_accepting_input(new_character: PlayerCombatant) -> void:
 	current_character = new_character
@@ -28,8 +32,6 @@ func close() -> void:
 	name_entry.clear()
 	current_character = null
 
-# TODO: Maybe there should be a button the player should click on when they're done entering a name?
-
 func on_text_submitted(new_text: String) -> void:
 	current_character.set_char_name( name_entry.text )
 	if OS.is_debug_build() == true:
@@ -40,3 +42,6 @@ func on_randomize_name_button_pressed() -> void:
 	var names = names_list.split('\n')
 	var random_index = randi_range(0, len(names) - 1)
 	name_entry.text = names[random_index]
+
+func on_accept_name_button_pressed() -> void:
+	on_text_submitted( name_entry.text )
