@@ -44,7 +44,7 @@ func drop_single_slot_data(grabbed_slot_data: ItemSlotData, index: int) -> ItemS
 	else:
 		return null 
 
-## Attempt to drop a slot data into at the index, and swap the item if we can
+## Attempt to drop a slot data at the index, and swap the item if we can
 func drop_slot_data(grabbed_slot_data: ItemSlotData, index: int) -> ItemSlotData:
 	var slot_data: ItemSlotData = stored_items[index]
 	
@@ -60,7 +60,7 @@ func drop_slot_data(grabbed_slot_data: ItemSlotData, index: int) -> ItemSlotData
 
 ## Use the stored item at the passed index.
 func use_slot_data(index: int) -> void:
-	# TODO: Make this return the item so that the characters will be able to use them.
+	# TODO: Make this return the item so that the characters will be able to use them or fire an event.
 	var slot_data: ItemSlotData = stored_items[index]
 	
 	# There is no item at the passed index, so do nothing.
@@ -84,30 +84,18 @@ func use_slot_data(index: int) -> void:
 		print("Inventory :: Attempting to use item: %s." % [slot_data.stored_item.item_name])
 
 ## Used when adding a single slot data.
-func pick_up_slot_data(slot_data: ItemSlotData) -> bool:
+func add_slot_data(slot_data: ItemSlotData) -> void:
 	
 	# If we find a slot we can stack to, try it
 	for index in stored_items.size():
 		if stored_items[index] != null and stored_items[index].can_fully_merge_with(slot_data) == true:
 			stored_items[index].fully_merge_with(slot_data)
 			inventory_updated.emit( self )
-			return true
+			return
 	
-	# If we find an empty space, pickup the item.
-	for index in stored_items.size():
-		if stored_items[index] == null:
-			stored_items[index] = slot_data
-			inventory_updated.emit( self )
-			return true
-	
-	# Add an item to a slot if it has nothing
-	for index in stored_items.size():
-		if stored_items[index] != null and stored_items[index].stored_item == null:
-			stored_items[index] = slot_data
-			inventory_updated.emit( self )
-			return true
-	
-	return false
+	# A previous, stackable item was not found, add the new one
+	stored_items.append( slot_data )
+	inventory_updated.emit( self )
 
 ## When the player clicks on an item slot in the ui, we want to keep track of that.
 func on_slot_clicked(index: int, button: int) -> void:

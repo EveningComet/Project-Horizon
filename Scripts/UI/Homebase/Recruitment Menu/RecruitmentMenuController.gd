@@ -18,7 +18,7 @@ class_name RecruitmentMenuController extends Node
 @export var recruitment_button: BaseButton = null
 
 ## The management button.
-@export var management_button: BaseButton
+@export var manage_party_button: BaseButton
 
 ## The button for returning to the "main menu" of the homebase.
 @export var return_button: BaseButton = null
@@ -36,7 +36,7 @@ func _ready() -> void:
 	
 	# Connect to the buttons
 	recruitment_button.button_down.connect( on_recruitment_button_pressed )
-	management_button.pressed.connect( on_manage_button_pressed )
+	manage_party_button.pressed.connect( on_manage_party_button_pressed )
 	return_button.button_down.connect( on_return_button_pressed )
 	
 	# Load the character classes and sort them
@@ -62,7 +62,7 @@ func on_recruitment_button_pressed() -> void:
 	main_screen_button_holder.hide()
 	recruitable_menu.display_classes( pc_classes )
 
-func on_manage_button_pressed() -> void:
+func on_manage_party_button_pressed() -> void:
 	# TODO: Do this a proper way. This is for now.
 	if PlayerPartyController.get_child_count() < 1:
 		return

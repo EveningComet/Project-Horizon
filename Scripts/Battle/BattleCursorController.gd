@@ -59,7 +59,7 @@ func set_single_target(new_target: CombatantBattleUI) -> void:
 	targets.clear()
 	var com: Combatant = new_target.get_combatant()
 	targets.append( com )
-	spawned_cursors[0].global_position = new_target.global_position + Vector2(0, -100)
+	spawned_cursors[0].global_position = new_target.global_position + Vector2(5, 5)
 
 ## Accessor for getting the targets.
 func get_targets() -> Array[Combatant]:

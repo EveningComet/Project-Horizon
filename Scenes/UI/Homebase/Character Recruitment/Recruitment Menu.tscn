@@ -49,10 +49,10 @@ layout_mode = 2
 focus_neighbor_top = NodePath("../Return")
 text = "Recruit"
 
-[node name="Manage" type="Button" parent="Main Screen/Main Screen Buttons/VBoxContainer"]
+[node name="Manage Party" type="Button" parent="Main Screen/Main Screen Buttons/VBoxContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
-text = "Manage"
+text = "Manage Party"
 
 [node name="Return" type="Button" parent="Main Screen/Main Screen Buttons/VBoxContainer"]
 custom_minimum_size = Vector2(200, 50)
@@ -70,7 +70,7 @@ visible = false
 [node name="Party Management Menu" parent="." instance=ExtResource("3_g4pws")]
 visible = false
 
-[node name="RecruitmentMenuController" type="Node" parent="." node_paths=PackedStringArray("main_screen_button_holder", "party_management_menu", "recruitable_menu", "recruitment_button", "management_button", "return_button")]
+[node name="RecruitmentMenuController" type="Node" parent="." node_paths=PackedStringArray("main_screen_button_holder", "party_management_menu", "recruitable_menu", "recruitment_button", "manage_party_button", "return_button")]
 script = ExtResource("1_vtc45")
 homebase_main_menu_scene = "res://Scenes/UI/Homebase/Homebase Home Menu.tscn"
 character_class_button_template = ExtResource("2_7ildh")
@@ -78,6 +78,6 @@ main_screen_button_holder = NodePath("../Main Screen/Main Screen Buttons/VBoxCon
 party_management_menu = NodePath("../Party Management Menu")
 recruitable_menu = NodePath("../Recruitable Menu")
 recruitment_button = NodePath("../Main Screen/Main Screen Buttons/VBoxContainer/Recruit")
-management_button = NodePath("../Main Screen/Main Screen Buttons/VBoxContainer/Manage")
+manage_party_button = NodePath("../Main Screen/Main Screen Buttons/VBoxContainer/Manage Party")
 return_button = NodePath("../Main Screen/Main Screen Buttons/VBoxContainer/Return")
 pc_classes = Array[Resource("res://Scripts/Character/CharacterClass.gd")]([ExtResource("2_iydjd"), ExtResource("3_27exo"), ExtResource("7_ent0k")])
