@@ -15,10 +15,6 @@ var skill_data: SkillData
 ## The target or targets that is the receiver of the activator.
 var recipients: Array[Combatant] = []
 
-func _init(activator_to_store: Combatant, new_action_type: ActionTypes.ActionTypes):
-	activator   = activator_to_store
-	action_type = new_action_type
-
 func get_targets() -> Array[Combatant]:
 	return recipients
 	

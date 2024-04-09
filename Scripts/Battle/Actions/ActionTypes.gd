@@ -4,11 +4,11 @@ class_name ActionTypes
 enum ActionTypes 
 {
 	SingleEnemy,
-	Self,
 	AllEnemies, # Targets all the enemies of the activator
-	HealSingleAlly,
-	HealAllAllies,
+	SingleAlly,
+	AllAllies,
 	Defend,
 	UseItem,
+	Self,
 	Flee
 }

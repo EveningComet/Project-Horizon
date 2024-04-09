@@ -2,16 +2,14 @@
 class_name PBSelectAction extends PlayerBattleState
 
 func enter(msgs: Dictionary = {}) -> void:
-	my_state_machine.get_pac().attack_button_pressed.connect( on_attack_button_pressed )
-	my_state_machine.get_pac().defend_button_pressed.connect( on_defend_button_pressed )
+	my_state_machine.get_pac().action_selected.connect( on_action_selected )
 	my_state_machine.get_pac().open( my_state_machine.get_current_combatant() )
 	
 	if OS.is_debug_build() == true:
 		print("PBSelectAction :: Entered.")
 
 func exit() -> void:
-	my_state_machine.get_pac().attack_button_pressed.disconnect( on_attack_button_pressed )
-	my_state_machine.get_pac().defend_button_pressed.disconnect( on_defend_button_pressed )
+	my_state_machine.get_pac().action_selected.disconnect( on_action_selected )
 	my_state_machine.get_pac().close()
 
 func check_for_unhandled_input(event: InputEvent) -> void:
@@ -21,28 +19,10 @@ func check_for_unhandled_input(event: InputEvent) -> void:
 		
 		# Before anything, close out the battle skills menu
 		if my_state_machine.get_pac().battle_skills_menu.is_visible() == true:
-			my_state_machine.get_pac().close_battle_skills_menu()
+			my_state_machine.get_pac().close()
 			my_state_machine.get_pac().open( my_state_machine.get_current_combatant() )
 			return
 
-## In the event that the player presses the attack button for the current
-## character, create a stored action and pass it along using
-func on_attack_button_pressed() -> void:
-	# TODO: Cleanup.
-	var stored_action: StoredAction = StoredAction.new(
-		my_state_machine.get_current_combatant(), 
-		ActionTypes.ActionTypes.SingleEnemy
-	)
-	my_state_machine.change_to_state("PBSelectTarget", {stored_action = stored_action})
-
-func on_defend_button_pressed() -> void:
-	# TODO: Cleanup.
-	var stored_action: StoredAction = StoredAction.new(
-		my_state_machine.get_current_combatant(),
-		ActionTypes.ActionTypes.Defend
-	)
-	my_state_machine.change_to_state("PBSelectTarget", {stored_action = stored_action})
-
-func on_run_button_pressed() -> void:
-	# TODO: Handle running away.
-	pass
+## Activated when the player selects what their character wants to do.
+func on_action_selected(new_action: StoredAction) -> void:
+	my_state_machine.change_to_state("PBSelectTarget", {"stored_action" = new_action})

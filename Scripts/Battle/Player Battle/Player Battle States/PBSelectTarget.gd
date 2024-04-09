@@ -3,8 +3,8 @@ class_name PBSelectTarget extends PlayerBattleState
 
 @export var battle_cursor_controller: BattleCursorController
 
-# TODO: Should the state machine itself keep track of this?
-@export var enemy_battle_hud: EnemyBattleHUD
+@export var enemy_battle_hud:  EnemyBattleHUD
+@export var player_battle_hud: PlayerBattleHUD
 # TODO: Player combatants UI
 # TODO: Figure out how to handle the mouse since the battle cursor controller exists.
 
@@ -45,8 +45,6 @@ func check_for_unhandled_input(event: InputEvent) -> void:
 		my_state_machine.change_to_state("PBSelectAction")
 		return
 	
-	# TODO: For actions that target an entire group, just wait for the player
-	# to accept or decline.
 	# TODO: Acceptable mouse input.
 	if event.is_action_pressed("ui_accept"):
 		execute()
@@ -96,6 +94,7 @@ func execute() -> void:
 		my_state_machine.advance_to_next_character()
 		my_state_machine.change_to_state("PBSelectAction")
 
+## Have the state machine cache the action that was selected for the character.
 func store_action(combatant_to_store: Combatant, action_to_store: StoredAction) -> void:
 	my_state_machine.store_action(
 		combatant_to_store,

@@ -16,20 +16,21 @@ var skill_user: PlayerCombatant = null
 func _ready() -> void:
 	close()
 
-## Display the skills of the passed character to the player.
-func open(user_to_display: PlayerCombatant) -> void:
-	skill_user = user_to_display
-	if OS.is_debug_build() == true:
-		print("BattleSkillsMenu :: Skills for character: ", skill_user.available_skills)
-	
-	# Spawn a selectable button for each usable skill
+func set_skill_user(new_user: PlayerCombatant) -> void:
+	skill_user = new_user
 	for skill in skill_user.available_skills:
 		if skill.is_passive == false:
-			var b: BattleSkillMenuButton = battle_skill_button_template.instantiate() as BattleSkillMenuButton
-			b.set_skill( skill )
+			var b: BattleActionButton = battle_skill_button_template.instantiate() as BattleActionButton
+			b.skill = skill
 			spawned_button_node.add_child( b )
-	
-	# Finally, display to the player.
+			b.disabled = skill_user.stats[StatTypes.stat_types.CurrentSP] < skill.cost
+
+	if OS.is_debug_build() == true:
+		print("BattleSkillsMenu :: Skills for character: ", skill_user.available_skills)
+
+## Display the skills of the passed character to the player.
+func open() -> void:
+	spawned_button_node.get_child(0).grab_focus()
 	show()
 
 func close() -> void:
