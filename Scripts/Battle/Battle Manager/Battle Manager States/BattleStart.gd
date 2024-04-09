@@ -35,7 +35,7 @@ func spawn_player_characters() -> void:
 
 func spawn_enemies() -> void:
 	for enemy_data in MissionController.current_mission.enemies:
-		var enemy_combatant = make_enemy(enemy_data)
+		var enemy_combatant = make_enemy( enemy_data )
 		my_state_machine.add_combatant( enemy_combatant )
 		my_state_machine.spawned_combatants_node.add_child( enemy_combatant )
 		EventBus.combatant_spawned_in_battle.emit( enemy_combatant )

@@ -25,15 +25,15 @@ func get_current_level() -> int:
 	return current_level
 
 func get_available_missions() -> Array:
-	if missions_per_level.has(current_level):
+	if missions_per_level.has( current_level ):
 		return missions_per_level[get_current_level()]
 	return []
 
 func level_up() -> void:
-	set_level(current_level + 1)
+	set_level( current_level + 1 )
 
 func level_down() -> void:
-	set_level(current_level - 1)
+	set_level( current_level - 1 )
 
 func select_mission(mission: MissionData) -> void:
 	current_mission = mission
@@ -41,5 +41,5 @@ func select_mission(mission: MissionData) -> void:
 func set_level(new_level: int) -> void:
 	if (current_level != new_level):
 		current_level = new_level
-		level_changed.emit(current_level)
+		level_changed.emit( current_level )
 
