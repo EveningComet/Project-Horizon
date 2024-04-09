@@ -1,4 +1,4 @@
-## Stores data about a single battle
+## Stores data about an enemy in a mission with randomized stats for now 
 class_name EnemyData extends Resource
 
 var vitality:  int
