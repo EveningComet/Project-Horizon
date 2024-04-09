@@ -5,10 +5,10 @@ signal level_changed(new_level)
 var current_level: int = 1
 	
 func has_prev_level() -> bool:
-	return current_level - 1 >= MissionConfiguration.MIN_LEVELS
+	return current_level - 1 >= MissionConfiguration.missions_per_level.keys().min()
 
 func has_next_level() -> bool:
-	return current_level + 1 <= MissionConfiguration.MAX_LEVELS
+	return current_level + 1 <= MissionConfiguration.missions_per_level.keys().max()
 
 func get_current_level() -> int:
 	return current_level

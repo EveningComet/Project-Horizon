@@ -1,8 +1,5 @@
 extends Node
 
-const MIN_LEVELS: int = 1
-const MAX_LEVELS: int = 10
-
 var missions_per_level : Dictionary = {
 	1 : [
 		MissionData.new(EnemyData.new("Enemy 1")),
@@ -14,3 +11,4 @@ var missions_per_level : Dictionary = {
 		MissionData.new(EnemyData.new("Enemy B")),
 	]
 }
+	
