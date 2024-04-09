@@ -1,4 +1,4 @@
-## Stores data about a single encounter
+## Stores data about a single battle
 class_name MissionData extends Resource
 
 var enemy: EnemyData
