@@ -12,6 +12,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_31vta")
+battle_scene = "res://Scenes/Combat.tscn"
 level_label = NodePath("VBoxContainer/HBoxContainer/LevelLabel")
 container = NodePath("VBoxContainer")
 prev_level_button = NodePath("VBoxContainer/HBoxContainer/PrevLevelButton")
