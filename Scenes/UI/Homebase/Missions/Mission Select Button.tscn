@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://y8mbs37oueg1"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Homebase/Missions/MissionSelectButton.gd" id="1_pujrb"]
+
+[node name="Mission Select Button" type="Button"]
+custom_minimum_size = Vector2(200, 50)
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Mission Name"
+script = ExtResource("1_pujrb")

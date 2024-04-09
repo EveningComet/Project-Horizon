@@ -3,6 +3,7 @@ extends Node
 signal level_changed(new_level)
 
 var current_level: int = 1
+var current_mission: MissionData = null
 var missions_per_level : Dictionary = {
 	1 : [
 		MissionData.new("Duck 1"),
@@ -33,6 +34,9 @@ func level_up() -> void:
 
 func level_down() -> void:
 	set_level(current_level - 1)
+
+func select_mission(mission: MissionData) -> void:
+	current_mission = mission
 
 func set_level(new_level: int) -> void:
 	if (current_level != new_level):

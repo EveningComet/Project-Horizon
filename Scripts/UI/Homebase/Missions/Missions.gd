@@ -32,18 +32,18 @@ func update_next_and_prev_button() -> void:
 
 func add_mision_buttons() -> void:
 	for mission in MissionController.get_available_missions():
-		var button = make_button(mission.name)
+		var button = make_button(mission)
 		button.add_to_group(mission_button_group_name)
 		container.add_child(button)
 
-func make_button(text: String) -> BaseButton:
-	var button = Button.new()
-	button.text = text
-	button.custom_minimum_size = minimum_button_size
-	button.button_down.connect(on_mission_button_pressed)
+func make_button(mission: MissionData) -> MissionSelectButton:
+	var button = MissionSelectButton.new(mission)
+	button.button_down.connect(on_mission_button_pressed.bind(button.mission))
 	return button
 	
-func on_mission_button_pressed() -> void:
+func on_mission_button_pressed(mission: MissionData) -> void:
+	if OS.is_debug_build() == true:
+		print("Missions :: Selected mission ", mission.name)
 	SceneController.switch_to_scene(battle_scene)
 
 func remove_all_mission_buttons() -> void:
