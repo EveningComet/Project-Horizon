@@ -6,7 +6,8 @@ var current_level: int = 1
 var current_mission: MissionData = null
 var missions_per_level : Dictionary = {
 	1 : [
-		MissionData.new("Duck 1", [ EnemyData.new(), EnemyData.new() ]),
+		# MissionData( name, enemies, is_unlocked )
+		MissionData.new("Duck 1", [ EnemyData.new(), EnemyData.new() ], true),
 		MissionData.new("Duck 2", [ EnemyData.new(), EnemyData.new(), EnemyData.new() ]),
 		MissionData.new("Goose", [ EnemyData.new() ]),
 	],
