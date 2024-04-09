@@ -46,6 +46,7 @@ func on_mission_button_pressed(mission: MissionData) -> void:
 	SceneController.switch_to_scene(battle_scene)
 	if OS.is_debug_build() == true:
 		print("Missions :: Selected mission ", MissionController.current_mission.name)
+		print("Missions :: Nr of enemies: ", len(MissionController.current_mission.enemies))
 
 func remove_all_mission_buttons() -> void:
 	for button in get_tree().get_nodes_in_group(mission_button_group_name):
