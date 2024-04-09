@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3oovqlxv70nw"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Battle/EnemyBattleHUD.gd" id="1_d74ji"]
+[ext_resource type="PackedScene" uid="uid://cjy7rqj2i7mo8" path="res://Scenes/UI/Battle/Enemy Battle UI.tscn" id="2_cgdpu"]
+
+[node name="Enemy Battlers HUD" type="Control" node_paths=PackedStringArray("enemy_party_container")]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_d74ji")
+enemy_battle_ui_prefab = ExtResource("2_cgdpu")
+enemy_party_container = NodePath("Control/GridContainer")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 200
+columns = 8

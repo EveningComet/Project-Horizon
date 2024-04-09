@@ -10,10 +10,6 @@ class_name CombatantBattleUI extends Control
 @export var hp_display_text: RichTextLabel
 @export var sp_display_text: RichTextLabel
 
-func _ready() -> void:
-	if combatant != null:
-		set_combatant(combatant, is_player_controlled)
-
 ## Set the new combatant to monitor and update the displays if needed.
 func set_combatant(new_combatant: Combatant, is_player_owned: bool) -> void:
 	combatant            = new_combatant

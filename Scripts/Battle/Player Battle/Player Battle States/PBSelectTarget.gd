@@ -4,7 +4,7 @@ class_name PBSelectTarget extends PlayerBattleState
 @export var battle_cursor_controller: BattleCursorController
 
 # TODO: Should the state machine itself keep track of this?
-@export var enemy_battlers_ui: GridContainer
+@export var enemy_battle_hud: EnemyBattleHUD
 # TODO: Player combatants UI
 # TODO: Figure out how to handle the mouse since the battle cursor controller exists.
 
@@ -28,7 +28,7 @@ func enter(msgs: Dictionary = {}) -> void:
 			battle_cursor_controller.spawn_needed_cursors( stored_action )
 	
 	# Connection for the mouse control
-	for child: Control in enemy_battlers_ui.get_children():
+	for child: Control in enemy_battle_hud.enemy_party_container.get_children():
 		child.mouse_entered.connect( on_mouse_over )
 
 func exit() -> void:
@@ -37,7 +37,7 @@ func exit() -> void:
 	# Delete all spawned battle cursors
 	battle_cursor_controller.clear_cursors()
 	
-	for child: Control in enemy_battlers_ui.get_children():
+	for child: Control in enemy_battle_hud.enemy_party_container.get_children():
 		child.mouse_entered.disconnect( on_mouse_over )
 	
 func check_for_unhandled_input(event: InputEvent) -> void:

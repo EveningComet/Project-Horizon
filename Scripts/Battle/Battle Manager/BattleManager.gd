@@ -9,6 +9,9 @@ signal player_turn_started
 ## The object responsible for displaying the status of the player's characters.
 @export var player_battle_hud: PlayerBattleHUD
 
+## Responsible for displaying enemies to the player.
+@export var enemy_battle_hud: EnemyBattleHUD
+
 ## Houses the spawned characters.
 @export var spawned_combatants_node: Node
 

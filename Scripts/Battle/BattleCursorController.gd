@@ -8,8 +8,8 @@ class_name BattleCursorController extends Node
 @export var canvas_layer: CanvasLayer
 
 # UI that houses the inbetween for visuals and their data
-@export var enemy_battle_ui:  GridContainer
-@export var player_battle_ui: GridContainer
+@export var enemy_battle_ui:  EnemyBattleHUD
+@export var player_battle_ui: PlayerBattleHUD
 
 ## Cursors being tracked.
 var spawned_cursors: Array = []
@@ -27,7 +27,7 @@ func spawn_needed_cursors(new_action: StoredAction) -> void:
 			
 			# Set the target to the first enemy
 			# TODO: More robust system for remembering the previously selected target?
-			set_single_target( enemy_battle_ui.get_child(0) )
+			set_single_target( enemy_battle_ui.enemy_party_container.get_child(0) )
 		
 		ActionTypes.ActionTypes.HealSingleAlly:
 			pass
