@@ -22,6 +22,8 @@ SceneController="*res://Scripts/Autoloads/SceneController.gd"
 PlayerPartyController="*res://Scripts/Autoloads/PlayerPartyController.gd"
 EventBus="*res://Scripts/Autoloads/EventBus.gd"
 PlayerInventory="*res://Scripts/Autoloads/PlayerInventory.gd"
+MissionController="*res://Scripts/Autoloads/MissionController.gd"
+MissionConfiguration="*res://Scripts/Autoloads/MissionConfiguration.gd"
 
 [display]
 
