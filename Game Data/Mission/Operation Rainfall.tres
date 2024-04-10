@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MissionData" load_steps=3 format=3 uid="uid://gkj3jmtsms7l"]
+
+[ext_resource type="Script" path="res://Scripts/Mission/MissionData.gd" id="1_kc8st"]
+[ext_resource type="Resource" uid="uid://dqwis64wnxudx" path="res://Game Data/Enemy/Romulan.tres" id="2_xm5di"]
+
+[resource]
+script = ExtResource("1_kc8st")
+mission_name = "Operation Rainfall"
+mission_description = "It's cloudy with a chance of meatballs."
+enemies = Array[Resource("res://Scripts/Mission/EnemyData.gd")]([ExtResource("2_xm5di")])
+is_unlocked_by_default = false

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=2 format=3 uid="uid://lwnkgixvx6n5"]
+
+[ext_resource type="Script" path="res://Scripts/Mission/EnemyData.gd" id="1_jr6p5"]
+
+[resource]
+script = ExtResource("1_jr6p5")
+vitality = 10
+expertise = 10
+will = 10
+skills = Array[Resource("res://Scripts/Character/Skill/SkillData.gd")]([])

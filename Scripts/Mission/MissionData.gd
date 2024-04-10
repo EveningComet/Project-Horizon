@@ -1,7 +1,11 @@
-## Stores data about a single battle
 class_name MissionData extends Resource
 
-var enemy: EnemyData
+@export var mission_name: String = "Operation Rainfall"
 
-func _init(_enemy: EnemyData):
-	enemy = _enemy
+@export_multiline var mission_description: String = "Cool flavor text."
+
+@export var enemies: Array[EnemyData] = []
+
+@export var next_mission: MissionData
+
+@export var is_unlocked_by_default: bool

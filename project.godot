@@ -23,7 +23,6 @@ PlayerPartyController="*res://Scripts/Autoloads/PlayerPartyController.gd"
 EventBus="*res://Scripts/Autoloads/EventBus.gd"
 PlayerInventory="*res://Scripts/Autoloads/PlayerInventory.gd"
 MissionController="*res://Scripts/Autoloads/MissionController.gd"
-MissionConfiguration="*res://Scripts/Autoloads/MissionConfiguration.gd"
 
 [display]
 
@@ -33,6 +32,10 @@ window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
+
+[dotnet]
+
+project/assembly_name="Project Horizon"
 
 [input]
 

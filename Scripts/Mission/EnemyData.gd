@@ -1,7 +1,10 @@
-## Stores data about an enemy in a mission
+## Stores data for an enemy.
 class_name EnemyData extends Resource
 
-var name: String
+# The enemy's core attributes
+@export var vitality:  int = 10
+@export var expertise: int = 10
+@export var will:      int = 10
 
-func _init(_name: String):
-	name = _name
+## The skills this enemy can use.
+@export var skills: Array[SkillData] = []
