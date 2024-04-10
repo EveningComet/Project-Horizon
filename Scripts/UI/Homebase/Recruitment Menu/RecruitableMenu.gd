@@ -3,10 +3,14 @@ class_name RecruitableMenu extends Control
 
 signal close_recruitable_menu
 
+## The object used for naming characters.
 @export var character_name_entry: CharacterNameInputScreen
 
+## The node that displays the description for a class.
+@export var class_description_displayer: Label
+
 ## The container housing the displayed classes.
-@export var container: Container
+@export var class_container: Container
 
 ## Template of the button of the class.
 @export var character_class_button_template: PackedScene
@@ -41,19 +45,25 @@ func display_classes(pc_classes: Array[CharacterClass]) -> void:
 	for pc_class in pc_classes:
 		var char_class_button = character_class_button_template.instantiate() as CharacterClassButton
 		char_class_button.setup_button( pc_class )
-		char_class_button.on_player_selected_class.connect( on_class_selected )
-		container.add_child( char_class_button )
+		char_class_button.player_highlighted_recruited_character_button.connect(
+			on_player_highlighted_class_button
+		)
+		char_class_button.player_selected_class.connect( on_class_selected )
+		class_container.add_child( char_class_button )
 	
 	# Subscribe to any relevant events
 	character_name_entry.player_finished_entering_name.connect( on_player_finished_entering_name )
 	
 	# Set the focus and display
-	container.get_child(0).grab_focus()
+	class_container.get_child(0).grab_focus()
 	show()
 
 func clear_displayed_classes() -> void:
-	for child: CharacterClassButton in container.get_children():
-		child.on_player_selected_class.disconnect( on_class_selected )
+	for child: CharacterClassButton in class_container.get_children():
+		child.player_selected_class.disconnect( on_class_selected )
+		child.player_highlighted_recruited_character_button.disconnect(
+			on_player_highlighted_class_button
+		)
 		child.queue_free()
 
 func close() -> void:
@@ -62,6 +72,12 @@ func close() -> void:
 	initial_class = null
 	player_is_doing_something = false
 	character_name_entry.player_finished_entering_name.disconnect( on_player_finished_entering_name )
+
+## Handles what should be done when the player highlights a class button.
+func on_player_highlighted_class_button(pc_class: CharacterClass) -> void:
+	# Display the description of the class
+	class_description_displayer.set_text("")
+	class_description_displayer.set_text(pc_class.localization_description)
 
 ## Called when the player selects a character class. This will make the player
 ## select a portrait.
