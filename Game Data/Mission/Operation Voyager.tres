@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="MissionData" load_steps=5 format=3 uid="uid://di22yj7ffpw1x"]
+
+[ext_resource type="Script" path="res://Scripts/Mission/MissionData.gd" id="1_3101i"]
+[ext_resource type="Resource" uid="uid://lwnkgixvx6n5" path="res://Game Data/Enemy/Borg.tres" id="1_nfv3e"]
+[ext_resource type="Resource" uid="uid://dqwis64wnxudx" path="res://Game Data/Enemy/Romulan.tres" id="2_w7g41"]
+[ext_resource type="Resource" uid="uid://gkj3jmtsms7l" path="res://Game Data/Mission/Operation Rainfall.tres" id="3_5jp3b"]
+
+[resource]
+script = ExtResource("1_3101i")
+mission_name = "Operation Voyager"
+mission_description = "There is coffee in that nebula."
+enemies = Array[Resource("res://Scripts/Mission/EnemyData.gd")]([ExtResource("1_nfv3e"), ExtResource("2_w7g41")])
+next_mission = ExtResource("3_5jp3b")
+is_unlocked_by_default = true
