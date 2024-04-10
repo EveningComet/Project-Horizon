@@ -4,7 +4,8 @@
 
 [resource]
 script = ExtResource("1_885eg")
-vitality = 10
-expertise = 10
-will = 10
+enemy_name = "Romulan"
+vitality = 5
+expertise = 5
+will = 5
 skills = Array[Resource("res://Scripts/Character/Skill/SkillData.gd")]([])

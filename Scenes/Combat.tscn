@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b5ob880mpsigo"]
+[gd_scene load_steps=20 format=3 uid="uid://b5ob880mpsigo"]
 
 [ext_resource type="Script" path="res://Scripts/Battle/Battle Manager/BattleManager.gd" id="2_6ahfq"]
 [ext_resource type="Script" path="res://Scripts/Battle/Battle Manager/Battle Manager States/BattleStart.gd" id="2_t654k"]
@@ -12,7 +12,6 @@
 [ext_resource type="Script" path="res://Scripts/Battle/Player Battle/PlayerBattleController.gd" id="8_e6ewj"]
 [ext_resource type="Script" path="res://Scripts/Battle/Player Battle/PlayerActionCommands.gd" id="10_c8j50"]
 [ext_resource type="PackedScene" uid="uid://cojhji8fg6py0" path="res://Scenes/UI/Battle/UI Battle Cursor.tscn" id="13_nw3rt"]
-[ext_resource type="Script" path="res://Scripts/Battle/EnemyCombatant.gd" id="15_rir6a"]
 [ext_resource type="Script" path="res://Scripts/Battle/BattleCursorController.gd" id="16_idmqv"]
 [ext_resource type="PackedScene" uid="uid://d3oovqlxv70nw" path="res://Scenes/UI/Battle/Enemy Battle HUD.tscn" id="16_iosug"]
 [ext_resource type="PackedScene" uid="uid://d0rud050eh1c1" path="res://Scenes/UI/Battle/Player Battle HUD.tscn" id="17_57lxs"]
@@ -82,13 +81,6 @@ script = ExtResource("20_pja1n")
 spawned_combatants_node = NodePath("../Spawned Combatants")
 
 [node name="Spawned Combatants" type="Node" parent="."]
-
-[node name="Enemy Combatant 1" type="Node" parent="Spawned Combatants"]
-script = ExtResource("15_rir6a")
-experience_to_give_on_death = 150
-
-[node name="Enemy Combatant 2" type="Node" parent="Spawned Combatants"]
-script = ExtResource("15_rir6a")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

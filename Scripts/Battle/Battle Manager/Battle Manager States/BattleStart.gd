@@ -11,6 +11,8 @@ func setup_battle() -> void:
 	# Refresh the death handler
 	my_state_machine.death_handler.refresh()
 	
+	# These events have to be connected here due to race conditions
+	EventBus.combatant_spawned_in_battle.connect( my_state_machine.death_handler.on_combatant_spawned )
 	EventBus.combatant_spawned_in_battle.connect( my_state_machine.player_battle_hud.on_combatant_spawned_in_combat )
 	EventBus.combatant_spawned_in_battle.connect( my_state_machine.enemy_battle_hud.on_combatant_spawned_in_combat )
 	
@@ -48,7 +50,7 @@ func spawn_enemies() -> void:
 
 func make_enemy(enemy_data: EnemyData) -> EnemyCombatant:
 	var enemy_combatant = EnemyCombatant.new()
-	enemy_combatant.vitality = enemy_data.vitality
+	enemy_combatant.vitality  = enemy_data.vitality
 	enemy_combatant.expertise = enemy_data.expertise
-	enemy_combatant.will = enemy_data.will
+	enemy_combatant.will      = enemy_data.will
 	return enemy_combatant

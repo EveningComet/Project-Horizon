@@ -1,6 +1,8 @@
 ## Stores data for an enemy.
 class_name EnemyData extends Resource
 
+@export var enemy_name: String = "New Enemy"
+
 # The enemy's core attributes
 @export var vitality:  int = 10
 @export var expertise: int = 10

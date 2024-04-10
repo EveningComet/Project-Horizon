@@ -10,6 +10,9 @@ var results: Dictionary = {}
 ## characters after winning a battle.
 var experience_points_to_give: int = 0
 
+## The characters being kept track of.
+var spawned_combatants: Array[Combatant] = []
+
 func _ready() -> void:
 	EventBus.hp_depleted.connect( on_combatant_hp_depleted )
 
@@ -19,13 +22,14 @@ func refresh() -> void:
 
 func on_combatant_hp_depleted(combatant: Combatant) -> void:
 	if combatant is EnemyCombatant:
+		spawned_combatants.erase( combatant )
 		var enemy                  = combatant as EnemyCombatant
 		experience_points_to_give += enemy.experience_to_give_on_death
 		enemy.queue_free()
 		
 		# Check if all the enemies have been defeated
-		for c in spawned_combatants_node.get_children():
-			if c is EnemyCombatant and enemy.is_queued_for_deletion() == false:
+		for c in spawned_combatants:
+			if c is EnemyCombatant:
 				return
 		
 		# All of the enemies have been defeated
@@ -35,6 +39,11 @@ func on_combatant_hp_depleted(combatant: Combatant) -> void:
 		results["experience_points_to_reward"] = experience_points_to_give
 	
 	# TODO: Handling the player characters falling in combat.
+	if combatant is PlayerCombatant:
+		pass
+
+func on_combatant_spawned(combatant: Combatant) -> void:
+	spawned_combatants.append( combatant )
 
 func get_rewarded_experience_points() -> int:
 	return experience_points_to_give

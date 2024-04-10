@@ -56,7 +56,8 @@ func execute_action(action: StoredAction) -> void:
 			# TODO: If enemy target is dead, and their are still enemies, target another enemy.
 			# TODO: Chance to hit + critical chance.
 			for target: Combatant in action.get_targets():
-				target.take_damage( action_mediator.damage_data["base_damage"] )
+				if target != null:
+					target.take_damage( action_mediator.damage_data["base_damage"] )
 		
 		ActionTypes.ActionTypes.AllAllies, ActionTypes.ActionTypes.SingleAlly:
 			var healing_power: int = 0

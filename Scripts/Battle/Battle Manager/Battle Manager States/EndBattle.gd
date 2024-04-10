@@ -26,6 +26,9 @@ func victory(xp_to_reward: int) -> void:
 	for pm: PlayerCombatant in PlayerPartyController.party_members:
 		pm.gain_experience( xp_to_reward )
 	
+	# Mark the current mission as completed
+	MissionController.unlock_next_mission( MissionController.current_mission )
+	
 	# Leave the battle scene
 	SceneController.switch_to_scene(homebase_home_scene)
 
