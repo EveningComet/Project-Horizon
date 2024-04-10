@@ -30,9 +30,8 @@ canvas_layer = NodePath("../CanvasLayer")
 enemy_battle_ui = NodePath("../CanvasLayer/Enemy Battle HUD")
 player_battle_ui = NodePath("../CanvasLayer/Player Battle HUD")
 
-[node name="PlayerBattleController" type="Node" parent="." node_paths=PackedStringArray("battle_manager", "player_action_commands", "spawned_combatants_node")]
+[node name="PlayerBattleController" type="Node" parent="." node_paths=PackedStringArray("player_action_commands", "spawned_combatants_node")]
 script = ExtResource("8_e6ewj")
-battle_manager = NodePath("../BattleManager")
 player_action_commands = NodePath("../CanvasLayer/Player Commands")
 spawned_combatants_node = NodePath("../Spawned Combatants")
 initial_state = NodePath("PBIdle")
@@ -88,6 +87,9 @@ spawned_combatants_node = NodePath("../Spawned Combatants")
 script = ExtResource("15_rir6a")
 experience_to_give_on_death = 150
 
+[node name="Enemy Combatant 2" type="Node" parent="Spawned Combatants"]
+script = ExtResource("15_rir6a")
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Enemy Battle HUD" parent="CanvasLayer" instance=ExtResource("16_iosug")]
@@ -135,7 +137,7 @@ layout_mode = 2
 text = "Defend
 "
 script = ExtResource("19_a4frr")
-action_type = 5
+action_type = 4
 
 [node name="Run" type="Button" parent="CanvasLayer/Player Commands/HBoxContainer"]
 custom_minimum_size = Vector2(100, 50)

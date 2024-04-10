@@ -57,11 +57,11 @@ func execute_action(action: StoredAction) -> void:
 			# TODO: Chance to hit + critical chance.
 			for target: Combatant in action.get_targets():
 				target.take_damage( action_mediator.damage_data["base_damage"] )
-				
 		
 		ActionTypes.ActionTypes.AllAllies, ActionTypes.ActionTypes.SingleAlly:
 			var healing_power: int = 0
-			healing_power = action.skill_data.get_usable_data( activator ).heal_amount
+			if action.skill_data != null:
+				healing_power = action.skill_data.get_usable_data( activator ).heal_amount
 			for target: Combatant in action.get_targets():
 				target.heal( healing_power )
 				if OS.is_debug_build() == true:

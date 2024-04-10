@@ -3,10 +3,9 @@ class_name PBSelectTarget extends PlayerBattleState
 
 @export var battle_cursor_controller: BattleCursorController
 
+# The huds which will help with getting targets
 @export var enemy_battle_hud:  EnemyBattleHUD
 @export var player_battle_hud: PlayerBattleHUD
-# TODO: Player combatants UI
-# TODO: Figure out how to handle the mouse since the battle cursor controller exists.
 
 ## The action for the current character that will possibly be passed along.
 var stored_action: StoredAction
@@ -19,10 +18,11 @@ func enter(msgs: Dictionary = {}) -> void:
 			
 			stored_action = sa
 			
-			# TODO: Depending on the action, just skip to the next character or phase.
-			if stored_action.action_type == ActionTypes.ActionTypes.Defend:
-				execute()
-				return
+			## Depending on the action type, just move on
+			match stored_action.action_type:
+				ActionTypes.ActionTypes.Defend, ActionTypes.ActionTypes.Flee:
+					execute()
+					return
 			
 			# Create the needed cursors
 			battle_cursor_controller.spawn_needed_cursors( stored_action )
@@ -81,10 +81,13 @@ func execute() -> void:
 			printerr("PBSelectTarget :: The player has finally finished selecting all the actions! Time for the enemy's turn.")
 			printerr("PBSelectTarget :: Action dictionary is: ", my_state_machine.stored_actions)
 		
-		my_state_machine.change_to_state("PBIdle")
+		
+		# Clean up for the end of the turn
+		var actions_to_send: Array[StoredAction] = my_state_machine.clean_up_for_turn_end_and_return_stored_actions_as_list()
 		
 		# Tell the battle controller that it's now the enemy's turn
-		my_state_machine.player_turn_ended()
+		EventBus.side_finished_turn.emit( actions_to_send )
+		my_state_machine.change_to_state("PBIdle")
 	
 	# The player still has characters to select actions for
 	else:

@@ -28,8 +28,16 @@ func spawn_needed_cursors(new_action: StoredAction) -> void:
 			
 			# Set the target to the first enemy
 			# TODO: More robust system for remembering the previously selected target?
-			set_single_target( enemy_battle_ui.enemy_party_container.get_child(0) )
+			set_target_for_cursor(cursor, enemy_battle_ui.enemy_party_container.get_child(0), true )
 			target_scan_node = enemy_battle_ui.enemy_party_container
+		
+		ActionTypes.ActionTypes.AllEnemies:
+			for enemy_ui: CombatantBattleUI in enemy_battle_ui.enemy_party_container.get_children():
+				var cursor = battle_cursor_scene.instantiate()
+				spawned_cursors.append( cursor )
+				canvas_layer.add_child( cursor )
+				
+				set_target_for_cursor( cursor, enemy_ui, false )
 		
 		ActionTypes.ActionTypes.SingleAlly:
 			var cursor = battle_cursor_scene.instantiate()
@@ -37,14 +45,30 @@ func spawn_needed_cursors(new_action: StoredAction) -> void:
 			canvas_layer.add_child( cursor )
 			
 			# Set the target to be the first ally
-			set_single_target( player_battle_ui.player_party_container.get_child(0) )
+			set_target_for_cursor(cursor, player_battle_ui.player_party_container.get_child(0), true )
 			target_scan_node = player_battle_ui.player_party_container
+		
+		ActionTypes.ActionTypes.AllAllies:
+			for ally_ui: CombatantBattleUI in player_battle_ui.player_party_container.get_children():
+				var cursor = battle_cursor_scene.instantiate()
+				spawned_cursors.append( cursor )
+				canvas_layer.add_child( cursor )
+				
+				set_target_for_cursor( cursor, ally_ui, false )
 
 func clear_cursors() -> void:
 	for cursor in spawned_cursors:
 		cursor.queue_free()
 	spawned_cursors.clear()
 	targets.clear()
+
+func set_target_for_cursor(cursor, battler_ui: CombatantBattleUI, overrides: bool) -> void:
+	if overrides == true:
+		targets.clear()
+	
+	var new_target: Combatant = battler_ui.get_combatant()
+	targets.append( new_target )
+	cursor.global_position = battler_ui.global_position + Vector2(5, 5)
 
 ## Find the closest target for a cursor. This method should only do stuff when
 ## there is one cursor.
@@ -64,13 +88,7 @@ func find_closest_target(direction: Vector2) -> void:
 	
 	if selected_target != null:
 		# Set the cursor's position
-		set_single_target( selected_target )
-
-func set_single_target(new_target: CombatantBattleUI) -> void:
-	targets.clear()
-	var com: Combatant = new_target.get_combatant()
-	targets.append( com )
-	spawned_cursors[0].global_position = new_target.global_position + Vector2(5, 5)
+		set_target_for_cursor( spawned_cursors[0], selected_target, true )
 
 ## Accessor for getting the targets.
 func get_targets() -> Array[Combatant]:
