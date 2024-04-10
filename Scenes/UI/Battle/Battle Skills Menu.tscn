@@ -1,13 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://br2rfvg8hipbo"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Battle/BattleSkillsMenu.gd" id="1_dsq1a"]
-[ext_resource type="PackedScene" uid="uid://221xf3mhhml6" path="res://Scenes/UI/Battle/Battle Skill Menu Button.tscn" id="2_s72xt"]
+[ext_resource type="PackedScene" uid="uid://221xf3mhhml6" path="res://Scenes/UI/Battle/Battle Action Menu Button.tscn" id="2_k8fla"]
 
 [node name="Battle Skills Menu" type="Control" node_paths=PackedStringArray("spawned_button_node", "description")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_dsq1a")
-battle_skill_button_template = ExtResource("2_s72xt")
+battle_skill_button_template = ExtResource("2_k8fla")
 spawned_button_node = NodePath("Background/MarginContainer/HBoxContainer/ScrollContainer/Skill Button Holder")
 description = NodePath("Background/MarginContainer/HBoxContainer/Skill Description")
 

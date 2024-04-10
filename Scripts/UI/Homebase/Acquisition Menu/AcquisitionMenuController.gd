@@ -3,9 +3,12 @@ class_name AcquisitionMenuController extends Node
 
 @export_file("*.tscn") var homebase_menu_scene: String
 
+@export var main_buttons_node: Control
+
 @export var return_button: BaseButton
 
 func _ready() -> void:
+	main_buttons_node.get_child(0).grab_focus()
 	return_button.pressed.connect( on_return_button_pressed )
 
 func on_return_button_pressed() -> void:

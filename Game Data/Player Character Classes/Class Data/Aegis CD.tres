@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="CharacterClass" load_steps=3 format=3 uid="uid://cwh3bxq7dikad"]
+[gd_resource type="Resource" script_class="CharacterClass" load_steps=4 format=3 uid="uid://cwh3bxq7dikad"]
 
 [ext_resource type="Script" path="res://Scripts/Character/CharacterClass.gd" id="1_01b5t"]
 [ext_resource type="Resource" uid="uid://cydkltv3usq2l" path="res://Game Data/Player Character Classes/Class Skills/Aegis Skills/Aegis Pulse Beam.tres" id="2_vuf1r"]
+[ext_resource type="Resource" uid="uid://c0h3wsdqfllab" path="res://Game Data/Player Character Classes/Class Skills/Aegis Skills/Aegis Shell.tres" id="3_3qe6b"]
 
 [resource]
 script = ExtResource("1_01b5t")
@@ -13,4 +14,4 @@ starting_will = 10
 vitality_on_increase = 5
 expertise_on_increase = 5
 will_on_increase = 5
-skills = Array[Resource("res://Scripts/Character/Skill/SkillData.gd")]([ExtResource("2_vuf1r")])
+skills = Array[Resource("res://Scripts/Character/Skill/SkillData.gd")]([ExtResource("2_vuf1r"), ExtResource("3_3qe6b")])

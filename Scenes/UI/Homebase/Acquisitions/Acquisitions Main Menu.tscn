@@ -29,7 +29,8 @@ custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 text = "Return"
 
-[node name="AcquisitionMenuController" type="Node" parent="." node_paths=PackedStringArray("return_button")]
+[node name="AcquisitionMenuController" type="Node" parent="." node_paths=PackedStringArray("main_buttons_node", "return_button")]
 script = ExtResource("1_hue3t")
 homebase_menu_scene = "res://Scenes/UI/Homebase/Homebase Home Menu.tscn"
+main_buttons_node = NodePath("../Acquisitions Main Menu/Main Buttons")
 return_button = NodePath("../Acquisitions Main Menu/Main Buttons/Return")

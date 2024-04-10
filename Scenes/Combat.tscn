@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b5ob880mpsigo"]
+[gd_scene load_steps=21 format=3 uid="uid://b5ob880mpsigo"]
 
 [ext_resource type="Script" path="res://Scripts/Battle/Battle Manager/BattleManager.gd" id="2_6ahfq"]
 [ext_resource type="Script" path="res://Scripts/Battle/Battle Manager/Battle Manager States/BattleStart.gd" id="2_t654k"]
@@ -11,26 +11,27 @@
 [ext_resource type="Script" path="res://Scripts/Battle/Battle Manager/Battle Manager States/EndBattle.gd" id="6_nchxf"]
 [ext_resource type="Script" path="res://Scripts/Battle/Player Battle/PlayerBattleController.gd" id="8_e6ewj"]
 [ext_resource type="Script" path="res://Scripts/Battle/Player Battle/PlayerActionCommands.gd" id="10_c8j50"]
-[ext_resource type="PackedScene" uid="uid://cjy7rqj2i7mo8" path="res://Scenes/UI/Battle/Enemy Battle UI.tscn" id="12_lxaid"]
 [ext_resource type="PackedScene" uid="uid://cojhji8fg6py0" path="res://Scenes/UI/Battle/UI Battle Cursor.tscn" id="13_nw3rt"]
 [ext_resource type="Script" path="res://Scripts/Battle/EnemyCombatant.gd" id="15_rir6a"]
 [ext_resource type="Script" path="res://Scripts/Battle/BattleCursorController.gd" id="16_idmqv"]
+[ext_resource type="PackedScene" uid="uid://d3oovqlxv70nw" path="res://Scenes/UI/Battle/Enemy Battle HUD.tscn" id="16_iosug"]
 [ext_resource type="PackedScene" uid="uid://d0rud050eh1c1" path="res://Scenes/UI/Battle/Player Battle HUD.tscn" id="17_57lxs"]
 [ext_resource type="Script" path="res://Scripts/Battle/Actions/ActionExecutor.gd" id="17_i3r5f"]
+[ext_resource type="Script" path="res://Scripts/UI/Battle/BattleActionButton.gd" id="19_a4frr"]
 [ext_resource type="PackedScene" uid="uid://br2rfvg8hipbo" path="res://Scenes/UI/Battle/Battle Skills Menu.tscn" id="19_ayay8"]
 [ext_resource type="Script" path="res://Scripts/Battle/Battle Manager/BattleDeathHandler.gd" id="20_pja1n"]
 
 [node name="Combat" type="Node"]
 
-[node name="BattleCursorController" type="Node" parent="." node_paths=PackedStringArray("canvas_layer", "enemy_battle_ui")]
+[node name="BattleCursorController" type="Node" parent="." node_paths=PackedStringArray("canvas_layer", "enemy_battle_ui", "player_battle_ui")]
 script = ExtResource("16_idmqv")
 battle_cursor_scene = ExtResource("13_nw3rt")
 canvas_layer = NodePath("../CanvasLayer")
-enemy_battle_ui = NodePath("../CanvasLayer/Enemy Battlers UI/Control/GridContainer")
+enemy_battle_ui = NodePath("../CanvasLayer/Enemy Battle HUD")
+player_battle_ui = NodePath("../CanvasLayer/Player Battle HUD")
 
-[node name="PlayerBattleController" type="Node" parent="." node_paths=PackedStringArray("battle_manager", "player_action_commands", "spawned_combatants_node")]
+[node name="PlayerBattleController" type="Node" parent="." node_paths=PackedStringArray("player_action_commands", "spawned_combatants_node")]
 script = ExtResource("8_e6ewj")
-battle_manager = NodePath("../BattleManager")
 player_action_commands = NodePath("../CanvasLayer/Player Commands")
 spawned_combatants_node = NodePath("../Spawned Combatants")
 initial_state = NodePath("PBIdle")
@@ -41,15 +42,17 @@ script = ExtResource("2_tjx1h")
 [node name="PBSelectAction" type="Node" parent="PlayerBattleController"]
 script = ExtResource("3_bmh5h")
 
-[node name="PBSelectTarget" type="Node" parent="PlayerBattleController" node_paths=PackedStringArray("battle_cursor_controller", "enemy_battlers_ui")]
+[node name="PBSelectTarget" type="Node" parent="PlayerBattleController" node_paths=PackedStringArray("battle_cursor_controller", "enemy_battle_hud", "player_battle_hud")]
 script = ExtResource("4_5ny27")
 battle_cursor_controller = NodePath("../../BattleCursorController")
-enemy_battlers_ui = NodePath("../../CanvasLayer/Enemy Battlers UI/Control/GridContainer")
+enemy_battle_hud = NodePath("../../CanvasLayer/Enemy Battle HUD")
+player_battle_hud = NodePath("../../CanvasLayer/Player Battle HUD")
 
-[node name="BattleManager" type="Node" parent="." node_paths=PackedStringArray("death_handler", "player_battle_hud", "spawned_combatants_node")]
+[node name="BattleManager" type="Node" parent="." node_paths=PackedStringArray("death_handler", "player_battle_hud", "enemy_battle_hud", "spawned_combatants_node")]
 script = ExtResource("2_6ahfq")
 death_handler = NodePath("../BattleDeathHandler")
 player_battle_hud = NodePath("../CanvasLayer/Player Battle HUD")
+enemy_battle_hud = NodePath("../CanvasLayer/Enemy Battle HUD")
 spawned_combatants_node = NodePath("../Spawned Combatants")
 initial_state = NodePath("BattleStart")
 
@@ -84,54 +87,16 @@ spawned_combatants_node = NodePath("../Spawned Combatants")
 script = ExtResource("15_rir6a")
 experience_to_give_on_death = 150
 
+[node name="Enemy Combatant 2" type="Node" parent="Spawned Combatants"]
+script = ExtResource("15_rir6a")
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Enemy Battlers UI" type="Control" parent="CanvasLayer"]
-custom_minimum_size = Vector2(200, 200)
-layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -100.0
-offset_top = -100.0
-offset_right = 100.0
-offset_bottom = 100.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Control" type="Control" parent="CanvasLayer/Enemy Battlers UI"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Enemy Battlers UI/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/h_separation = 200
-columns = 8
-
-[node name="Enemy Battle UI" parent="CanvasLayer/Enemy Battlers UI/Control/GridContainer" node_paths=PackedStringArray("combatant") instance=ExtResource("12_lxaid")]
-layout_mode = 2
-combatant = NodePath("../../../../../Spawned Combatants/Enemy Combatant 1")
+[node name="Enemy Battle HUD" parent="CanvasLayer" instance=ExtResource("16_iosug")]
 
 [node name="Player Battle HUD" parent="CanvasLayer" instance=ExtResource("17_57lxs")]
 
-[node name="Player Commands" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("attack_button", "special_button", "defend_button", "run_button", "battle_skills_menu")]
+[node name="Player Commands" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("special_button", "battle_skills_menu")]
 custom_minimum_size = Vector2(400, 100)
 layout_mode = 3
 anchors_preset = 7
@@ -146,10 +111,7 @@ offset_bottom = -80.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("10_c8j50")
-attack_button = NodePath("HBoxContainer/Attack")
 special_button = NodePath("HBoxContainer/Special")
-defend_button = NodePath("HBoxContainer/Defend")
-run_button = NodePath("HBoxContainer/Run")
 battle_skills_menu = NodePath("../Battle Skills Menu")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Player Commands"]
@@ -162,6 +124,7 @@ custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 focus_neighbor_left = NodePath("../Run")
 text = "Attack"
+script = ExtResource("19_a4frr")
 
 [node name="Special" type="Button" parent="CanvasLayer/Player Commands/HBoxContainer"]
 custom_minimum_size = Vector2(100, 50)
@@ -173,6 +136,8 @@ custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 text = "Defend
 "
+script = ExtResource("19_a4frr")
+action_type = 4
 
 [node name="Run" type="Button" parent="CanvasLayer/Player Commands/HBoxContainer"]
 custom_minimum_size = Vector2(100, 50)
@@ -180,6 +145,8 @@ layout_mode = 2
 focus_neighbor_right = NodePath("../Attack")
 text = "Run
 "
+script = ExtResource("19_a4frr")
+action_type = 7
 
 [node name="Battle Skills Menu" parent="CanvasLayer" instance=ExtResource("19_ayay8")]
 anchors_preset = 8

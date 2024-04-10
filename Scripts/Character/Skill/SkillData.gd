@@ -7,6 +7,9 @@ class_name SkillData extends Resource
 ## The description for this skill.
 @export_multiline var localization_description: String = "New description."
 
+## How many special points it costs to use this skill.
+@export var cost: int = 5
+
 ## Does the skill have to be activated?
 @export var is_passive: bool = false
 
@@ -50,5 +53,9 @@ func get_usable_data(activator: Combatant) -> ActionMediator:
 	
 	# Check if any of the effects will provide healing
 	action_mediator.heal_amount = 0
+	for skill in effects:
+		if skill is DirectHealing:
+			var healing_effect = skill as DirectHealing
+			action_mediator.heal_amount += healing_effect.get_power( activator )
 	
 	return action_mediator

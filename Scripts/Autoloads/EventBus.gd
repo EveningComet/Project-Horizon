@@ -8,3 +8,10 @@ signal hp_depleted(combatant: Combatant)
 ## Fired when a character is spawned into battle. Usually called at the start of
 ## a battle unless a character is spawned in through a skill.
 signal combatant_spawned_in_battle(combatant: Combatant)
+
+## Used to tell things that need to know about the battle being ready to commence.
+signal battle_setup_finished
+
+signal begin_player_turn
+
+signal side_finished_turn(actions_to_send: Array[StoredAction])

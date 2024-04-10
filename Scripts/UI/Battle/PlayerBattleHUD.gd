@@ -8,9 +8,6 @@ class_name PlayerBattleHUD extends Control
 ## The node that will store the player's party members.
 @export var player_party_container: Container
 
-func _ready() -> void:
-	EventBus.combatant_spawned_in_battle.connect( on_combatant_spawned_in_combat)
-
 func on_combatant_spawned_in_combat(combatant: Combatant) -> void:
 	if combatant is PlayerCombatant:
 		if OS.is_debug_build() == true:

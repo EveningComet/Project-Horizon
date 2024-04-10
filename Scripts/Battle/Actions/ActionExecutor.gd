@@ -47,25 +47,29 @@ func execute_action(action: StoredAction) -> void:
 	
 	# Check what to do based on the stored action object
 	match action.action_type:
-		ActionTypes.ActionTypes.SingleEnemy:
+		ActionTypes.ActionTypes.AllEnemies, ActionTypes.ActionTypes.SingleEnemy:
 			## TODO: Get the right kind of power. For now, just use the physical power.
 			var strength: int = activator.get_physical_power()
 			action_mediator.damage_data["base_damage"] = 0
 			action_mediator.damage_data["base_damage"] += strength
 			
+			# TODO: If enemy target is dead, and their are still enemies, target another enemy.
+			# TODO: Chance to hit + critical chance.
 			for target: Combatant in action.get_targets():
 				target.take_damage( action_mediator.damage_data["base_damage"] )
-				
-				# TODO: If enemy target is dead, and their are still enemies, target another enemy.
-				# TODO: Chance to hit + critical chance.
-				if OS.is_debug_build() == true:
-					print("ResolveTurn :: %s now has %s hp." % [target.name, target.stats[StatTypes.stat_types.CurrentHP]])
 		
-		ActionTypes.ActionTypes.HealSingleAlly:
+		ActionTypes.ActionTypes.AllAllies, ActionTypes.ActionTypes.SingleAlly:
 			var healing_power: int = 0
-			healing_power = action.skill_data.get_usable_data( activator ).heal_amount
+			if action.skill_data != null:
+				healing_power = action.skill_data.get_usable_data( activator ).heal_amount
 			for target: Combatant in action.get_targets():
 				target.heal( healing_power )
+				if OS.is_debug_build() == true:
+					print("ActionExecutor :: %s got healed %s" % [target, healing_power])
+		
+		ActionTypes.ActionTypes.Flee:
+			# TODO: Proper running away from a battle.
+			get_tree().quit()
 	
 	# Execute the mediator
 	await execute_mediator( action_mediator )

@@ -22,10 +22,9 @@ func grab_slot_data(index: int) -> ItemSlotData:
 	
 	# If we have a slot to move, remove the slot and tell anyone caring about the change.
 	if slot_data != null and slot_data.stored_item != null:
-		var return_slot_data: ItemSlotData = slot_data.duplicate()
-		stored_items[index].clear_data()
+		stored_items[index] = null
 		inventory_updated.emit( self )
-		return return_slot_data
+		return slot_data
 	else:
 		return null
 
@@ -33,7 +32,7 @@ func grab_slot_data(index: int) -> ItemSlotData:
 func drop_single_slot_data(grabbed_slot_data: ItemSlotData, index: int) -> ItemSlotData:
 	var slot_data: ItemSlotData = stored_items[index]
 	
-	if slot_data.stored_item == null:
+	if slot_data == null or slot_data.stored_item == null:
 		stored_items[index] = grabbed_slot_data.create_single_slot_data()
 	elif slot_data.can_merge_with(grabbed_slot_data) == true:
 		slot_data.fully_merge_with( grabbed_slot_data.create_single_slot_data() )

@@ -3,10 +3,9 @@ class_name PBSelectTarget extends PlayerBattleState
 
 @export var battle_cursor_controller: BattleCursorController
 
-# TODO: Should the state machine itself keep track of this?
-@export var enemy_battlers_ui: GridContainer
-# TODO: Player combatants UI
-# TODO: Figure out how to handle the mouse since the battle cursor controller exists.
+# The huds which will help with getting targets
+@export var enemy_battle_hud:  EnemyBattleHUD
+@export var player_battle_hud: PlayerBattleHUD
 
 ## The action for the current character that will possibly be passed along.
 var stored_action: StoredAction
@@ -19,16 +18,17 @@ func enter(msgs: Dictionary = {}) -> void:
 			
 			stored_action = sa
 			
-			# TODO: Depending on the action, just skip to the next character or phase.
-			if stored_action.action_type == ActionTypes.ActionTypes.Defend:
-				execute()
-				return
+			## Depending on the action type, just move on
+			match stored_action.action_type:
+				ActionTypes.ActionTypes.Defend, ActionTypes.ActionTypes.Flee:
+					execute()
+					return
 			
 			# Create the needed cursors
 			battle_cursor_controller.spawn_needed_cursors( stored_action )
 	
 	# Connection for the mouse control
-	for child: Control in enemy_battlers_ui.get_children():
+	for child: Control in enemy_battle_hud.enemy_party_container.get_children():
 		child.mouse_entered.connect( on_mouse_over )
 
 func exit() -> void:
@@ -37,7 +37,7 @@ func exit() -> void:
 	# Delete all spawned battle cursors
 	battle_cursor_controller.clear_cursors()
 	
-	for child: Control in enemy_battlers_ui.get_children():
+	for child: Control in enemy_battle_hud.enemy_party_container.get_children():
 		child.mouse_entered.disconnect( on_mouse_over )
 	
 func check_for_unhandled_input(event: InputEvent) -> void:
@@ -45,8 +45,6 @@ func check_for_unhandled_input(event: InputEvent) -> void:
 		my_state_machine.change_to_state("PBSelectAction")
 		return
 	
-	# TODO: For actions that target an entire group, just wait for the player
-	# to accept or decline.
 	# TODO: Acceptable mouse input.
 	if event.is_action_pressed("ui_accept"):
 		execute()
@@ -83,10 +81,13 @@ func execute() -> void:
 			printerr("PBSelectTarget :: The player has finally finished selecting all the actions! Time for the enemy's turn.")
 			printerr("PBSelectTarget :: Action dictionary is: ", my_state_machine.stored_actions)
 		
-		my_state_machine.change_to_state("PBIdle")
+		
+		# Clean up for the end of the turn
+		var actions_to_send: Array[StoredAction] = my_state_machine.clean_up_for_turn_end_and_return_stored_actions_as_list()
 		
 		# Tell the battle controller that it's now the enemy's turn
-		my_state_machine.player_turn_ended()
+		EventBus.side_finished_turn.emit( actions_to_send )
+		my_state_machine.change_to_state("PBIdle")
 	
 	# The player still has characters to select actions for
 	else:
@@ -96,6 +97,7 @@ func execute() -> void:
 		my_state_machine.advance_to_next_character()
 		my_state_machine.change_to_state("PBSelectAction")
 
+## Have the state machine cache the action that was selected for the character.
 func store_action(combatant_to_store: Combatant, action_to_store: StoredAction) -> void:
 	my_state_machine.store_action(
 		combatant_to_store,
