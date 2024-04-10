@@ -1,11 +1,10 @@
-## Stores data about an enemy in a mission with randomized stats for now 
+## Stores data for an enemy.
 class_name EnemyData extends Resource
 
-var vitality:  int
-var expertise: int
-var will:      int
+# The enemy's core attributes
+@export var vitality:  int = 10
+@export var expertise: int = 10
+@export var will:      int = 10
 
-func _init():
-	vitality = randi_range( 3, 9 )
-	expertise = randi_range( 3, 9 )
-	will = randi_range( 3, 9 )
+## The skills this enemy can use.
+@export var skills: Array[SkillData] = []
