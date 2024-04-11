@@ -8,4 +8,5 @@ enemy_name = "Borg"
 vitality = 3
 expertise = 3
 will = 3
+exp_on_death = 100
 skills = Array[Resource("res://Scripts/Character/Skill/SkillData.gd")]([])

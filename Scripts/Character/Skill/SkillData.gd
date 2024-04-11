@@ -34,7 +34,7 @@ class_name SkillData extends Resource
 @export_range(0.0, 1.0) var success_chance: float = 1.0
 
 ## The skills that get unlocked based on the rank of this skill.
-@export var unlockable: Array[SkillData] = []
+@export var unlocked: Array[SkillData] = []
 
 ## If the skill is some form of attack, is it ranged?
 @export var is_ranged: bool = false

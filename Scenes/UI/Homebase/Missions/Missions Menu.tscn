@@ -21,7 +21,7 @@ description_panel = NodePath("Background")
 missions = Array[Resource("res://Scripts/Mission/MissionData.gd")]([ExtResource("3_5qayr"), ExtResource("2_4kd4j")])
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Missions"]
-custom_minimum_size = Vector2(50, 50)
+custom_minimum_size = Vector2(200, 50)
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5

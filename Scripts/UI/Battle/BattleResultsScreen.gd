@@ -7,6 +7,19 @@ class_name BattleResultsScreen extends Control
 
 @export_file("*.tscn") var homebase_scene: String
 
+var is_active = false
+
+func _unhandled_input(event: InputEvent) -> void:
+	if is_active == true and event.is_pressed():
+		is_active = false
+		hide()
+		SceneController.switch_to_scene( homebase_scene )
+		return
+
+func _ready() -> void:
+	is_active = false
+	hide()
+
 func activate(xp_to_reward: int) -> void:
 	show()
 	handle_player_victory(xp_to_reward)
@@ -24,9 +37,9 @@ func handle_player_victory(xp_to_reward: int) -> void:
 	
 	# Populate the item menu, if relevant
 	
-	# TODO: Allow the player to mash out of this screen.
-	await get_tree().create_timer(3.0).timeout
-	SceneController.switch_to_scene( homebase_scene )
+	# Prevent the player from dipping before seeing anything
+	await get_tree().create_timer(0.5).timeout 
+	is_active = true
 
 # TODO: Implement defeat and retreat.
 func handle_player_defeat() -> void:
