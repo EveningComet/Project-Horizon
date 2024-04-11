@@ -84,7 +84,15 @@ func heal(heal_amount: int) -> void:
 		stats[StatTypes.stat_types.CurrentHP] = stats[StatTypes.stat_types.MaxHP].get_calculated_value()
 	
 	stat_changed.emit( self )
-		
+
+func sub_sp(amount_to_lose: int) -> void:
+	stats[StatTypes.stat_types.CurrentSP] -= amount_to_lose
+	stats[StatTypes.stat_types.CurrentSP] = max(
+		stats[StatTypes.stat_types.CurrentSP],
+		0
+	)
+	stat_changed.emit( self )
+
 func regain_sp(gain_amount: int) -> void:
 	stats[StatTypes.stat_types.CurrentSP] += gain_amount
 	if stats[StatTypes.stat_types.CurrentSP] > stats[StatTypes.stat_types.MaxSP].get_calculated_value():

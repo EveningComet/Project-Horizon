@@ -2,7 +2,7 @@
 class_name StatusEffect extends Resource
 
 ## The name for this status effect.
-@export var localization_name: String = "New Status Effect"
+@export var localization_name:                  String = "New Status Effect"
 @export_multiline var localization_description: String = "Status effect description."
 
 ## Does the status do its thing every turn?
