@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=3 format=3 uid="uid://by8cb3jap5hqh"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=4 format=3 uid="uid://by8cb3jap5hqh"]
 
 [ext_resource type="Resource" uid="uid://b4r02cq3s3xe1" path="res://Game Data/Player Character Classes/Class Skills/Seeker Skills/Seeker Field Medicine DH.tres" id="1_b6opl"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillData.gd" id="1_g62jx"]
+[ext_resource type="Texture2D" uid="uid://bfn1k6ty5eivc" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Icons/Icon38.png" id="1_ib0pv"]
 
 [resource]
 script = ExtResource("1_g62jx")
@@ -19,3 +20,4 @@ success_chance = 1.0
 unlockable = Array[ExtResource("1_g62jx")]([])
 is_ranged = false
 effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([ExtResource("1_b6opl")])
+display_texture = ExtResource("1_ib0pv")

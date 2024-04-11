@@ -42,6 +42,9 @@ class_name SkillData extends Resource
 ## Defines what a skill does.
 @export var effects: Array[SkillEffect] = []
 
+## Texture for button in skills menu
+@export var display_texture: Texture2D
+
 ## Get the needed data for the passed character.
 func get_usable_data(activator: Combatant) -> ActionMediator:
 	var action_mediator: ActionMediator = ActionMediator.new()
