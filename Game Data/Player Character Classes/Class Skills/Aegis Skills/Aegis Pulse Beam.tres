@@ -1,12 +1,18 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=3 format=3 uid="uid://cydkltv3usq2l"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=4 format=3 uid="uid://cydkltv3usq2l"]
 
-[ext_resource type="Resource" uid="uid://dpm37e6oshty" path="res://Game Data/Player Character Classes/Class Skills/Aegis Skills/Aegis Pulse Beam DDE.tres" id="1_50sg2"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/Skill Effects/DirectDamage.gd" id="1_2lgx2"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillData.gd" id="1_m3w6m"]
+
+[sub_resource type="Resource" id="Resource_pol7e"]
+script = ExtResource("1_2lgx2")
+power_scale = 1.25
+use_special_stat = true
 
 [resource]
 script = ExtResource("1_m3w6m")
 localization_name = "Pulse Beam"
 localization_description = "Fire a laser beam at an enemy. It will hit twice."
+cost = 5
 is_passive = false
 action_type = 0
 num_activations = 2
@@ -17,4 +23,4 @@ upgrade_scale = 5.0
 success_chance = 1.0
 unlockable = Array[ExtResource("1_m3w6m")]([])
 is_ranged = false
-effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([ExtResource("1_50sg2")])
+effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([SubResource("Resource_pol7e")])

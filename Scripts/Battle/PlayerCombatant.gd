@@ -1,6 +1,9 @@
 ## Base class for characters that will be placed into combat.
 class_name PlayerCombatant extends Combatant
 
+## Fired when the character gets experience points.
+signal experience_gained(growth_data: Array)
+
 ## The name for this player character.
 var char_name: String
 
@@ -90,7 +93,7 @@ func gain_experience(gain_amount: int) -> void:
 	growth_data.append( [curr_experience_points, experience_required] )
 	
 	# Notify anything about the change in experience
-	#experience_gained.emit( growth_data )
+	experience_gained.emit( growth_data )
 
 ## Boost this character's level.
 func level_up() -> void:
@@ -99,6 +102,6 @@ func level_up() -> void:
 	curr_level += 1
 	experience_required = get_experience_required( curr_level )
 	
-	# Give the character skill points/attribute points/ etc.
+	# Give the character skill points/attribute points/etc.
 	available_attribute_points += 1
 	available_skill_points     += 3

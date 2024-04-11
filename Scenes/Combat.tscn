@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b5ob880mpsigo"]
+[gd_scene load_steps=21 format=3 uid="uid://b5ob880mpsigo"]
 
 [ext_resource type="Script" path="res://Scripts/Battle/Battle Manager/BattleManager.gd" id="2_6ahfq"]
 [ext_resource type="Script" path="res://Scripts/Battle/Battle Manager/Battle Manager States/BattleStart.gd" id="2_t654k"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" path="res://Scripts/Battle/Actions/ActionExecutor.gd" id="17_i3r5f"]
 [ext_resource type="Script" path="res://Scripts/UI/Battle/BattleActionButton.gd" id="19_a4frr"]
 [ext_resource type="PackedScene" uid="uid://br2rfvg8hipbo" path="res://Scenes/UI/Battle/Battle Skills Menu.tscn" id="19_ayay8"]
+[ext_resource type="PackedScene" uid="uid://dn0px7nu3xk24" path="res://Scenes/UI/Battle/Battle Results Screen.tscn" id="20_ka22u"]
 [ext_resource type="Script" path="res://Scripts/Battle/Battle Manager/BattleDeathHandler.gd" id="20_pja1n"]
 
 [node name="Combat" type="Node"]
@@ -68,9 +69,10 @@ script = ExtResource("4_y71t8")
 script = ExtResource("5_tl20t")
 action_executer = NodePath("../../ActionExecutor")
 
-[node name="EndBattle" type="Node" parent="BattleManager"]
+[node name="EndBattle" type="Node" parent="BattleManager" node_paths=PackedStringArray("battle_results_screen")]
 script = ExtResource("6_nchxf")
 homebase_home_scene = "res://Scenes/UI/Homebase/Homebase Home Menu.tscn"
+battle_results_screen = NodePath("../../CanvasLayer/Battle Results Screen")
 
 [node name="ActionExecutor" type="Node" parent="." node_paths=PackedStringArray("death_handler")]
 script = ExtResource("17_i3r5f")
@@ -153,3 +155,6 @@ offset_bottom = 87.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
+
+[node name="Battle Results Screen" parent="CanvasLayer" instance=ExtResource("20_ka22u")]
+visible = false

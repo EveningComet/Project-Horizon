@@ -77,6 +77,7 @@ func find_closest_target(direction: Vector2) -> void:
 	if spawned_cursors.size() > 1:
 		return
 	
+	# TODO: Upgrade this to allow selecting a target with the gamepad.
 	var selected_target: CombatantBattleUI = null
 	var target_distance: float             = INF
 	var curr_pos: Vector2 = spawned_cursors[0].global_position
