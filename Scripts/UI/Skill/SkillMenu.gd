@@ -7,9 +7,11 @@ class_name SkillMenu extends Control
 @export var skill_points_label: Label
 @export var skill_menu_button_template: PackedScene
 
-var characters:= PlayerPartyController.party_members
+const skills_group_name := "skills"
 
-# Called when the node enters the scene tree for the first time.
+var characters:= PlayerPartyController.party_members
+var current_character: PlayerCombatant
+
 func _ready():
 	add_tabs_per_character()
 	visibility_changed.connect( on_visibility_changed )
@@ -27,20 +29,36 @@ func on_visibility_changed():
 		render_tab( tab_bar.current_tab )
 
 func render_tab(index: int):
-	var character:= characters[index]
-	show_skills(character)
-	set_available_skill_points_label(character)
+	current_character = characters[index]
+	show_skills()
+	check_available_skill_points()
+	set_available_skill_points_label()
 
-func show_skills(character: PlayerCombatant):
+func show_skills():
 	clear_skills()
-	for skill in character.skill_holder.skills:
-		var button := skill_menu_button_template.instantiate() as SkillMenuButton
-		button.initialize( skill )
-		button.disabled = character.available_skill_points == 0
+	for skill in current_character.skill_holder.skills:
+		var button:= make_skill_button( skill )
 		skill_container.add_child( button )
 
-func set_available_skill_points_label(character: PlayerCombatant):
-	skill_points_label.text = "Available skill points: " + str(character.available_skill_points)
+func make_skill_button(skill: SkillInstance) -> SkillMenuButton:
+	var button := skill_menu_button_template.instantiate() as SkillMenuButton
+	button.initialize( skill )
+	button.add_to_group( skills_group_name )
+	button.skill_upgraded.connect( on_skill_upgraded )
+	return button
+
+func on_skill_upgraded():
+	current_character.available_skill_points -= 1
+	set_available_skill_points_label()
+	check_available_skill_points()
+
+func check_available_skill_points():
+	if (current_character.available_skill_points == 0):
+		get_tree().call_group( skills_group_name, "disable" )
+
+func set_available_skill_points_label():
+	skill_points_label.text = "Available skill points: "
+	skill_points_label.text += str( current_character.available_skill_points )
 
 func clear_skills():
 	for child in skill_container.get_children():
