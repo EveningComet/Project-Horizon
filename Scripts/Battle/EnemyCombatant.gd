@@ -53,3 +53,9 @@ func initialize() -> void:
 		stats[StatTypes.stat_types.Vitality].get_calculated_value() * 2,
 		true
 	)
+	
+	stats[StatTypes.stat_types.Speed] = Stat.new(
+		(stats[StatTypes.stat_types.Vitality].get_calculated_value() *
+		stats[StatTypes.stat_types.Will].get_calculated_value()) / 2,
+		true
+	)
