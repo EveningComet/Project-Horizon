@@ -10,6 +10,8 @@ class_name HomebaseHome extends Control
 @export var acquisition_button: BaseButton
 @export var quit_button: BaseButton
 
+@export var skill_menu: CanvasLayer
+
 func _ready() -> void:
 	# Connect the needed button events
 	missions_button.button_down.connect( on_mission_button_pressed )
@@ -20,6 +22,11 @@ func _ready() -> void:
 	missions_button.disabled = !PlayerPartyController.has_members()
 	
 	get_first_enabled_button_or_default().grab_focus()
+	skill_menu.hide()
+
+func _process(delta):
+	if (Input.is_action_just_pressed("open_skills")):
+		skill_menu.visible = !skill_menu.visible
 
 func on_mission_button_pressed() -> void:
 	SceneController.switch_to_scene( missions_scene )
