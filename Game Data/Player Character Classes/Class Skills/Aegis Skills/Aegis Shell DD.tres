@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="DirectDamage" load_steps=2 format=3 uid="uid://b7tnwb1sfl1wo"]
-
-[ext_resource type="Script" path="res://Scripts/Character/Skill/Skill Effects/DirectDamage.gd" id="1_ak6tb"]
-
-[resource]
-script = ExtResource("1_ak6tb")
-power_scale = 1.5
-use_special_stat = true

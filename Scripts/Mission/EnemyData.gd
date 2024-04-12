@@ -8,5 +8,7 @@ class_name EnemyData extends Resource
 @export var expertise: int = 10
 @export var will:      int = 10
 
+@export var exp_on_death: int = 100
+
 ## The skills this enemy can use.
 @export var skills: Array[SkillData] = []

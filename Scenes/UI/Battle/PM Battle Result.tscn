@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://crcjyxfo37yxe"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Battle/PMBattleResult.gd" id="1_2oevk"]
+
+[node name="PMBattleResult" type="Control" node_paths=PackedStringArray("char_name_label", "progress_bar")]
+custom_minimum_size = Vector2(400, 150)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_2oevk")
+char_name_label = NodePath("Char Name Label")
+progress_bar = NodePath("ProgressBar")
+
+[node name="Char Name Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 25
+text = "Cool Name Here"
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(200, 25)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -27.0
+offset_right = 200.0
+grow_vertical = 0

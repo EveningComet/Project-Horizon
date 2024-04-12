@@ -6,6 +6,8 @@ signal close_recruitable_menu
 ## The object used for naming characters.
 @export var character_name_entry: CharacterNameInputScreen
 
+@export var class_description_holder: Control
+
 ## The node that displays the description for a class.
 @export var class_description_displayer: Label
 
@@ -55,6 +57,8 @@ func display_classes(pc_classes: Array[CharacterClass]) -> void:
 	character_name_entry.player_finished_entering_name.connect( on_player_finished_entering_name )
 	
 	# Set the focus and display
+	class_container.show()
+	class_description_holder.show()
 	class_container.get_child(0).grab_focus()
 	show()
 
@@ -87,6 +91,8 @@ func on_class_selected(pc_class: CharacterClass) -> void:
 	
 	# The player has finished selecting a portrait, initialize the stats
 	# TODO: Implement portrait selection. For now, just make the player enter a name.
+	class_container.hide()
+	class_description_holder.hide()
 	player_is_doing_something = true
 	new_character = PlayerCombatant.new()
 	initial_class = pc_class
@@ -117,3 +123,6 @@ func on_player_finished_entering_name() -> void:
 	player_is_doing_something = false
 	initial_class = null
 	new_character = null
+	class_container.show()
+	class_container.get_child(0).grab_focus()
+	class_description_holder.show()

@@ -1,8 +1,13 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=4 format=3 uid="uid://c0h3wsdqfllab"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=5 format=3 uid="uid://c0h3wsdqfllab"]
 
-[ext_resource type="Resource" uid="uid://b7tnwb1sfl1wo" path="res://Game Data/Player Character Classes/Class Skills/Aegis Skills/Aegis Shell DD.tres" id="1_3ul5r"]
-[ext_resource type="Texture2D" uid="uid://5o3im77uglyl" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Icons/Icon36.png" id="1_8vow5"]
+[ext_resource type="Texture2D" uid="uid://5o3im77uglyl" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Icons/Icon36.png" id="1_0nc53"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/Skill Effects/DirectDamage.gd" id="1_6stu2"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillData.gd" id="1_koweo"]
+
+[sub_resource type="Resource" id="Resource_g3mnm"]
+script = ExtResource("1_6stu2")
+power_scale = 1.5
+use_special_stat = true
 
 [resource]
 script = ExtResource("1_koweo")
@@ -17,7 +22,7 @@ minimum_rank_of_previous = 1
 base_power_scale = 1.0
 upgrade_scale = 5.0
 success_chance = 1.0
-unlockable = Array[ExtResource("1_koweo")]([])
+unlocked = Array[ExtResource("1_koweo")]([])
 is_ranged = false
-effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([ExtResource("1_3ul5r")])
-display_texture = ExtResource("1_8vow5")
+effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([SubResource("Resource_g3mnm")])
+display_texture = ExtResource("1_0nc53")

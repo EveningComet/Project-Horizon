@@ -53,4 +53,5 @@ func make_enemy(enemy_data: EnemyData) -> EnemyCombatant:
 	enemy_combatant.vitality  = enemy_data.vitality
 	enemy_combatant.expertise = enemy_data.expertise
 	enemy_combatant.will      = enemy_data.will
+	enemy_combatant.experience_to_give_on_death = enemy_data.exp_on_death
 	return enemy_combatant

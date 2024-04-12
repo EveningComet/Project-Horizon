@@ -8,4 +8,5 @@ enemy_name = "Romulan"
 vitality = 5
 expertise = 5
 will = 5
+exp_on_death = 100
 skills = Array[Resource("res://Scripts/Character/Skill/SkillData.gd")]([])

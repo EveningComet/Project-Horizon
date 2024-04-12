@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="DirectDamage" load_steps=2 format=3 uid="uid://dpm37e6oshty"]
-
-[ext_resource type="Script" path="res://Scripts/Character/Skill/Skill Effects/DirectDamage.gd" id="1_apkmy"]
-
-[resource]
-script = ExtResource("1_apkmy")
-power_scale = 1.1
-use_special_stat = true

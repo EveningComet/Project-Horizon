@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/Homebase/Recruitment Menu/RecruitableMenu.gd" id="1_b7hrp"]
 [ext_resource type="PackedScene" uid="uid://b8dv05151p3tj" path="res://Scenes/UI/Homebase/Character Recruitment/Character Class Button.tscn" id="2_vb1q0"]
 
-[node name="Recruitable Menu" type="Control" node_paths=PackedStringArray("class_description_displayer", "class_container")]
+[node name="Recruitable Menu" type="Control" node_paths=PackedStringArray("class_description_holder", "class_description_displayer", "class_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,6 +12,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_b7hrp")
+class_description_holder = NodePath("Class Description")
 class_description_displayer = NodePath("Class Description/Panel/MarginContainer/Class Description Label")
 class_container = NodePath("ScrollContainer/Class Container")
 character_class_button_template = ExtResource("2_vb1q0")
