@@ -7,6 +7,7 @@ class_name SkillMenu extends Control
 @export var skill_container: HBoxContainer
 @export var skill_points_label: Label
 @export var skill_menu_button_template: PackedScene
+@export var canvas: CanvasLayer
 
 const skills_group_name := "skills"
 
@@ -18,7 +19,7 @@ func _ready():
 	add_tabs_per_character()
 	visibility_changed.connect( on_visibility_changed )
 	tab_bar.tab_changed.connect( render_tab )
-	exit_button.button_down.connect( hide )
+	exit_button.button_down.connect( canvas.hide )
 	confirm_button.button_down.connect( confirm_points )
 	undo_skill_points_button.button_down.connect( undo_points )
 
@@ -33,9 +34,10 @@ func on_visibility_changed():
 		render_tab( tab_bar.current_tab )
 
 func render_tab(index: int):
-	current_character = characters[index]
-	show_skills()
-	set_available_skill_points( current_character.available_skill_points )
+	if (len(characters) > 0):
+		current_character = characters[index]
+		show_skills()
+		set_available_skill_points( current_character.available_skill_points )
 
 func confirm_points():
 	current_character.available_skill_points = draft_available_skill_points

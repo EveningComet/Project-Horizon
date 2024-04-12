@@ -5,7 +5,7 @@
 
 [node name="SkillMenu" type="CanvasLayer"]
 
-[node name="SkillMenu" type="Control" parent="." node_paths=PackedStringArray("tab_bar", "exit_button", "confirm_button", "undo_skill_points_button", "skill_container", "skill_points_label")]
+[node name="SkillMenu" type="Control" parent="." node_paths=PackedStringArray("tab_bar", "exit_button", "confirm_button", "undo_skill_points_button", "skill_container", "skill_points_label", "canvas")]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 399.0
@@ -20,6 +20,7 @@ undo_skill_points_button = NodePath("SkillPanel/UndoSkillPointsButton")
 skill_container = NodePath("SkillPanel/HBoxContainer")
 skill_points_label = NodePath("SkillPanel/SkillPointsLabel")
 skill_menu_button_template = ExtResource("2_44m12")
+canvas = NodePath("..")
 
 [node name="TabBar" type="TabBar" parent="SkillMenu"]
 layout_mode = 0
