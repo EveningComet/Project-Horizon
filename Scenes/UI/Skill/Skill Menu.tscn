@@ -45,8 +45,9 @@ offset_top = 37.0
 offset_right = 132.0
 offset_bottom = 137.0
 
-[node name="SkillMenuButton" parent="SkillMenu/SkillPanel/HBoxContainer" instance=ExtResource("2_44m12")]
+[node name="PartyEmptyLabel" type="Label" parent="SkillMenu/SkillPanel/HBoxContainer"]
 layout_mode = 2
+text = "No members recruited"
 
 [node name="SkillPointsLabel" type="Label" parent="SkillMenu/SkillPanel"]
 layout_mode = 0
@@ -54,7 +55,7 @@ offset_left = 25.0
 offset_top = 723.0
 offset_right = 212.0
 offset_bottom = 746.0
-text = "Available skill points: nn"
+text = "No available skills point"
 
 [node name="ConfirmButton" type="Button" parent="SkillMenu/SkillPanel"]
 custom_minimum_size = Vector2(200, 50)
@@ -62,6 +63,7 @@ offset_left = 233.0
 offset_top = 707.0
 offset_right = 433.0
 offset_bottom = 757.0
+disabled = true
 text = "Confirm"
 
 [node name="UndoSkillPointsButton" type="Button" parent="SkillMenu/SkillPanel"]
@@ -71,6 +73,7 @@ offset_left = 433.0
 offset_top = 707.0
 offset_right = 633.0
 offset_bottom = 757.0
+disabled = true
 text = "Undo points"
 
 [node name="ExitButton" type="Button" parent="SkillMenu"]
