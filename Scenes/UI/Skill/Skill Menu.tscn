@@ -5,7 +5,7 @@
 
 [node name="SkillMenu" type="CanvasLayer"]
 
-[node name="SkillMenu" type="Control" parent="." node_paths=PackedStringArray("tab_bar", "exit_button", "undo_skill_points_button", "skill_container", "skill_points_label")]
+[node name="SkillMenu" type="Control" parent="." node_paths=PackedStringArray("tab_bar", "exit_button", "confirm_button", "undo_skill_points_button", "skill_container", "skill_points_label")]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 399.0
@@ -15,7 +15,8 @@ offset_bottom = 253.0
 script = ExtResource("1_gb7ft")
 tab_bar = NodePath("TabBar")
 exit_button = NodePath("ExitButton")
-undo_skill_points_button = NodePath("SkillPanel/UndoSkillPointsLabel")
+confirm_button = NodePath("SkillPanel/ConfirmButton")
+undo_skill_points_button = NodePath("SkillPanel/UndoSkillPointsButton")
 skill_container = NodePath("SkillPanel/HBoxContainer")
 skill_points_label = NodePath("SkillPanel/SkillPointsLabel")
 skill_menu_button_template = ExtResource("2_44m12")
@@ -46,22 +47,30 @@ offset_bottom = 137.0
 [node name="SkillMenuButton" parent="SkillMenu/SkillPanel/HBoxContainer" instance=ExtResource("2_44m12")]
 layout_mode = 2
 
-[node name="UndoSkillPointsLabel" type="Button" parent="SkillMenu/SkillPanel"]
-custom_minimum_size = Vector2(200, 50)
-layout_mode = 0
-offset_left = 225.0
-offset_top = 707.0
-offset_right = 425.0
-offset_bottom = 757.0
-text = "Undo points"
-
 [node name="SkillPointsLabel" type="Label" parent="SkillMenu/SkillPanel"]
 layout_mode = 0
 offset_left = 25.0
 offset_top = 723.0
-offset_right = 177.0
+offset_right = 212.0
 offset_bottom = 746.0
 text = "Available skill points: nn"
+
+[node name="ConfirmButton" type="Button" parent="SkillMenu/SkillPanel"]
+custom_minimum_size = Vector2(200, 50)
+offset_left = 233.0
+offset_top = 707.0
+offset_right = 433.0
+offset_bottom = 757.0
+text = "Confirm"
+
+[node name="UndoSkillPointsButton" type="Button" parent="SkillMenu/SkillPanel"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 0
+offset_left = 433.0
+offset_top = 707.0
+offset_right = 633.0
+offset_bottom = 757.0
+text = "Undo points"
 
 [node name="ExitButton" type="Button" parent="SkillMenu"]
 custom_minimum_size = Vector2(50, 0)
