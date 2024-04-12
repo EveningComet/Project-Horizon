@@ -5,6 +5,8 @@ class_name SkillMenu extends Control
 @export var skill_container: HBoxContainer
 @export var skill_description_label: RichTextLabel
 
+@export var skill_menu_button_template: PackedScene
+
 var characters:= PlayerPartyController.party_members
 
 # Called when the node enters the scene tree for the first time.
@@ -22,7 +24,8 @@ func show_skills(index: int):
 	clear_skills()
 	var character:= characters[index]
 	for skill in character.skill_holder.skills:
-		var button = SkillMenuButton.new(skill, skill_description_label)
+		var button := skill_menu_button_template.instantiate() as SkillMenuButton
+		button.initialize(skill, skill_description_label)
 		skill_container.add_child(button)
 
 func add_tabs_per_character():
