@@ -9,7 +9,7 @@ func enter(msgs: Dictionary = {}) -> void:
 		print("ResolveTurn :: Entered.")
 	
 	action_executer.finished_processing_actions.connect( on_action_execution_finished )
-	# TODO: Sort the actions based on the activator's speed stat.
+	my_state_machine.current_turn_actions.sort_custom( sort_actions_based_on_activator_speed )
 	check_start_of_turn_status_effects()
 	execute_actions()
 
@@ -32,3 +32,8 @@ func on_action_execution_finished(results: Dictionary = {}) -> void:
 			return
 	
 	my_state_machine.change_to_state("PlayerTurn")
+
+func sort_actions_based_on_activator_speed(a: StoredAction, b: StoredAction) -> bool:
+	return a.activator.stats[StatTypes.stat_types.Speed].get_calculated_value() < \
+	b.activator.stats[StatTypes.stat_types.Speed].get_calculated_value()
+
