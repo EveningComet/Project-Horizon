@@ -9,6 +9,6 @@
 script = ExtResource("1_3101i")
 mission_name = "Operation Voyager"
 mission_description = "There is coffee in that nebula."
-enemies = Array[Resource("res://Scripts/Mission/EnemyData.gd")]([ExtResource("1_nfv3e"), ExtResource("2_w7g41")])
+enemies = Array[Resource("res://Scripts/Mission/EnemyData.gd")]([ExtResource("1_nfv3e"), ExtResource("2_w7g41"), ExtResource("1_nfv3e")])
 next_mission = ExtResource("3_5jp3b")
 is_unlocked_by_default = true

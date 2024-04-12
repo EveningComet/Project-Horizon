@@ -16,5 +16,6 @@ enum stat_types {
 	Defense,              # Reduces damage
 	Perception,           # (Hit chance) = Expertise + Will
 	Evasion,              # (Dodge)      = Vitality  + Expertise
-	Speed                 # (Vitality + Will) / 2
+	Speed,                # (Vitality + Will) / 2
+	CriticalHitChance
 }

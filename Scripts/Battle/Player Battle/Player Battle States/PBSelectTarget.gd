@@ -10,6 +10,8 @@ class_name PBSelectTarget extends PlayerBattleState
 ## The action for the current character that will possibly be passed along.
 var stored_action: StoredAction
 
+var target_scan_node: Container
+
 func enter(msgs: Dictionary = {}) -> void:
 	match msgs:
 		{"stored_action": var sa}:
@@ -26,27 +28,33 @@ func enter(msgs: Dictionary = {}) -> void:
 			
 			# Create the needed cursors
 			battle_cursor_controller.spawn_needed_cursors( stored_action )
-	
-	# Connection for the mouse control
-	for child: Control in enemy_battle_hud.enemy_party_container.get_children():
-		child.mouse_entered.connect( on_mouse_over )
+			
+			# Setup mouse control
+			target_scan_node = null
+			if stored_action.action_type == ActionTypes.ActionTypes.SingleEnemy:
+				target_scan_node = enemy_battle_hud.enemy_party_container
+			elif stored_action.action_type == ActionTypes.ActionTypes.SingleAlly:
+				target_scan_node = player_battle_hud.player_party_container
+			
+			for battle_ui in target_scan_node.get_children():
+				battle_ui.mouse_entered.connect( on_mouse_entered )
 
 func exit() -> void:
 	stored_action = null
+	if target_scan_node != null:
+		for battle_ui in target_scan_node.get_children():
+			battle_ui.mouse_entered.disconnect( on_mouse_entered )
+	target_scan_node = null
 	
 	# Delete all spawned battle cursors
 	battle_cursor_controller.clear_cursors()
-	
-	for child: Control in enemy_battle_hud.enemy_party_container.get_children():
-		child.mouse_entered.disconnect( on_mouse_over )
 	
 func check_for_unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		my_state_machine.change_to_state("PBSelectAction")
 		return
 	
-	# TODO: Acceptable mouse input.
-	if event.is_action_pressed("ui_accept"):
+	if event.is_action_pressed("ui_accept") or event.is_action_pressed("left_click"):
 		execute()
 		return
 	
@@ -64,11 +72,9 @@ func check_for_unhandled_input(event: InputEvent) -> void:
 	if input_dir != Vector2.ZERO:
 		battle_cursor_controller.find_closest_target( input_dir )
 
-func on_mouse_over() -> void:
-	var mouse_pos: Vector2 = get_viewport().get_mouse_position()
-	#var potential_target = find_closest_target( mouse_pos )
-	#if potential_target != null:
-		#select_targets( potential_target )
+func on_mouse_entered() -> void:
+	var mouse_pos = get_viewport().get_mouse_position()
+	battle_cursor_controller.find_closest_target_to_mouse( mouse_pos )
 
 func execute() -> void:
 	stored_action.set_targets( battle_cursor_controller.get_targets() )
