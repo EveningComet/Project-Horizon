@@ -1,0 +1,86 @@
+[gd_scene load_steps=3 format=3 uid="uid://dks4qxa6s4ful"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Skill/SkillMenu.gd" id="1_gb7ft"]
+[ext_resource type="PackedScene" uid="uid://bngujmgvwnby5" path="res://Scenes/UI/Skill/Skill Menu Button.tscn" id="2_44m12"]
+
+[node name="SkillMenu" type="CanvasLayer"]
+
+[node name="SkillMenu" type="Control" parent="." node_paths=PackedStringArray("tab_bar", "exit_button", "confirm_button", "undo_skill_points_button", "skill_container", "skill_points_label", "canvas")]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 399.0
+offset_top = 213.0
+offset_right = 439.0
+offset_bottom = 253.0
+script = ExtResource("1_gb7ft")
+tab_bar = NodePath("TabBar")
+exit_button = NodePath("ExitButton")
+confirm_button = NodePath("SkillPanel/ConfirmButton")
+undo_skill_points_button = NodePath("SkillPanel/UndoSkillPointsButton")
+skill_container = NodePath("SkillPanel/HBoxContainer")
+skill_points_label = NodePath("SkillPanel/SkillPointsLabel")
+skill_menu_button_template = ExtResource("2_44m12")
+canvas = NodePath("..")
+
+[node name="TabBar" type="TabBar" parent="SkillMenu"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+tab_count = 2
+clip_tabs = false
+tab_0/title = "Character 1"
+tab_1/title = "Character 2"
+
+[node name="SkillPanel" type="Panel" parent="SkillMenu"]
+custom_minimum_size = Vector2(1500, 800)
+layout_mode = 0
+offset_top = 40.0
+offset_right = 40.0
+offset_bottom = 80.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SkillMenu/SkillPanel"]
+layout_mode = 1
+offset_left = 32.0
+offset_top = 37.0
+offset_right = 132.0
+offset_bottom = 137.0
+
+[node name="PartyEmptyLabel" type="Label" parent="SkillMenu/SkillPanel/HBoxContainer"]
+layout_mode = 2
+text = "No members recruited"
+
+[node name="SkillPointsLabel" type="Label" parent="SkillMenu/SkillPanel"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 723.0
+offset_right = 212.0
+offset_bottom = 746.0
+text = "No available skills point"
+
+[node name="ConfirmButton" type="Button" parent="SkillMenu/SkillPanel"]
+custom_minimum_size = Vector2(200, 50)
+offset_left = 233.0
+offset_top = 707.0
+offset_right = 433.0
+offset_bottom = 757.0
+disabled = true
+text = "Confirm"
+
+[node name="UndoSkillPointsButton" type="Button" parent="SkillMenu/SkillPanel"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 0
+offset_left = 433.0
+offset_top = 707.0
+offset_right = 633.0
+offset_bottom = 757.0
+disabled = true
+text = "Undo points"
+
+[node name="ExitButton" type="Button" parent="SkillMenu"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 0
+offset_left = 1450.0
+offset_top = 8.0
+offset_right = 1500.0
+offset_bottom = 39.0
+text = "X"

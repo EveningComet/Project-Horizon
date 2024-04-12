@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=4 format=3 uid="uid://c0h3wsdqfllab"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=5 format=3 uid="uid://c0h3wsdqfllab"]
 
+[ext_resource type="Texture2D" uid="uid://5o3im77uglyl" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Icons/Icon36.png" id="1_0nc53"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/Skill Effects/DirectDamage.gd" id="1_6stu2"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillData.gd" id="1_koweo"]
 
@@ -24,3 +25,4 @@ success_chance = 1.0
 unlocked = Array[ExtResource("1_koweo")]([])
 is_ranged = false
 effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([SubResource("Resource_g3mnm")])
+display_texture = ExtResource("1_0nc53")

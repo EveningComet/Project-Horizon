@@ -16,6 +16,9 @@ var stats: Dictionary = {}
 ## The status effects being monitored for this character.
 var status_effect_holder: StatusEffectHolder = StatusEffectHolder.new()
 
+## The skills being monitored for this character.
+var skill_holder: SkillHolder = SkillHolder.new()
+
 ## Initialize the stats. This base class just gives default values
 func initialize() -> void:
 	# Attributes

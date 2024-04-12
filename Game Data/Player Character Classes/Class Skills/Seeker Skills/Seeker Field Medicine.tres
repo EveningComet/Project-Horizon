@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=4 format=3 uid="uid://by8cb3jap5hqh"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=5 format=3 uid="uid://by8cb3jap5hqh"]
 
+[ext_resource type="Texture2D" uid="uid://bfn1k6ty5eivc" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Icons/Icon38.png" id="1_bgqvg"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillData.gd" id="1_g62jx"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/Skill Effects/DirectHealing.gd" id="1_olgdp"]
 
@@ -24,3 +25,4 @@ success_chance = 1.0
 unlocked = Array[ExtResource("1_g62jx")]([])
 is_ranged = false
 effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([SubResource("Resource_3qk50")])
+display_texture = ExtResource("1_bgqvg")
