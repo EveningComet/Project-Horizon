@@ -11,6 +11,12 @@ signal finished_processing_actions(results: Dictionary)
 ## The actions that will be executed during the resolve phase.
 var actions_to_execute: Array[StoredAction] = []
 
+## Random number generator used to calculate chances.
+var prng: RandomNumberGenerator = RandomNumberGenerator.new()
+
+func _ready() -> void:
+	prng.randomize()
+
 ## Loop through the passed actions that need to be performed.
 func execute_actions(actions: Array[StoredAction]) -> void:
 	actions_to_execute.append_array( actions )
@@ -49,6 +55,7 @@ func execute_action(action: StoredAction) -> void:
 	var has_skill: bool = action.skill_data != null
 	if has_skill == true:
 		action_mediator = action.skill_data.get_usable_data( activator )
+		# TODO: Get the skill chance to hit.
 		activator.sub_sp( action.skill_data.cost )
 	
 	# Get some normal damage
@@ -65,8 +72,16 @@ func execute_action(action: StoredAction) -> void:
 			# TODO: If enemy target is dead, and their are still enemies, target another enemy.
 			for target: Combatant in action.get_targets():
 				if target != null:
-					# Apply damage
-					target.take_damage( action_mediator.damage_data["base_damage"] )
+					var generated_number: int = prng.randi() % 101
+					
+					if OS.is_debug_build() == true:
+						print("ActionExecutor :: PRNG generated %s for chance to hit." % [str(generated_number)])
+					
+					# Chance to hit
+					if generated_number <= Formulas.get_chance_to_hit(activator, target):
+						# TODO: Crit chance
+						# Apply damage
+						target.take_damage( action_mediator.damage_data["base_damage"] )
 					
 					if OS.is_debug_build() == true:
 						print("ActionExecutor :: Damage that was dealt was: ", action_mediator.damage_data["base_damage"])
@@ -76,6 +91,7 @@ func execute_action(action: StoredAction) -> void:
 		ActionTypes.ActionTypes.AllAllies, ActionTypes.ActionTypes.SingleAlly:
 			for target: Combatant in action.get_targets():
 				if target != null:
+					# TODO: Chance for success?
 					target.heal( action_mediator.heal_amount )
 					
 					# TODO: Apply status effects, if any

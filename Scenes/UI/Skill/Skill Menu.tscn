@@ -59,6 +59,7 @@ text = "No available skills point"
 
 [node name="ConfirmButton" type="Button" parent="SkillMenu/SkillPanel"]
 custom_minimum_size = Vector2(200, 50)
+layout_mode = 0
 offset_left = 233.0
 offset_top = 707.0
 offset_right = 433.0
