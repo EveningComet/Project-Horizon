@@ -34,18 +34,18 @@ func on_visibility_changed():
 		render_tab( tab_bar.current_tab )
 
 func render_tab(index: int):
-	if (len(characters) > 0):
+	if (PlayerPartyController.has_members()):
 		current_character = characters[index]
 		show_skills()
-		set_available_skill_points( current_character.available_skill_points )
+		set_draft_skill_points( current_character.available_skill_points )
 
 func confirm_points():
 	current_character.available_skill_points = draft_available_skill_points
-	set_available_skill_points( current_character.available_skill_points )
+	set_draft_skill_points( current_character.available_skill_points )
 	get_tree().call_group( skills_group_name, "confirm" )
 
 func undo_points():
-	set_available_skill_points( current_character.available_skill_points )
+	set_draft_skill_points( current_character.available_skill_points )
 	get_tree().call_group( skills_group_name, "undo" )
 
 func show_skills():
@@ -62,18 +62,15 @@ func make_skill_button(skill: SkillInstance) -> SkillMenuButton:
 	return button
 
 func on_skill_upgraded():
-	undo_skill_points_button.disabled = false
-	confirm_button.disabled = false
-	set_available_skill_points( draft_available_skill_points - 1 )
-	set_available_skill_points_label()
+	set_draft_skill_points( draft_available_skill_points - 1 )
 
-func set_available_skill_points(new_value: int):
+func set_draft_skill_points(new_value: int):
 	draft_available_skill_points = new_value
-	set_available_skill_points_label()
+	set_draft_skill_points_label()
 	disable_skills_if_no_points_left()
 	disable_confirm_and_undo_if_no_action_taken()
 
-func set_available_skill_points_label():
+func set_draft_skill_points_label():
 	skill_points_label.text = "Available skill points: "
 	skill_points_label.text += str( draft_available_skill_points )
 

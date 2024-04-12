@@ -22,7 +22,6 @@ func enable():
 
 func upgrade_skill():
 	set_upgrade_level( draft_level + 1 )
-	set_level_text()
 	emit_signal( "skill_upgraded" )
 
 func confirm():
