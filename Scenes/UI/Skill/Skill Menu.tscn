@@ -5,7 +5,7 @@
 
 [node name="SkillMenu" type="CanvasLayer"]
 
-[node name="SkillMenu" type="Control" parent="." node_paths=PackedStringArray("tab_bar", "exit_button", "skill_container", "skill_description_label")]
+[node name="SkillMenu" type="Control" parent="." node_paths=PackedStringArray("tab_bar", "exit_button", "undo_skill_points_button", "skill_container", "skill_points_label")]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 399.0
@@ -15,8 +15,9 @@ offset_bottom = 253.0
 script = ExtResource("1_gb7ft")
 tab_bar = NodePath("TabBar")
 exit_button = NodePath("ExitButton")
+undo_skill_points_button = NodePath("SkillPanel/UndoSkillPointsLabel")
 skill_container = NodePath("SkillPanel/HBoxContainer")
-skill_description_label = NodePath("SkillPanel/SkillDescriptionPanel/SkillDescriptionLabel")
+skill_points_label = NodePath("SkillPanel/SkillPointsLabel")
 skill_menu_button_template = ExtResource("2_44m12")
 
 [node name="TabBar" type="TabBar" parent="SkillMenu"]
@@ -36,33 +37,31 @@ offset_right = 40.0
 offset_bottom = 80.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="SkillMenu/SkillPanel"]
-layout_mode = 0
-offset_left = 352.0
-offset_top = 24.0
-offset_right = 452.0
-offset_bottom = 124.0
+layout_mode = 1
+offset_left = 32.0
+offset_top = 37.0
+offset_right = 132.0
+offset_bottom = 137.0
 
 [node name="SkillMenuButton" parent="SkillMenu/SkillPanel/HBoxContainer" instance=ExtResource("2_44m12")]
 layout_mode = 2
 
-[node name="SkillDescriptionPanel" type="Panel" parent="SkillMenu/SkillPanel"]
-custom_minimum_size = Vector2(300, 500)
+[node name="UndoSkillPointsLabel" type="Button" parent="SkillMenu/SkillPanel"]
+custom_minimum_size = Vector2(200, 50)
 layout_mode = 0
-offset_left = 32.0
-offset_top = 24.0
-offset_right = 182.0
-offset_bottom = 99.0
+offset_left = 225.0
+offset_top = 707.0
+offset_right = 425.0
+offset_bottom = 757.0
+text = "Undo points"
 
-[node name="SkillDescriptionLabel" type="RichTextLabel" parent="SkillMenu/SkillPanel/SkillDescriptionPanel"]
-layout_mode = 2
-offset_left = 24.0
-offset_top = 20.0
-offset_right = 274.0
-offset_bottom = 320.0
-bbcode_enabled = true
-text = "[b]Skills name[/b]
-Skill description
-Later maybe add a portrait in this panel, where we will overlay the skill description on top"
+[node name="SkillPointsLabel" type="Label" parent="SkillMenu/SkillPanel"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 723.0
+offset_right = 177.0
+offset_bottom = 746.0
+text = "Available skill points: nn"
 
 [node name="ExitButton" type="Button" parent="SkillMenu"]
 custom_minimum_size = Vector2(50, 0)
