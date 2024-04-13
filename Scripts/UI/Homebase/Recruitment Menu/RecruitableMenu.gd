@@ -35,8 +35,13 @@ func _unhandled_input(event: InputEvent) -> void:
 			if player_is_doing_something == true:
 				# TODO: Check which menu is open first. The menus should be closed in order.
 				character_name_entry.close()
+				
+				class_container.show()
+				class_description_holder.show()
+				class_container.get_child(0).grab_focus()
 				player_is_doing_something = false
 				return
+				
 			close_recruitable_menu.emit()
 
 func display_classes(pc_classes: Array[CharacterClass]) -> void:

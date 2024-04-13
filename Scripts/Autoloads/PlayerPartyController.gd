@@ -25,3 +25,7 @@ func add_at_index(pm_to_add: PlayerCombatant, index: int) -> void:
 
 func remove_party_member(pm_to_remove: PlayerCombatant) -> void:
 	party_members.erase( pm_to_remove )
+
+func fully_restore_hp_and_sp_of_party() -> void:
+	for pm: PlayerCombatant in party_members:
+		pm.fully_restore_hp_and_sp()

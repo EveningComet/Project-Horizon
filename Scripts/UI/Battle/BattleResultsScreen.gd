@@ -20,19 +20,27 @@ func _ready() -> void:
 	is_active = false
 	hide()
 
-func activate(xp_to_reward: int) -> void:
+func activate(player_victory: bool, player_retreat: bool, xp_to_reward: int) -> void:
 	show()
-	handle_player_victory(xp_to_reward)
+	
+	# TODO: The player should really go to another place for healing.
+	# This is fine for now.
+	PlayerPartyController.fully_restore_hp_and_sp_of_party()
+	
+	if player_victory == true:
+		handle_player_victory(xp_to_reward)
+	elif player_victory == false:
+		handle_player_defeat()
 
 func handle_player_victory(xp_to_reward: int) -> void:
-	# Spawn a portrait of everyone that fought in this battle
 	for pm: PlayerCombatant in PlayerPartyController.party_members:
+		
+		# Spawn a portrait of everyone that fought in this battle
 		var pm_battle_result: PMBattleResult = pm_result_prefab.instantiate()
 		party_grid_container.add_child( pm_battle_result )
 		pm_battle_result.set_player_character( pm )
 	
-	# Give the experience points
-	for pm: PlayerCombatant in PlayerPartyController.party_members:
+		# Give the experience points
 		pm.gain_experience( xp_to_reward )
 	
 	# Populate the item menu, if relevant
@@ -41,9 +49,11 @@ func handle_player_victory(xp_to_reward: int) -> void:
 	await get_tree().create_timer(0.5).timeout 
 	is_active = true
 
-# TODO: Implement defeat and retreat.
 func handle_player_defeat() -> void:
-	pass
+	# Prevent the player from dipping before seeing anything
+	await get_tree().create_timer(0.5).timeout 
+	is_active = true
 
+# TODO: Implement retreat.
 func player_retreat() -> void:
 	pass

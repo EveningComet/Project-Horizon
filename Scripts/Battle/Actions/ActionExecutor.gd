@@ -47,8 +47,12 @@ func next_action() -> void:
 	execute_action( current_action )
 
 func execute_action(action: StoredAction) -> void:
-	# TODO: Safety checks to make sure the activator and targets are not dead.
+	# Safety check for making sure the activator still exists
 	var activator: Combatant = action.activator
+	if activator == null or activator.stats[StatTypes.stat_types.CurrentHP] <= 0:
+		next_action()
+		return
+		
 	var action_mediator: ActionMediator = ActionMediator.new()
 	
 	# Get all the data we need before hand

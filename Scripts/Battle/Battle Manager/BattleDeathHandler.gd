@@ -38,9 +38,16 @@ func on_combatant_hp_depleted(combatant: Combatant) -> void:
 		results["player_victory"]              = true
 		results["experience_points_to_reward"] = experience_points_to_give
 	
-	# TODO: Handling the player characters falling in combat.
 	if combatant is PlayerCombatant:
-		pass
+		for c in spawned_combatants:
+			if c is PlayerCombatant and c.stats[StatTypes.stat_types.CurrentHP] > 0:
+				return
+		
+		# At this point, it's safe to say the player lost
+		if OS.is_debug_build() == true:
+			print("DeathHandler :: The player has lost.")
+		results["player_victory"]              = false
+		results["experience_points_to_reward"] = experience_points_to_give
 
 func on_combatant_spawned(combatant: Combatant) -> void:
 	spawned_combatants.append( combatant )

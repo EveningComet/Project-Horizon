@@ -47,8 +47,11 @@ func setup_for_new_turn() -> void:
 	# Get the current character's the player has and then make the player
 	# start selecting actions for the first character in their party
 	# TODO: Check for summons? Should really check for a variable or function maybe.
-	for character in spawned_combatants_node.get_children():
-		if character is PlayerCombatant:
+	for character: Combatant in spawned_combatants_node.get_children():
+		
+		# If the character is a player combatant and they have enough health,
+		# then the player can select actions for that character
+		if character is PlayerCombatant and character.stats[StatTypes.stat_types.CurrentHP] > 0:
 			party_members_to_go_through.append( character )
 			
 	curr_combatant_idx = 0

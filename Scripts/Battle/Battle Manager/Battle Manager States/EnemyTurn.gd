@@ -12,6 +12,26 @@ func exit() -> void:
 
 func process_enemy_turn() -> void:
 	var actions_to_send: Array[StoredAction] = []
+	var enemies_to_process: Array[EnemyCombatant] = []
+	var player_targets:     Array[PlayerCombatant] = []
+	for com in my_state_machine.combatants:
+		if com is EnemyCombatant:
+			enemies_to_process.append( com )
+		elif com is PlayerCombatant:
+			player_targets.append(com)
+	
+	# TODO: Implement better enemies. For now, just have them attack the first
+	# person in the player's party with enough hp
+	for enemy: EnemyCombatant in enemies_to_process:
+		var action: StoredAction = StoredAction.new()
+		action.set_activator( enemy )
+		for player_character: PlayerCombatant in player_targets:
+			if player_character.stats[StatTypes.stat_types.CurrentHP] > 0:
+				action.recipients.append( player_character )
+				action.action_type = ActionTypes.ActionTypes.SingleEnemy
+				actions_to_send.append( action )
+				break
+	
 	EventBus.side_finished_turn.emit( actions_to_send )
 
 func on_enemy_finished_turn(actions_to_send: Array[StoredAction]) -> void:

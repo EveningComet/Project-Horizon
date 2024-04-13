@@ -155,6 +155,10 @@ func take_damage(dmg_amount: int) -> void:
 	if stats[StatTypes.stat_types.CurrentHP] <= 0:
 		die()
 
+func fully_restore_hp_and_sp() -> void:
+	stats[StatTypes.stat_types.CurrentHP] = stats[StatTypes.stat_types.MaxHP].get_calculated_value()
+	stats[StatTypes.stat_types.CurrentSP] = stats[StatTypes.stat_types.MaxSP].get_calculated_value()
+
 func heal(heal_amount: int) -> void:
 	stats[StatTypes.stat_types.CurrentHP] += heal_amount
 	if stats[StatTypes.stat_types.CurrentHP] > stats[StatTypes.stat_types.MaxHP].get_calculated_value():
