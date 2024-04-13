@@ -101,6 +101,14 @@ func get_perception() -> int:
 		true_perception.add_modifier( mod )
 	return floor( true_perception.get_calculated_value() )
 
+## Return the "true" base defense for this character.
+func get_defense() -> int:
+	var vitality:     int  = stats[StatTypes.stat_types.Vitality].get_calculated_value()
+	var true_defense: Stat = Stat.new(vitality * 2, true)
+	for mod: StatModifier in stats[StatTypes.stat_types.Defense].get_modifiers():
+		true_defense.add_modifier( mod )
+	return floor( true_defense.get_calculated_value() )
+
 ## Returns the "true" evasion for a character.
 func get_evasion() -> int:
 	var vitality:  int = stats[StatTypes.stat_types.Vitality].get_calculated_value()
@@ -138,7 +146,7 @@ func remove_modifier(stat_type: StatTypes.stat_types, mod_to_remove: StatModifie
 
 func take_damage(dmg_amount: int) -> void:
 	# TODO: Check for damage types, such as fire, psychic, etc.
-	dmg_amount -= round( stats[StatTypes.stat_types.Defense].get_calculated_value() )
+	dmg_amount -= get_defense()
 	if dmg_amount < 1:
 		dmg_amount = 1
 		

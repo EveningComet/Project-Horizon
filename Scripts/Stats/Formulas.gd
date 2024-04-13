@@ -19,6 +19,24 @@ static func get_chance_to_hit(
 ) -> int:
 	return floor( success_chance + (activator.get_perception() - receiver.get_evasion()) )
 
+func predict_physical_damage_against(
+	attacker: Combatant,
+	receiver: Combatant,
+	power_scale: float = 1.0
+) -> int:
+	var attacker_physical_power: int = attacker.get_physical_power()
+	var receiver_defense:        int = receiver.get_defense()
+	return attacker_physical_power - receiver_defense
+
+func predict_special_damage_against(
+	attacker: Combatant,
+	receiver: Combatant,
+	power_scale: float = 1.0
+) -> int:
+	var attacker_special_power: int = attacker.get_special_power()
+	var receiver_defense:        int = receiver.get_defense()
+	return attacker_special_power - receiver_defense
+
 ## Get the critical hit chance.
 static func get_critical_hit_chance(
 	activator: Combatant
