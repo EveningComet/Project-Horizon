@@ -19,7 +19,7 @@ var status_effect_holder: StatusEffectHolder = StatusEffectHolder.new()
 ## The skills being monitored for this character.
 var skill_holder: SkillHolder = SkillHolder.new()
 
-## Initialize the stats. This base class just gives default values
+## Initialize the stats. This version just gives base values.
 func initialize() -> void:
 	# Attributes
 	stats[StatTypes.stat_types.Vitality] = Stat.new(
@@ -34,7 +34,10 @@ func initialize() -> void:
 		5,
 		true
 	)
-	
+	initialize_vitals()
+	initialize_other_stats()
+
+func initialize_vitals() -> void:
 	# Vitals
 	stats[StatTypes.stat_types.MaxHP] = Stat.new(
 		stats[StatTypes.stat_types.Vitality].get_calculated_value() * 3,
@@ -46,17 +49,36 @@ func initialize() -> void:
 		true
 	)
 	stats[StatTypes.stat_types.CurrentSP] = stats[StatTypes.stat_types.MaxSP].get_calculated_value()
-	
-	# Other stats
+
+## Setup the other stats.
+func initialize_other_stats() -> void:
+	# This is the "bonus" base defense
 	stats[StatTypes.stat_types.Defense] = Stat.new(
-		stats[StatTypes.stat_types.Vitality].get_calculated_value() * 2,
+		0,
 		true
 	)
 	
-	# TODO: Figure out how to handle this as the "base" speed.
+	# This is the "bonus" speed
 	stats[StatTypes.stat_types.Speed] = Stat.new(
-		(stats[StatTypes.stat_types.Vitality].get_calculated_value() *
-		stats[StatTypes.stat_types.Will].get_calculated_value()) / 2,
+		0,
+		true
+	)
+	
+	# The "bonus" perception
+	stats[StatTypes.stat_types.Perception] = Stat.new(
+		0,
+		true
+	)
+	
+	# This is the "bonus" evasion
+	stats[StatTypes.stat_types.Evasion] = Stat.new(
+		0,
+		true
+	)
+	
+	# This is the "bonus" critical hit chance
+	stats[StatTypes.stat_types.CriticalHitChance] = Stat.new(
+		0,
 		true
 	)
 
@@ -70,26 +92,41 @@ func get_physical_power() -> int:
 func get_special_power() -> int:
 	return stats[StatTypes.stat_types.Will].get_calculated_value() * 2
 
-# TODO: Base perception value to allow stats to change it.
 ## Return the "true" perception, which is used for the chance to hit.
 func get_perception() -> int:
 	var expertise: int = stats[StatTypes.stat_types.Expertise].get_calculated_value()
 	var will:      int = stats[StatTypes.stat_types.Will].get_calculated_value()
-	return expertise + will
+	var true_perception: Stat = Stat.new(expertise + will, true)
+	for mod: StatModifier in stats[StatTypes.stat_types.Perception].get_modifiers():
+		true_perception.add_modifier( mod )
+	return floor( true_perception.get_calculated_value() )
 
-# TODO: Implement the base evasion.
 ## Returns the "true" evasion for a character.
 func get_evasion() -> int:
 	var vitality:  int = stats[StatTypes.stat_types.Vitality].get_calculated_value()
 	var expertise: int = stats[StatTypes.stat_types.Expertise].get_calculated_value()
-	return vitality + expertise
+	var true_evasion: Stat = Stat.new(vitality + expertise, true)
+	for mod: StatModifier in stats[StatTypes.stat_types.Evasion].get_modifiers():
+		true_evasion.add_modifier( mod )
+	return floor( true_evasion.get_calculated_value() )
+
+## Get the true critical hit chance for a character.
+func get_crit_chance() -> int:
+	var expertise: int = stats[StatTypes.stat_types.Expertise].get_calculated_value()
+	var true_crit_chance: Stat = Stat.new(expertise, true)
+	for mod: StatModifier in stats[StatTypes.stat_types.CriticalHitChance].get_modifiers():
+		true_crit_chance.add_modifier( mod )
+	return floor( true_crit_chance.get_calculated_value() )
 
 ## Gets the "true" speed for a character, which takes into account the
 ## character's base speed and modifiers.
 func get_speed() -> int:
 	var vitality: int = stats[StatTypes.stat_types.Vitality].get_calculated_value()
 	var will:     int = stats[StatTypes.stat_types.Will].get_calculated_value()
-	return floor( (vitality + will) / 2 )
+	var true_speed: Stat = Stat.new(vitality + will, true)
+	for mod: StatModifier in stats[StatTypes.stat_types.Speed].get_modifiers():
+		true_speed.add_modifier( mod )
+	return floor( true_speed.get_calculated_value() / 2 )
 	
 func add_modifier(stat_type: StatTypes.stat_types, mod_to_add: StatModifier) -> void:
 	stats[stat_type].add_modifier( mod_to_add )

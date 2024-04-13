@@ -8,9 +8,9 @@
 script = ExtResource("1_01b5t")
 localization_name = "Aegis"
 localization_description = "Operators of high tech suits of armor or small craft."
-starting_vitality = 10
-starting_expertise = 10
-starting_will = 10
+starting_vitality = 8
+starting_expertise = 5
+starting_will = 7
 vitality_on_increase = 5
 expertise_on_increase = 5
 will_on_increase = 5

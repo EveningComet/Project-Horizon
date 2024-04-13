@@ -36,8 +36,9 @@ func enter(msgs: Dictionary = {}) -> void:
 			elif stored_action.action_type == ActionTypes.ActionTypes.SingleAlly:
 				target_scan_node = player_battle_hud.player_party_container
 			
-			for battle_ui in target_scan_node.get_children():
-				battle_ui.mouse_entered.connect( on_mouse_entered )
+			if target_scan_node != null:
+				for battle_ui in target_scan_node.get_children():
+					battle_ui.mouse_entered.connect( on_mouse_entered )
 
 func exit() -> void:
 	stored_action = null

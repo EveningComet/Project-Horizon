@@ -11,6 +11,7 @@ static var base_critical_hit_chance: float = 5.0
 static var crit_chance_scaler: int = 4
 
 ## Displays the chance a character has to hit their target.
+## The success chance will be changed based on the skill used.
 static func get_chance_to_hit(
 	activator: Combatant,
 	receiver: Combatant,
@@ -23,5 +24,5 @@ static func get_critical_hit_chance(
 	activator: Combatant
 ) -> int:
 	var a = base_critical_hit_chance
-	var b = activator.stats[StatTypes.stat_types.Expertise] / crit_chance_scaler
+	var b = activator.get_crit_chance() / crit_chance_scaler
 	return floor( max(base_critical_hit_chance, a + b) )

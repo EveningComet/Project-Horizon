@@ -43,6 +43,10 @@ func sort_ascending(mod_a, mod_b):
 		return true
 	return false
 
+## Returns the modifiers, if any.
+func get_modifiers() -> Array[StatModifier]:
+	return modifiers
+
 ## Get the calculated value for this stat.
 func get_calculated_value() -> float:
 	var final_value = base_value
