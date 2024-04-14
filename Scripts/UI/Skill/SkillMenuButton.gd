@@ -11,6 +11,7 @@ func initialize(_skill: SkillInstance):
 	skill = _skill
 	button_down.connect( upgrade_skill )
 	set_correct_texture_and_text()
+	enable_button_if_skill_unlocked()
 	
 func disable():
 	disabled = true
@@ -29,6 +30,12 @@ func confirm():
 
 func undo():
 	set_upgrade_level( skill.current_upgrade_level )
+
+func enable_button_if_skill_unlocked():
+	if (skill.is_unlocked):
+		enable()
+	else:
+		disable()
 
 func set_correct_texture_and_text():
 	texture_normal = skill.monitored_skill.display_texture

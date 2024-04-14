@@ -75,8 +75,8 @@ func set_draft_skill_points_label():
 	skill_points_label.text += str( draft_available_skill_points )
 
 func disable_skills_if_no_points_left():
-	var function_name = "disable" if draft_available_skill_points == 0 else "enable"
-	get_tree().call_group( skills_group_name, function_name )
+	if (draft_available_skill_points == 0):
+		get_tree().call_group( skills_group_name, "disable" )
 
 func disable_confirm_and_undo_if_no_action_taken():
 	var no_action_taken: bool = draft_available_skill_points == current_character.available_skill_points
