@@ -9,8 +9,11 @@ signal skill_upgraded()
 
 func initialize(_skill: SkillInstance):
 	skill = _skill
+	skill.subscribe_skill_unlocked( 
+		enable_button_if_skill_unlocked )
 	button_down.connect( upgrade_skill )
 	set_correct_texture_and_text()
+	enable_button_if_skill_unlocked()
 	
 func disable():
 	disabled = true
@@ -25,10 +28,17 @@ func upgrade_skill():
 	emit_signal( "skill_upgraded" )
 
 func confirm():
-	skill.current_upgrade_level = draft_level
+	skill.upgrade_to_level( draft_level )
 
 func undo():
 	set_upgrade_level( skill.current_upgrade_level )
+	enable_button_if_skill_unlocked()
+
+func enable_button_if_skill_unlocked():
+	if (skill.is_unlocked):
+		enable()
+	else:
+		disable()
 
 func set_correct_texture_and_text():
 	texture_normal = skill.monitored_skill.display_texture

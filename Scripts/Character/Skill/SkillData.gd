@@ -33,6 +33,9 @@ class_name SkillData extends Resource
 ## For skills that need a success chance, what is the base chance of succeeding?
 @export_range(0.0, 1.0) var success_chance: float = 1.0
 
+## If the skill is unlocked by default
+@export var is_unlocked_by_default: bool = false
+
 ## The skills that get unlocked based on the rank of this skill.
 @export var unlockable: Array[SkillData] = []
 
