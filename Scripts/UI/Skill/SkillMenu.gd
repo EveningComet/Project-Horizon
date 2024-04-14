@@ -21,7 +21,7 @@ func _ready():
 	exit_button.button_down.connect( canvas.hide )
 	confirm_button.button_down.connect( confirm_points )
 	undo_skill_points_button.button_down.connect( undo_points )
-	skills_tree_renderer.initialize(on_skill_upgraded, skill_points_depleted)
+	skills_tree_renderer.initialize( on_skill_upgraded, skill_points_depleted )
 
 func add_tabs_per_character():
 	tab_bar.clear_tabs()

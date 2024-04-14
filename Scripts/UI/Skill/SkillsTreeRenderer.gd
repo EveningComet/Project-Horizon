@@ -39,9 +39,9 @@ func draw_lines_to_all_unlockables_from(button: SkillMenuButton):
 	var unlockables := skill_data.unlockable
 	for unlockable in unlockables:
 		var target := button_per_skill[unlockable] as SkillMenuButton
-		var line := spawn_connecting_line(button, target)
+		var line := spawn_connecting_line( button, target )
 		fade_in( line )
-		skill_container.add_child(line)
+		skill_container.add_child( line )
 
 func spawn_connecting_line(begin: SkillMenuButton, end: SkillMenuButton) -> Line2D:
 	var line := Line2D.new()

@@ -35,7 +35,6 @@ func get_new_unlocked_skills() -> Array[SkillData]:
 	for skill in monitored_skill.unlockable:
 		if (not skill_already_unlocked( skill ) and can_unlock_skill( skill )):
 			new_skills.append( skill )
-			print(monitored_skill.localization_name, " unlocked ", skill.localization_name)
 	return new_skills
 
 func can_unlock_skill(skill: SkillData):
