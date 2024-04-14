@@ -50,7 +50,7 @@ func undo_points():
 
 func show_skills():
 	clear_skills()
-	for skill in current_character.skill_holder.skills:
+	for skill in current_character.skill_holder.skills():
 		var button:= make_skill_button( skill )
 		skill_container.add_child( button )
 
