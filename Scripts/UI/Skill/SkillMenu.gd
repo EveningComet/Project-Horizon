@@ -9,6 +9,7 @@ class_name SkillMenu extends Control
 @export var skill_menu_button_template: PackedScene
 @export var canvas: CanvasLayer
 
+signal skill_points_depleted
 const skills_group_name := "skills"
 
 var characters:= PlayerPartyController.party_members
@@ -56,7 +57,7 @@ func show_skills():
 
 func make_skill_button(skill: SkillInstance) -> SkillMenuButton:
 	var button := skill_menu_button_template.instantiate() as SkillMenuButton
-	button.initialize( skill )
+	button.initialize( skill, skill_points_depleted )
 	button.add_to_group( skills_group_name )
 	button.skill_upgraded.connect( on_skill_upgraded )
 	return button
@@ -66,17 +67,14 @@ func on_skill_upgraded():
 
 func set_draft_skill_points(new_value: int):
 	draft_available_skill_points = new_value
+	if (draft_available_skill_points == 0):
+		emit_signal("skill_points_depleted")
 	set_draft_skill_points_label()
-	disable_skills_if_no_points_left()
 	disable_confirm_and_undo_if_no_action_taken()
 
 func set_draft_skill_points_label():
 	skill_points_label.text = "Available skill points: "
 	skill_points_label.text += str( draft_available_skill_points )
-
-func disable_skills_if_no_points_left():
-	if (draft_available_skill_points == 0):
-		get_tree().call_group( skills_group_name, "disable" )
 
 func disable_confirm_and_undo_if_no_action_taken():
 	var no_action_taken: bool = draft_available_skill_points == current_character.available_skill_points

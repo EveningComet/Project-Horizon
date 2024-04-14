@@ -12,4 +12,5 @@ func skills() -> Array:
 
 func on_new_skills_unlocked(skill: SkillInstance, unlocked: Array[SkillData]):
 	for data in unlocked:
-		skill_data_instances[data].unlock()
+		if (skill_data_instances.has(data)):
+			skill_data_instances[data].unlock()
