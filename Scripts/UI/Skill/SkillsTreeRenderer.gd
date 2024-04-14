@@ -26,7 +26,6 @@ func start(skills: Array):
 	for skill in skills:
 		var button:= make_skill_button( skill ) as SkillMenuButton
 		button_per_skill[skill.monitored_skill] = button
-		fade_in( button )
 		skill_container.add_child( button )
 	wait_skills_render_timer.start() 
 
