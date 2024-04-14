@@ -4,13 +4,11 @@ class_name SkillMenu extends Control
 @export var exit_button: Button
 @export var confirm_button: Button
 @export var undo_skill_points_button: Button
-@export var skill_container: HBoxContainer
 @export var skill_points_label: Label
-@export var skill_menu_button_template: PackedScene
 @export var canvas: CanvasLayer
+@export var skills_tree_renderer: SkillsTreeRenderer
 
 signal skill_points_depleted
-const skills_group_name := "skills"
 
 var characters:= PlayerPartyController.party_members
 var current_character: PlayerCombatant
@@ -23,6 +21,7 @@ func _ready():
 	exit_button.button_down.connect( canvas.hide )
 	confirm_button.button_down.connect( confirm_points )
 	undo_skill_points_button.button_down.connect( undo_points )
+	skills_tree_renderer.initialize( on_skill_upgraded, skill_points_depleted )
 
 func add_tabs_per_character():
 	tab_bar.clear_tabs()
@@ -37,30 +36,17 @@ func on_visibility_changed():
 func render_tab(index: int):
 	if (PlayerPartyController.has_members()):
 		current_character = characters[index]
-		show_skills()
+		skills_tree_renderer.start(current_character.skill_holder.skills())
 		set_draft_skill_points( current_character.available_skill_points )
 
 func confirm_points():
 	current_character.available_skill_points = draft_available_skill_points
 	set_draft_skill_points( current_character.available_skill_points )
-	get_tree().call_group( skills_group_name, "confirm" )
+	get_tree().call_group( skills_tree_renderer.skills_group_name, "confirm" )
 
 func undo_points():
 	set_draft_skill_points( current_character.available_skill_points )
-	get_tree().call_group( skills_group_name, "undo" )
-
-func show_skills():
-	clear_skills()
-	for skill in current_character.skill_holder.skills():
-		var button:= make_skill_button( skill )
-		skill_container.add_child( button )
-
-func make_skill_button(skill: SkillInstance) -> SkillMenuButton:
-	var button := skill_menu_button_template.instantiate() as SkillMenuButton
-	button.initialize( skill, skill_points_depleted )
-	button.add_to_group( skills_group_name )
-	button.skill_upgraded.connect( on_skill_upgraded )
-	return button
+	get_tree().call_group( skills_tree_renderer.skills_group_name, "undo" )
 
 func on_skill_upgraded():
 	set_draft_skill_points( draft_available_skill_points - 1 )
@@ -80,8 +66,3 @@ func disable_confirm_and_undo_if_no_action_taken():
 	var no_action_taken: bool = draft_available_skill_points == current_character.available_skill_points
 	confirm_button.disabled = no_action_taken
 	undo_skill_points_button.disabled = no_action_taken
-
-func clear_skills():
-	for child in skill_container.get_children():
-		skill_container.remove_child( child )
-		child.queue_free()
