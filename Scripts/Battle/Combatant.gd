@@ -7,9 +7,6 @@ class_name Combatant extends Node
 ## Called when a stat on this character has been changed.
 signal stat_changed( combatant: Combatant )
 
-## The skills that this character has unlocked.
-@export var available_skills: Array[SkillData] = []
-
 ## Stores the stats for this character.
 var stats: Dictionary = {}
 

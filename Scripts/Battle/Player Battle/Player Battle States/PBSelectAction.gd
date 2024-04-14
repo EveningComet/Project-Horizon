@@ -22,6 +22,9 @@ func check_for_unhandled_input(event: InputEvent) -> void:
 			my_state_machine.get_pac().close()
 			my_state_machine.get_pac().open( my_state_machine.get_current_combatant() )
 			return
+		
+		# Allow going back to the previous party member, if able.
+		
 
 ## Activated when the player selects what their character wants to do.
 func on_action_selected(new_action: StoredAction) -> void:

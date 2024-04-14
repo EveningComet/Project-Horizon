@@ -10,7 +10,7 @@ var activator: Combatant
 var action_type: ActionTypes.ActionTypes = ActionTypes.ActionTypes.SingleEnemy
 
 ## When a character is using an ability/skill.
-var skill_data: SkillData
+var skill_instance: SkillInstance
 
 ## The target or targets that is the receiver of the activator.
 var recipients: Array[Combatant] = []

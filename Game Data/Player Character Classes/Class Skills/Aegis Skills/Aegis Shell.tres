@@ -22,6 +22,7 @@ minimum_rank_of_previous = 1
 base_power_scale = 1.0
 upgrade_scale = 5.0
 success_chance = 1.0
+is_unlocked_by_default = false
 unlockable = Array[ExtResource("1_koweo")]([])
 is_ranged = false
 effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([SubResource("Resource_g3mnm")])

@@ -56,11 +56,13 @@ func execute_action(action: StoredAction) -> void:
 	var action_mediator: ActionMediator = ActionMediator.new()
 	
 	# Get all the data we need before hand
-	var has_skill: bool = action.skill_data != null
+	var has_skill: bool = action.skill_instance != null
 	if has_skill == true:
-		action_mediator = action.skill_data.get_usable_data( activator )
+		# TODO: Proper getting of the power based on the upgrade.
+		action_mediator = action.skill_instance.monitored_skill.get_usable_data( activator )
 		# TODO: Get the skill chance to hit.
-		activator.sub_sp( action.skill_data.cost )
+		# TODO: Proper getting of the subtraction based on the instance upgrade level.
+		activator.sub_sp( action.skill_instance.monitored_skill.cost )
 	
 	# Get some normal damage
 	else:
@@ -69,7 +71,6 @@ func execute_action(action: StoredAction) -> void:
 		action_mediator.damage_data["base_damage"] = power
 	
 	# Check what to do based on the stored action object
-	# TODO: Chance to hit + critical chance.
 	match action.action_type:
 		ActionTypes.ActionTypes.AllEnemies, ActionTypes.ActionTypes.SingleEnemy:
 			

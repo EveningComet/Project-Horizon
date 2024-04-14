@@ -18,16 +18,17 @@ func _ready() -> void:
 
 func set_skill_user(new_user: PlayerCombatant) -> void:
 	skill_user = new_user
-	for skill in skill_user.available_skills:
-		if skill.is_passive == false:
+	for skill_instance: SkillInstance in skill_user.skill_holder.skills():
+		if skill_instance.monitored_skill.is_passive == false:
 			var b: BattleActionButton = battle_skill_button_template.instantiate() as BattleActionButton
-			b.skill = skill
+			b.skill_instance = skill_instance
 			spawned_button_node.add_child( b )
-			b.disabled = skill_user.stats[StatTypes.stat_types.CurrentSP] < skill.cost
+			# TODO: Proper disabling based on the cost.
+			b.disabled = skill_user.stats[StatTypes.stat_types.CurrentSP] < skill_instance.monitored_skill.cost
 			b.skill_button_highlighted.connect( on_skill_button_highlighted )
 
 	if OS.is_debug_build() == true:
-		print("BattleSkillsMenu :: Skills for character: ", skill_user.available_skills)
+		print("BattleSkillsMenu :: Skills for character: ", skill_user.skill_holder.skills())
 
 ## Display the skills of the passed character to the player.
 func open() -> void:
@@ -47,5 +48,6 @@ func close() -> void:
 	hide()
 
 ## Update the description when the player has focused a skill button in some way.
-func on_skill_button_highlighted(sd: SkillData) -> void:
-	description.set_text(sd.localization_description)
+func on_skill_button_highlighted(si: SkillInstance) -> void:
+	description.set_text(si.monitored_skill.localization_description)
+	# TODO: Display the needed info like power output.

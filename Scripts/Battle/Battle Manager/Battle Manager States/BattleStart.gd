@@ -43,16 +43,8 @@ func spawn_enemies() -> void:
 		my_state_machine.add_combatant( enemy_combatant )
 		my_state_machine.spawned_combatants_node.add_child( enemy_combatant )
 		EventBus.combatant_spawned_in_battle.emit( enemy_combatant )
-		if OS.is_debug_build() == true:
-			print("BattleStart :: Added enemy Vitality=", enemy_combatant.vitality,
-				", Expertise=", enemy_combatant.expertise,
-				", Will=", enemy_combatant.will)
 
 func make_enemy(enemy_data: EnemyData) -> EnemyCombatant:
 	var enemy_combatant = EnemyCombatant.new()
-	enemy_combatant.vitality  = enemy_data.vitality
-	enemy_combatant.expertise = enemy_data.expertise
-	enemy_combatant.will      = enemy_data.will
-	enemy_combatant.experience_to_give_on_death = enemy_data.exp_on_death
-	enemy_combatant.initialize()
+	enemy_combatant.initialize_with_enemy_data( enemy_data )
 	return enemy_combatant

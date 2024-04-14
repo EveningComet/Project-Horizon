@@ -105,10 +105,6 @@ func on_class_selected(pc_class: CharacterClass) -> void:
 	new_character.initialize_with_class_data( pc_class )
 	add_child( new_character )
 	
-	# TODO: Proper skill adding. For now, just add all the skills
-	# Add the relevant skills to the character
-	new_character.available_skills.append_array( pc_class.skills )
-	
 	character_name_entry.start_accepting_input( new_character )
 
 func on_portrait_selected() -> void:

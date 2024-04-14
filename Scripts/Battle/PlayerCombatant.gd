@@ -47,13 +47,14 @@ func initialize_with_class_data(class_data: CharacterClass) -> void:
 	initialize_vitals()
 	initialize_other_stats()
 	
+	# Setup the relevant skills
 	skill_holder.initialize(class_data.skills)
 
 ## Initialize the player character based on another player character.
 func initialize_with_copy(copy: PlayerCombatant) -> void:
 	char_name        = copy.char_name
 	stats            = copy.stats
-	available_skills = copy.available_skills
+	skill_holder     = copy.skill_holder
 
 # TODO: Multiclassing.
 func set_pc_class(new_class: CharacterClass) -> void:

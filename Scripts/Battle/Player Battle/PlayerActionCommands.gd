@@ -29,7 +29,7 @@ func open(combatant: Combatant) -> void:
 	current_combatant = combatant
 	stored_action = StoredAction.new()
 	stored_action.activator = current_combatant
-	special_button.disabled = current_combatant.available_skills.size() < 1
+	special_button.disabled = current_combatant.skill_holder.skills().size() < 1
 	
 	if special_button.disabled == false:
 		battle_skills_menu.set_skill_user( current_combatant )
@@ -49,7 +49,7 @@ func close() -> void:
 	
 func on_action_button_pressed(action_button: BattleActionButton) -> void:
 	stored_action.action_type = action_button.action_type
-	stored_action.skill_data  = action_button.skill
+	stored_action.skill_instance  = action_button.skill_instance
 	action_selected.emit( stored_action )
 	
 func on_special_button_pressed() -> void:

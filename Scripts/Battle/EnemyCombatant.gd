@@ -1,40 +1,42 @@
 ## Data for an enemy character.
 class_name EnemyCombatant extends Combatant
 
-@export_category("Enemy Data")
-## How physically capable this enemy is. 
-@export var vitality:  int = 5
-## The expertise for this enemy.
-@export var expertise: int = 5
-## The will for this enemy.
-@export var will:      int = 5
+var stored_enemy_data: EnemyData = null
 
 ## The experience points this enemy should give on death.
-@export var experience_to_give_on_death: int = 15
+var experience_to_give_on_death: int = 15
 
-# TODO: Give bonus stats like max hp to enemies.
 # TODO: The Sprite/Portrait for this enemy.
 
 ## Is the regular attack ranged?
-@export var is_regular_attack_ranged: bool = false
+var is_regular_attack_ranged: bool = false
 
-func _ready() -> void:
-	initialize()
-
-func initialize() -> void:
+func initialize_with_enemy_data(enemy_data: EnemyData) -> void:
+	# Cache this enemy
+	stored_enemy_data = enemy_data
+	
 	# Attributes
 	stats[StatTypes.stat_types.Vitality] = Stat.new(
-		vitality,
+		enemy_data.vitality,
 		true
 	)
 	stats[StatTypes.stat_types.Expertise] = Stat.new(
-		expertise,
+		enemy_data.expertise,
 		true
 	)
 	stats[StatTypes.stat_types.Will]       = Stat.new(
-		will,
+		enemy_data.will,
 		true
 	)
-	
+	experience_to_give_on_death = enemy_data.exp_on_death
 	initialize_vitals()
 	initialize_other_stats()
+	skill_holder.initialize( enemy_data.available_skills )
+
+func initialize_vitals() -> void:
+	super()
+	# TODO: Here is where the enemy will be given extra bonus health, etc.
+
+func initialize_other_stats() -> void:
+	super()
+	# TODO: This is where the enemy would get extra defense, speed, etc.

@@ -11,4 +11,4 @@ class_name EnemyData extends Resource
 @export var exp_on_death: int = 100
 
 ## The skills this enemy can use.
-@export var skills: Array[SkillData] = []
+@export var available_skills: Array[SkillData] = []
