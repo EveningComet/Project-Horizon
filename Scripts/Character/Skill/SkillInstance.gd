@@ -14,9 +14,6 @@ func _init(skill: SkillData, _on_new_skills_unlocked: Callable):
 	unlocked_skills = []
 	current_upgrade_level = 0
 	on_new_skills_unlocked = _on_new_skills_unlocked
-	if (monitored_skill.is_unlocked_by_default):
-		unlock()
-		upgrade_to_level( 1 )
 
 func subscribe_skill_unlocked(callback: Callable):
 	on_this_skill_unlocked = callback
@@ -38,10 +35,11 @@ func get_new_unlocked_skills() -> Array[SkillData]:
 	for skill in monitored_skill.unlockable:
 		if (not skill_already_unlocked( skill ) and can_unlock_skill( skill )):
 			new_skills.append( skill )
+			print(monitored_skill.localization_name, " unlocked ", skill.localization_name)
 	return new_skills
 
 func can_unlock_skill(skill: SkillData):
-	return current_upgrade_level > skill.minimum_rank_of_previous
+	return current_upgrade_level >= skill.minimum_rank_of_previous
 
 func skill_already_unlocked(skill: SkillData):
 	return unlocked_skills.has( skill )
