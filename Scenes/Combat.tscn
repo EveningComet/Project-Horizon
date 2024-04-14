@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b5ob880mpsigo"]
+[gd_scene load_steps=22 format=3 uid="uid://b5ob880mpsigo"]
 
 [ext_resource type="Script" path="res://Scripts/Battle/Battle Manager/BattleManager.gd" id="2_6ahfq"]
 [ext_resource type="Script" path="res://Scripts/Battle/Battle Manager/Battle Manager States/BattleStart.gd" id="2_t654k"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://Scripts/Battle/Player Battle/PlayerBattleController.gd" id="8_e6ewj"]
 [ext_resource type="Script" path="res://Scripts/Battle/Player Battle/PlayerActionCommands.gd" id="10_c8j50"]
 [ext_resource type="PackedScene" uid="uid://cojhji8fg6py0" path="res://Scenes/UI/Battle/UI Battle Cursor.tscn" id="13_nw3rt"]
+[ext_resource type="Script" path="res://Scripts/Battle/EnemyDecisionHandler.gd" id="14_mr7ht"]
 [ext_resource type="Script" path="res://Scripts/Battle/BattleCursorController.gd" id="16_idmqv"]
 [ext_resource type="PackedScene" uid="uid://d3oovqlxv70nw" path="res://Scenes/UI/Battle/Enemy Battle HUD.tscn" id="16_iosug"]
 [ext_resource type="PackedScene" uid="uid://d0rud050eh1c1" path="res://Scenes/UI/Battle/Player Battle HUD.tscn" id="17_57lxs"]
@@ -62,8 +63,9 @@ script = ExtResource("2_t654k")
 [node name="PlayerTurn" type="Node" parent="BattleManager"]
 script = ExtResource("3_0nty4")
 
-[node name="EnemyTurn" type="Node" parent="BattleManager"]
+[node name="EnemyTurn" type="Node" parent="BattleManager" node_paths=PackedStringArray("enemy_decision_handler")]
 script = ExtResource("4_y71t8")
+enemy_decision_handler = NodePath("../../EnemyDecisionHandler")
 
 [node name="ResolveTurn" type="Node" parent="BattleManager" node_paths=PackedStringArray("action_executer")]
 script = ExtResource("5_tl20t")
@@ -77,6 +79,9 @@ battle_results_screen = NodePath("../../CanvasLayer/Battle Results Screen")
 [node name="ActionExecutor" type="Node" parent="." node_paths=PackedStringArray("death_handler")]
 script = ExtResource("17_i3r5f")
 death_handler = NodePath("../BattleDeathHandler")
+
+[node name="EnemyDecisionHandler" type="Node" parent="."]
+script = ExtResource("14_mr7ht")
 
 [node name="BattleDeathHandler" type="Node" parent="." node_paths=PackedStringArray("spawned_combatants_node")]
 script = ExtResource("20_pja1n")

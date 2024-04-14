@@ -9,4 +9,5 @@ vitality = 5
 expertise = 5
 will = 5
 exp_on_death = 100
-skills = Array[Resource("res://Scripts/Character/Skill/SkillData.gd")]([])
+available_skills = Array[Resource("res://Scripts/Character/Skill/SkillData.gd")]([])
+possible_decisions = Array[Resource("res://addons/utility_ai/core/utility_ai_behavior.gd")]([])
