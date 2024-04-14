@@ -7,13 +7,12 @@ var draft_level
 
 signal skill_upgraded()
 
-func initialize(_skill: SkillInstance):
+func initialize(_skill: SkillInstance, _points_depleted_signal: Signal):
 	skill = _skill
-	skill.subscribe_skill_unlocked( 
-		enable_button_if_skill_unlocked )
+	skill.subscribe_skill_unlocked( enable_button_if_possible )
 	button_down.connect( upgrade_skill )
+	_points_depleted_signal.connect( disable )
 	set_correct_texture_and_text()
-	enable_button_if_skill_unlocked()
 	
 func disable():
 	disabled = true
@@ -32,13 +31,6 @@ func confirm():
 
 func undo():
 	set_upgrade_level( skill.current_upgrade_level )
-	enable_button_if_skill_unlocked()
-
-func enable_button_if_skill_unlocked():
-	if (skill.is_unlocked):
-		enable()
-	else:
-		disable()
 
 func set_correct_texture_and_text():
 	texture_normal = skill.monitored_skill.display_texture
@@ -48,6 +40,7 @@ func set_correct_texture_and_text():
 func set_upgrade_level(new_value: int):
 	draft_level = new_value
 	set_level_text()
+	enable_button_if_possible()
 
 func set_level_text():
 	level_label.text = str( draft_level ) + "/" + str( skill.monitored_skill.max_rank )
@@ -62,3 +55,10 @@ func apply_grayscale():
 	
 func unapply_grayscale():
 	modulate = Color(1, 1, 1, 1)
+
+func enable_button_if_possible():
+	var is_maxed_out: bool = draft_level >= skill.monitored_skill.max_rank
+	if (skill.is_unlocked and not is_maxed_out):
+		enable()
+	else:
+		disable()
