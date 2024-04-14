@@ -1,11 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://dks4qxa6s4ful"]
+[gd_scene load_steps=4 format=3 uid="uid://dks4qxa6s4ful"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Skill/SkillMenu.gd" id="1_gb7ft"]
 [ext_resource type="PackedScene" uid="uid://bngujmgvwnby5" path="res://Scenes/UI/Skill/Skill Menu Button.tscn" id="2_44m12"]
+[ext_resource type="Script" path="res://Scripts/UI/Skill/SkillsTreeRenderer.gd" id="3_3kt4c"]
 
 [node name="SkillMenu" type="CanvasLayer"]
 
-[node name="SkillMenu" type="Control" parent="." node_paths=PackedStringArray("tab_bar", "exit_button", "confirm_button", "undo_skill_points_button", "skill_container", "skill_points_label", "canvas")]
+[node name="SkillMenu" type="Control" parent="." node_paths=PackedStringArray("tab_bar", "exit_button", "confirm_button", "undo_skill_points_button", "skill_points_label", "canvas", "skills_tree_renderer")]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 399.0
@@ -17,10 +18,15 @@ tab_bar = NodePath("TabBar")
 exit_button = NodePath("ExitButton")
 confirm_button = NodePath("SkillPanel/ConfirmButton")
 undo_skill_points_button = NodePath("SkillPanel/UndoSkillPointsButton")
-skill_container = NodePath("SkillPanel/HBoxContainer")
 skill_points_label = NodePath("SkillPanel/SkillPointsLabel")
-skill_menu_button_template = ExtResource("2_44m12")
 canvas = NodePath("..")
+skills_tree_renderer = NodePath("SkillsTreeRenderer")
+
+[node name="SkillsTreeRenderer" type="Node" parent="SkillMenu" node_paths=PackedStringArray("skill_container", "wait_skills_render_timer")]
+script = ExtResource("3_3kt4c")
+skill_container = NodePath("../SkillPanel/ScrollContainer/VBoxContainer/MarginContainer/HBoxContainer")
+skill_menu_button_template = ExtResource("2_44m12")
+wait_skills_render_timer = NodePath("../../WaitSkillsRenderTimer")
 
 [node name="TabBar" type="TabBar" parent="SkillMenu"]
 layout_mode = 0
@@ -38,14 +44,25 @@ offset_top = 40.0
 offset_right = 40.0
 offset_bottom = 80.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SkillMenu/SkillPanel"]
-layout_mode = 1
-offset_left = 32.0
-offset_top = 37.0
-offset_right = 132.0
-offset_bottom = 137.0
+[node name="ScrollContainer" type="ScrollContainer" parent="SkillMenu/SkillPanel"]
+layout_mode = 0
+offset_right = 1499.0
+offset_bottom = 723.0
 
-[node name="PartyEmptyLabel" type="Label" parent="SkillMenu/SkillPanel/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SkillMenu/SkillPanel/ScrollContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="SkillMenu/SkillPanel/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SkillMenu/SkillPanel/ScrollContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="PartyEmptyLabel" type="Label" parent="SkillMenu/SkillPanel/ScrollContainer/VBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 text = "No members recruited"
 
@@ -85,3 +102,7 @@ offset_top = 8.0
 offset_right = 1500.0
 offset_bottom = 39.0
 text = "X"
+
+[node name="WaitSkillsRenderTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
