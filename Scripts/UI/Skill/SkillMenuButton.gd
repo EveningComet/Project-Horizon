@@ -32,6 +32,7 @@ func confirm():
 
 func undo():
 	set_upgrade_level( skill.current_upgrade_level )
+	enable_button_if_skill_unlocked()
 
 func enable_button_if_skill_unlocked():
 	if (skill.is_unlocked):

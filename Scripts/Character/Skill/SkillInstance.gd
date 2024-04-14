@@ -22,6 +22,7 @@ func subscribe_skill_unlocked(callback: Callable):
 func upgrade_to_level(new_level: int):
 	current_upgrade_level = new_level
 	var new_skills := get_new_unlocked_skills()
+	unlocked_skills.append_array( new_skills )
 	if (not new_skills.is_empty()):
 		on_new_skills_unlocked.call( self, new_skills )
 
