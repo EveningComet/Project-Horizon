@@ -23,7 +23,7 @@ func upgrade_to_level(new_level: int):
 	current_upgrade_level = new_level
 	var new_skills := get_new_unlocked_skills()
 	if (not new_skills.is_empty()):
-		on_new_skills_unlocked.call(self, new_skills)
+		on_new_skills_unlocked.call( self, new_skills )
 
 func unlock():
 	is_unlocked = true
@@ -33,7 +33,12 @@ func unlock():
 func get_new_unlocked_skills() -> Array[SkillData]:
 	var new_skills: Array[SkillData] = []
 	for skill in monitored_skill.unlockable:
-		var can_unlock := current_upgrade_level >= skill.minimum_rank_of_previous
-		if (can_unlock and not unlocked_skills.has(skill)):
-			new_skills.append(skill)
+		if (not skill_already_unlocked( skill ) and can_unlock_skill( skill )):
+			new_skills.append( skill )
 	return new_skills
+
+func can_unlock_skill(skill: SkillData):
+	return current_upgrade_level >= skill.minimum_rank_of_previous
+
+func skill_already_unlocked(skill: SkillData):
+	return unlocked_skills.has( skill )
