@@ -2,7 +2,6 @@
 class_name Combatant extends Node
 
 # TODO: const scale variables for the health, sp, and other numbers?
-# TODO: Variable for which team this character belongs to?
 
 ## Called when a stat on this character has been changed.
 signal stat_changed( combatant: Combatant )
