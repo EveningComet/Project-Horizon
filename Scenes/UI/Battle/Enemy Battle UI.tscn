@@ -3,13 +3,14 @@
 [ext_resource type="Script" path="res://Scripts/UI/Battle/CombatantBattleUI.gd" id="1_bhbwu"]
 [ext_resource type="Texture2D" uid="uid://b2dvigjefvd7u" path="res://Imported Assets/Aekashics Librarium Sprites/Cyber Ogre.png" id="1_fx5ve"]
 
-[node name="Enemy Battle UI" type="Control"]
+[node name="Enemy Battle UI" type="Control" node_paths=PackedStringArray("portrait")]
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 20.0
 offset_bottom = 20.0
 script = ExtResource("1_bhbwu")
+portrait = NodePath("Enemy Portrait")
 
 [node name="Enemy Portrait" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(100, 100)

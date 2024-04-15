@@ -5,6 +5,9 @@ class_name CombatantBattleUI extends Control
 ## The instance of the combatant currently being monitored.
 @export var combatant: Combatant
 
+## Used by enemies to display their portrait.
+@export var portrait: TextureRect
+
 @export var is_player_controlled: bool = false
 
 @export var hp_display_text: RichTextLabel
@@ -18,6 +21,10 @@ func set_combatant(new_combatant: Combatant, is_player_owned: bool) -> void:
 	if is_player_controlled == true:
 		update_hp_display()
 		update_sp_display()
+	else:
+		# Set the proper sprite/portrait for the enemy
+		var enemy = new_combatant as EnemyCombatant
+		portrait.set_texture( enemy.stored_enemy_data.portrait )
 
 func on_stat_changed(monitored: Combatant) -> void:
 	if is_player_controlled == true:

@@ -1,23 +1,17 @@
 ## Stores data for something that modifies a stat.
-class_name StatModifier
+class_name StatModifier extends Resource
+
+## What stat does this modifier change?
+@export var stat_changing: StatTypes.stat_types
 
 ## Which type of modifier does this give?
-var stat_modifier_type: StatModifierTypes.stat_modifier_types
+@export var stat_modifier_type: StatModifierTypes.stat_modifier_types
 
 ## The modifier's value
-var value: float = 0.0
+@export var value: float = 0.0
 
 ## How much priority does this modifier have?
-var sort_order: int = 0
-
-func _init(
-	v: float,
-	mod_type: StatModifierTypes.stat_modifier_types,
-	sort_priority: int
-):
-	stat_modifier_type = mod_type
-	value              = v
-	sort_order         = sort_priority
+@export var sort_order: int = 0
 
 ## Get the value of this modifier
 func get_value() -> float:

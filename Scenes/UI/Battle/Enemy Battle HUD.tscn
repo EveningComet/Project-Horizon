@@ -19,7 +19,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_d74ji")
 enemy_battle_ui_prefab = ExtResource("2_cgdpu")
-enemy_party_container = NodePath("Control/GridContainer")
+enemy_party_container = NodePath("Control/Enemy Party Container")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 1
@@ -35,12 +35,12 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="GridContainer" type="GridContainer" parent="Control"]
+[node name="Enemy Party Container" type="GridContainer" parent="Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/h_separation = 200
-columns = 8
+theme_override_constants/h_separation = 5
+columns = 6

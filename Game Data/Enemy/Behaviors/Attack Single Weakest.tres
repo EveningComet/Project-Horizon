@@ -1,14 +1,13 @@
-[gd_resource type="Resource" script_class="EnemyData" load_steps=12 format=3 uid="uid://lwnkgixvx6n5"]
+[gd_resource type="Resource" script_class="UtilityAIBehavior" load_steps=10 format=3 uid="uid://clp5m14utgxbx"]
 
-[ext_resource type="Script" path="res://addons/utility_ai/core/utility_ai_behavior.gd" id="1_fney6"]
-[ext_resource type="Script" path="res://Scripts/Mission/EnemyData.gd" id="1_jr6p5"]
-[ext_resource type="Script" path="res://addons/utility_ai/core/utility_ai_response_curve.gd" id="1_tekta"]
-[ext_resource type="Script" path="res://addons/utility_ai/core/utility_ai_consideration.gd" id="2_gc5jy"]
+[ext_resource type="Script" path="res://addons/utility_ai/core/utility_ai_response_curve.gd" id="1_570cf"]
+[ext_resource type="Script" path="res://addons/utility_ai/core/utility_ai_consideration.gd" id="2_go2a1"]
+[ext_resource type="Script" path="res://addons/utility_ai/core/utility_ai_behavior.gd" id="3_8rhra"]
 
 [sub_resource type="Curve" id="Curve_soo1g"]
 _data = [Vector2(0, 1), 0.0, 0.0, 1, 1, Vector2(1, 1), 0.0, 1.0, 1, 1]
 point_count = 2
-script = ExtResource("1_tekta")
+script = ExtResource("1_570cf")
 curve_type = 4
 exponent = 1
 slope = 1
@@ -16,15 +15,15 @@ x_shift = 0.0
 y_shift = 0.0
 
 [sub_resource type="Resource" id="Resource_q1nrc"]
-script = ExtResource("2_gc5jy")
-input_key = "curr_hp"
+script = ExtResource("2_go2a1")
+input_key = "target_hp"
 invert = true
 response_curve = SubResource("Curve_soo1g")
 
 [sub_resource type="Curve" id="Curve_0vurm"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
-script = ExtResource("1_tekta")
+script = ExtResource("1_570cf")
 curve_type = 4
 exponent = 1
 slope = 1
@@ -32,7 +31,7 @@ x_shift = 0.0
 y_shift = 0.0
 
 [sub_resource type="Resource" id="Resource_3r2jx"]
-script = ExtResource("2_gc5jy")
+script = ExtResource("2_go2a1")
 input_key = "base_defense"
 invert = true
 response_curve = SubResource("Curve_0vurm")
@@ -40,7 +39,7 @@ response_curve = SubResource("Curve_0vurm")
 [sub_resource type="Curve" id="Curve_1041f"]
 _data = [Vector2(0, 0), 0.0, 1.0, 1, 1, Vector2(0.1, 0.1), 1.0, 1.0, 1, 1, Vector2(0.2, 0.2), 1.0, 1.0, 1, 1, Vector2(0.3, 0.3), 1.0, 1.0, 1, 1, Vector2(0.4, 0.4), 1.0, 1.0, 1, 1, Vector2(0.5, 0.5), 1.0, 1.0, 1, 1, Vector2(0.6, 0.6), 1.0, 1.0, 1, 1, Vector2(0.7, 0.7), 1.0, 1.0, 1, 1, Vector2(0.8, 0.8), 1.0, 1.0, 1, 1, Vector2(0.9, 0.9), 1.0, 1.0, 1, 1, Vector2(1, 1), 1.0, 0.0, 1, 1]
 point_count = 11
-script = ExtResource("1_tekta")
+script = ExtResource("1_570cf")
 curve_type = 1
 exponent = 1
 slope = 1
@@ -48,23 +47,13 @@ x_shift = 0.0
 y_shift = 0.0
 
 [sub_resource type="Resource" id="Resource_qmy26"]
-script = ExtResource("2_gc5jy")
+script = ExtResource("2_go2a1")
 input_key = "potential_damage"
 invert = true
 response_curve = SubResource("Curve_1041f")
 
-[sub_resource type="Resource" id="Resource_mpp3i"]
-script = ExtResource("1_fney6")
-name = &"Attack Squishiest"
-aggregation = 0
-considerations = Array[ExtResource("2_gc5jy")]([SubResource("Resource_q1nrc"), SubResource("Resource_3r2jx"), SubResource("Resource_qmy26")])
-
 [resource]
-script = ExtResource("1_jr6p5")
-enemy_name = "Borg"
-vitality = 3
-expertise = 3
-will = 3
-exp_on_death = 100
-available_skills = Array[Resource("res://Scripts/Character/Skill/SkillData.gd")]([])
-possible_decisions = Array[ExtResource("1_fney6")]([SubResource("Resource_mpp3i")])
+script = ExtResource("3_8rhra")
+name = &"Attack Single Weakest"
+aggregation = 0
+considerations = Array[ExtResource("2_go2a1")]([SubResource("Resource_q1nrc"), SubResource("Resource_3r2jx"), SubResource("Resource_qmy26")])

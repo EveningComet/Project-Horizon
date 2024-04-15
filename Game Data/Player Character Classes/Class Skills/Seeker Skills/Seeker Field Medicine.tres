@@ -16,6 +16,7 @@ localization_description = "Use rudimentary medicine to heal an ally."
 cost = 5
 is_passive = false
 action_type = 2
+skill_type = 0
 num_activations = 1
 max_rank = 3
 minimum_rank_of_previous = 1

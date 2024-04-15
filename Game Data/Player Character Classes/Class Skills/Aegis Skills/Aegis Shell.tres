@@ -16,6 +16,7 @@ localization_description = "Fire missiles at all the enemies."
 cost = 5
 is_passive = false
 action_type = 1
+skill_type = 0
 num_activations = 1
 max_rank = 3
 minimum_rank_of_previous = 1

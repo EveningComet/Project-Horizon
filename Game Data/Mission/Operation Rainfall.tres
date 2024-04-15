@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="MissionData" load_steps=3 format=3 uid="uid://gkj3jmtsms7l"]
 
 [ext_resource type="Script" path="res://Scripts/Mission/MissionData.gd" id="1_kc8st"]
-[ext_resource type="Resource" uid="uid://dqwis64wnxudx" path="res://Game Data/Enemy/Romulan.tres" id="2_xm5di"]
+[ext_resource type="Resource" uid="uid://dqwis64wnxudx" path="res://Game Data/Enemy/Enemy/Romulan.tres" id="2_xm5di"]
 
 [resource]
 script = ExtResource("1_kc8st")

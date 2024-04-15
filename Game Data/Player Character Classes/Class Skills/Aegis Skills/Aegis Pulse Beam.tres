@@ -17,6 +17,7 @@ localization_description = "Fire a laser beam at an enemy. It will hit twice."
 cost = 5
 is_passive = false
 action_type = 0
+skill_type = 0
 num_activations = 2
 max_rank = 3
 minimum_rank_of_previous = 1

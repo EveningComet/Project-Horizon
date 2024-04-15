@@ -27,3 +27,9 @@ func set_action_type(new_action_type: ActionTypes.ActionTypes) -> void:
 func set_targets(targets: Array[Combatant]) -> void:
 	recipients.append_array( targets )
 
+func add_target(target: Combatant) -> void:
+	recipients.append( target )
+
+func remove_target(target: Combatant) -> void:
+	recipients.erase( target )
+

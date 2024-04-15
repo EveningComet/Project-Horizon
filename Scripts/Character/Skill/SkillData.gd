@@ -13,8 +13,11 @@ class_name SkillData extends Resource
 ## Does the skill have to be activated?
 @export var is_passive: bool = false
 
-## What is the targeting type for the skill, if needed?
+## What is the action type for the skill, if needed?
 @export var action_type: ActionTypes.ActionTypes = ActionTypes.ActionTypes.SingleEnemy
+
+## What is the "point" of this skill? This is used to help the AI make decisions.
+@export var skill_type: SkillTypes.SkillTypes
 
 ## If the skill is not passive, how many times does it activate?
 @export var num_activations: int = 1

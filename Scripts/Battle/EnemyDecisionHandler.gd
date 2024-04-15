@@ -9,41 +9,72 @@ func handle_enemy_turn(
 	# The actions that will be sent
 	var actions_to_send: Array[StoredAction] = []
 	
-	# TODO: Testing. Implement the handling of more than one enemy and more than one behavior.
-	var enemy: EnemyCombatant = enemies[0]
-	var behavior = enemy.stored_enemy_data.possible_decisions[0]
-	var choices_for_current_enemy: Array[UtilityAIOption] = []
-	if OS.is_debug_build() == true:
-		print("EnemyDecisionHandler :: Handling the behavior (%s) for: %s" % [behavior.name, enemy.stored_enemy_data.enemy_name])
-	
-	for player_com: PlayerCombatant in player_party:
+	for enemy in enemies:
+		var action: StoredAction = _get_best_action_for_enemy(
+			enemy,
+			enemies,
+			player_party
+		)
 		
-		# Action the current enemy could perform
-		var potential_action: StoredAction = StoredAction.new()
-		potential_action.activator = enemy
-		potential_action.action_type = ActionTypes.ActionTypes.SingleEnemy
-		potential_action.skill_instance = null # TODO: Every enemy will need a generic attack action.
-		potential_action.recipients = []
-		potential_action.recipients.append( player_com )
-		
-		# Generate the context for the AI to use
-		var curr_target_stats: Dictionary = player_com.stats
-		var context: Dictionary = {
-			"curr_hp": curr_target_stats[StatTypes.stat_types.CurrentHP],
-			"base_defense": player_com.get_defense(),
-			"potential_damage": enemy.get_physical_power() - player_com.get_defense()
-		}   # TODO: For potential damage, check if using regular or special damage.
-		
-		# Get the choice
-		var choice = UtilityAIOption.new(behavior, context, potential_action)
-		choices_for_current_enemy.append( choice )
+		actions_to_send.append( action )
 	
-	# Find the best action for the enemy to use
-	var decision = UtilityAI.choose_highest( choices_for_current_enemy )
-	if OS.is_debug_build() == true:
-		print("EnemyDecisionHandler :: Best decision: ", decision)
-		print("EnemyDecisionHandler :: %s is going to be attacked!" % [decision.action.recipients[0].char_name])
-	
-	# Add the action to our list of things to send
-	actions_to_send.append( decision.action as StoredAction )
+	# The enemy has finished the job, move on
 	EventBus.side_finished_turn.emit( actions_to_send )
+
+## Get the best decision for the passed enemy.
+func _get_best_action_for_enemy(
+	enemy: EnemyCombatant, 
+	enemy_allies: Array[EnemyCombatant],
+	player_party: Array[PlayerCombatant]
+) -> StoredAction:
+	var choices: Array[UtilityAIOption] = []
+	for behavior: UtilityAIBehavior in enemy.stored_enemy_data.behaviors:
+		
+		# Set up all the necessary data that can be used for the context
+		# beforehand
+		var context: Dictionary = {
+			"target_hp": 0,     # Could be enemy or player char hp
+			"enemy_party_hp":  _get_party_hp(enemy_allies),
+			"player_party_hp": _get_party_hp(player_party),
+			"base_defense": 0,
+			"potential_damage": 0,
+			"skill_cost": 0,
+			"healilng_power": 0
+		}
+		
+		match behavior.name:
+			"Attack Single Weakest":
+				for player_com: PlayerCombatant in player_party:
+					# Generate a new stored action
+					var potential_action: StoredAction = StoredAction.new()
+					potential_action.activator = enemy
+					potential_action.add_target( player_com )
+					
+					# Update the needed context information
+					context["target_hp"] = player_com.stats[StatTypes.stat_types.CurrentHP]
+					context["base_defense"] = player_com.get_defense()
+					
+					# Find the skill that will deal the most damage
+					for skill: SkillData in enemy.stored_enemy_data.available_skills:
+						var mediator = skill.get_usable_data( enemy )
+						context["potential_damage"] = mediator.damage_data["base_damage"]
+						var choice = UtilityAIOption.new(
+							behavior, context, potential_action
+						)
+						choices.append( choice )
+						
+			"Attack Healer":
+				pass
+	
+	if OS.is_debug_build() == true:
+		print("EnemyDecisionHandler :: Possible decisions for %s: %s" % [enemy.stored_enemy_data.enemy_name, choices])
+	# Get and return the best action
+	var decision = UtilityAI.choose_highest(choices)
+	return decision.action as StoredAction
+
+## Get the total hp for the passed party.
+func _get_party_hp(combatants: Array) -> int:
+	var total_hp: int = 0
+	for comb: Combatant in combatants:
+		total_hp += comb.stats[StatTypes.stat_types.CurrentHP]
+	return total_hp
