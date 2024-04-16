@@ -49,9 +49,9 @@ func initialize_vitals() -> void:
 		elif mod.stat_changing == StatTypes.stat_types.MaxSP:
 			true_max_sp.add_modifier( mod )
 	
-	stats[StatTypes.stat_types.MaxHP]     = true_max_hp.get_calculated_value()
+	stats[StatTypes.stat_types.MaxHP]     = true_max_hp
 	stats[StatTypes.stat_types.CurrentHP] = true_max_hp.get_calculated_value()
-	stats[StatTypes.stat_types.MaxSP]     = true_max_sp.get_calculated_value()
+	stats[StatTypes.stat_types.MaxSP]     = true_max_sp
 	stats[StatTypes.stat_types.CurrentSP] = true_max_sp.get_calculated_value()
 
 func initialize_other_stats() -> void:

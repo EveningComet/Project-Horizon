@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxr1y4he1kmnn"]
+
+[ext_resource type="Script" path="res://Scripts/Inventory/ItemSlotUI.gd" id="1_kg7e2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rtsxy"]
+
+[node name="Item Slot UI" type="PanelContainer" node_paths=PackedStringArray("icon", "amount_label")]
+custom_minimum_size = Vector2(64, 64)
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_rtsxy")
+script = ExtResource("1_kg7e2")
+icon = NodePath("MarginContainer/Icon")
+amount_label = NodePath("MarginContainer/Quantity Label")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Icon" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+expand_mode = 1
+
+[node name="Quantity Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+text = "99"
+horizontal_alignment = 2

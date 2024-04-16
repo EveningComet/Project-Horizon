@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://t37lvdmqohit"]
 
-[ext_resource type="Script" path="res://Scripts/UI/Homebase/Recruitment Menu/PartyManagement.gd" id="1_gp6rg"]
+[ext_resource type="Script" path="res://Scripts/UI/Homebase/Recruitment Menu/PartyManagementMenu.gd" id="1_gp6rg"]
 [ext_resource type="PackedScene" uid="uid://cwvvimlhjqt7d" path="res://Scenes/UI/Homebase/Character Recruitment/Party Member Holder UI.tscn" id="2_1sm8x"]
 [ext_resource type="Script" path="res://Scripts/UI/Homebase/Recruitment Menu/PartyManagementHolder.gd" id="3_bhs6w"]
 

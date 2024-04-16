@@ -6,9 +6,6 @@ class_name Combatant extends Node
 ## Called when a stat on this character has been changed.
 signal stat_changed( combatant: Combatant )
 
-## Called when a character has taken damage so that it can be displayed in the UI.
-signal damage_taken(amt: int)
-
 ## Stores the stats for this character.
 var stats: Dictionary = {}
 
@@ -159,7 +156,6 @@ func take_damage(dmg_amount: int) -> void:
 	if dmg_amount < 1:
 		dmg_amount = 1
 	
-	damage_taken.emit( dmg_amount )
 	stats[StatTypes.stat_types.CurrentHP] -= dmg_amount
 	stat_changed.emit( self )
 	if stats[StatTypes.stat_types.CurrentHP] <= 0:

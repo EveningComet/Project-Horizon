@@ -21,5 +21,9 @@ class_name EnemyData extends Resource
 @export var available_skills: Array[SkillData] = []
 
 @export_category("AI")
+## How "brutal" an enemy is between 0 and 1. Higher values mean the enemy
+## will perform the better action more often.
+@export_range(0.0, 1.0) var efficiency: float = 0.25
+
 ## Represents possible things an AI could do. Heal ally, attack enemy, etc.
 @export var behaviors: Array[UtilityAIBehavior] = []

@@ -39,10 +39,12 @@ func _get_best_action_for_enemy(
 			"base_defense": 0,
 			"potential_damage": 0,
 			"skill_cost": 0,
+			"current_sp": enemy.stats[StatTypes.stat_types.CurrentSP],
 			"healilng_power": 0
 		}
 		
 		match behavior.name:
+			# TODO: Checks to make sure the enemy has enough sp for the move.
 			"Attack Single Weakest":
 				for player_com: PlayerCombatant in player_party:
 					# Generate a new stored action
@@ -57,6 +59,8 @@ func _get_best_action_for_enemy(
 					# Find the skill that will deal the most damage
 					for skill: SkillData in enemy.stored_enemy_data.available_skills:
 						var mediator = skill.get_usable_data( enemy )
+						potential_action.skill_instance = SkillInstance.new()
+						potential_action.skill_instance.monitored_skill = skill
 						context["potential_damage"] = mediator.damage_data["base_damage"]
 						var choice = UtilityAIOption.new(
 							behavior, context, potential_action
@@ -65,11 +69,35 @@ func _get_best_action_for_enemy(
 						
 			"Attack Healer":
 				pass
+			
+			"Heal Ally":
+				for enemy_ally: EnemyCombatant in enemy_allies:
+					var potential_action: StoredAction = StoredAction.new()
+					potential_action.activator = enemy
+					potential_action.add_target( enemy_ally )
+					potential_action.action_type = ActionTypes.ActionTypes.SingleAlly
+					context["target_hp"] = enemy_ally.stats[StatTypes.stat_types.CurrentHP]
+					
+					for skill: SkillData in enemy.stored_enemy_data.available_skills:
+						var mediator = skill.get_usable_data( enemy )
+						potential_action.skill_instance = SkillInstance.new()
+						potential_action.skill_instance.monitored_skill = skill
+						context["healing_power"] = mediator.heal_amount
+						var choice = UtilityAIOption.new(
+							behavior, context, potential_action
+						)
+						choices.append( choice )
 	
 	if OS.is_debug_build() == true:
 		print("EnemyDecisionHandler :: Possible decisions for %s: %s" % [enemy.stored_enemy_data.enemy_name, choices])
-	# Get and return the best action
-	var decision = UtilityAI.choose_highest(choices)
+	# Get and return an action
+	var decision = UtilityAI.choose_highest(
+		choices, 
+		enemy.stored_enemy_data.efficiency
+	)
+	if OS.is_debug_build() == true:
+		print_rich("[color=green]EnemyDecisionHandler :: Chosen decision: %s[/color]" % [decision])
+	
 	return decision.action as StoredAction
 
 ## Get the total hp for the passed party.

@@ -1,10 +1,37 @@
-[gd_resource type="Resource" script_class="EnemyData" load_steps=7 format=3 uid="uid://lwnkgixvx6n5"]
+[gd_resource type="Resource" script_class="EnemyData" load_steps=12 format=3 uid="uid://lwnkgixvx6n5"]
 
 [ext_resource type="Resource" uid="uid://d17igemxkf6al" path="res://Game Data/Generic Skills/Generic Regular Attack.tres" id="1_mv1jc"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/Skill Effects/DirectHealing.gd" id="2_0dwde"]
 [ext_resource type="Resource" uid="uid://clp5m14utgxbx" path="res://Game Data/Enemy/Behaviors/Attack Single Weakest.tres" id="2_0o474"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/SkillData.gd" id="3_6smvp"]
 [ext_resource type="Texture2D" uid="uid://b2dvigjefvd7u" path="res://Imported Assets/Aekashics Librarium Sprites/Cyber Ogre.png" id="3_6y8ts"]
 [ext_resource type="Script" path="res://Scripts/Stats/StatModifier.gd" id="5_75q05"]
+[ext_resource type="Resource" uid="uid://cnsi3v06mccpl" path="res://Game Data/Enemy/Behaviors/Heal Ally.tres" id="5_bn1wi"]
 [ext_resource type="Script" path="res://Scripts/Mission/EnemyData.gd" id="5_ff5nn"]
+
+[sub_resource type="Resource" id="Resource_ygtww"]
+script = ExtResource("2_0dwde")
+power_scale = 1.25
+use_special_stat = true
+
+[sub_resource type="Resource" id="Resource_3nigy"]
+script = ExtResource("3_6smvp")
+localization_name = "Heal"
+localization_description = "A generic enemy heal."
+cost = 2
+is_passive = false
+action_type = 2
+skill_type = 0
+num_activations = 1
+max_rank = 3
+minimum_rank_of_previous = 1
+base_power_scale = 1.0
+upgrade_scale = 5.0
+success_chance = 1.0
+is_unlocked_by_default = true
+unlockable = Array[ExtResource("3_6smvp")]([])
+is_ranged = false
+effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([SubResource("Resource_ygtww")])
 
 [sub_resource type="Resource" id="Resource_ieaos"]
 script = ExtResource("5_75q05")
@@ -22,5 +49,5 @@ expertise = 3
 will = 3
 exp_on_death = 100
 stat_modifiers = Array[ExtResource("5_75q05")]([SubResource("Resource_ieaos")])
-available_skills = Array[Resource("res://Scripts/Character/Skill/SkillData.gd")]([ExtResource("1_mv1jc")])
-behaviors = Array[Resource("res://addons/utility_ai/core/utility_ai_behavior.gd")]([ExtResource("2_0o474")])
+available_skills = Array[ExtResource("3_6smvp")]([ExtResource("1_mv1jc"), SubResource("Resource_3nigy")])
+behaviors = Array[Resource("res://addons/utility_ai/core/utility_ai_behavior.gd")]([ExtResource("2_0o474"), ExtResource("5_bn1wi")])
