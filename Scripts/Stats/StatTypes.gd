@@ -17,5 +17,7 @@ enum stat_types {
 	Perception,           # (Hit chance) = Expertise + Will and bonuses
 	Evasion,              # (Dodge)      = Vitality  + Expertise and bonuses
 	Speed,                # (Vitality + Will and bonuses) / 2
-	CriticalHitChance
+	CriticalHitChance,
+	PhysicalPower,
+	SpecialPower
 }

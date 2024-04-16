@@ -6,6 +6,9 @@ class_name Combatant extends Node
 ## Called when a stat on this character has been changed.
 signal stat_changed( combatant: Combatant )
 
+## Called when a character has taken damage so that it can be displayed in the UI.
+signal damage_taken(amt: int)
+
 ## Stores the stats for this character.
 var stats: Dictionary = {}
 
@@ -77,15 +80,25 @@ func initialize_other_stats() -> void:
 		0,
 		true
 	)
+	
+	stats[StatTypes.stat_types.PhysicalPower] = Stat.new( 0, true )
+	stats[StatTypes.stat_types.SpecialPower]  = Stat.new( 0, true )
 
-# TODO: Figure out how to distinguish between ranged.
-# TODO: Figure out how to handle the "base" damage stat.
-## Get the physical power for a character.
+# TODO: Figure out how to distinguish between ranged?
+## Get the "true" physical power for a character.
 func get_physical_power() -> int:
-	return stats[StatTypes.stat_types.Expertise].get_calculated_value() * 2
+	var expertise: int = stats[StatTypes.stat_types.Expertise].get_calculated_value()
+	var true_physical_power: Stat = Stat.new(expertise * 2, true)
+	for mod: StatModifier in stats[StatTypes.stat_types.PhysicalPower].get_modifiers():
+		true_physical_power.add_modifier( mod )
+	return true_physical_power.get_calculated_value()
 
-## Get the special power for a character.
+## Get the "true" special power for a character.
 func get_special_power() -> int:
+	var will: int = stats[StatTypes.stat_types.Will].get_calculated_value() * 2
+	var true_special_power: Stat = Stat.new(will, true)
+	for mod: StatModifier in stats[StatTypes.stat_types.SpecialPower].get_modifiers():
+		true_special_power.add_modifier( mod )
 	return stats[StatTypes.stat_types.Will].get_calculated_value() * 2
 
 ## Return the "true" perception, which is used for the chance to hit.
@@ -145,7 +158,8 @@ func take_damage(dmg_amount: int) -> void:
 	dmg_amount -= get_defense()
 	if dmg_amount < 1:
 		dmg_amount = 1
-		
+	
+	damage_taken.emit( dmg_amount )
 	stats[StatTypes.stat_types.CurrentHP] -= dmg_amount
 	stat_changed.emit( self )
 	if stats[StatTypes.stat_types.CurrentHP] <= 0:

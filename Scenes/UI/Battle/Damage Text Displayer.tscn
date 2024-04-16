@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://hjy64lja4jo5"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Battle/DamageTextDisplayer.gd" id="1_gao46"]
+
+[node name="Damage Text Displayer" type="Label"]
+custom_minimum_size = Vector2(50, 0)
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 30
+text = "42"
+horizontal_alignment = 1
+script = ExtResource("1_gao46")
