@@ -18,7 +18,7 @@ func _ready() -> void:
 
 func set_skill_user(new_user: PlayerCombatant) -> void:
 	skill_user = new_user
-	for skill_instance: SkillInstance in skill_user.skill_holder.skills():
+	for skill_instance: SkillInstance in skill_user.skill_holder.usable_skills():
 		if skill_instance.monitored_skill.is_passive == false:
 			var b: BattleActionButton = battle_skill_button_template.instantiate() as BattleActionButton
 			b.skill_instance = skill_instance
