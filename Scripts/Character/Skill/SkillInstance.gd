@@ -9,7 +9,7 @@ var current_upgrade_level: int
 var on_this_skill_unlocked: Callable
 var on_new_skills_unlocked: Callable
 
-func _init(skill: SkillData, _on_new_skills_unlocked: Callable):
+func initialize(skill: SkillData, _on_new_skills_unlocked: Callable):
 	monitored_skill = skill
 	unlocked_skills = []
 	current_upgrade_level = 0

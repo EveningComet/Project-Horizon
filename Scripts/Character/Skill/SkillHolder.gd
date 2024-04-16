@@ -5,7 +5,8 @@ var skill_data_instances: = {}
 
 func initialize(skills_data: Array[SkillData]):
 	for data in skills_data:
-		skill_data_instances[data] = SkillInstance.new(data, on_new_skills_unlocked)
+		skill_data_instances[data] = SkillInstance.new()
+		skill_data_instances[data].initialize(data, on_new_skills_unlocked)
 	unlock_and_upgrade_starting_skills()
 
 func skills() -> Array:
