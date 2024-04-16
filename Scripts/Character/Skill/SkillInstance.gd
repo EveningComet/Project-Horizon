@@ -23,7 +23,7 @@ func upgrade_to_level(new_level: int):
 	var new_skills := get_new_unlocked_skills()
 	unlocked_skills.append_array( new_skills )
 	if (not new_skills.is_empty()):
-		on_new_skills_unlocked.call( self, new_skills )
+		on_new_skills_unlocked.call( new_skills )
 
 func unlock():
 	is_unlocked = true
