@@ -9,7 +9,7 @@ var current_upgrade_level: int
 var on_this_skill_unlocked: Callable
 var on_new_skills_unlocked: Callable
 
-func _init(skill: SkillData, _on_new_skills_unlocked: Callable):
+func initialize(skill: SkillData, _on_new_skills_unlocked: Callable):
 	monitored_skill = skill
 	unlocked_skills = []
 	current_upgrade_level = 0
@@ -23,7 +23,7 @@ func upgrade_to_level(new_level: int):
 	var new_skills := get_new_unlocked_skills()
 	unlocked_skills.append_array( new_skills )
 	if (not new_skills.is_empty()):
-		on_new_skills_unlocked.call( self, new_skills )
+		on_new_skills_unlocked.call( new_skills )
 
 func unlock():
 	is_unlocked = true

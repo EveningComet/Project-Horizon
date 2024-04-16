@@ -5,20 +5,21 @@ var skill_data_instances: = {}
 
 func initialize(skills_data: Array[SkillData]):
 	for data in skills_data:
-		skill_data_instances[data] = SkillInstance.new(data, on_new_skills_unlocked)
+		skill_data_instances[data] = SkillInstance.new()
+		skill_data_instances[data].initialize(data, on_new_skills_unlocked)
 	unlock_and_upgrade_starting_skills()
 
 func skills() -> Array:
 	return skill_data_instances.values()
 
 func usable_skills() -> Array:
-	var skills = []
+	var result = []
 	for skill_instance in skill_data_instances.values():
 		if (skill_instance.is_unlocked and skill_instance.current_upgrade_level > 0):
-			skills.append(skill_instance)
-	return skills
+			result.append(skill_instance)
+	return result
 
-func on_new_skills_unlocked(skill: SkillInstance, unlocked: Array[SkillData]):
+func on_new_skills_unlocked(unlocked: Array[SkillData]):
 	for data in unlocked:
 		if (skill_data_instances.has(data)):
 			skill_data_instances[data].unlock()
