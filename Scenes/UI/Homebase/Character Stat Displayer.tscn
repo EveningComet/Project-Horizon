@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2nqesf7j60nu"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Homebase/Character/CharacterStatDisplayer.gd" id="1_dtx8u"]
+
+[node name="Character Stat Displayer" type="Control" node_paths=PackedStringArray("stat_name_label", "stat_value_label")]
+custom_minimum_size = Vector2(200, 20)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_dtx8u")
+stat_name_label = NodePath("HBoxContainer/Stat Name")
+stat_value_label = NodePath("HBoxContainer/Stat Value")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 10
+
+[node name="Stat Name" type="Label" parent="HBoxContainer"]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "StatName"
+
+[node name="Stat Value" type="Label" parent="HBoxContainer"]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "42"

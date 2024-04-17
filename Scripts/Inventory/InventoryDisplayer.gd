@@ -17,10 +17,13 @@ func set_inventory_to_display(inventory_data: Inventory) -> void:
 
 ## Handles updating the display of the inventory.
 func populate_item_grid(inventory_data: Inventory) -> void:
+	# First, clear any slots already displayed
 	for c in item_container.get_children():
 		item_container.remove_child( c )
 		c.queue_free()
 	
 	# Create the slots that need to be displayed
-	for slot_data in inventory_data.stored_items:
-		pass
+	for slot_data: ItemSlotData in inventory_data.stored_items:
+		var slot: ItemSlotUI = item_slot_prefab.instantiate()
+		item_container.add_child(slot)
+		slot.set_slot_data( slot_data )

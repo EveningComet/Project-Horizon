@@ -8,7 +8,8 @@ class_name ItemSlotUI extends PanelContainer
 @export var amount_label: Label
 
 func set_slot_data(slot_data: ItemSlotData) -> void:
-	var item = slot_data.stored_item
+	var item: ItemData = slot_data.stored_item
+	icon.set_texture( item.image )
 	
 	if slot_data.quantity > 1:
 		amount_label.set_text( str(slot_data.quantity) )

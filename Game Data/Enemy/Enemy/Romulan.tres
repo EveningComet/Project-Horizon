@@ -30,4 +30,5 @@ will = 5
 exp_on_death = 100
 stat_modifiers = Array[ExtResource("5_pf6qe")]([SubResource("Resource_k888g"), SubResource("Resource_ksg8e")])
 available_skills = Array[Resource("res://Scripts/Character/Skill/SkillData.gd")]([ExtResource("1_dot56")])
+efficiency = 0.25
 behaviors = Array[Resource("res://addons/utility_ai/core/utility_ai_behavior.gd")]([ExtResource("1_6pt4g")])

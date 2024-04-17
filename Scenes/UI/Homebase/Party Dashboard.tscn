@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://bek88fdvhms4b"]
+
+[ext_resource type="PackedScene" uid="uid://ewbg8wvdusfl" path="res://Scenes/UI/Homebase/Inventory/Player Inventory Displayer.tscn" id="1_ay7ht"]
+[ext_resource type="Script" path="res://Scripts/UI/Homebase/Character/PartyDashboard.gd" id="1_eoa5n"]
+[ext_resource type="PackedScene" uid="uid://cpubwbdfs8v2c" path="res://Scenes/UI/Homebase/Character Inspection Window.tscn" id="3_gb7cx"]
+
+[node name="Party Dashboard" type="Control" node_paths=PackedStringArray("player_inventory_ui", "character_inspection_window")]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_eoa5n")
+player_inventory_ui = NodePath("Player Inventory Displayer")
+character_inspection_window = NodePath("Character Inspection Window")
+
+[node name="Player Inventory Displayer" parent="." instance=ExtResource("1_ay7ht")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 101.0
+offset_top = -250.0
+offset_right = 671.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Character Inspection Window" parent="." instance=ExtResource("3_gb7cx")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -710.0
+offset_top = -300.0
+offset_right = -110.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
