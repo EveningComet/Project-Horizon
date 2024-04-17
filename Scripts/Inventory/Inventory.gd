@@ -22,7 +22,8 @@ func grab_slot_data(index: int) -> ItemSlotData:
 	
 	# If we have a slot to move, remove the slot and tell anyone caring about the change.
 	if slot_data != null and slot_data.stored_item != null:
-		stored_items[index] = null
+		stored_items.remove_at(index)
+		#stored_items[index] = null
 		inventory_updated.emit( self )
 		return slot_data
 	else:
@@ -63,7 +64,7 @@ func use_slot_data(index: int) -> void:
 	var slot_data: ItemSlotData = stored_items[index]
 	
 	# There is no item at the passed index, so do nothing.
-	if slot_data == null || slot_data.stored_item == null:
+	if slot_data == null or slot_data.stored_item == null:
 		return
 	
 	# Depending on the item, this is where we do stuff.

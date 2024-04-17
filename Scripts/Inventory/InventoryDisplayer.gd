@@ -26,4 +26,10 @@ func populate_item_grid(inventory_data: Inventory) -> void:
 	for slot_data: ItemSlotData in inventory_data.stored_items:
 		var slot: ItemSlotUI = item_slot_prefab.instantiate()
 		item_container.add_child(slot)
-		slot.set_slot_data( slot_data )
+		
+		# Subscribe to any relevant events
+		# Tell our monitored inventory to connect to the slot clicked events
+		slot.slot_clicked.connect( inventory_to_display.on_slot_clicked )
+		
+		if slot_data != null:
+			slot.set_slot_data( slot_data )

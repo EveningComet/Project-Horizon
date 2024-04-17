@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://bek88fdvhms4b"]
+[gd_scene load_steps=5 format=3 uid="uid://bek88fdvhms4b"]
 
 [ext_resource type="PackedScene" uid="uid://ewbg8wvdusfl" path="res://Scenes/UI/Homebase/Inventory/Player Inventory Displayer.tscn" id="1_ay7ht"]
 [ext_resource type="Script" path="res://Scripts/UI/Homebase/Character/PartyDashboard.gd" id="1_eoa5n"]
 [ext_resource type="PackedScene" uid="uid://cpubwbdfs8v2c" path="res://Scenes/UI/Homebase/Character Inspection Window.tscn" id="3_gb7cx"]
+[ext_resource type="PackedScene" uid="uid://cxr1y4he1kmnn" path="res://Scenes/UI/Homebase/Inventory/Item Slot UI.tscn" id="4_lvawv"]
 
-[node name="Party Dashboard" type="Control" node_paths=PackedStringArray("player_inventory_ui", "character_inspection_window")]
+[node name="Party Dashboard" type="Control" node_paths=PackedStringArray("player_inventory_ui", "character_inspection_window", "grabbed_slot_ui")]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 3
 anchors_preset = 15
@@ -15,6 +16,7 @@ grow_vertical = 2
 script = ExtResource("1_eoa5n")
 player_inventory_ui = NodePath("Player Inventory Displayer")
 character_inspection_window = NodePath("Character Inspection Window")
+grabbed_slot_ui = NodePath("Grabbed Slot UI")
 
 [node name="Player Inventory Displayer" parent="." instance=ExtResource("1_ay7ht")]
 layout_mode = 1
@@ -43,3 +45,9 @@ offset_right = -110.0
 offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Grabbed Slot UI" parent="." instance=ExtResource("4_lvawv")]
+visible = false
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
