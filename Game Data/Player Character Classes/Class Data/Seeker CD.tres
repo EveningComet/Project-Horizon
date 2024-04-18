@@ -13,4 +13,5 @@ starting_will = 10
 vitality_on_increase = 5
 expertise_on_increase = 5
 will_on_increase = 5
+starting_equipment = Array[Resource("res://Scripts/Inventory/ItemData.gd")]([])
 skills = Array[Resource("res://Scripts/Character/Skill/SkillData.gd")]([ExtResource("2_dtmpd")])

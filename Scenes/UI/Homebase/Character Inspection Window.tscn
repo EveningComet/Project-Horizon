@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://Scripts/Inventory/EquipmentDisplayer.gd" id="2_bpjie"]
 [ext_resource type="PackedScene" uid="uid://d2nqesf7j60nu" path="res://Scenes/UI/Homebase/Character Stat Displayer.tscn" id="3_36qfk"]
 
-[node name="Character Inspection Window" type="Control" node_paths=PackedStringArray("char_name_label", "character_class_name_label", "equipment_displayer", "swap_right_button", "swap_left_button")]
+[node name="Character Inspection Window" type="Control" node_paths=PackedStringArray("char_name_label", "character_class_name_label", "equipment_displayer", "swap_right_button", "swap_left_button", "stats_container")]
 custom_minimum_size = Vector2(600, 600)
 layout_mode = 3
 anchors_preset = 0
@@ -17,6 +17,7 @@ character_class_name_label = NodePath("Character Class Label")
 equipment_displayer = NodePath("Equipment Displayer")
 swap_right_button = NodePath("Swap Right Button")
 swap_left_button = NodePath("Swap Left Button")
+stats_container = NodePath("MarginContainer/Stats Container")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -119,31 +120,42 @@ layout_mode = 2
 [node name="Accessory Slot 3" parent="Equipment Displayer/Equipment Container" instance=ExtResource("2_0dnpb")]
 layout_mode = 2
 
-[node name="Stats Container" type="GridContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = 12
 anchor_top = 1.0
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -280.0
 offset_top = -300.0
-offset_right = -80.0
-offset_bottom = -220.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Stats Container" type="GridContainer" parent="MarginContainer"]
+layout_mode = 2
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 
-[node name="Vitality Stat" parent="Stats Container" instance=ExtResource("3_36qfk")]
+[node name="Character Level" parent="MarginContainer/Stats Container" instance=ExtResource("3_36qfk")]
 layout_mode = 2
 
-[node name="Expertise Stat" parent="Stats Container" node_paths=PackedStringArray("stat_name_label", "stat_value_label") instance=ExtResource("3_36qfk")]
+[node name="Vitality Stat" parent="MarginContainer/Stats Container" instance=ExtResource("3_36qfk")]
 layout_mode = 2
-stat_name_label = NodePath("../Vitality Stat/HBoxContainer/Stat Name")
-stat_value_label = NodePath("../Vitality Stat/HBoxContainer/Stat Value")
 
-[node name="Will Stat" parent="Stats Container" node_paths=PackedStringArray("stat_name_label", "stat_value_label") instance=ExtResource("3_36qfk")]
+[node name="Expertise Stat" parent="MarginContainer/Stats Container" instance=ExtResource("3_36qfk")]
 layout_mode = 2
-stat_name_label = NodePath("../Vitality Stat/HBoxContainer/Stat Name")
-stat_value_label = NodePath("../Vitality Stat/HBoxContainer/Stat Value")
+
+[node name="Will Stat" parent="MarginContainer/Stats Container" instance=ExtResource("3_36qfk")]
+layout_mode = 2
+
+[node name="Defense" parent="MarginContainer/Stats Container" instance=ExtResource("3_36qfk")]
+layout_mode = 2
+
+[node name="Physical Power" parent="MarginContainer/Stats Container" instance=ExtResource("3_36qfk")]
+layout_mode = 2
+
+[node name="Special Power" parent="MarginContainer/Stats Container" instance=ExtResource("3_36qfk")]
+layout_mode = 2

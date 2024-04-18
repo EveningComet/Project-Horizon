@@ -10,6 +10,8 @@ class_name CharacterInspectionWindow extends Control
 @export var swap_right_button: Button
 @export var swap_left_button:  Button
 
+@export var stats_container: Container
+
 signal displayed_character_changed(new_character_to_display: PlayerCombatant)
 
 ## The current character being tracked.
@@ -82,7 +84,34 @@ func on_swap_left(curr_index: int) -> void:
 func on_stat_changed(combatant: PlayerCombatant) -> void:
 	char_name_label.set_text( combatant.char_name )
 	character_class_name_label.set_text( combatant.pc_class.localization_name )
-	$"Stats Container".get_child(0).update_display(
+	
+	# TODO: Figure out a nicer way to do this. I tried looping through the stats
+	# dictionary and it didn't work as expected
+	stats_container.get_child(0).update_display(
+		"Level",
+		str( combatant.curr_level )
+	)
+	stats_container.get_child(1).update_display(
 		StatTypes.stat_types.keys()[StatTypes.stat_types.Vitality],
 		str( floor(combatant.stats[StatTypes.stat_types.Vitality].get_calculated_value()) )
+	)
+	stats_container.get_child(2).update_display(
+		StatTypes.stat_types.keys()[StatTypes.stat_types.Expertise],
+		str( floor(combatant.stats[StatTypes.stat_types.Expertise].get_calculated_value()) )
+	)
+	stats_container.get_child(3).update_display(
+		StatTypes.stat_types.keys()[StatTypes.stat_types.Will],
+		str( floor(combatant.stats[StatTypes.stat_types.Will].get_calculated_value()) )
+	)
+	stats_container.get_child(4).update_display(
+		StatTypes.stat_types.keys()[StatTypes.stat_types.Defense],
+		str( floor(combatant.get_defense()) )
+	)
+	stats_container.get_child(5).update_display(
+		StatTypes.stat_types.keys()[StatTypes.stat_types.PhysicalPower],
+		str( floor(combatant.get_physical_power()) )
+	)
+	stats_container.get_child(6).update_display(
+		StatTypes.stat_types.keys()[StatTypes.stat_types.SpecialPower],
+		str( floor(combatant.get_special_power()) )
 	)
