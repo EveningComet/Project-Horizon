@@ -4,14 +4,21 @@ class_name CharacterInspectionWindow extends Control
 @export var char_name_label: Label
 @export var character_class_name_label: Label
 
+@export var equipment_displayer: InventoryDisplayer
+
 ## The current character being tracked.
 var current_character: PlayerCombatant = null:
 	get:
 		return current_character
 	set(value):
+		# Unsub the old character
 		if current_character != null:
 			current_character.stat_changed.disconnect( on_stat_changed )
+		
 		current_character = value
+		equipment_displayer.set_inventory_to_display(
+			current_character.equipment_holder
+		)
 		current_character.stat_changed.connect( on_stat_changed )
 		on_stat_changed( current_character )
 

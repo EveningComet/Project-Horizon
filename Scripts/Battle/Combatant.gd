@@ -12,6 +12,9 @@ var stats: Dictionary = {}
 ## The status effects being monitored for this character.
 var status_effect_holder: StatusEffectHolder = StatusEffectHolder.new()
 
+## The equipment being monitored for this character.
+var equipment_holder: EquipmentInventory = EquipmentInventory.new(self)
+
 ## The skills being monitored for this character.
 var skill_holder: SkillHolder = SkillHolder.new()
 

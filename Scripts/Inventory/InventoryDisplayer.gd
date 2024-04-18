@@ -11,12 +11,15 @@ class_name InventoryDisplayer extends Control
 @export var item_container: GridContainer
 
 func set_inventory_to_display(inventory_data: Inventory) -> void:
+	if inventory_to_display != null:
+		inventory_to_display.inventory_updated.disconnect( populate_items )
+	
 	inventory_to_display = inventory_data
-	inventory_to_display.inventory_updated.connect( populate_item_grid )
-	populate_item_grid( inventory_to_display )
+	inventory_to_display.inventory_updated.connect( populate_items )
+	populate_items( inventory_to_display )
 
 ## Handles updating the display of the inventory.
-func populate_item_grid(inventory_data: Inventory) -> void:
+func populate_items(inventory_data: Inventory) -> void:
 	# First, clear any slots already displayed
 	for c in item_container.get_children():
 		item_container.remove_child( c )

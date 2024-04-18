@@ -1,5 +1,6 @@
-## Displays the player's current inventory. In addtion
-extends Control
+## This menu deals with displaying the player's current inventory, the stats
+## of a particular character, that character's equipment.
+class_name PartyDashboard extends Control
 
 ## The node displaying the inventory.
 @export var player_inventory_ui: InventoryDisplayer
@@ -23,30 +24,42 @@ func _input(event: InputEvent) -> void:
 		grabbed_slot_ui.global_position = get_global_mouse_position() + Vector2(5, 5)
 
 func _ready() -> void:
-	#hide()
-	# TODO: Proper handling of setting the equipment.
-	if PlayerPartyController.has_members() == false:
-		character_inspection_window.hide()
-	else:
-		character_inspection_window.current_character = PlayerPartyController.party_members[0]
+	hide()
+	visibility_changed.connect( on_visibility_changed )
 	
 	# Test adding an item
 	var slot_data: ItemSlotData = ItemSlotData.new()
 	slot_data.stored_item = load("res://Game Data/Items/Cool Hat.tres")
 	slot_data.quantity    = 1
-	PlayerInventory.add_slot_data(slot_data)
+	PlayerInventory.inventory.add_slot_data(slot_data)
 	
 	# Set the player inventory
-	set_player_inventory(PlayerInventory)
+	set_player_inventory(PlayerInventory.inventory)
 	
-	# Connect to the gui input of the inventory displayer so that clicking
-	# over it with a held item will drop it there
-	player_inventory_ui.gui_input.connect( on_player_inventory_displayer_selected )
+	# TODO: Proper handling of setting the equipment.
+	if PlayerPartyController.has_members() == false:
+		character_inspection_window.hide()
+	else:
+		character_inspection_window.current_character = PlayerPartyController.party_members[0]
+		character_inspection_window.current_character.equipment_holder.inventory_interacted.connect(
+			on_inventory_interacted
+		)
 	
 func set_player_inventory(inventory_data: Inventory) -> void:
 	player_inventory = inventory_data
 	player_inventory.inventory_interacted.connect( on_inventory_interacted )
 	player_inventory_ui.set_inventory_to_display( player_inventory )
+
+	# Connect to the gui input of the inventory displayer so that clicking
+	# over it with a held item will drop it there
+	player_inventory_ui.gui_input.connect( on_player_inventory_displayer_selected )
+
+func on_visibility_changed() -> void:
+	# Prevent the potential loss of items
+	if visible == false and grabbed_slot_data != null:
+		player_inventory.add_slot_data( grabbed_slot_data )
+		grabbed_slot_data = null
+		update_grabbed_slot()
 	
 func on_player_inventory_displayer_selected(event: InputEvent) -> void:
 	if grabbed_slot_data != null:
@@ -56,6 +69,9 @@ func on_player_inventory_displayer_selected(event: InputEvent) -> void:
 			update_grabbed_slot()
 
 func on_inventory_interacted(inventory_data: Inventory, index: int, button: int) -> void:
+	if OS.is_debug_build() == true:
+		print("PartyDashboard :: Interacting with inventory: ", inventory_data)
+	
 	match [grabbed_slot_data, button]:
 		
 		# The player wants to grab the whole item

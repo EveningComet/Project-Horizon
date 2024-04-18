@@ -6,7 +6,7 @@
 
 [sub_resource type="Resource" id="Resource_s38b3"]
 script = ExtResource("3_5dqrn")
-stat_changing = 7
+stat_changing = 0
 stat_modifier_type = 0
 value = 5.0
 sort_order = 0

@@ -14,6 +14,10 @@ func _ready() -> void:
 	gui_input.connect( on_gui_input )
 
 func set_slot_data(slot_data: ItemSlotData) -> void:
+	if slot_data == null:
+		icon.set_texture(null)
+		return
+	
 	var item: ItemData = slot_data.stored_item
 	icon.set_texture( item.image )
 	

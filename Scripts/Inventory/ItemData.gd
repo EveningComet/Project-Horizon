@@ -7,6 +7,7 @@ class_name ItemData extends Resource
 @export var item_type: ItemTypes.ItemTypes = ItemTypes.ItemTypes.Consumable
 @export var image: Texture
 @export var max_stack_size: int = 1
+@export var cost: int = 10
 
 @export_category("Equipment Info")
 @export var equip_type: ItemTypes.EquipmentTypes = ItemTypes.EquipmentTypes.None

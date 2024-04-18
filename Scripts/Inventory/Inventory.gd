@@ -1,5 +1,5 @@
 ## Houses items.
-class_name Inventory extends Node
+class_name Inventory extends Resource
 
 ## Whenever this inventory gets updated, pass it along.
 signal inventory_updated(inventory: Inventory)
