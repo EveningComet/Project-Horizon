@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://Scripts/Character/CharacterClass.gd" id="1_01b5t"]
 [ext_resource type="Resource" uid="uid://cydkltv3usq2l" path="res://Game Data/Player Character Classes/Class Skills/Aegis Skills/Aegis Pulse Beam.tres" id="2_vuf1r"]
 [ext_resource type="Resource" uid="uid://c0h3wsdqfllab" path="res://Game Data/Player Character Classes/Class Skills/Aegis Skills/Aegis Shell.tres" id="3_3qe6b"]
-[ext_resource type="Resource" uid="uid://3xrcu5e75sjq" path="res://Game Data/Items/Test Weapon.tres" id="4_j3ard"]
-[ext_resource type="Resource" uid="uid://b6jjntfgycyoe" path="res://Game Data/Items/Cool Hat.tres" id="5_k2cfl"]
+[ext_resource type="Resource" uid="uid://3xrcu5e75sjq" path="res://Game Data/Items/Equipment/Test Weapon.tres" id="4_j3ard"]
+[ext_resource type="Resource" uid="uid://b6jjntfgycyoe" path="res://Game Data/Items/Equipment/Cool Hat.tres" id="5_k2cfl"]
 
 [resource]
 script = ExtResource("1_01b5t")
