@@ -7,8 +7,10 @@ class_name SkillMenu extends Control
 @export var skill_points_label: Label
 @export var canvas: CanvasLayer
 @export var skills_tree_renderer: SkillsTreeRenderer
+@export var attributes_menu: AttributesMenu
 
 signal skill_points_depleted
+signal character_changed(character: PlayerCombatant)
 
 var characters:= PlayerPartyController.party_members
 var current_character: PlayerCombatant
@@ -22,6 +24,7 @@ func _ready():
 	confirm_button.button_down.connect( confirm_points )
 	undo_skill_points_button.button_down.connect( undo_points )
 	skills_tree_renderer.initialize( on_skill_upgraded, skill_points_depleted )
+	attributes_menu.initialize(character_changed)
 
 func add_tabs_per_character():
 	tab_bar.clear_tabs()
@@ -36,6 +39,7 @@ func on_visibility_changed():
 func render_tab(index: int):
 	if (PlayerPartyController.has_members()):
 		current_character = characters[index]
+		emit_signal("character_changed", current_character)
 		skills_tree_renderer.start(current_character.skill_holder.skills())
 		set_draft_skill_points( current_character.available_skill_points )
 

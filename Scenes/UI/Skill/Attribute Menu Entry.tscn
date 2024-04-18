@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://dq83dljr1ulfa"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Skill/AttributeMenuEntry.gd" id="1_ey26o"]
+
+[node name="AttributeMenuEntry" type="HBoxContainer" node_paths=PackedStringArray("attribute_label", "upgrade_button", "downgrade_button")]
+script = ExtResource("1_ey26o")
+attribute_label = NodePath("AttributeLabel")
+upgrade_button = NodePath("UpgradeButton")
+downgrade_button = NodePath("DowngradeButton")
+
+[node name="AttributeLabel" type="Label" parent="."]
+layout_mode = 2
+text = "StatName: nn"
+
+[node name="UpgradeButton" type="Button" parent="."]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+text = "+"
+
+[node name="DowngradeButton" type="Button" parent="."]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+text = "-"

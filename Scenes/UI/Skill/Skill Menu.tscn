@@ -1,12 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://dks4qxa6s4ful"]
+[gd_scene load_steps=6 format=3 uid="uid://dks4qxa6s4ful"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Skill/SkillMenu.gd" id="1_gb7ft"]
 [ext_resource type="PackedScene" uid="uid://bngujmgvwnby5" path="res://Scenes/UI/Skill/Skill Menu Button.tscn" id="2_44m12"]
 [ext_resource type="Script" path="res://Scripts/UI/Skill/SkillsTreeRenderer.gd" id="3_3kt4c"]
+[ext_resource type="Script" path="res://Scripts/UI/Skill/AttributesMenu.gd" id="4_k8sm6"]
+[ext_resource type="PackedScene" uid="uid://dq83dljr1ulfa" path="res://Scenes/UI/Skill/Attribute Menu Entry.tscn" id="5_b7hp3"]
 
 [node name="SkillMenu" type="CanvasLayer"]
 
-[node name="SkillMenu" type="Control" parent="." node_paths=PackedStringArray("tab_bar", "exit_button", "confirm_button", "undo_skill_points_button", "skill_points_label", "canvas", "skills_tree_renderer")]
+[node name="SkillMenu" type="Control" parent="." node_paths=PackedStringArray("tab_bar", "exit_button", "confirm_button", "undo_skill_points_button", "skill_points_label", "canvas", "skills_tree_renderer", "attributes_menu")]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 399.0
@@ -21,12 +23,19 @@ undo_skill_points_button = NodePath("SkillPanel/UndoSkillPointsButton")
 skill_points_label = NodePath("SkillPanel/SkillPointsLabel")
 canvas = NodePath("..")
 skills_tree_renderer = NodePath("SkillsTreeRenderer")
+attributes_menu = NodePath("AttributesMenu")
 
 [node name="SkillsTreeRenderer" type="Node" parent="SkillMenu" node_paths=PackedStringArray("skill_container", "wait_skills_render_timer")]
 script = ExtResource("3_3kt4c")
 skill_container = NodePath("../SkillPanel/ScrollContainer/VBoxContainer/MarginContainer/HBoxContainer")
 skill_menu_button_template = ExtResource("2_44m12")
 wait_skills_render_timer = NodePath("../../WaitSkillsRenderTimer")
+
+[node name="AttributesMenu" type="Node" parent="SkillMenu" node_paths=PackedStringArray("points_label", "container")]
+script = ExtResource("4_k8sm6")
+points_label = NodePath("../SkillPanel/AttributesPanel/AttributePointsLabel")
+container = NodePath("../SkillPanel/AttributesPanel/AttributesContainer")
+menu_entry_template = ExtResource("5_b7hp3")
 
 [node name="TabBar" type="TabBar" parent="SkillMenu"]
 layout_mode = 0
@@ -93,6 +102,36 @@ offset_right = 1073.0
 offset_bottom = 757.0
 disabled = true
 text = "Undo points"
+
+[node name="AttributesPanel" type="Panel" parent="SkillMenu/SkillPanel"]
+layout_mode = 0
+offset_left = 1137.0
+offset_top = 67.0
+offset_right = 1417.0
+offset_bottom = 358.0
+
+[node name="AttributesHeaderLabel" type="Label" parent="SkillMenu/SkillPanel/AttributesPanel"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 118.0
+offset_bottom = 47.0
+text = "Attributes"
+uppercase = true
+
+[node name="AttributePointsLabel" type="Label" parent="SkillMenu/SkillPanel/AttributesPanel"]
+offset_left = 24.0
+offset_top = 48.0
+offset_right = 187.0
+offset_bottom = 71.0
+text = "Points available: 0"
+
+[node name="AttributesContainer" type="VBoxContainer" parent="SkillMenu/SkillPanel/AttributesPanel"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 88.0
+offset_right = 72.0
+offset_bottom = 128.0
 
 [node name="ExitButton" type="Button" parent="SkillMenu"]
 custom_minimum_size = Vector2(50, 0)
