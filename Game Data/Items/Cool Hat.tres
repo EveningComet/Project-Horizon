@@ -18,6 +18,7 @@ localization_description = "A quite cool hat."
 item_type = 1
 image = ExtResource("1_hjsc0")
 max_stack_size = 1
+cost = 10
 equip_type = 2
 stat_modifiers = Array[ExtResource("3_5dqrn")]([SubResource("Resource_s38b3")])
 weapon_type = 0

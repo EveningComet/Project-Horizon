@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=5 format=3 uid="uid://3xrcu5e75sjq"]
+
+[ext_resource type="Texture2D" uid="uid://dcqdcisp14e3w" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Icons/Close.png" id="1_mtkh6"]
+[ext_resource type="Script" path="res://Scripts/Inventory/ItemData.gd" id="1_ya2gs"]
+[ext_resource type="Script" path="res://Scripts/Stats/StatModifier.gd" id="2_noyts"]
+
+[sub_resource type="Resource" id="Resource_mv40y"]
+script = ExtResource("2_noyts")
+stat_changing = 12
+stat_modifier_type = 0
+value = 10.0
+sort_order = 0
+
+[resource]
+script = ExtResource("1_ya2gs")
+localization_name = "New Item"
+localization_description = "An item."
+item_type = 1
+image = ExtResource("1_mtkh6")
+max_stack_size = 1
+cost = 10
+equip_type = 1
+stat_modifiers = Array[ExtResource("2_noyts")]([SubResource("Resource_mv40y")])
+weapon_type = 1

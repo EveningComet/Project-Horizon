@@ -85,7 +85,6 @@ func close() -> void:
 ## Handles what should be done when the player highlights a class button.
 func on_player_highlighted_class_button(pc_class: CharacterClass) -> void:
 	# Display the description of the class
-	class_description_displayer.set_text("")
 	class_description_displayer.set_text(pc_class.localization_description)
 
 ## Called when the player selects a character class. This will make the player
@@ -119,6 +118,13 @@ func on_player_finished_entering_name() -> void:
 	new_character.reparent( PlayerPartyController )
 	if PlayerPartyController.get_party_count() < PlayerPartyController.MAX_RECRUITABLE_SIZE:
 		PlayerPartyController.add_party_member( new_character )
+	
+	# Set the starting equipment
+	for i: int in initial_class.starting_equipment.size():
+		var item_slot_data: ItemSlotData = ItemSlotData.new()
+		item_slot_data.stored_item = initial_class.starting_equipment[i]
+		item_slot_data.quantity = 1
+		new_character.equipment_holder.drop_slot_data(item_slot_data, i)
 	
 	character_name_entry.close()
 	player_is_doing_something = false

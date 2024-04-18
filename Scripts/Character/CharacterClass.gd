@@ -17,5 +17,7 @@ class_name CharacterClass extends Resource
 
 # TODO: Portraits that are used for this class.
 
+@export var starting_equipment: Array[ItemData] = []
+
 ## The skills available to this character class.
 @export var skills: Array[SkillData] = []
