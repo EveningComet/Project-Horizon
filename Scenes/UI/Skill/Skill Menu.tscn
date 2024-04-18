@@ -124,7 +124,7 @@ offset_left = 24.0
 offset_top = 48.0
 offset_right = 187.0
 offset_bottom = 71.0
-text = "Points available: 0"
+text = "Available attribute points: 0"
 
 [node name="AttributesContainer" type="VBoxContainer" parent="SkillMenu/SkillPanel/AttributesPanel"]
 layout_mode = 0

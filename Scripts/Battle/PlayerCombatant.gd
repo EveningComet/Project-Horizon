@@ -85,3 +85,10 @@ func level_up() -> void:
 	# Give the character skill points/attribute points/etc.
 	available_attribute_points += 1
 	available_skill_points     += 3
+
+func get_attributes_increase() -> Dictionary:
+	return {
+		StatTypes.stat_types.Vitality : pc_class.vitality_on_increase,
+		StatTypes.stat_types.Expertise : pc_class.expertise_on_increase,
+		StatTypes.stat_types.Will : pc_class.will_on_increase,
+	}
