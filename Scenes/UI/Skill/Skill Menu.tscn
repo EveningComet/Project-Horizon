@@ -31,9 +31,10 @@ skill_container = NodePath("../SkillPanel/ScrollContainer/VBoxContainer/MarginCo
 skill_menu_button_template = ExtResource("2_44m12")
 wait_skills_render_timer = NodePath("../../WaitSkillsRenderTimer")
 
-[node name="AttributesMenu" type="Node" parent="SkillMenu" node_paths=PackedStringArray("points_label", "container")]
+[node name="AttributesMenu" type="Node" parent="SkillMenu" node_paths=PackedStringArray("points_label", "confirm_button", "container")]
 script = ExtResource("4_k8sm6")
 points_label = NodePath("../SkillPanel/AttributesPanel/AttributePointsLabel")
+confirm_button = NodePath("../SkillPanel/AttributesPanel/ConfirmButton")
 container = NodePath("../SkillPanel/AttributesPanel/AttributesContainer")
 menu_entry_template = ExtResource("5_b7hp3")
 
@@ -132,6 +133,15 @@ offset_left = 32.0
 offset_top = 88.0
 offset_right = 72.0
 offset_bottom = 128.0
+
+[node name="ConfirmButton" type="Button" parent="SkillMenu/SkillPanel/AttributesPanel"]
+custom_minimum_size = Vector2(200, 50)
+offset_left = 40.0
+offset_top = 232.0
+offset_right = 240.0
+offset_bottom = 282.0
+disabled = true
+text = "Confirm"
 
 [node name="ExitButton" type="Button" parent="SkillMenu"]
 custom_minimum_size = Vector2(50, 0)

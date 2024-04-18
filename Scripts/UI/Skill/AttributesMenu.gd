@@ -43,9 +43,9 @@ func set_draft_points(points: int):
 
 func emit_correct_signal():
 	if (draft_points == 0):
-		emit_signal("attribute_points_depleted")
+		emit_signal( "attribute_points_depleted" )
 	elif (draft_points > 0):
-		emit_signal("attribute_points_available")
+		emit_signal( "attribute_points_available" )
 
 func update_points_label():
 	points_label.text = "Available attribute points: "
@@ -62,5 +62,5 @@ func spawn_entries_for_attributes():
 			attribute, character_changed, attribute_points_depleted, attribute_points_available)
 		entry.attribute_upgraded.connect( attribute_upgraded )
 		entry.attribute_downgraded.connect( attribute_downgraded )
-		entry.add_to_group(attributes_group_name)
+		entry.add_to_group( attributes_group_name )
 		container.add_child( entry )

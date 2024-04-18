@@ -31,30 +31,30 @@ func update_and_render(character: PlayerCombatant):
 	increase_amount = character.get_attributes_increase()[attribute]
 	set_draft_points( stat.get_base_value() )
 
+func disable_upgrade():
+	upgrade_button.disabled = true
+
+func enable_upgrade():
+	upgrade_button.disabled = false
+
 func upgrade():
 	set_draft_points ( draft_points + increase_amount )
-	emit_signal("attribute_upgraded")
+	emit_signal( "attribute_upgraded" )
 
 func downgrade():
-	var new_amount := draft_points - increase_amount
-	if (new_amount >= stat.get_base_value()):
+	var is_at_minimum := draft_points == stat.get_base_value()
+	if (not is_at_minimum):
 		set_draft_points ( draft_points - increase_amount )
-		emit_signal("attribute_downgraded")
-
-func confirm():
-	stat.set_base_value( draft_points )
-	set_draft_points( stat.get_base_value() )
+		emit_signal( "attribute_downgraded" )
 
 func set_draft_points(points: int):
 	draft_points = points
 	update_label()
 	disable_downgrade_if_minimum_reached()
 
-func enable_upgrade():
-	upgrade_button.disabled = false
-
-func disable_upgrade():
-	upgrade_button.disabled = true
+func confirm():
+	stat.set_base_value( draft_points )
+	set_draft_points( stat.get_base_value() )
 	
 func disable_downgrade_if_minimum_reached():
 	downgrade_button.disabled = draft_points <= stat.get_base_value()
