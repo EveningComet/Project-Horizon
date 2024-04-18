@@ -14,6 +14,8 @@ var grabbed_slot_data: ItemSlotData
 
 var player_inventory: Inventory
 
+var currently_displayed_character: PlayerCombatant = null
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("toggle_inventory"):
 		visible = !visible
@@ -27,23 +29,14 @@ func _ready() -> void:
 	hide()
 	visibility_changed.connect( on_visibility_changed )
 	
-	# Test adding an item
-	var slot_data: ItemSlotData = ItemSlotData.new()
-	slot_data.stored_item = load("res://Game Data/Items/Cool Hat.tres")
-	slot_data.quantity    = 1
-	PlayerInventory.inventory.add_slot_data(slot_data)
-	
 	# Set the player inventory
 	set_player_inventory(PlayerInventory.inventory)
 	
-	# TODO: Proper handling of setting the equipment.
-	if PlayerPartyController.has_members() == false:
-		character_inspection_window.hide()
-	else:
-		character_inspection_window.current_character = PlayerPartyController.party_members[0]
-		character_inspection_window.current_character.equipment_holder.inventory_interacted.connect(
-			on_inventory_interacted
-		)
+	# Sub to the character changed event
+	character_inspection_window.displayed_character_changed.connect(
+		on_displayed_party_member_changed
+	)
+	on_displayed_party_member_changed( character_inspection_window.current_character )
 	
 func set_player_inventory(inventory_data: Inventory) -> void:
 	player_inventory = inventory_data
@@ -68,10 +61,22 @@ func on_player_inventory_displayer_selected(event: InputEvent) -> void:
 			grabbed_slot_data = null
 			update_grabbed_slot()
 
-func on_inventory_interacted(inventory_data: Inventory, index: int, button: int) -> void:
-	if OS.is_debug_build() == true:
-		print("PartyDashboard :: Interacting with inventory: ", inventory_data)
+## When the player switches the character currently being displayed, change
+## the active interactable equipment.
+func on_displayed_party_member_changed(new_pm_to_display: PlayerCombatant) -> void:
+	if currently_displayed_character != null:
+		currently_displayed_character.equipment_holder.inventory_interacted.disconnect(
+			on_inventory_interacted
+		)
 	
+	if new_pm_to_display != null:
+		currently_displayed_character = new_pm_to_display
+		currently_displayed_character.equipment_holder.inventory_interacted.connect(
+			on_inventory_interacted
+		)
+
+## Used to transfer items between inventories and equipment.
+func on_inventory_interacted(inventory_data: Inventory, index: int, button: int) -> void:
 	match [grabbed_slot_data, button]:
 		
 		# The player wants to grab the whole item

@@ -1,18 +1,17 @@
 ## A thing that exists on a character and does something to them.
 class_name StatusEffect extends Resource
 
+enum ApplicationType {
+	EveryTurn, ## For statuses that do a thing every turn.
+	OnSet,     ## When the status effect is first applied.
+	OnRemoval  ## Does the status do its thing when it wears off?
+}
+
 ## The name for this status effect.
 @export var localization_name:                  String = "New Status Effect"
 @export_multiline var localization_description: String = "Status effect description."
 
-## Does the status do its thing every turn?
-@export var applies_every_turn: bool = false
-
-## Does the status only do its thing when it gets set on a character?
-@export var applies_on_set: bool = false
-
-## Does the status do its thing when it wears off?
-@export var applies_on_removal: bool = false
+@export var application_type: ApplicationType
 
 ## Defines what the status effect does.
 @export var effects: Array[StatusEffectData] = []

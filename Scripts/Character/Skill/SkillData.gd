@@ -74,5 +74,11 @@ func get_usable_data(activator: Combatant) -> ActionMediator:
 		elif effect is DirectHealing:
 			var healing_effect = effect as DirectHealing
 			action_mediator.heal_amount += healing_effect.get_power( activator )
+		
+		## See what permanent stat boosters will be applied
+		elif effect is PermanentStatBooster:
+			# TODO: Safety check to make sure the exact boost is not being applied
+			# multiple times?
+			pass
 	
 	return action_mediator
