@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://dlr55ik3475uj"]
+
+[ext_resource type="Script" path="res://Scripts/Inventory/ShopInventoryDisplayer.gd" id="1_b4ucg"]
+[ext_resource type="PackedScene" uid="uid://cxr1y4he1kmnn" path="res://Scenes/UI/Homebase/Inventory/Item Slot UI.tscn" id="2_m7bpv"]
+
+[node name="Shop Inventory Displayer" type="Control" node_paths=PackedStringArray("tab_bar", "item_container")]
+custom_minimum_size = Vector2(600, 500)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_b4ucg")
+tab_bar = NodePath("TabBar")
+item_slot_prefab = ExtResource("2_m7bpv")
+item_container = NodePath("PanelContainer/MarginContainer/Item Grid")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Item Grid" type="GridContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+
+[node name="TabBar" type="TabBar" parent="."]
+layout_mode = 0
+offset_right = 103.0
+offset_bottom = 40.0
+tab_count = 3
+clip_tabs = false
+tab_0/title = "All Items"
+tab_1/title = "Armor / Accessories"
+tab_2/title = "Weapons"
