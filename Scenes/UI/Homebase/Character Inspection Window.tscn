@@ -159,3 +159,6 @@ layout_mode = 2
 
 [node name="Special Power" parent="MarginContainer/Stats Container" instance=ExtResource("3_36qfk")]
 layout_mode = 2
+
+[node name="Speed Stat" parent="MarginContainer/Stats Container" instance=ExtResource("3_36qfk")]
+layout_mode = 2

@@ -115,3 +115,7 @@ func on_stat_changed(combatant: PlayerCombatant) -> void:
 		StatTypes.stat_types.keys()[StatTypes.stat_types.SpecialPower],
 		str( floor(combatant.get_special_power()) )
 	)
+	stats_container.get_child(7).update_display(
+		StatTypes.stat_types.keys()[StatTypes.stat_types.Speed],
+		str( floor(combatant.get_speed()) )
+	)
