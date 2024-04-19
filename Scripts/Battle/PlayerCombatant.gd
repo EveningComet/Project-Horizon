@@ -53,6 +53,7 @@ func initialize_with_class_data(class_data: CharacterClass) -> void:
 # TODO: Multiclassing.
 func set_pc_class(new_class: CharacterClass) -> void:
 	pc_class = new_class
+	initialize_with_class_data( new_class )
 
 ## Return how much experience is required for this character to level up.
 ## Calculation is: 100 * (growth_percent^( current level - 1))

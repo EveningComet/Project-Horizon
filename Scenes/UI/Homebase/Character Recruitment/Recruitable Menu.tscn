@@ -1,21 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://4er7ynu7iu7k"]
+[gd_scene load_steps=12 format=3 uid="uid://4er7ynu7iu7k"]
 
 [ext_resource type="Texture2D" uid="uid://c64t7fsrpym1t" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Panel02.png" id="1_6blpb"]
-[ext_resource type="Script" path="res://Scripts/UI/Homebase/Recruitment Menu/RecruitableMenu.gd" id="1_b7hrp"]
 [ext_resource type="PackedScene" uid="uid://b8dv05151p3tj" path="res://Scenes/UI/Homebase/Character Recruitment/Character Class Button.tscn" id="2_vb1q0"]
+[ext_resource type="Script" path="res://Scripts/UI/Homebase/Recruitment Menu/Recruitable Menu/RecruitableMenuController.gd" id="4_rfa5c"]
+[ext_resource type="Resource" uid="uid://cwh3bxq7dikad" path="res://Game Data/Player Character Classes/Class Data/Aegis CD.tres" id="5_qjhs7"]
+[ext_resource type="Script" path="res://Scripts/UI/Homebase/Recruitment Menu/Recruitable Menu/States/RMInactive.gd" id="5_w8vjq"]
+[ext_resource type="Resource" uid="uid://t862v6s6esbv" path="res://Game Data/Player Character Classes/Class Data/Operative CD.tres" id="6_amhek"]
+[ext_resource type="Script" path="res://Scripts/UI/Homebase/Recruitment Menu/Recruitable Menu/States/RMSelectClass.gd" id="6_s8qlf"]
+[ext_resource type="Resource" uid="uid://b6rrgfkdd5wsv" path="res://Game Data/Player Character Classes/Class Data/Seeker CD.tres" id="7_i4tki"]
+[ext_resource type="PackedScene" uid="uid://djrl0pgif0a4e" path="res://Scenes/UI/Homebase/Character Name Input Screen.tscn" id="10_fiy61"]
+[ext_resource type="Script" path="res://Scripts/UI/Homebase/Recruitment Menu/Recruitable Menu/States/RMSelectPortrait.gd" id="10_rr30u"]
+[ext_resource type="Script" path="res://Scripts/UI/Homebase/Recruitment Menu/Recruitable Menu/States/RMEnterName.gd" id="11_pdohq"]
 
-[node name="Recruitable Menu" type="Control" node_paths=PackedStringArray("class_description_holder", "class_description_displayer", "class_container")]
+[node name="Recruitable Menu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_b7hrp")
-class_description_holder = NodePath("Class Description")
-class_description_displayer = NodePath("Class Description/Panel/MarginContainer/Class Description Label")
-class_container = NodePath("ScrollContainer/Class Container")
-character_class_button_template = ExtResource("2_vb1q0")
 
 [node name="Background" type="TextureRect" parent="."]
 texture_filter = 1
@@ -38,7 +41,7 @@ offset_right = -280.0
 offset_bottom = 340.0
 grow_horizontal = 0
 
-[node name="Class Description" type="Control" parent="."]
+[node name="Class Description Holder" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -52,7 +55,7 @@ offset_bottom = -165.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="Panel" type="Panel" parent="Class Description"]
+[node name="Panel" type="Panel" parent="Class Description Holder"]
 custom_minimum_size = Vector2(700, 300)
 layout_mode = 1
 anchors_preset = 8
@@ -67,7 +70,7 @@ offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Class Description/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Class Description Holder/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -79,7 +82,7 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Class Description Label" type="Label" parent="Class Description/Panel/MarginContainer"]
+[node name="Class Description Label" type="Label" parent="Class Description Holder/Panel/MarginContainer"]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
@@ -97,7 +100,42 @@ follow_focus = true
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
 
-[node name="Class Container" type="VBoxContainer" parent="ScrollContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Class Container" type="VBoxContainer" parent="ScrollContainer/MarginContainer"]
+layout_mode = 2
 theme_override_constants/separation = 10
+
+[node name="RecruitableMenuController" type="Node" parent="." node_paths=PackedStringArray("recruitable_menu_node", "class_container", "class_description_holder", "class_description_label")]
+script = ExtResource("4_rfa5c")
+recruitable_menu_node = NodePath("..")
+class_container = NodePath("../ScrollContainer/MarginContainer/Class Container")
+class_description_holder = NodePath("../Class Description Holder")
+class_description_label = NodePath("../Class Description Holder/Panel/MarginContainer/Class Description Label")
+character_class_button_template = ExtResource("2_vb1q0")
+character_classes = Array[Resource("res://Scripts/Character/CharacterClass.gd")]([ExtResource("5_qjhs7"), ExtResource("6_amhek"), ExtResource("7_i4tki")])
+initial_state = NodePath("RMInactive")
+
+[node name="RMInactive" type="Node" parent="RecruitableMenuController"]
+script = ExtResource("5_w8vjq")
+
+[node name="RMSelectClass" type="Node" parent="RecruitableMenuController"]
+script = ExtResource("6_s8qlf")
+
+[node name="RMSelectPortrait" type="Node" parent="RecruitableMenuController"]
+script = ExtResource("10_rr30u")
+
+[node name="RMEnterName" type="Node" parent="RecruitableMenuController" node_paths=PackedStringArray("character_name_entry")]
+script = ExtResource("11_pdohq")
+character_name_entry = NodePath("../../Character Name Input Screen")
+
+[node name="Character Name Input Screen" parent="." instance=ExtResource("10_fiy61")]
+visible = false
+layout_mode = 1

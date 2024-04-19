@@ -1,13 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://887py14m8irs"]
+[gd_scene load_steps=5 format=3 uid="uid://887py14m8irs"]
 
 [ext_resource type="PackedScene" uid="uid://4er7ynu7iu7k" path="res://Scenes/UI/Homebase/Character Recruitment/Recruitable Menu.tscn" id="1_emqc0"]
 [ext_resource type="Script" path="res://Scripts/UI/Homebase/Recruitment Menu/RecruitmentMenuController.gd" id="1_vtc45"]
 [ext_resource type="PackedScene" uid="uid://b8dv05151p3tj" path="res://Scenes/UI/Homebase/Character Recruitment/Character Class Button.tscn" id="2_7ildh"]
-[ext_resource type="PackedScene" uid="uid://djrl0pgif0a4e" path="res://Scenes/UI/Homebase/Character Name Input Screen.tscn" id="2_083va"]
-[ext_resource type="Resource" uid="uid://t862v6s6esbv" path="res://Game Data/Player Character Classes/Class Data/Operative CD.tres" id="2_iydjd"]
-[ext_resource type="Resource" uid="uid://cwh3bxq7dikad" path="res://Game Data/Player Character Classes/Class Data/Aegis CD.tres" id="3_27exo"]
 [ext_resource type="PackedScene" uid="uid://t37lvdmqohit" path="res://Scenes/UI/Homebase/Character Recruitment/Party Management Menu.tscn" id="3_g4pws"]
-[ext_resource type="Resource" uid="uid://b6rrgfkdd5wsv" path="res://Game Data/Player Character Classes/Class Data/Seeker CD.tres" id="7_ent0k"]
 
 [node name="Recruitment Menu" type="CanvasLayer"]
 
@@ -60,11 +56,7 @@ layout_mode = 2
 focus_neighbor_bottom = NodePath("../Recruit")
 text = "Return"
 
-[node name="Recruitable Menu" parent="." node_paths=PackedStringArray("character_name_entry") instance=ExtResource("1_emqc0")]
-visible = false
-character_name_entry = NodePath("../Character Name Input Screen")
-
-[node name="Character Name Input Screen" parent="." instance=ExtResource("2_083va")]
+[node name="Recruitable Menu" parent="." instance=ExtResource("1_emqc0")]
 visible = false
 
 [node name="Party Management Menu" parent="." instance=ExtResource("3_g4pws")]
@@ -80,4 +72,3 @@ recruitable_menu = NodePath("../Recruitable Menu")
 recruitment_button = NodePath("../Main Screen/Main Screen Buttons/VBoxContainer/Recruit")
 manage_party_button = NodePath("../Main Screen/Main Screen Buttons/VBoxContainer/Manage Party")
 return_button = NodePath("../Main Screen/Main Screen Buttons/VBoxContainer/Return")
-pc_classes = Array[Resource("res://Scripts/Character/CharacterClass.gd")]([ExtResource("2_iydjd"), ExtResource("3_27exo"), ExtResource("7_ent0k")])

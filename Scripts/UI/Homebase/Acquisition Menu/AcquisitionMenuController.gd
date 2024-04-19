@@ -18,6 +18,13 @@ class_name AcquisitionMenuController extends Node
 ## Node storing the inventory data of the shop.
 @export var shop_inventory_data: ShopInventoryHolder
 
+func _unhandled_input(event: InputEvent) -> void:
+	# Maybe this class should be a state machine.
+	if event.is_action_pressed("ui_cancel") and shop_inventory_displayer.visible == true:
+		shop_inventory_displayer.hide()
+		main_buttons_container.show()
+		main_buttons_container.get_child(0).grab_focus()
+
 func _ready() -> void:
 	shop_inventory_displayer.set_inventory_to_display( shop_inventory_data.inventory )
 	
@@ -26,7 +33,8 @@ func _ready() -> void:
 	main_buttons_container.get_child(0).grab_focus()
 
 func on_deal_button_pressed() -> void:
-	pass
+	main_buttons_container.hide()
+	shop_inventory_displayer.show()
 
 func on_return_button_pressed() -> void:
 	SceneController.switch_to_scene( homebase_menu_scene )

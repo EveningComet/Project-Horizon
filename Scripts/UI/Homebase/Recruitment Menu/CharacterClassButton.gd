@@ -2,7 +2,7 @@
 class_name CharacterClassButton extends Button
 
 ## Fired when the player focuses or highlights this button in the menu.
-signal player_highlighted_recruited_character_button(char_class: CharacterClass)
+signal player_highlighted_character_class_button(char_class: CharacterClass)
 
 ## Emitted when the player selects this button. This will pass the stored
 ## character class to the player.
@@ -22,7 +22,7 @@ func on_pressed() -> void:
 	player_selected_class.emit( stored_class )
 
 func on_focused() -> void:
-	player_highlighted_recruited_character_button.emit( stored_class )
+	player_highlighted_character_class_button.emit( stored_class )
 
 func on_mouse_entered() -> void:
-	player_highlighted_recruited_character_button.emit( stored_class )
+	player_highlighted_character_class_button.emit( stored_class )
