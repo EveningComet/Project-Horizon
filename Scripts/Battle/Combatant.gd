@@ -99,7 +99,7 @@ func get_special_power() -> int:
 	var true_special_power: Stat = Stat.new(will, true)
 	for mod: StatModifier in stats[StatTypes.stat_types.SpecialPower].get_modifiers():
 		true_special_power.add_modifier( mod )
-	return stats[StatTypes.stat_types.Will].get_calculated_value() * 2
+	return true_special_power.get_calculated_value()
 
 ## Return the "true" perception, which is used for the chance to hit.
 func get_perception() -> int:
