@@ -28,10 +28,8 @@ class_name SkillData extends Resource
 ## The minimum rank of the previous skill needed to unlock this skill.
 @export var minimum_rank_of_previous: int = 1
 
-@export var base_power_scale: float = 1.0
-
-## How much the skill gets upgraded for each rank.
-@export var upgrade_scale: float = 5.0
+## If belonging to a class, at what class level should this skill be unlocked?
+@export var unlocks_at_class_level: int = 1
 
 ## For skills that need a success chance, what is the base chance of succeeding?
 @export_range(0.0, 1.0) var success_chance: float = 1.0

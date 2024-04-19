@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://d2nqesf7j60nu" path="res://Scenes/UI/Homebase/Character Stat Displayer.tscn" id="3_36qfk"]
 
 [node name="Character Inspection Window" type="Control" node_paths=PackedStringArray("char_name_label", "character_class_name_label", "equipment_displayer", "swap_right_button", "swap_left_button", "stats_container")]
-custom_minimum_size = Vector2(600, 600)
+custom_minimum_size = Vector2(500, 550)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -126,13 +126,13 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -300.0
+offset_top = -272.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
 [node name="Stats Container" type="GridContainer" parent="MarginContainer"]
 layout_mode = 2

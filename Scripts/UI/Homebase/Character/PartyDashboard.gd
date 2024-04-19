@@ -1,5 +1,6 @@
 ## This menu deals with displaying the player's current inventory, the stats
-## of a particular character, that character's equipment.
+## of a particular character, that character's equipment. Another way to think
+## of this is as the "middleman" between those previously mentioned aspects.
 class_name PartyDashboard extends Control
 
 ## The node displaying the inventory.
