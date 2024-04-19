@@ -12,7 +12,6 @@ var attribute: StatTypes.stat_types
 
 var stat: Stat
 var draft_points: int = 0
-var increase_amount: int = 0
 
 func initialize(
 	_attribute: StatTypes.stat_types,
@@ -28,7 +27,6 @@ func initialize(
 func update_and_render(character: PlayerCombatant):
 	stat = character.stats[attribute]
 	draft_points = character.stats[attribute].get_base_value()
-	increase_amount = character.get_attributes_increase()[attribute]
 	set_draft_points( stat.get_base_value() )
 
 func disable_upgrade():
@@ -38,13 +36,13 @@ func enable_upgrade():
 	upgrade_button.disabled = false
 
 func upgrade():
-	set_draft_points ( draft_points + increase_amount )
+	set_draft_points ( draft_points + 1 )
 	emit_signal( "attribute_upgraded" )
 
 func downgrade():
 	var is_at_minimum := draft_points == stat.get_base_value()
 	if (not is_at_minimum):
-		set_draft_points ( draft_points - increase_amount )
+		set_draft_points ( draft_points - 1 )
 		emit_signal( "attribute_downgraded" )
 
 func set_draft_points(points: int):
