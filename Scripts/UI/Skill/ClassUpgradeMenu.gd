@@ -3,6 +3,8 @@ class_name ClassUpgradeMenu extends Node
 @export var info_container: VBoxContainer
 @export var upgrade_button: Button
 
+signal class_upgraded
+
 var info_labels:= {}
 var class_name_label: Label
 
@@ -10,14 +12,32 @@ var stat_types := StatTypes.new()
 var character: PlayerCombatant
 var character_changed: Signal
 
-func initialize(_character_changed: Signal):
+func initialize(
+	_character_changed: Signal,
+	_points_depleted_signal: Signal, _points_available_signal: Signal):
+
 	character_changed = _character_changed
 	character_changed.connect( update_and_render )
+	_points_depleted_signal.connect( disable_upgrade )
+	_points_available_signal.connect( enable_upgrade )
+	upgrade_button.button_down.connect( upgrade )
 	spawn_labels_for_attributes()
 	
 func update_and_render(_character: PlayerCombatant):
 	character = _character
 	update_info_labels_text()
+
+func disable_upgrade():
+	upgrade_button.disabled = true
+
+func enable_upgrade():
+	upgrade_button.disabled = false
+
+func upgrade():
+	for attribute in stat_types.attributes():
+		var stat := character.stats[attribute] as Stat
+		stat.raise_base_value_by( character.get_attributes_increase()[attribute] )
+	emit_signal("class_upgraded")
 
 func update_info_labels_text():
 	class_name_label.text = "Class: " + str(character.pc_class.localization_name).to_upper()

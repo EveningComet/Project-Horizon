@@ -19,7 +19,7 @@ func initialize(_character_changed: Signal):
 	character_changed.connect( update_and_render )
 	confirm_button.button_down.connect( confirm )
 	spawn_entries_for_attributes()
-	
+
 func update_and_render(_character: PlayerCombatant):
 	character = _character
 	set_draft_points( character.available_attribute_points )
@@ -40,6 +40,9 @@ func set_draft_points(points: int):
 	emit_correct_signal()
 	update_points_label()
 	disable_confirm_if_no_action_taken()
+
+func refresh():
+	get_tree().call_group( attributes_group_name, "refresh" )
 
 func emit_correct_signal():
 	if (draft_points == 0):

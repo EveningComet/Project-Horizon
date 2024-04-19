@@ -26,7 +26,6 @@ func initialize(
 
 func update_and_render(character: PlayerCombatant):
 	stat = character.stats[attribute]
-	draft_points = character.stats[attribute].get_base_value()
 	set_draft_points( stat.get_base_value() )
 
 func disable_upgrade():
@@ -52,6 +51,9 @@ func set_draft_points(points: int):
 
 func confirm():
 	stat.set_base_value( draft_points )
+	set_draft_points( stat.get_base_value() )
+
+func refresh():
 	set_draft_points( stat.get_base_value() )
 	
 func disable_downgrade_if_minimum_reached():

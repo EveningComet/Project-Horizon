@@ -11,6 +11,7 @@ class_name SkillMenu extends Control
 @export var class_upgrade_menu: ClassUpgradeMenu
 
 signal skill_points_depleted
+signal skill_points_available
 signal character_changed(character: PlayerCombatant)
 
 var characters:= PlayerPartyController.party_members
@@ -26,7 +27,9 @@ func _ready():
 	undo_skill_points_button.button_down.connect( undo_points )
 	skills_tree_renderer.initialize( on_skill_upgraded, skill_points_depleted )
 	attributes_menu.initialize( character_changed )
-	class_upgrade_menu.initialize( character_changed )
+	class_upgrade_menu.initialize( 
+		character_changed, skill_points_depleted, skill_points_available )
+	class_upgrade_menu.class_upgraded.connect( on_class_upgraded )
 
 func add_tabs_per_character():
 	tab_bar.clear_tabs()
@@ -51,18 +54,28 @@ func confirm_points():
 	get_tree().call_group( skills_tree_renderer.skills_group_name, "confirm" )
 
 func undo_points():
+	attributes_menu.refresh()
 	set_draft_skill_points( current_character.available_skill_points )
 	get_tree().call_group( skills_tree_renderer.skills_group_name, "undo" )
 
 func on_skill_upgraded():
 	set_draft_skill_points( draft_available_skill_points - 1 )
 
+func on_class_upgraded():
+	attributes_menu.refresh()
+	set_draft_skill_points( draft_available_skill_points - 1 )
+
 func set_draft_skill_points(new_value: int):
 	draft_available_skill_points = new_value
-	if (draft_available_skill_points == 0):
-		emit_signal("skill_points_depleted")
+	emit_correct_signal()
 	set_draft_skill_points_label()
 	disable_confirm_and_undo_if_no_action_taken()
+
+func emit_correct_signal():
+	if (draft_available_skill_points == 0):
+		emit_signal("skill_points_depleted")
+	else:
+		emit_signal("skill_points_available")
 
 func set_draft_skill_points_label():
 	skill_points_label.text = "Available skill points: "
