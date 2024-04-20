@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://dp4egs6b2x0dy"]
+[gd_scene load_steps=15 format=3 uid="uid://dp4egs6b2x0dy"]
 
 [ext_resource type="PackedScene" uid="uid://dlr55ik3475uj" path="res://Scenes/UI/Homebase/Inventory/Shop Inventory Displayer.tscn" id="1_pi68x"]
 [ext_resource type="Script" path="res://Scripts/Inventory/ShopInventoryHolder.gd" id="2_nt8t0"]
 [ext_resource type="Script" path="res://Scripts/Inventory/ShopInventoryData.gd" id="3_smrjh"]
 [ext_resource type="Script" path="res://Scripts/Inventory/ItemSlotData.gd" id="4_vrhbw"]
 [ext_resource type="Resource" uid="uid://bmcb6ghlrnt4o" path="res://Game Data/Items/Equipment/Test Neuralink.tres" id="5_eq0jp"]
+[ext_resource type="Resource" uid="uid://b6jjntfgycyoe" path="res://Game Data/Items/Equipment/Cool Hat.tres" id="5_r31i8"]
 [ext_resource type="Script" path="res://Scripts/UI/Homebase/Acquisition Menu/AcquisitionMenuController.gd" id="6_6110m"]
 [ext_resource type="Script" path="res://Scripts/UI/Homebase/Acquisition Menu/ShopDashboard.gd" id="7_281cr"]
 [ext_resource type="PackedScene" uid="uid://ewbg8wvdusfl" path="res://Scenes/UI/Homebase/Inventory/Player Inventory Displayer.tscn" id="8_fl1ij"]
@@ -16,9 +17,14 @@ script = ExtResource("4_vrhbw")
 stored_item = ExtResource("5_eq0jp")
 quantity = 999
 
+[sub_resource type="Resource" id="Resource_dhf5a"]
+script = ExtResource("4_vrhbw")
+stored_item = ExtResource("5_r31i8")
+quantity = 1
+
 [sub_resource type="Resource" id="Resource_e5xbi"]
 script = ExtResource("3_smrjh")
-stored_items = Array[ExtResource("4_vrhbw")]([SubResource("Resource_ulkyd")])
+stored_items = Array[ExtResource("4_vrhbw")]([SubResource("Resource_ulkyd"), SubResource("Resource_dhf5a")])
 
 [node name="Acquisitions Menu" type="CanvasLayer"]
 

@@ -26,7 +26,6 @@ func grab_slot_data(index: int) -> ItemSlotData:
 	# If we have a slot to move, remove the slot and tell anyone caring about the change.
 	if slot_data != null and slot_data.stored_item != null:
 		stored_items.remove_at(index)
-		#stored_items[index] = null
 		inventory_updated.emit( self )
 		return slot_data
 	else:
@@ -84,7 +83,7 @@ func use_slot_data(index: int) -> void:
 	inventory_updated.emit( self )
 	
 	if OS.is_debug_build() == true:
-		print("Inventory :: Attempting to use item: %s." % [slot_data.stored_item.item_name])
+		print("Inventory :: Attempting to use item: %s." % [slot_data.stored_item.localization_name])
 
 ## Used when adding a single slot data.
 func add_slot_data(slot_data: ItemSlotData) -> void:

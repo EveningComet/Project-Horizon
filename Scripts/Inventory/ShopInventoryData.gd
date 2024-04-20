@@ -14,3 +14,10 @@ func grab_slot_data(index: int) -> ItemSlotData:
 		return slot_data
 	else:
 		return null
+
+func drop_single_slot_data(grabbed_slot_data: ItemSlotData, index: int) -> ItemSlotData:
+	return grabbed_slot_data
+
+## Modified to prevent item drops.
+func drop_slot_data(grabbed_slot_data: ItemSlotData, index: int) -> ItemSlotData:
+	return grabbed_slot_data

@@ -14,7 +14,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _ready() -> void:
 	shop_inventory_holder.inventory.inventory_interacted.connect(
-		on_inventory_interacted
+		on_shop_inventory_interacted
 	)
 	shop_inventory_displayer.gui_input.connect( on_shop_gui_input )
 	super()
@@ -26,13 +26,23 @@ func on_shop_gui_input(event: InputEvent) -> void:
 		grabbed_slot_data = null
 		update_grabbed_slot()
 
-func on_inventory_interacted(inventory_data: Inventory, index: int, button: int) -> void:
-	if inventory_data is Inventory:
-		super(inventory_data, index, button)
+func on_shop_inventory_interacted(inventory_data: ShopInventoryData, index: int, button: int) -> void:
+	if OS.is_debug_build() == true:
+		print("ShopDashboard :: The player clicked over a shop node.")
+	match [grabbed_slot_data, button]:
+		
+		[null, MOUSE_BUTTON_LEFT]:
+			grabbed_slot_data = inventory_data.grab_slot_data(index)
+		
+		[_, MOUSE_BUTTON_LEFT], [_, MOUSE_BUTTON_RIGHT]:
+			# Sell the item when the player clicks over a slot
+			player_inventory.add_money( grabbed_slot_data.stored_item.cost )
+			grabbed_slot_data = null
+		
+		[null, MOUSE_BUTTON_RIGHT]:
+			# Add the item to the player's inventory immediately
+			player_inventory.add_slot_data(
+				inventory_data.grab_slot_data(index)
+			)
 	
-	# TODO: When the player has a grabbed slot, and they click on a slot in the
-	# shop, the player should sell what they currently have held.
-	#elif inventory_data is ShopInventoryData:
-		#if OS.is_debug_build() == true:
-			#print("ShopDashboard :: The player clicked over a shop node.")
-		#pass
+	update_grabbed_slot()
