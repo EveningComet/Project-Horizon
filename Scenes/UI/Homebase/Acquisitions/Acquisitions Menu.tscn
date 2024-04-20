@@ -81,7 +81,7 @@ offset_right = 650.0
 offset_bottom = 250.0
 grow_vertical = 2
 
-[node name="Shop Dashboard" type="Control" parent="." node_paths=PackedStringArray("shop_inventory_holder", "player_inventory_ui", "character_inspection_window", "grabbed_slot_ui")]
+[node name="Shop Dashboard" type="Control" parent="." node_paths=PackedStringArray("shop_inventory_holder", "shop_inventory_displayer", "player_inventory_ui", "character_inspection_window", "grabbed_slot_ui")]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 3
 anchors_preset = 15
@@ -92,6 +92,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("7_281cr")
 shop_inventory_holder = NodePath("../Shop Inventory Holder")
+shop_inventory_displayer = NodePath("../Shop Inventory Displayer")
 player_inventory_ui = NodePath("Player Inventory Displayer")
 character_inspection_window = NodePath("Character Inspection Window")
 grabbed_slot_ui = NodePath("Grabbed Slot UI")

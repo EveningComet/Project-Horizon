@@ -16,6 +16,9 @@ var money: int = 0
 func initialize_slots() -> void:
 	stored_items.clear()
 
+func add_money(amt: int) -> void:
+	money += amt
+
 ## Return a slot data object, given the passed index.
 func grab_slot_data(index: int) -> ItemSlotData:
 	var slot_data: ItemSlotData = stored_items[index]
