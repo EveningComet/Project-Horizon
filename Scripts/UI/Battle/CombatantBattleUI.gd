@@ -22,8 +22,8 @@ var vital_stats: Dictionary = {}
 func set_combatant(new_combatant: Combatant, is_player_owned: bool) -> void:
 	combatant            = new_combatant
 	is_player_controlled = is_player_owned
-	vital_stats[StatTypes.stat_types.CurrentHP] = combatant.stats[StatTypes.stat_types.CurrentHP]
-	vital_stats[StatTypes.stat_types.CurrentSP] = combatant.stats[StatTypes.stat_types.CurrentSP]
+	vital_stats[StatTypes.stat_types.CurrentHP] = combatant.get_current_hp()
+	vital_stats[StatTypes.stat_types.CurrentSP] = combatant.get_current_sp()
 	combatant.stat_changed.connect( on_stat_changed )
 	if is_player_controlled == true:
 		update_hp_display()
@@ -40,18 +40,19 @@ func on_stat_changed(monitored: Combatant) -> void:
 	
 	# Handling for the enemy
 	else:
-		if vital_stats[StatTypes.stat_types.CurrentHP] > combatant.stats[StatTypes.stat_types.CurrentHP]:
-			var diff: int = combatant.stats[StatTypes.stat_types.CurrentHP] - vital_stats[StatTypes.stat_types.CurrentHP]
+		if vital_stats[StatTypes.stat_types.CurrentHP] > combatant.get_current_hp():
+			var diff: int = combatant.get_current_hp() - vital_stats[StatTypes.stat_types.CurrentHP]
 			diff = absi(diff)
-			vital_stats[StatTypes.stat_types.CurrentHP] = combatant.stats[StatTypes.stat_types.CurrentHP]
+			vital_stats[StatTypes.stat_types.CurrentHP] = combatant.get_current_hp()
 			var damage_display_text: DamageTextDisplayer = damage_text_template.instantiate()
 			get_parent().get_parent().add_child( damage_display_text )
 			damage_display_text.global_position = global_position
 			damage_display_text.display( diff )
-		elif vital_stats[StatTypes.stat_types.CurrentHP] < combatant.stats[StatTypes.stat_types.CurrentHP]:
-			var diff: int = combatant.stats[StatTypes.stat_types.CurrentHP] - vital_stats[StatTypes.stat_types.CurrentHP]
+			
+		elif vital_stats[StatTypes.stat_types.CurrentHP] < combatant.get_current_hp():
+			var diff: int = combatant.get_current_hp() - vital_stats[StatTypes.stat_types.CurrentHP]
 			diff = absi(diff)
-			vital_stats[StatTypes.stat_types.CurrentHP] = combatant.stats[StatTypes.stat_types.CurrentHP]
+			vital_stats[StatTypes.stat_types.CurrentHP] = combatant.get_current_hp()
 			var damage_display_text: DamageTextDisplayer = damage_text_template.instantiate()
 			get_parent().get_parent().add_child( damage_display_text )
 			damage_display_text.global_position = global_position

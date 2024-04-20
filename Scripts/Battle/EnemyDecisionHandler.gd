@@ -39,7 +39,7 @@ func _get_best_action_for_enemy(
 			"base_defense": 0,
 			"potential_damage": 0,
 			"skill_cost": 0,
-			"current_sp": enemy.stats[StatTypes.stat_types.CurrentSP],
+			"current_sp": enemy.get_current_sp(),
 			"healilng_power": 0
 		}
 		
@@ -53,7 +53,7 @@ func _get_best_action_for_enemy(
 					potential_action.add_target( player_com )
 					
 					# Update the needed context information
-					context["target_hp"] = player_com.stats[StatTypes.stat_types.CurrentHP]
+					context["target_hp"]    = player_com.get_current_hp()
 					context["base_defense"] = player_com.get_defense()
 					
 					# Find the skill that will deal the most damage
@@ -76,7 +76,7 @@ func _get_best_action_for_enemy(
 					potential_action.activator = enemy
 					potential_action.add_target( enemy_ally )
 					potential_action.action_type = ActionTypes.ActionTypes.SingleAlly
-					context["target_hp"] = enemy_ally.stats[StatTypes.stat_types.CurrentHP]
+					context["target_hp"] = enemy_ally.get_current_hp()
 					
 					for skill: SkillData in enemy.stored_enemy_data.available_skills:
 						var mediator = skill.get_usable_data( enemy )
