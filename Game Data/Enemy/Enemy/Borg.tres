@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EnemyData" load_steps=12 format=3 uid="uid://lwnkgixvx6n5"]
+[gd_resource type="Resource" script_class="EnemyData" load_steps=13 format=3 uid="uid://lwnkgixvx6n5"]
 
 [ext_resource type="Resource" uid="uid://d17igemxkf6al" path="res://Game Data/Generic Skills/Generic Regular Attack.tres" id="1_mv1jc"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/Skill Effects/DirectHealing.gd" id="2_0dwde"]
@@ -39,6 +39,13 @@ stat_modifier_type = 0
 value = 10.0
 sort_order = 0
 
+[sub_resource type="Resource" id="Resource_dfr35"]
+script = ExtResource("5_75q05")
+stat_changing = 7
+stat_modifier_type = 0
+value = 5.0
+sort_order = 0
+
 [resource]
 script = ExtResource("5_ff5nn")
 portrait = ExtResource("3_6y8ts")
@@ -47,7 +54,7 @@ vitality = 3
 expertise = 3
 will = 3
 exp_on_death = 100
-stat_modifiers = Array[ExtResource("5_75q05")]([SubResource("Resource_ieaos")])
+stat_modifiers = Array[ExtResource("5_75q05")]([SubResource("Resource_ieaos"), SubResource("Resource_dfr35")])
 available_skills = Array[ExtResource("3_6smvp")]([ExtResource("1_mv1jc"), SubResource("Resource_3nigy")])
 efficiency = 0.25
 behaviors = Array[Resource("res://addons/utility_ai/core/utility_ai_behavior.gd")]([ExtResource("2_0o474"), ExtResource("5_bn1wi")])

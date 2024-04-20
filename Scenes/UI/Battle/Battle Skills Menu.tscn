@@ -8,7 +8,7 @@ layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_dsq1a")
 battle_skill_button_template = ExtResource("2_k8fla")
-spawned_button_node = NodePath("Background/MarginContainer/HBoxContainer/ScrollContainer/Skill Button Holder")
+spawned_button_node = NodePath("Background/MarginContainer/HBoxContainer/ScrollContainer/MarginContainer/Skill Button Holder")
 description = NodePath("Background/MarginContainer/HBoxContainer/Skill Description")
 
 [node name="Background" type="Panel" parent="."]
@@ -50,7 +50,14 @@ follow_focus = true
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
 
-[node name="Skill Button Holder" type="VBoxContainer" parent="Background/MarginContainer/HBoxContainer/ScrollContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Background/MarginContainer/HBoxContainer/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Skill Button Holder" type="VBoxContainer" parent="Background/MarginContainer/HBoxContainer/ScrollContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4

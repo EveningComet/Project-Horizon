@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="CharacterClass" load_steps=3 format=3 uid="uid://b6rrgfkdd5wsv"]
+[gd_resource type="Resource" script_class="CharacterClass" load_steps=4 format=3 uid="uid://b6rrgfkdd5wsv"]
 
 [ext_resource type="Script" path="res://Scripts/Character/CharacterClass.gd" id="1_uayuu"]
 [ext_resource type="Resource" uid="uid://by8cb3jap5hqh" path="res://Game Data/Player Character Classes/Class Skills/Seeker Skills/Seeker Field Medicine.tres" id="2_dtmpd"]
+[ext_resource type="Resource" uid="uid://cukjs3d4dg3pp" path="res://Game Data/Player Character Classes/Class Skills/Seeker Skills/Seeker Spray.tres" id="3_2kvmw"]
 
 [resource]
 script = ExtResource("1_uayuu")
@@ -14,4 +15,4 @@ vitality_on_increase = 5
 expertise_on_increase = 5
 will_on_increase = 5
 starting_equipment = Array[Resource("res://Scripts/Inventory/ItemData.gd")]([])
-skills = Array[Resource("res://Scripts/Character/Skill/SkillData.gd")]([ExtResource("2_dtmpd")])
+skills = Array[Resource("res://Scripts/Character/Skill/SkillData.gd")]([ExtResource("2_dtmpd"), ExtResource("3_2kvmw")])
