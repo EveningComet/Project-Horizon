@@ -46,10 +46,11 @@ container = NodePath("../OverviewPanel/AttributesPanel/AttributesContainer")
 menu_entry_template = ExtResource("5_b7hp3")
 upgrader = NodePath("../AttributesUpgrader")
 
-[node name="ClassUpgradeMenu" type="Node" parent="SkillMenu" node_paths=PackedStringArray("info_container", "upgrade_button")]
+[node name="ClassUpgradeMenu" type="Node" parent="SkillMenu" node_paths=PackedStringArray("info_container", "upgrade_button", "upgrader")]
 script = ExtResource("6_j0n5l")
 info_container = NodePath("../OverviewPanel/SkillsPanel/ClassInfoContainer")
 upgrade_button = NodePath("../OverviewPanel/SkillsPanel/ClassUpgradeButton")
+upgrader = NodePath("../AttributesUpgrader")
 
 [node name="TabBar" type="TabBar" parent="SkillMenu"]
 layout_mode = 0
@@ -126,7 +127,7 @@ offset_bottom = 648.0
 layout_mode = 0
 offset_left = 272.0
 offset_top = 608.0
-offset_right = 368.0
+offset_right = 384.0
 offset_bottom = 656.0
 text = "Upgrade"
 

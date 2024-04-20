@@ -26,12 +26,12 @@ func _ready():
 	exit_button.button_down.connect( canvas.hide )
 	confirm_button.button_down.connect( confirm_points )
 	undo_skill_points_button.button_down.connect( undo_points )
-	skills_tree_renderer.initialize( on_skill_upgraded, skill_points_depleted )
+	skills_tree_renderer.initialize( deduct_one_point, skill_points_depleted )
 	attributes_upgrader.initialize( character_changed )
 	attributes_menu.initialize( character_changed )
 	class_upgrade_menu.initialize( 
 		character_changed, skill_points_depleted, skill_points_available )
-	class_upgrade_menu.class_upgraded.connect( on_class_upgraded )
+	class_upgrade_menu.class_upgraded.connect( deduct_one_point )
 
 func add_tabs_per_character():
 	tab_bar.clear_tabs()
@@ -56,15 +56,11 @@ func confirm_points():
 	get_tree().call_group( skills_tree_renderer.skills_group_name, "confirm" )
 
 func undo_points():
-	attributes_menu.refresh()
 	set_draft_skill_points( current_character.available_skill_points )
+	class_upgrade_menu.undo()
 	get_tree().call_group( skills_tree_renderer.skills_group_name, "undo" )
 
-func on_skill_upgraded():
-	set_draft_skill_points( draft_available_skill_points - 1 )
-
-func on_class_upgraded():
-	attributes_menu.refresh()
+func deduct_one_point():
 	set_draft_skill_points( draft_available_skill_points - 1 )
 
 func set_draft_skill_points(new_value: int):

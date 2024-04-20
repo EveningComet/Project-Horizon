@@ -2,6 +2,7 @@ class_name ClassUpgradeMenu extends Node
 
 @export var info_container: VBoxContainer
 @export var upgrade_button: Button
+@export var upgrader: AttributesUpgrader
 
 signal class_upgraded
 
@@ -34,10 +35,11 @@ func enable_upgrade():
 	upgrade_button.disabled = false
 
 func upgrade():
-	for attribute in stat_types.attributes():
-		var stat := character.stats[attribute] as Stat
-		stat.raise_base_value_by( character.get_attributes_increase()[attribute] )
+	upgrader.class_upgrade(character.get_attributes_increase())
 	emit_signal("class_upgraded")
+
+func undo():
+	upgrader.undo_class_upgrade()
 
 func update_info_labels_text():
 	class_name_label.text = "Class: " + str(character.pc_class.localization_name).to_upper()

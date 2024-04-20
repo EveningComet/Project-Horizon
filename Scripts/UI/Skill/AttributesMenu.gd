@@ -42,9 +42,6 @@ func set_draft_points(points: int):
 	update_points_label()
 	disable_confirm_if_no_action_taken()
 
-func refresh():
-	get_tree().call_group( attributes_group_name, "refresh" )
-
 func emit_correct_signal():
 	if (draft_points == 0):
 		emit_signal( "attribute_points_depleted" )
