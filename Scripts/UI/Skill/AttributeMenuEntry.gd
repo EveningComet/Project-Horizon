@@ -18,7 +18,6 @@ func initialize(
 	attribute = _attribute
 	upgrader = _upgrader
 	upgrader.stats_changed.connect( update_and_render )
-	upgrader.stats_confirmed.connect( update_and_render )
 	_points_depleted.connect( disable_upgrade )
 	_points_available.connect( enable_upgrade )
 	upgrade_button.button_down.connect( upgrade )
@@ -26,7 +25,7 @@ func initialize(
 
 func update_and_render(stats: Dictionary):
 	update_label(stats[attribute])
-	downgrade_button.disabled = upgrader.is_minimum_reached(attribute)
+	downgrade_button.disabled = !upgrader.can_do_attribute_downgrade(attribute)
 
 func disable_upgrade():
 	upgrade_button.disabled = true
@@ -35,11 +34,11 @@ func enable_upgrade():
 	upgrade_button.disabled = false
 
 func upgrade():
-	upgrader.upgrade(attribute)
+	upgrader.attribute_upgrade(attribute)
 	emit_signal( "attribute_upgraded" )
 
 func downgrade():
-	upgrader.downgrade(attribute)
+	upgrader.attribute_downgrade(attribute)
 	emit_signal( "attribute_downgraded" )
 
 func confirm():

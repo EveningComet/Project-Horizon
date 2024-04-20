@@ -54,11 +54,12 @@ func confirm_points():
 	current_character.available_skill_points = draft_available_skill_points
 	set_draft_skill_points( current_character.available_skill_points )
 	get_tree().call_group( skills_tree_renderer.skills_group_name, "confirm" )
+	class_upgrade_menu.confirm()
 
 func undo_points():
 	set_draft_skill_points( current_character.available_skill_points )
-	class_upgrade_menu.undo()
 	get_tree().call_group( skills_tree_renderer.skills_group_name, "undo" )
+	class_upgrade_menu.undo()
 
 func deduct_one_point():
 	set_draft_skill_points( draft_available_skill_points - 1 )

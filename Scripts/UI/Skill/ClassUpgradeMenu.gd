@@ -38,6 +38,9 @@ func upgrade():
 	upgrader.class_upgrade(character.get_attributes_increase())
 	emit_signal("class_upgraded")
 
+func confirm():
+	upgrader.confirm()
+
 func undo():
 	upgrader.undo_class_upgrade()
 

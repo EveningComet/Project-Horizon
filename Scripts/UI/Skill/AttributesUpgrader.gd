@@ -3,10 +3,10 @@ class_name AttributesUpgrader
 extends Node
 
 signal stats_changed(new_stats: Dictionary)
-signal stats_confirmed(new_stats: Dictionary)
 
-var stats: Dictionary = {} # { attribute: stat }
-var draft_stats: Dictionary = {} # { attribute: base_value }
+var stats: Dictionary = {}
+var draft_stats: Dictionary = {} 
+var minimum_for_attribute_downgrade: Dictionary = {}
 var attributes := StatTypes.new().attributes()
 
 func initialize(_character_changed: Signal):
@@ -14,37 +14,39 @@ func initialize(_character_changed: Signal):
 
 func store_stats(character: PlayerCombatant):
 	stats = character.stats
-	sync_draft_stats_with_stats()
+	reset_draft_and_minimum_stats()
 
 func confirm():
 	for attribute in attributes:
 		stats[attribute].set_base_value(draft_stats[attribute])
-	emit_signal("stats_confirmed", draft_stats)
+	reset_draft_and_minimum_stats()
 
-func upgrade(attribute: StatTypes.stat_types, amount: int = 1):
-	set_draft_stat_for_attribute(attribute, draft_stats[attribute] + amount)
+func attribute_upgrade(attribute: StatTypes.stat_types):
+	draft_stats[attribute] += 1
+	emit_signal( "stats_changed", draft_stats )
 
-func downgrade(attribute: StatTypes.stat_types, amount: int = 1):
-	set_draft_stat_for_attribute(attribute, draft_stats[attribute] - amount)
+func attribute_downgrade(attribute: StatTypes.stat_types):
+	draft_stats[attribute] -= 1
+	emit_signal( "stats_changed", draft_stats )
 
 func class_upgrade(amount: Dictionary):
 	for attribute in attributes:
-		upgrade(attribute, amount[attribute])
+		draft_stats[attribute] += amount[attribute]
+		# We just did a class upgrade, so don't allow attribute downgrade to revert this.
+		minimum_for_attribute_downgrade[attribute] = draft_stats[attribute]
+	emit_signal( "stats_changed", draft_stats )
 
 func undo_class_upgrade():
-	sync_draft_stats_with_stats()
+	reset_draft_and_minimum_stats()
 
-func is_minimum_reached(attribute: StatTypes.stat_types) -> bool:
-	return draft_stats[attribute] <= stats[attribute].get_base_value()
+func can_do_attribute_downgrade(attribute: StatTypes.stat_types) -> bool:
+	return draft_stats[attribute] > minimum_for_attribute_downgrade[attribute]
 
 func get_draft_stats(attribute: StatTypes.stat_types) -> int:
 	return draft_stats[attribute]
 
-func set_draft_stat_for_attribute(attribute: StatTypes.stat_types, base_value: int):
-	draft_stats[attribute] = base_value
-	emit_signal( "stats_changed", draft_stats )
-
-func sync_draft_stats_with_stats():
+func reset_draft_and_minimum_stats():
 	for attribute in attributes:
 		draft_stats[attribute] = stats[attribute].get_base_value()
+		minimum_for_attribute_downgrade[attribute] = stats[attribute].get_base_value()
 	emit_signal( "stats_changed", draft_stats )
