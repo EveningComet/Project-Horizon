@@ -21,7 +21,7 @@ script = ExtResource("1_gb7ft")
 tab_bar = NodePath("TabBar")
 exit_button = NodePath("ExitButton")
 confirm_button = NodePath("OverviewPanel/SkillsPanel/ConfirmButton")
-undo_skill_points_button = NodePath("OverviewPanel/SkillsPanel/UndoSkillPointsButton")
+undo_skill_points_button = NodePath("OverviewPanel/SkillsPanel/UndoButton")
 skill_points_label = NodePath("OverviewPanel/SkillsPanel/SkillPointsLabel")
 canvas = NodePath("..")
 skills_tree_renderer = NodePath("SkillsTreeRenderer")
@@ -38,13 +38,14 @@ wait_skills_render_timer = NodePath("../../WaitSkillsRenderTimer")
 [node name="AttributesUpgrader" type="Node" parent="SkillMenu"]
 script = ExtResource("7_ufqe0")
 
-[node name="AttributesMenu" type="Node" parent="SkillMenu" node_paths=PackedStringArray("points_label", "container", "upgrader", "confirm_button")]
+[node name="AttributesMenu" type="Node" parent="SkillMenu" node_paths=PackedStringArray("points_label", "container", "upgrader", "confirm_button", "undo_button")]
 script = ExtResource("4_k8sm6")
 points_label = NodePath("../OverviewPanel/AttributesPanel/AttributePointsLabel")
 container = NodePath("../OverviewPanel/AttributesPanel/AttributesContainer")
 menu_entry_template = ExtResource("5_b7hp3")
 upgrader = NodePath("../AttributesUpgrader")
 confirm_button = NodePath("../OverviewPanel/SkillsPanel/ConfirmButton")
+undo_button = NodePath("../OverviewPanel/SkillsPanel/UndoButton")
 
 [node name="ClassUpgradeMenu" type="Node" parent="SkillMenu" node_paths=PackedStringArray("info_container", "upgrade_button", "upgrader")]
 script = ExtResource("6_j0n5l")
@@ -142,7 +143,7 @@ offset_bottom = 370.0
 disabled = true
 text = "Confirm"
 
-[node name="UndoSkillPointsButton" type="Button" parent="SkillMenu/OverviewPanel/SkillsPanel"]
+[node name="UndoButton" type="Button" parent="SkillMenu/OverviewPanel/SkillsPanel"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 0
 offset_left = 1144.0
