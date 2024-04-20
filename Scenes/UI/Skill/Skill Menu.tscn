@@ -1,15 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://dks4qxa6s4ful"]
+[gd_scene load_steps=8 format=3 uid="uid://dks4qxa6s4ful"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Skill/SkillMenu.gd" id="1_gb7ft"]
 [ext_resource type="PackedScene" uid="uid://bngujmgvwnby5" path="res://Scenes/UI/Skill/Skill Menu Button.tscn" id="2_44m12"]
 [ext_resource type="Script" path="res://Scripts/UI/Skill/SkillsTreeRenderer.gd" id="3_3kt4c"]
 [ext_resource type="Script" path="res://Scripts/UI/Skill/AttributesMenu.gd" id="4_k8sm6"]
-[ext_resource type="PackedScene" path="res://Scenes/UI/Skill/Attribute Menu Entry.tscn" id="5_b7hp3"]
+[ext_resource type="PackedScene" uid="uid://dq83dljr1ulfa" path="res://Scenes/UI/Skill/Attribute Menu Entry.tscn" id="5_b7hp3"]
 [ext_resource type="Script" path="res://Scripts/UI/Skill/ClassUpgradeMenu.gd" id="6_j0n5l"]
+[ext_resource type="Script" path="res://Scripts/UI/Skill/AttributesUpgrader.gd" id="7_ufqe0"]
 
 [node name="SkillMenu" type="CanvasLayer"]
 
-[node name="SkillMenu" type="Control" parent="." node_paths=PackedStringArray("tab_bar", "exit_button", "confirm_button", "undo_skill_points_button", "skill_points_label", "canvas", "skills_tree_renderer", "attributes_menu", "class_upgrade_menu")]
+[node name="SkillMenu" type="Control" parent="." node_paths=PackedStringArray("tab_bar", "exit_button", "confirm_button", "undo_skill_points_button", "skill_points_label", "canvas", "skills_tree_renderer", "attributes_menu", "class_upgrade_menu", "attributes_upgrader")]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 399.0
@@ -26,6 +27,7 @@ canvas = NodePath("..")
 skills_tree_renderer = NodePath("SkillsTreeRenderer")
 attributes_menu = NodePath("AttributesMenu")
 class_upgrade_menu = NodePath("ClassUpgradeMenu")
+attributes_upgrader = NodePath("AttributesUpgrader")
 
 [node name="SkillsTreeRenderer" type="Node" parent="SkillMenu" node_paths=PackedStringArray("skill_container", "wait_skills_render_timer")]
 script = ExtResource("3_3kt4c")
@@ -33,12 +35,16 @@ skill_container = NodePath("../OverviewPanel/SkillsPanel/SkillsContainer/VBoxCon
 skill_menu_button_template = ExtResource("2_44m12")
 wait_skills_render_timer = NodePath("../../WaitSkillsRenderTimer")
 
-[node name="AttributesMenu" type="Node" parent="SkillMenu" node_paths=PackedStringArray("points_label", "confirm_button", "container")]
+[node name="AttributesUpgrader" type="Node" parent="SkillMenu"]
+script = ExtResource("7_ufqe0")
+
+[node name="AttributesMenu" type="Node" parent="SkillMenu" node_paths=PackedStringArray("points_label", "confirm_button", "container", "upgrader")]
 script = ExtResource("4_k8sm6")
 points_label = NodePath("../OverviewPanel/AttributesPanel/AttributePointsLabel")
 confirm_button = NodePath("../OverviewPanel/AttributesPanel/ConfirmButton")
 container = NodePath("../OverviewPanel/AttributesPanel/AttributesContainer")
 menu_entry_template = ExtResource("5_b7hp3")
+upgrader = NodePath("../AttributesUpgrader")
 
 [node name="ClassUpgradeMenu" type="Node" parent="SkillMenu" node_paths=PackedStringArray("info_container", "upgrade_button")]
 script = ExtResource("6_j0n5l")
@@ -69,6 +75,7 @@ offset_right = 1137.0
 offset_bottom = 731.0
 
 [node name="AttributesHeaderLabel" type="Label" parent="SkillMenu/OverviewPanel/SkillsPanel"]
+layout_mode = 0
 offset_left = 24.0
 offset_top = 24.0
 offset_right = 118.0
@@ -109,26 +116,19 @@ layout_mode = 2
 text = "No members recruited"
 
 [node name="ClassInfoContainer" type="VBoxContainer" parent="SkillMenu/OverviewPanel/SkillsPanel"]
+layout_mode = 0
 offset_left = 48.0
 offset_top = 544.0
 offset_right = 272.0
 offset_bottom = 648.0
 
 [node name="ClassUpgradeButton" type="Button" parent="SkillMenu/OverviewPanel/SkillsPanel"]
-offset_left = 272.0
-offset_top = 552.0
-offset_right = 368.0
-offset_bottom = 600.0
-disabled = true
-text = "Upgrade"
-
-[node name="ClassUpgradeButton2" type="Button" parent="SkillMenu/OverviewPanel/SkillsPanel"]
+layout_mode = 0
 offset_left = 272.0
 offset_top = 608.0
-offset_right = 370.0
+offset_right = 368.0
 offset_bottom = 656.0
-disabled = true
-text = "Downgrade"
+text = "Upgrade"
 
 [node name="ConfirmButton" type="Button" parent="SkillMenu/OverviewPanel/SkillsPanel"]
 custom_minimum_size = Vector2(200, 50)

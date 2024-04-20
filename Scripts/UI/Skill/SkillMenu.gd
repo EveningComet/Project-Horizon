@@ -9,6 +9,7 @@ class_name SkillMenu extends Control
 @export var skills_tree_renderer: SkillsTreeRenderer
 @export var attributes_menu: AttributesMenu
 @export var class_upgrade_menu: ClassUpgradeMenu
+@export var attributes_upgrader: AttributesUpgrader
 
 signal skill_points_depleted
 signal skill_points_available
@@ -26,6 +27,7 @@ func _ready():
 	confirm_button.button_down.connect( confirm_points )
 	undo_skill_points_button.button_down.connect( undo_points )
 	skills_tree_renderer.initialize( on_skill_upgraded, skill_points_depleted )
+	attributes_upgrader.initialize( character_changed )
 	attributes_menu.initialize( character_changed )
 	class_upgrade_menu.initialize( 
 		character_changed, skill_points_depleted, skill_points_available )

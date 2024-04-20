@@ -4,6 +4,7 @@ class_name AttributesMenu extends Node
 @export var confirm_button: Button
 @export var container: VBoxContainer
 @export var menu_entry_template: PackedScene
+@export var upgrader: AttributesUpgrader
 
 signal attribute_points_depleted
 signal attribute_points_available
@@ -62,7 +63,7 @@ func spawn_entries_for_attributes():
 	for attribute in StatTypes.new().attributes():
 		var entry := menu_entry_template.instantiate() as AttributeMenuEntry
 		entry.initialize(
-			attribute, character_changed, attribute_points_depleted, attribute_points_available )
+			attribute, upgrader, attribute_points_depleted, attribute_points_available )
 		entry.attribute_upgraded.connect( attribute_upgraded )
 		entry.attribute_downgraded.connect( attribute_downgraded )
 		entry.add_to_group( attributes_group_name )
