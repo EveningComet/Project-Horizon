@@ -136,8 +136,9 @@ theme_override_constants/margin_bottom = 10
 
 [node name="Stats Container" type="GridContainer" parent="MarginContainer"]
 layout_mode = 2
-theme_override_constants/h_separation = 10
+theme_override_constants/h_separation = 40
 theme_override_constants/v_separation = 10
+columns = 2
 
 [node name="Character Level" parent="MarginContainer/Stats Container" instance=ExtResource("3_36qfk")]
 layout_mode = 2
@@ -161,4 +162,10 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Speed Stat" parent="MarginContainer/Stats Container" instance=ExtResource("3_36qfk")]
+layout_mode = 2
+
+[node name="Max HP" parent="MarginContainer/Stats Container" instance=ExtResource("3_36qfk")]
+layout_mode = 2
+
+[node name="Max SP" parent="MarginContainer/Stats Container" instance=ExtResource("3_36qfk")]
 layout_mode = 2

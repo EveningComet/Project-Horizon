@@ -84,6 +84,18 @@ func initialize_other_stats() -> void:
 	stats[StatTypes.stat_types.PhysicalPower] = Stat.new( 0, true )
 	stats[StatTypes.stat_types.SpecialPower]  = Stat.new( 0, true )
 
+func get_max_hp() -> int:
+	return floor(stats[StatTypes.stat_types.MaxHP].get_calculated_value())
+
+func get_current_hp() -> int:
+	return floor(stats[StatTypes.stat_types.CurrentHP])
+
+func get_max_sp() -> int:
+	return floor(stats[StatTypes.stat_types.MaxSP].get_calculated_value())
+
+func get_current_sp() -> int:
+	return floor(stats[StatTypes.stat_types.CurrentSP])
+
 # TODO: Figure out how to distinguish between ranged?
 ## Get the "true" physical power for a character.
 func get_physical_power() -> int:

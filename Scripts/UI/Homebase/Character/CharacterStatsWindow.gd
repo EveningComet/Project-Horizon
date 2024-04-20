@@ -119,3 +119,11 @@ func on_stat_changed(combatant: PlayerCombatant) -> void:
 		StatTypes.stat_types.keys()[StatTypes.stat_types.Speed],
 		str( floor(combatant.get_speed()) )
 	)
+	stats_container.get_child(8).update_display(
+		StatTypes.stat_types.keys()[StatTypes.stat_types.MaxHP],
+		str( combatant.get_max_hp() )
+	)
+	stats_container.get_child(9).update_display(
+		StatTypes.stat_types.keys()[StatTypes.stat_types.MaxSP],
+		str( combatant.get_max_sp() )
+	)

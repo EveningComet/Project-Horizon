@@ -66,12 +66,10 @@ func get_combatant() -> Combatant:
 
 func update_hp_display() -> void:
 	hp_display_text.set_text(
-		"HP: %s / %s" % [combatant.stats[StatTypes.stat_types.CurrentHP],
-		combatant.stats[StatTypes.stat_types.MaxHP].get_calculated_value()]
+		"HP: %s / %s" % [combatant.get_current_hp(), combatant.get_max_hp()]
 	)
 
 func update_sp_display() -> void:
 	sp_display_text.set_text(
-		"SP: %s / %s" % [combatant.stats[StatTypes.stat_types.CurrentSP],
-		combatant.stats[StatTypes.stat_types.MaxSP].get_calculated_value()]
+		"SP: %s / %s" % [combatant.get_current_sp(), combatant.get_max_sp()]
 	)
