@@ -11,14 +11,12 @@ var class_name_label: Label
 
 var stat_types := StatTypes.new()
 var character: PlayerCombatant
-var character_changed: Signal
 
 func initialize(
 	_character_changed: Signal,
 	_points_depleted_signal: Signal, _points_available_signal: Signal):
 
-	character_changed = _character_changed
-	character_changed.connect( update_and_render )
+	_character_changed.connect( update_and_render )
 	_points_depleted_signal.connect( disable_upgrade )
 	_points_available_signal.connect( enable_upgrade )
 	upgrade_button.button_down.connect( upgrade )
@@ -36,13 +34,6 @@ func enable_upgrade():
 
 func upgrade():
 	upgrader.class_upgrade( character.get_attributes_increase() )
-	emit_signal( "class_upgraded" )
-
-func confirm():
-	upgrader.confirm()
-
-func undo():
-	upgrader.undo_class_upgrade()
 
 func update_info_labels():
 	update_class_name_label()

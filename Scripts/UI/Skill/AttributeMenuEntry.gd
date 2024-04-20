@@ -2,10 +2,6 @@ class_name AttributeMenuEntry extends HBoxContainer
 
 @export var attribute_label: Label
 @export var upgrade_button: Button
-@export var downgrade_button: Button
-
-signal attribute_upgraded
-signal attribute_downgraded
 
 var stat_types := StatTypes.new()
 var attribute: StatTypes.stat_types
@@ -21,11 +17,9 @@ func initialize(
 	_points_depleted.connect( disable_upgrade )
 	_points_available.connect( enable_upgrade )
 	upgrade_button.button_down.connect( upgrade )
-	downgrade_button.button_down.connect( downgrade )
 
 func update_and_render(stats: Dictionary):
 	update_label( stats[attribute] )
-	downgrade_button.disabled = !upgrader.can_do_attribute_downgrade( attribute )
 
 func disable_upgrade():
 	upgrade_button.disabled = true
@@ -35,14 +29,6 @@ func enable_upgrade():
 
 func upgrade():
 	upgrader.attribute_upgrade( attribute )
-	emit_signal( "attribute_upgraded" )
-
-func downgrade():
-	upgrader.attribute_downgrade( attribute )
-	emit_signal( "attribute_downgraded" )
-
-func confirm():
-	upgrader.confirm()
 
 func update_label(points: int):
 	attribute_label.text = stat_types.stat_types_to_string[attribute]

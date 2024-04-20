@@ -31,7 +31,7 @@ func _ready():
 	attributes_menu.initialize( character_changed )
 	class_upgrade_menu.initialize( 
 		character_changed, skill_points_depleted, skill_points_available )
-	class_upgrade_menu.class_upgraded.connect( deduct_one_point )
+	attributes_upgrader.class_upgraded.connect( deduct_one_point )
 
 func add_tabs_per_character():
 	tab_bar.clear_tabs()
@@ -51,15 +51,21 @@ func render_tab(index: int):
 		set_draft_skill_points( current_character.available_skill_points )
 
 func confirm_points():
+	confirm_skills()
+	attributes_upgrader.confirm()
+
+func confirm_skills():
 	current_character.available_skill_points = draft_available_skill_points
 	set_draft_skill_points( current_character.available_skill_points )
 	get_tree().call_group( skills_tree_renderer.skills_group_name, "confirm" )
-	class_upgrade_menu.confirm()
 
 func undo_points():
+	undo_skills()
+	attributes_upgrader.undo()
+
+func undo_skills():
 	set_draft_skill_points( current_character.available_skill_points )
 	get_tree().call_group( skills_tree_renderer.skills_group_name, "undo" )
-	class_upgrade_menu.undo()
 
 func deduct_one_point():
 	set_draft_skill_points( draft_available_skill_points - 1 )

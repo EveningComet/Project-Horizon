@@ -38,13 +38,13 @@ wait_skills_render_timer = NodePath("../../WaitSkillsRenderTimer")
 [node name="AttributesUpgrader" type="Node" parent="SkillMenu"]
 script = ExtResource("7_ufqe0")
 
-[node name="AttributesMenu" type="Node" parent="SkillMenu" node_paths=PackedStringArray("points_label", "confirm_button", "container", "upgrader")]
+[node name="AttributesMenu" type="Node" parent="SkillMenu" node_paths=PackedStringArray("points_label", "container", "upgrader", "confirm_button")]
 script = ExtResource("4_k8sm6")
 points_label = NodePath("../OverviewPanel/AttributesPanel/AttributePointsLabel")
-confirm_button = NodePath("../OverviewPanel/SkillsPanel/ConfirmButton")
 container = NodePath("../OverviewPanel/AttributesPanel/AttributesContainer")
 menu_entry_template = ExtResource("5_b7hp3")
 upgrader = NodePath("../AttributesUpgrader")
+confirm_button = NodePath("../OverviewPanel/SkillsPanel/ConfirmButton")
 
 [node name="ClassUpgradeMenu" type="Node" parent="SkillMenu" node_paths=PackedStringArray("info_container", "upgrade_button", "upgrader")]
 script = ExtResource("6_j0n5l")

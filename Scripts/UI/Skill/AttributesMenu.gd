@@ -1,10 +1,10 @@
 class_name AttributesMenu extends Node
 
 @export var points_label: Label
-@export var confirm_button: Button
 @export var container: VBoxContainer
 @export var menu_entry_template: PackedScene
 @export var upgrader: AttributesUpgrader
+@export var confirm_button: Button
 
 signal attribute_points_depleted
 signal attribute_points_available
@@ -12,13 +12,11 @@ signal attribute_points_available
 var character: PlayerCombatant
 var draft_points: int = 0
 
-var character_changed: Signal
-const attributes_group_name := "attributes"
-
 func initialize(_character_changed: Signal):
-	character_changed = _character_changed
-	character_changed.connect( update_and_render )
-	confirm_button.button_down.connect( confirm )
+	_character_changed.connect( update_and_render )
+	upgrader.stats_confirmed.connect( confirm )
+	upgrader.stats_undone.connect( undo )
+	upgrader.attribute_upgraded.connect( attribute_upgraded )
 	spawn_entries_for_attributes()
 
 func update_and_render(_character: PlayerCombatant):
@@ -27,8 +25,9 @@ func update_and_render(_character: PlayerCombatant):
 
 func confirm():
 	character.available_attribute_points = draft_points
+
+func undo():
 	set_draft_points( character.available_attribute_points )
-	get_tree().call_group( attributes_group_name, "confirm" )
 
 func attribute_upgraded():
 	set_draft_points( draft_points - 1 )
@@ -61,7 +60,4 @@ func spawn_entries_for_attributes():
 		var entry := menu_entry_template.instantiate() as AttributeMenuEntry
 		entry.initialize(
 			attribute, upgrader, attribute_points_depleted, attribute_points_available )
-		entry.attribute_upgraded.connect( attribute_upgraded )
-		entry.attribute_downgraded.connect( attribute_downgraded )
-		entry.add_to_group( attributes_group_name )
 		container.add_child( entry )
