@@ -16,7 +16,11 @@ func grab_slot_data(index: int) -> ItemSlotData:
 		return null
 
 func drop_single_slot_data(grabbed_slot_data: ItemSlotData, index: int) -> ItemSlotData:
-	return grabbed_slot_data
+	grabbed_slot_data.quantity -= 1
+	if grabbed_slot_data.quantity > 0:
+		return grabbed_slot_data
+	else:
+		return null
 
 ## Modified to prevent item drops.
 func drop_slot_data(grabbed_slot_data: ItemSlotData, index: int) -> ItemSlotData:

@@ -25,6 +25,12 @@ func on_shop_gui_input(event: InputEvent) -> void:
 		player_inventory.add_money( grabbed_slot_data.stored_item.cost )
 		grabbed_slot_data = null
 		update_grabbed_slot()
+	elif event.is_action_pressed("right_click") and grabbed_slot_data != null:
+		player_inventory.add_money(grabbed_slot_data.stored_item.cost)
+		grabbed_slot_data.quantity -= 1
+		if grabbed_slot_data.quantity < 1:
+			grabbed_slot_data = null
+		update_grabbed_slot()
 
 func on_shop_inventory_interacted(inventory_data: ShopInventoryData, index: int, button: int) -> void:
 	if OS.is_debug_build() == true:
@@ -34,7 +40,7 @@ func on_shop_inventory_interacted(inventory_data: ShopInventoryData, index: int,
 		[null, MOUSE_BUTTON_LEFT]:
 			grabbed_slot_data = inventory_data.grab_slot_data(index)
 		
-		[_, MOUSE_BUTTON_LEFT], [_, MOUSE_BUTTON_RIGHT]:
+		[_, MOUSE_BUTTON_LEFT]:
 			# Sell the item when the player clicks over a slot
 			player_inventory.add_money( grabbed_slot_data.stored_item.cost )
 			grabbed_slot_data = null
@@ -44,5 +50,8 @@ func on_shop_inventory_interacted(inventory_data: ShopInventoryData, index: int,
 			player_inventory.add_slot_data(
 				inventory_data.grab_slot_data(index)
 			)
+		
+		[_, MOUSE_BUTTON_RIGHT]:
+			grabbed_slot_data = inventory_data.drop_single_slot_data(grabbed_slot_data, index)
 	
 	update_grabbed_slot()
