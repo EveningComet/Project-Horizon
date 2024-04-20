@@ -6,6 +6,13 @@ class_name Combatant extends Node
 ## Called when a stat on this character has been changed.
 signal stat_changed( combatant: Combatant )
 
+# Scaling values
+const VITALITY_HP_SCALER:              int = 3
+const VITALITY_DEFENSE_SCALER:         int = 2
+const WILL_SPECIAL_POINTS_SCALER:      int = 3
+const WILL_SPECIAL_POWER_SCALER:       int = 2
+const EXPERTISE_PHYSICAL_POWER_SCALER: int = 2
+
 ## Stores the stats for this character.
 var stats: Dictionary = {}
 
@@ -39,12 +46,12 @@ func initialize() -> void:
 func initialize_vitals() -> void:
 	# Vitals
 	stats[StatTypes.stat_types.MaxHP] = Stat.new(
-		stats[StatTypes.stat_types.Vitality].get_calculated_value() * 3,
+		stats[StatTypes.stat_types.Vitality].get_calculated_value() * VITALITY_HP_SCALER,
 		true
 	)
 	stats[StatTypes.stat_types.CurrentHP] = stats[StatTypes.stat_types.MaxHP].get_calculated_value()
 	stats[StatTypes.stat_types.MaxSP] = Stat.new(
-		stats[StatTypes.stat_types.Will].get_calculated_value() * 3,
+		stats[StatTypes.stat_types.Will].get_calculated_value() * WILL_SPECIAL_POINTS_SCALER,
 		true
 	)
 	stats[StatTypes.stat_types.CurrentSP] = stats[StatTypes.stat_types.MaxSP].get_calculated_value()
@@ -100,14 +107,14 @@ func get_current_sp() -> int:
 ## Get the "true" physical power for a character.
 func get_physical_power() -> int:
 	var expertise: int = stats[StatTypes.stat_types.Expertise].get_calculated_value()
-	var true_physical_power: Stat = Stat.new(expertise * 2, true)
+	var true_physical_power: Stat = Stat.new(expertise * EXPERTISE_PHYSICAL_POWER_SCALER, true)
 	for mod: StatModifier in stats[StatTypes.stat_types.PhysicalPower].get_modifiers():
 		true_physical_power.add_modifier( mod )
 	return true_physical_power.get_calculated_value()
 
 ## Get the "true" special power for a character.
 func get_special_power() -> int:
-	var will: int = stats[StatTypes.stat_types.Will].get_calculated_value() * 2
+	var will: int = stats[StatTypes.stat_types.Will].get_calculated_value() * WILL_SPECIAL_POWER_SCALER
 	var true_special_power: Stat = Stat.new(will, true)
 	for mod: StatModifier in stats[StatTypes.stat_types.SpecialPower].get_modifiers():
 		true_special_power.add_modifier( mod )
@@ -125,7 +132,7 @@ func get_perception() -> int:
 ## Return the "true" base defense for this character.
 func get_defense() -> int:
 	var vitality:     int  = stats[StatTypes.stat_types.Vitality].get_calculated_value()
-	var true_defense: Stat = Stat.new(vitality * 2, true)
+	var true_defense: Stat = Stat.new(vitality * VITALITY_DEFENSE_SCALER, true)
 	for mod: StatModifier in stats[StatTypes.stat_types.Defense].get_modifiers():
 		true_defense.add_modifier( mod )
 	return floor( true_defense.get_calculated_value() )
@@ -161,26 +168,41 @@ func get_speed() -> int:
 ## Mainly used to raise a character's attributes.
 func raise_base_value_by(stat_raising: StatTypes.stat_types, amt: int) -> void:
 	stats[stat_raising].raise_base_value_by(amt)
-	# TODO: Figure out handling of hp and sp being raised.
+	check_if_max_vital_values_need_updating()
 	stat_changed.emit(self)
 
 func add_modifier(stat_type: StatTypes.stat_types, mod_to_add: StatModifier) -> void:
 	stats[stat_type].add_modifier( mod_to_add )
-	check_if_vitals_need_updating()
+	check_if_max_vital_values_need_updating()
 	stat_changed.emit( self )
 
 func remove_modifier(stat_type: StatTypes.stat_types, mod_to_remove: StatModifier) -> void:
 	stats[stat_type].remove_modifier( mod_to_remove )
-	check_if_vitals_need_updating()
+	check_if_max_vital_values_need_updating()
 	stat_changed.emit( self )
 
-func check_if_vitals_need_updating() -> void:
-	if (get_current_hp() < get_max_hp() \
-	and stats[StatTypes.stat_types.MaxHP].get_modifiers().size() > 0) \
-	or (get_current_sp() < get_max_sp() and \
-	stats[StatTypes.stat_types.MaxSP].get_modifiers().size() > 0):
-		stats[StatTypes.stat_types.CurrentHP] = stats[StatTypes.stat_types.MaxHP].get_calculated_value()
-		stats[StatTypes.stat_types.CurrentSP] = stats[StatTypes.stat_types.MaxSP].get_calculated_value()
+func check_if_max_vital_values_need_updating() -> void:
+	var true_max_hp: Stat = Stat.new(
+		stats[StatTypes.stat_types.Vitality].get_calculated_value() * VITALITY_HP_SCALER,
+		true
+	)
+	var true_max_sp: Stat = Stat.new(
+		stats[StatTypes.stat_types.Will].get_calculated_value() * WILL_SPECIAL_POINTS_SCALER,
+		true
+	)
+	
+	for hp_mod: StatModifier in stats[StatTypes.stat_types.MaxHP].get_modifiers():
+		true_max_hp.add_modifier( hp_mod )
+	for sp_mod: StatModifier in stats[StatTypes.stat_types.MaxSP].get_modifiers():
+		true_max_sp.add_modifier( sp_mod )
+	
+	stats[StatTypes.stat_types.MaxHP] = true_max_hp
+	stats[StatTypes.stat_types.MaxSP] = true_max_sp
+	
+	if get_current_hp() > get_max_hp():
+		stats[StatTypes.stat_types.CurrentHP] = get_max_hp()
+	if get_current_sp() > get_max_sp():
+		stats[StatTypes.stat_types.CurrentSP] = get_max_sp()
 
 func take_damage(dmg_amount: int) -> void:
 	# TODO: Check for damage types, such as fire, psychic, etc.

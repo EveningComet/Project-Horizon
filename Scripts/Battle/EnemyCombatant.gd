@@ -35,11 +35,11 @@ func initialize_with_enemy_data(enemy_data: EnemyData) -> void:
 
 func initialize_vitals() -> void:
 	var true_max_hp: Stat = Stat.new(
-		stats[StatTypes.stat_types.Vitality].get_calculated_value() * 3,
+		stats[StatTypes.stat_types.Vitality].get_calculated_value() * VITALITY_HP_SCALER,
 		true
 	)
 	var true_max_sp: Stat = Stat.new(
-		stats[StatTypes.stat_types.Will].get_calculated_value() * 3,
+		stats[StatTypes.stat_types.Will].get_calculated_value() * WILL_SPECIAL_POINTS_SCALER,
 		true
 	)
 	

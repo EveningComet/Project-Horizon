@@ -43,6 +43,7 @@ func on_player_finished_entering_name() -> void:
 		item_slot_data.quantity = 1
 		my_state_machine.created_character.equipment_holder.drop_slot_data(item_slot_data, i)
 	
+	my_state_machine.created_character.fully_restore_hp_and_sp()
 	character_name_entry.close()
 	my_state_machine.created_character  = null
 	my_state_machine.starting_class     = null
