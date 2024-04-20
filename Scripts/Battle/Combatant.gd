@@ -161,18 +161,26 @@ func get_speed() -> int:
 ## Mainly used to raise a character's attributes.
 func raise_base_value_by(stat_raising: StatTypes.stat_types, amt: int) -> void:
 	stats[stat_raising].raise_base_value_by(amt)
+	# TODO: Figure out handling of hp and sp being raised.
 	stat_changed.emit(self)
-	initialize_vitals()
 
 func add_modifier(stat_type: StatTypes.stat_types, mod_to_add: StatModifier) -> void:
 	stats[stat_type].add_modifier( mod_to_add )
+	check_if_vitals_need_updating()
 	stat_changed.emit( self )
-	initialize_vitals()
 
 func remove_modifier(stat_type: StatTypes.stat_types, mod_to_remove: StatModifier) -> void:
 	stats[stat_type].remove_modifier( mod_to_remove )
+	check_if_vitals_need_updating()
 	stat_changed.emit( self )
-	initialize_vitals()
+
+func check_if_vitals_need_updating() -> void:
+	if (get_current_hp() < get_max_hp() \
+	and stats[StatTypes.stat_types.MaxHP].get_modifiers().size() > 0) \
+	or (get_current_sp() < get_max_sp() and \
+	stats[StatTypes.stat_types.MaxSP].get_modifiers().size() > 0):
+		stats[StatTypes.stat_types.CurrentHP] = stats[StatTypes.stat_types.MaxHP].get_calculated_value()
+		stats[StatTypes.stat_types.CurrentSP] = stats[StatTypes.stat_types.MaxSP].get_calculated_value()
 
 func take_damage(dmg_amount: int) -> void:
 	# TODO: Check for damage types, such as fire, psychic, etc.
