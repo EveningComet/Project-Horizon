@@ -41,7 +41,7 @@ script = ExtResource("7_ufqe0")
 [node name="AttributesMenu" type="Node" parent="SkillMenu" node_paths=PackedStringArray("points_label", "confirm_button", "container", "upgrader")]
 script = ExtResource("4_k8sm6")
 points_label = NodePath("../OverviewPanel/AttributesPanel/AttributePointsLabel")
-confirm_button = NodePath("../OverviewPanel/AttributesPanel/ConfirmButton")
+confirm_button = NodePath("../OverviewPanel/SkillsPanel/ConfirmButton")
 container = NodePath("../OverviewPanel/AttributesPanel/AttributesContainer")
 menu_entry_template = ExtResource("5_b7hp3")
 upgrader = NodePath("../AttributesUpgrader")
@@ -73,7 +73,7 @@ layout_mode = 0
 offset_left = 33.0
 offset_top = 35.0
 offset_right = 1137.0
-offset_bottom = 731.0
+offset_bottom = 683.0
 
 [node name="AttributesHeaderLabel" type="Label" parent="SkillMenu/OverviewPanel/SkillsPanel"]
 layout_mode = 0
@@ -119,35 +119,36 @@ text = "No members recruited"
 [node name="ClassInfoContainer" type="VBoxContainer" parent="SkillMenu/OverviewPanel/SkillsPanel"]
 layout_mode = 0
 offset_left = 48.0
-offset_top = 544.0
+offset_top = 528.0
 offset_right = 272.0
-offset_bottom = 648.0
+offset_bottom = 632.0
 
 [node name="ClassUpgradeButton" type="Button" parent="SkillMenu/OverviewPanel/SkillsPanel"]
 layout_mode = 0
-offset_left = 272.0
-offset_top = 608.0
-offset_right = 384.0
-offset_bottom = 656.0
+offset_left = 280.0
+offset_top = 560.0
+offset_right = 392.0
+offset_bottom = 608.0
+disabled = true
 text = "Upgrade"
 
 [node name="ConfirmButton" type="Button" parent="SkillMenu/OverviewPanel/SkillsPanel"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 0
-offset_left = 664.0
-offset_top = 608.0
-offset_right = 864.0
-offset_bottom = 658.0
+offset_left = 1144.0
+offset_top = 320.0
+offset_right = 1424.0
+offset_bottom = 370.0
 disabled = true
 text = "Confirm"
 
 [node name="UndoSkillPointsButton" type="Button" parent="SkillMenu/OverviewPanel/SkillsPanel"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 0
-offset_left = 872.0
-offset_top = 608.0
-offset_right = 1072.0
-offset_bottom = 658.0
+offset_left = 1144.0
+offset_top = 384.0
+offset_right = 1424.0
+offset_bottom = 434.0
 disabled = true
 text = "Undo points"
 
@@ -181,16 +182,6 @@ offset_left = 32.0
 offset_top = 88.0
 offset_right = 72.0
 offset_bottom = 128.0
-
-[node name="ConfirmButton" type="Button" parent="SkillMenu/OverviewPanel/AttributesPanel"]
-custom_minimum_size = Vector2(200, 50)
-layout_mode = 0
-offset_left = 40.0
-offset_top = 232.0
-offset_right = 240.0
-offset_bottom = 282.0
-disabled = true
-text = "Confirm"
 
 [node name="ExitButton" type="Button" parent="SkillMenu"]
 custom_minimum_size = Vector2(50, 0)
