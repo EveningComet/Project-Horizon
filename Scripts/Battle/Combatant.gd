@@ -144,14 +144,23 @@ func get_speed() -> int:
 	for mod: StatModifier in stats[StatTypes.stat_types.Speed].get_modifiers():
 		true_speed.add_modifier( mod )
 	return floor( true_speed.get_calculated_value() / 2 )
-	
+
+## Wrapper for permanently increasing the base value of a particular stat.
+## Mainly used to raise a character's attributes.
+func raise_base_value_by(stat_raising: StatTypes.stat_types, amt: int) -> void:
+	stats[stat_raising].raise_base_value_by(amt)
+	stat_changed.emit(self)
+	initialize_vitals()
+
 func add_modifier(stat_type: StatTypes.stat_types, mod_to_add: StatModifier) -> void:
 	stats[stat_type].add_modifier( mod_to_add )
 	stat_changed.emit( self )
+	initialize_vitals()
 
 func remove_modifier(stat_type: StatTypes.stat_types, mod_to_remove: StatModifier) -> void:
 	stats[stat_type].remove_modifier( mod_to_remove )
 	stat_changed.emit( self )
+	initialize_vitals()
 
 func take_damage(dmg_amount: int) -> void:
 	# TODO: Check for damage types, such as fire, psychic, etc.
