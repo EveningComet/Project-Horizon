@@ -24,8 +24,8 @@ func initialize(
 	downgrade_button.button_down.connect( downgrade )
 
 func update_and_render(stats: Dictionary):
-	update_label(stats[attribute])
-	downgrade_button.disabled = !upgrader.can_do_attribute_downgrade(attribute)
+	update_label( stats[attribute] )
+	downgrade_button.disabled = !upgrader.can_do_attribute_downgrade( attribute )
 
 func disable_upgrade():
 	upgrade_button.disabled = true
@@ -34,11 +34,11 @@ func enable_upgrade():
 	upgrade_button.disabled = false
 
 func upgrade():
-	upgrader.attribute_upgrade(attribute)
+	upgrader.attribute_upgrade( attribute )
 	emit_signal( "attribute_upgraded" )
 
 func downgrade():
-	upgrader.attribute_downgrade(attribute)
+	upgrader.attribute_downgrade( attribute )
 	emit_signal( "attribute_downgraded" )
 
 func confirm():

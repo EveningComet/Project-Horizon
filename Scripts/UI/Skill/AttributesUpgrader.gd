@@ -18,7 +18,7 @@ func store_stats(character: PlayerCombatant):
 
 func confirm():
 	for attribute in attributes:
-		stats[attribute].set_base_value(draft_stats[attribute])
+		stats[attribute].set_base_value( draft_stats[attribute] )
 	reset_draft_and_minimum_stats()
 
 func attribute_upgrade(attribute: StatTypes.stat_types):
