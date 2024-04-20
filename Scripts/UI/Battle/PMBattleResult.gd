@@ -10,6 +10,8 @@ class_name PMBattleResult extends Control
 @export var progress_bar: ProgressBar
 
 func set_player_character(pc: PlayerCombatant) -> void:
+	progress_bar.max_value = pc.experience_required
+	progress_bar.value = pc.curr_experience_points
 	pc.experience_gained.connect( on_experience_gained )
 	char_name_label.set_text( pc.char_name )
 
