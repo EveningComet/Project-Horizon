@@ -18,16 +18,16 @@ func initialize(_character_changed: Signal):
 
 func store_stats(character: PlayerCombatant):
 	stats = character.stats
-	reset_draft_and_minimum_stats()
+	reset_draft_stats()
 
 func confirm():
 	for attribute in attributes:
 		stats[attribute].set_base_value( draft_stats[attribute] )
-	reset_draft_and_minimum_stats()
+	reset_draft_stats()
 	emit_signal( "stats_confirmed" )
 
 func undo():
-	reset_draft_and_minimum_stats()
+	reset_draft_stats()
 	emit_signal( "stats_undone" )
 
 func attribute_upgrade(attribute: StatTypes.stat_types):
@@ -41,7 +41,7 @@ func class_upgrade(amount: Dictionary):
 	emit_signal( "class_upgraded" )
 	emit_signal( "stats_changed", draft_stats )
 
-func reset_draft_and_minimum_stats():
+func reset_draft_stats():
 	for attribute in attributes:
 		draft_stats[attribute] = stats[attribute].get_base_value()
 	emit_signal( "stats_changed", draft_stats )
