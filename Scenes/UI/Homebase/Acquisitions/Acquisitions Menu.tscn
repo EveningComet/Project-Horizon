@@ -56,6 +56,11 @@ focus_neighbor_top = NodePath("../Return")
 text = "Deal
 "
 
+[node name="Recuperate" type="Button" parent="Acquisitions Main Menu/Main Buttons Container"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+text = "Recuperate"
+
 [node name="Return" type="Button" parent="Acquisitions Main Menu/Main Buttons Container"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
@@ -66,11 +71,12 @@ text = "Return"
 script = ExtResource("2_nt8t0")
 inventory = SubResource("Resource_e5xbi")
 
-[node name="AcquisitionMenuController" type="Node" parent="." node_paths=PackedStringArray("main_buttons_container", "deal_button", "return_button", "shop_dashboard", "shop_inventory_displayer", "shop_inventory_data")]
+[node name="AcquisitionMenuController" type="Node" parent="." node_paths=PackedStringArray("main_buttons_container", "deal_button", "recuperate_button", "return_button", "shop_dashboard", "shop_inventory_displayer", "shop_inventory_data")]
 script = ExtResource("6_6110m")
 homebase_menu_scene = "res://Scenes/UI/Homebase/Homebase Home Menu.tscn"
 main_buttons_container = NodePath("../Acquisitions Main Menu/Main Buttons Container")
 deal_button = NodePath("../Acquisitions Main Menu/Main Buttons Container/Deal")
+recuperate_button = NodePath("../Acquisitions Main Menu/Main Buttons Container/Recuperate")
 return_button = NodePath("../Acquisitions Main Menu/Main Buttons Container/Return")
 shop_dashboard = NodePath("../Shop Dashboard")
 shop_inventory_displayer = NodePath("../Shop Inventory Displayer")

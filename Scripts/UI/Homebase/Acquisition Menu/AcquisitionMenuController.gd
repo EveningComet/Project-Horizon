@@ -9,6 +9,9 @@ class_name AcquisitionMenuController extends Node
 ## The button the player clicks on for buying and selling items/equipment.
 @export var deal_button:   Button
 
+## Button player presses to heal their party.
+@export var recuperate_button: Button
+
 ## Takes the player back to the main menu of the homebase.
 @export var return_button: Button
 
@@ -38,6 +41,7 @@ func _ready() -> void:
 	shop_inventory_displayer.set_inventory_to_display( shop_inventory_data.inventory )
 	
 	deal_button.button_down.connect( on_deal_button_pressed )
+	recuperate_button.button_down.connect( on_recuperate_button_pressed )
 	return_button.button_down.connect( on_return_button_pressed )
 	main_buttons_container.get_child(0).grab_focus()
 
@@ -45,6 +49,11 @@ func on_deal_button_pressed() -> void:
 	main_buttons_container.hide()
 	shop_dashboard.show()
 	shop_inventory_displayer.show()
+
+func on_recuperate_button_pressed() -> void:
+	if PlayerPartyController.has_members() == false:
+		return
+	PlayerPartyController.fully_restore_hp_and_sp_of_party()
 
 func on_return_button_pressed() -> void:
 	SceneController.switch_to_scene( homebase_menu_scene )
