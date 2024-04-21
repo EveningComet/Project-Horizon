@@ -1,7 +1,7 @@
 ## Deals damage directly to a target.
 class_name DirectDamage extends SkillEffect
 
-# TODO: Typed/Elemental damage.
+@export var damage_type: StatTypes.DamageTypes
 
 func get_power(activator: Combatant) -> int:
 	# TODO: Refactor for applying typed and elemental damage.

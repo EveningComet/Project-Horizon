@@ -6,6 +6,7 @@
 
 [sub_resource type="Resource" id="Resource_g3mnm"]
 script = ExtResource("1_6stu2")
+damage_type = 0
 power_scale = 1.5
 use_special_stat = true
 

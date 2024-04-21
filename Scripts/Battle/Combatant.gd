@@ -90,6 +90,8 @@ func initialize_other_stats() -> void:
 	
 	stats[StatTypes.stat_types.PhysicalPower] = Stat.new( 0, true )
 	stats[StatTypes.stat_types.SpecialPower]  = Stat.new( 0, true )
+	
+	# TODO: Initialize the resistances for damage types
 
 func get_max_hp() -> int:
 	return floor(stats[StatTypes.stat_types.MaxHP].get_calculated_value())

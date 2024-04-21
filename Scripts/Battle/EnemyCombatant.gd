@@ -59,7 +59,7 @@ func initialize_other_stats() -> void:
 	for mod: StatModifier in stored_enemy_data.stat_modifiers:
 		match mod.stat_changing:
 			
-			# Ignore the health vital boosters
+			# Ignore the vital boosters
 			StatTypes.stat_types.MaxHP, StatTypes.stat_types.MaxSP:
 				continue
 				
