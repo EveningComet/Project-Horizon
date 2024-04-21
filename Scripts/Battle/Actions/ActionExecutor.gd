@@ -66,9 +66,9 @@ func execute_action(action: StoredAction) -> void:
 	
 	# Get some normal damage
 	else:
-		# TODO: Get the right kind of power. For now, just use physical power
+		# TODO: Account for the different damage types depending on other factors.
 		var power = activator.get_physical_power()
-		action_mediator.damage_data["base_damage"] = power
+		action_mediator.damage_data[StatTypes.DamageTypes.Base] = power
 	
 	# Check what to do based on the stored action object
 	match action.action_type:
@@ -86,10 +86,7 @@ func execute_action(action: StoredAction) -> void:
 					if generated_number <= Formulas.get_chance_to_hit(activator, target):
 						# TODO: Crit chance
 						# Apply damage
-						target.take_damage( action_mediator.damage_data["base_damage"] )
-					
-					if OS.is_debug_build() == true:
-						print("ActionExecutor :: Damage that was dealt was: ", action_mediator.damage_data["base_damage"])
+						target.take_damage( action_mediator.damage_data )
 					
 					# TODO: Apply status effects, if any
 		

@@ -41,11 +41,11 @@ enum DamageTypes {
 	Cold,
 	Electricity,
 	Psychic,
-	Pure ## Ignores resistance.
+	True ## Ignores resistance.
 }
 
 ## Easy accessor for returning the resistance for damage types.
-var damage_to_res_map: Dictionary = {
+static var damage_to_res_map: Dictionary = {
 	DamageTypes.Base: stat_types.Defense,
 	DamageTypes.Heat: stat_types.HeatRes,
 	DamageTypes.Cold: stat_types.ColdRes,

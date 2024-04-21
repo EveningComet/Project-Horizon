@@ -58,10 +58,10 @@ func _get_best_action_for_enemy(
 					
 					# Find the skill that will deal the most damage
 					for skill: SkillData in enemy.stored_enemy_data.available_skills:
-						var mediator = skill.get_usable_data( enemy )
+						var mediator: ActionMediator = skill.get_usable_data( enemy )
 						potential_action.skill_instance = SkillInstance.new()
 						potential_action.skill_instance.monitored_skill = skill
-						context["potential_damage"] = mediator.damage_data["base_damage"]
+						context["potential_damage"] = mediator.get_total_possible_damage()
 						var choice = UtilityAIOption.new(
 							behavior, context, potential_action
 						)

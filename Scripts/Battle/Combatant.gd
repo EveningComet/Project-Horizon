@@ -58,12 +58,6 @@ func initialize_vitals() -> void:
 
 ## Setup the other stats.
 func initialize_other_stats() -> void:
-	# This is the "bonus" base defense
-	stats[StatTypes.stat_types.Defense] = Stat.new(
-		0,
-		true
-	)
-	
 	# This is the "bonus" speed
 	stats[StatTypes.stat_types.Speed] = Stat.new(
 		0,
@@ -91,7 +85,10 @@ func initialize_other_stats() -> void:
 	stats[StatTypes.stat_types.PhysicalPower] = Stat.new( 0, true )
 	stats[StatTypes.stat_types.SpecialPower]  = Stat.new( 0, true )
 	
-	# TODO: Initialize the resistances for damage types
+	# Initialize the resistances for damage types
+	for damage_type in StatTypes.damage_to_res_map:
+		var stat_type: StatTypes.stat_types = StatTypes.damage_to_res_map[damage_type]
+		stats[stat_type] = Stat.new(0, false)
 
 func get_max_hp() -> int:
 	return floor(stats[StatTypes.stat_types.MaxHP].get_calculated_value())
@@ -138,6 +135,11 @@ func get_defense() -> int:
 	for mod: StatModifier in stats[StatTypes.stat_types.Defense].get_modifiers():
 		true_defense.add_modifier( mod )
 	return floor( true_defense.get_calculated_value() )
+
+func get_resistance(damage_type: StatTypes.DamageTypes) -> float:
+	if StatTypes.damage_to_res_map.has(damage_type):
+		return stats[StatTypes.damage_to_res_map[damage_type]].get_calculated_value()
+	return 0.0
 
 ## Returns the "true" evasion for a character.
 func get_evasion() -> int:
@@ -206,16 +208,38 @@ func check_if_max_vital_values_need_updating() -> void:
 	if get_current_sp() > get_max_sp():
 		stats[StatTypes.stat_types.CurrentSP] = get_max_sp()
 
-func take_damage(dmg_amount: int) -> void:
-	# TODO: Check for damage types, such as fire, psychic, etc.
-	dmg_amount -= get_defense()
-	if dmg_amount < 1:
-		dmg_amount = 1
+func take_damage(damage_data: Dictionary) -> void:
+	# Go through the damage types and apply the damage
+	for damage_type: StatTypes.DamageTypes in damage_data:
+		
+		# Get the damage and see how it should get scaled.
+		var dmg_amt: int = damage_data[damage_type]
+		match damage_type:
+			
+			# Subtract the damage
+			StatTypes.DamageTypes.Base:
+				dmg_amt -= get_defense()
+			
+			# All other damages get scaled
+			_:
+				var a = 1.0 - get_resistance(damage_type)
+				dmg_amt = floor(dmg_amt * a)
+		
+		if dmg_amt < 1:
+			dmg_amt = 0
 	
-	stats[StatTypes.stat_types.CurrentHP] -= dmg_amount
-	stat_changed.emit( self )
-	if stats[StatTypes.stat_types.CurrentHP] <= 0:
-		die()
+		stats[StatTypes.stat_types.CurrentHP] -= dmg_amt
+		if get_current_hp() < 0:
+			stats[StatTypes.stat_types.CurrentHP] = 0
+		
+		if OS.is_debug_build() == true:
+			print("Combatant :: Somebody took %s damage of type %s." % [str(dmg_amt), StatTypes.DamageTypes.keys()[damage_type]])
+		
+		# Tell anything that needs to know about the changes
+		stat_changed.emit( self )
+		if get_current_hp() == 0:
+			die()
+			return
 
 func fully_restore_hp_and_sp() -> void:
 	stats[StatTypes.stat_types.CurrentHP] = stats[StatTypes.stat_types.MaxHP].get_calculated_value()

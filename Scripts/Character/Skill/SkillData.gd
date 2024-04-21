@@ -54,14 +54,17 @@ func get_usable_data(activator: Combatant) -> ActionMediator:
 	var action_mediator: ActionMediator = ActionMediator.new()
 	
 	# Loop through the effects, checking for ones that will increase the base damage
-	action_mediator.damage_data["base_damage"] = 0
+	action_mediator.damage_data = {}
 	action_mediator.status_effects_to_apply = {}
 	action_mediator.heal_amount = 0
 	for effect: SkillEffect in effects:
 		# Check for damage
 		if effect is DirectDamage:
 			var damage_effect = effect as DirectDamage
-			action_mediator.damage_data["base_damage"] += damage_effect.get_power( activator )
+			if action_mediator.damage_data.has(damage_effect.damage_type) == true:
+				action_mediator.damage_data[damage_effect.damage_type] += damage_effect.get_power( activator )
+			else:
+				action_mediator.damage_data[damage_effect.damage_type] = damage_effect.get_power( activator )
 	
 		# Check for status effects
 		elif effect is ApplyStatusEffect:
