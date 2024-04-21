@@ -33,8 +33,6 @@ func on_shop_gui_input(event: InputEvent) -> void:
 		update_grabbed_slot()
 
 func on_shop_inventory_interacted(inventory_data: ShopInventoryData, index: int, button: int) -> void:
-	if OS.is_debug_build() == true:
-		print("ShopDashboard :: The player clicked over a shop node.")
 	match [grabbed_slot_data, button]:
 		
 		[null, MOUSE_BUTTON_LEFT]:

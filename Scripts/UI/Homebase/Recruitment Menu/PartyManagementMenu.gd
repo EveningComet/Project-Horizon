@@ -33,7 +33,7 @@ func _input(event: InputEvent) -> void:
 func on_party_holder_gui_input(event: InputEvent) -> void:
 	if grabbed_ui.stored_character != null:
 		if PlayerPartyController.get_party_count() < PlayerPartyController.MAX_RECRUITABLE_SIZE:
-			if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+			if event.is_action("left_click"):
 				if OS.is_debug_build() == true:
 					print("PartyManagementMenu :: %s is being added to the party." % [grabbed_ui.stored_character.char_name])
 				var new_pc_holder: PartyMemberHolderUI = template.instantiate()
@@ -48,7 +48,7 @@ func on_party_holder_gui_input(event: InputEvent) -> void:
 ## Fired when the player clicks over the recruitment holder node.
 func on_recruitment_holder_gui_input(event: InputEvent) -> void:
 	if grabbed_ui.stored_character != null:
-		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.is_action_pressed("left_click"):
 			var new_pc_holder: PartyMemberHolderUI = template.instantiate()
 			new_pc_holder.slot_clicked.connect( on_slot_clicked )
 			new_pc_holder.stored_character = grabbed_ui.stored_character
