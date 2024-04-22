@@ -23,6 +23,7 @@ PlayerPartyController="*res://Scripts/Autoloads/PlayerPartyController.gd"
 EventBus="*res://Scripts/Autoloads/EventBus.gd"
 PlayerInventory="*res://Scripts/Autoloads/PlayerInventory.gd"
 MissionController="*res://Scripts/Autoloads/MissionController.gd"
+SoundManager="*res://addons/sound_manager/sound_manager.gd"
 
 [display]
 
@@ -39,7 +40,7 @@ project/assembly_name="Project Horizon"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/utility_ai/plugin.cfg")
+enabled=PackedStringArray("res://addons/sound_manager/plugin.cfg", "res://addons/utility_ai/plugin.cfg")
 
 [input]
 

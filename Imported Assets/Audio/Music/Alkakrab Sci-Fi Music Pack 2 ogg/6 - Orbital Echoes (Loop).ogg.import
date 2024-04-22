@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cfjd57sm62vw3"
+path="res://.godot/imported/6 - Orbital Echoes (Loop).ogg-9a9804fcdf596a5b941783a9b479f9e9.oggvorbisstr"
+
+[deps]
+
+source_file="res://Imported Assets/Audio/Music/Alkakrab Sci-Fi Music Pack 2 ogg/6 - Orbital Echoes (Loop).ogg"
+dest_files=["res://.godot/imported/6 - Orbital Echoes (Loop).ogg-9a9804fcdf596a5b941783a9b479f9e9.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

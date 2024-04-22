@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://f4a3dt6u60a4"
+path="res://.godot/imported/2 - Galactic Odyssey (Loop).ogg-5232978ef8e93545faf6126bca953241.oggvorbisstr"
+
+[deps]
+
+source_file="res://Imported Assets/Audio/Music/Alkakrab Sci-Fi Music Pack 2 ogg/2 - Galactic Odyssey (Loop).ogg"
+dest_files=["res://.godot/imported/2 - Galactic Odyssey (Loop).ogg-5232978ef8e93545faf6126bca953241.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

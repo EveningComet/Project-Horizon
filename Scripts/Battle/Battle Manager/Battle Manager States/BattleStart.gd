@@ -20,6 +20,8 @@ func setup_battle() -> void:
 	spawn_player_characters()
 	spawn_enemies()
 	
+	setup_audio()
+	
 	# TODO: Find a way to prevent having to wait- overcome the race condition.
 	await get_tree().create_timer(1.0).timeout
 	
@@ -48,3 +50,9 @@ func make_enemy(enemy_data: EnemyData) -> EnemyCombatant:
 	var enemy_combatant = EnemyCombatant.new()
 	enemy_combatant.initialize_with_enemy_data( enemy_data )
 	return enemy_combatant
+
+func setup_audio() -> void:
+	# TODO: This is testing for now. We can have the missions store what music
+	# to use.
+	var audio: AudioStream = preload("res://Imported Assets/Audio/Music/1-15 289 - Heated Battle (Loop) - Aron Krogh.mp3")
+	SoundManager.play_music_at_volume(audio, -20.0, 0.0, "Music")

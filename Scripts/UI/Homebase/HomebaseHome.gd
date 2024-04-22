@@ -12,7 +12,13 @@ class_name HomebaseHome extends Control
 
 @export var skill_menu: CanvasLayer
 
+## The background music that will play upon entering this menu.
+@export var background_music: AudioStream
+
 func _ready() -> void:
+	# Play the background music for this menu
+	SoundManager.play_music(background_music, 0.0, "Music")
+	
 	# Connect the needed button events
 	missions_button.button_down.connect( on_mission_button_pressed )
 	manage_characters_button.button_down.connect( on_manage_characters_button_pressed )
