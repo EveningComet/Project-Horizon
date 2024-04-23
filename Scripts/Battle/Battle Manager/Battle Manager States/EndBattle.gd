@@ -14,9 +14,14 @@ func enter(msgs: Dictionary = {}) -> void:
 		party_member.reparent( PlayerPartyController )
 	
 	match msgs:
-		{"player_victory": var player_victory, "experience_points_to_reward": var xp}:
+		{"player_victory": var player_victory}:
 			if player_victory == true:
+				# Get the experience points to reward the player
+				var xp: int = 0
+				for ed: EnemyData in MissionController.current_mission.enemies:
+					xp += ed.exp_on_death
 				victory( xp )
+			
 			else:
 				defeat()
 		# TODO: Handle fleeing.

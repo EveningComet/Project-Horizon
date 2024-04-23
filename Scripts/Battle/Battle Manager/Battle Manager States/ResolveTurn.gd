@@ -26,8 +26,7 @@ func execute_actions() -> void:
 func on_action_execution_finished(results: Dictionary = {}) -> void:
 	match results:
 		# A side has won the battle, time to close things down
-		{"player_victory": var did_player_win, "experience_points_to_reward": var xp}:
-			print("ResolveTurn :: A side has won.")
+		{"player_victory": var did_player_win}:
 			my_state_machine.change_to_state("EndBattle", results)
 			return
 	
