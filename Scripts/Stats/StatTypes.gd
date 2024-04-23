@@ -22,8 +22,8 @@ enum stat_types {
 	SpecialPower,
 	
 	# Resistances (Damage Type)
-	# Except for regular damage, the rest are percentage based (0.0-1.0)
-	Defense,              ## Reduces base damage. Flat.
+	# Except for regular damage, the rest are primarily percentage based (0.0-1.0)
+	Defense,
 	HeatRes,
 	ColdRes,
 	ElectricityRes,
