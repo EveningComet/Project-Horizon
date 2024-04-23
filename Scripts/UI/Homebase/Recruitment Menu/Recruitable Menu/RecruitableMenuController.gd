@@ -19,6 +19,8 @@ class_name RecruitableMenuController extends StateMachine
 ## Container that will house the displayed portraits.
 @export var portraits_container: Container
 
+@export var portrait_displayer_template: PackedScene
+
 # TODO: Figure out how to load the classes without having to set them here.
 ## The character classes.
 @export var character_classes: Array[CharacterClass] = []

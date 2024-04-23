@@ -56,9 +56,8 @@ func on_player_highlighted_character_class_button(pc_class: CharacterClass) -> v
 	
 	# Show the portraits of the class in the background
 	var portraits: Array[PortraitData] = pc_class.get_portraits()
-	var pd_template = preload("res://Scenes/UI/Homebase/Portrait Displayer.tscn")
 	for portrait in portraits:
-		var portrait_displayer: PortraitDisplayer = pd_template.instantiate()
+		var portrait_displayer: PortraitDisplayer = my_state_machine.portrait_displayer_template.instantiate()
 		portrait_displayer.portrait_data = portrait
 		portraits_container.add_child(portrait_displayer)
 		portrait_displayer.display_icon.set_texture(
