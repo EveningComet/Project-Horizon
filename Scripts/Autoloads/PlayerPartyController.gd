@@ -14,6 +14,15 @@ var party_members: Array[PlayerCombatant] = []
 func has_members() -> bool:
 	return get_party_count() > 0
 
+func is_party_fightable() -> bool:
+	if has_members() == false:
+		return false
+	
+	for pm in party_members:
+		if pm.get_current_hp() > 0:
+			return true
+	return false
+
 func get_party_count() -> int:
 	return party_members.size()
 

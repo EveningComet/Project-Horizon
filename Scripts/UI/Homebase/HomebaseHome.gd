@@ -25,7 +25,9 @@ func _ready() -> void:
 	acquisition_button.pressed.connect( on_acquisition_button_pressed )
 	quit_button.button_down.connect( on_quit_button_pressed )
 	
+	# Do not let the player start a mission without characters or 0 hp characters
 	missions_button.disabled = !PlayerPartyController.has_members()
+	missions_button.disabled = !PlayerPartyController.is_party_fightable()
 	
 	get_first_enabled_button_or_default().grab_focus()
 	skill_menu.hide()

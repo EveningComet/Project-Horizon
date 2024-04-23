@@ -23,10 +23,6 @@ func _ready() -> void:
 func activate(player_victory: bool, player_retreat: bool, xp_to_reward: int) -> void:
 	show()
 	
-	# TODO: The player should really go to another place for healing.
-	# This is fine for now.
-	PlayerPartyController.fully_restore_hp_and_sp_of_party()
-	
 	if player_victory == true:
 		handle_player_victory(xp_to_reward)
 	elif player_victory == false:

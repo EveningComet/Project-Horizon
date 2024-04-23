@@ -5,11 +5,12 @@
 [resource]
 script = ExtResource("1_w7spn")
 localization_name = "Confidant"
-localization_description = "New description."
+localization_description = "A best friend, a motivational speaker, or just someone with a pretty face, they bring hope."
 starting_vitality = 5
 starting_expertise = 3
 starting_will = 7
 vitality_on_increase = 5
 expertise_on_increase = 5
 will_on_increase = 5
+starting_equipment = Array[Resource("res://Scripts/Inventory/ItemData.gd")]([])
 skills = Array[Resource("res://Scripts/Character/Skill/SkillData.gd")]([])
