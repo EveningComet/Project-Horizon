@@ -7,9 +7,11 @@ func enter(msgs: Dictionary = {}) -> void:
 		my_state_machine.created_character = null
 		my_state_machine.starting_class    = null
 	
+	my_state_machine.portraits_container.show()
 	display_classes( my_state_machine.character_classes )
 
 func exit() -> void:
+	my_state_machine.portraits_container.hide()
 	close_out()
 
 func check_for_unhandled_input(event: InputEvent) -> void:
@@ -47,6 +49,21 @@ func on_player_highlighted_character_class_button(pc_class: CharacterClass) -> v
 	my_state_machine.class_description_label.set_text(
 		pc_class.localization_description
 	)
+	
+	var portraits_container = my_state_machine.portraits_container
+	for c in portraits_container.get_children():
+		c.queue_free()
+	
+	# Show the portraits of the class in the background
+	var portraits: Array[PortraitData] = pc_class.get_portraits()
+	var pd_template = preload("res://Scenes/UI/Homebase/Portrait Displayer.tscn")
+	for portrait in portraits:
+		var portrait_displayer: PortraitDisplayer = pd_template.instantiate()
+		portrait_displayer.portrait_data = portrait
+		portraits_container.add_child(portrait_displayer)
+		portrait_displayer.display_icon.set_texture(
+			portrait_displayer.portrait_data.big_portrait
+		)
 
 func on_class_selected(pc_class: CharacterClass) -> void:
 	var new_character: PlayerCombatant = PlayerCombatant.new()

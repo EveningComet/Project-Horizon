@@ -16,6 +16,9 @@ class_name RecruitableMenuController extends StateMachine
 ## Template for creating the character class buttons.
 @export var character_class_button_template: PackedScene
 
+## Container that will house the displayed portraits.
+@export var portraits_container: Container
+
 # TODO: Figure out how to load the classes without having to set them here.
 ## The character classes.
 @export var character_classes: Array[CharacterClass] = []
@@ -33,3 +36,9 @@ func _unhandled_input(event: InputEvent) -> void:
 ## Sorts the classes alphabetically.
 func sort_name(a: CharacterClass, b: CharacterClass) -> bool:
 	return a.localization_name < b.localization_name
+
+func get_all_portraits() -> Array[PortraitData]:
+	var all_portraits: Array[PortraitData]
+	for cc in character_classes:
+		all_portraits.append_array(cc.get_portraits())
+	return all_portraits

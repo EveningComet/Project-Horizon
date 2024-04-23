@@ -15,9 +15,19 @@ class_name CharacterClass extends Resource
 @export var expertise_on_increase: int = 5
 @export var will_on_increase:      int = 5
 
-# TODO: Portraits that are used for this class.
-
 @export var starting_equipment: Array[ItemData] = []
 
 ## The skills available to this character class.
 @export var skills: Array[SkillData] = []
+
+@export_category("Portraits")
+@export var male_portraits:   Array[PortraitData] = []
+@export var female_portraits: Array[PortraitData] = []
+
+func get_portraits() -> Array[PortraitData]:
+	var portraits: Array[PortraitData] = []
+	for mp in male_portraits:
+		portraits.append(mp)
+	for fp in female_portraits:
+		portraits.append(fp)
+	return portraits
