@@ -1,0 +1,17 @@
+@startuml
+
+skinparam linetype ortho
+
+[*] --> RMInactive 
+RMInactive: <b>[Entry]</b> Hide menu
+
+RMInactive --> RMSelectClass: [menu visible]
+RMSelectClass: <b>[Entry]</b> Show classes
+
+RMSelectClass --> RMSelectPortrait: [class selected]
+
+RMSelectPortrait --> RMEnterName
+RMEnterName: <b>[Entry]</b> Accept input
+
+RMEnterName --> RMSelectClass: [name entered] / addCharacter()
+@enduml

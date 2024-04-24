@@ -1,0 +1,23 @@
+@startuml
+
+rectangle RecruitableMenuController
+rectangle RecruitableMenuState
+rectangle StateMachine
+rectangle State
+rectangle InitialStatePath
+rectangle RecruitableMenuScene
+
+rectangle CharacterClass <<Starting class>> as CharacterClass
+rectangle PlayerCombatant <<Created character>> as PlayerCombatant
+
+RecruitableMenuScene .d.|> InitialStatePath: <<provides>>
+StateMachine -l-> InitialStatePath: <<export var>>
+
+RecruitableMenuController -u-|> StateMachine
+RecruitableMenuState -u-|> State
+RecruitableMenuController "1" *.. "many" State
+
+RecruitableMenuController "1" *.. "1" CharacterClass
+RecruitableMenuController "1" *.. "1" PlayerCombatant
+
+@enduml
