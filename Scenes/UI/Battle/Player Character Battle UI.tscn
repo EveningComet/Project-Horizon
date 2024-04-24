@@ -1,94 +1,77 @@
-[gd_scene load_steps=5 format=3 uid="uid://c65rp21ut40w8"]
+[gd_scene load_steps=7 format=3 uid="uid://c65rp21ut40w8"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Battle/CombatantBattleUI.gd" id="1_k7vii"]
 [ext_resource type="Texture2D" uid="uid://cyuyl8f5a5uw7" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Panel01.png" id="1_mcyht"]
-[ext_resource type="Texture2D" uid="uid://bme6mc2c4tf40" path="res://Imported Assets/coraxdigitalart-space-station-inhabitants/coraxdigitalart-space-station-portraits (36).png" id="2_2bkmu"]
+[ext_resource type="Script" path="res://Scripts/UI/General/PortraitDisplayer.gd" id="3_bpgkw"]
+[ext_resource type="Texture2D" uid="uid://csl78weulk5xi" path="res://Imported Assets/coraxdigitalart-space-station-inhabitants/coraxdigitalart-space-station-portraits (142).png" id="4_xf6o6"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g8fcp"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v5rcx"]
 texture = ExtResource("1_mcyht")
-texture_margin_left = 10.0
-texture_margin_right = 10.0
-texture_margin_bottom = 10.0
 
-[node name="Player Character Battle UI" type="Control" node_paths=PackedStringArray("hp_display_text", "sp_display_text")]
-custom_minimum_size = Vector2(200, 100)
-layout_mode = 3
-anchors_preset = 0
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7r0ni"]
+
+[node name="Player Character Battle UI" type="PanelContainer" node_paths=PackedStringArray("portrait_displayer", "hp_display_text", "sp_display_text")]
+custom_minimum_size = Vector2(225, 100)
 offset_right = 200.0
 offset_bottom = 100.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_v5rcx")
 script = ExtResource("1_k7vii")
-hp_display_text = NodePath("Character Battle Panel/Vitals/HP Display")
-sp_display_text = NodePath("Character Battle Panel/Vitals/SP Display")
+portrait_displayer = NodePath("MarginContainer/HBoxContainer/Portrait Displayer")
+hp_display_text = NodePath("MarginContainer/HBoxContainer/Vitals/VBoxContainer/HP Display")
+sp_display_text = NodePath("MarginContainer/HBoxContainer/Vitals/VBoxContainer/SP Display")
 
-[node name="Character Battle Panel" type="Panel" parent="."]
-texture_filter = 1
-custom_minimum_size = Vector2(200, 100)
-layout_mode = 0
-theme_override_styles/panel = SubResource("StyleBoxTexture_g8fcp")
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
 
-[node name="Character Portrait" type="Control" parent="Character Battle Panel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Portrait Displayer" type="PanelContainer" parent="MarginContainer/HBoxContainer" node_paths=PackedStringArray("display_icon")]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_7r0ni")
+script = ExtResource("3_bpgkw")
+display_icon = NodePath("MarginContainer/Icon")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/Portrait Displayer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/HBoxContainer/Portrait Displayer/MarginContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("4_xf6o6")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Vitals" type="Control" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/Vitals"]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = -70.0
-offset_right = 50.0
-offset_bottom = -30.0
-grow_vertical = 0
-
-[node name="PanelContainer" type="PanelContainer" parent="Character Battle Panel/Character Portrait"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -37.5
-offset_top = -37.5
-offset_right = 37.5
-offset_bottom = 37.5
 grow_horizontal = 2
 grow_vertical = 2
+alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="Character Battle Panel/Character Portrait/PanelContainer"]
+[node name="HP Display" type="RichTextLabel" parent="MarginContainer/HBoxContainer/Vitals/VBoxContainer"]
+custom_minimum_size = Vector2(10, 30)
 layout_mode = 2
-texture = ExtResource("2_2bkmu")
-expand_mode = 1
-
-[node name="Vitals" type="Control" parent="Character Battle Panel"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="HP Display" type="RichTextLabel" parent="Character Battle Panel/Vitals"]
-custom_minimum_size = Vector2(10, 10)
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = 50.0
-offset_top = 20.0
-offset_right = 150.0
-offset_bottom = 60.0
-grow_horizontal = 0
 theme_override_font_sizes/normal_font_size = 18
 text = "HP: 99/99"
 
-[node name="SP Display" type="RichTextLabel" parent="Character Battle Panel/Vitals"]
-custom_minimum_size = Vector2(10, 10)
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 50.0
-offset_top = 20.0
-offset_right = 150.0
-offset_bottom = 60.0
-grow_horizontal = 0
-grow_vertical = 0
+[node name="SP Display" type="RichTextLabel" parent="MarginContainer/HBoxContainer/Vitals/VBoxContainer"]
+custom_minimum_size = Vector2(10, 30)
+layout_mode = 2
 theme_override_font_sizes/normal_font_size = 18
 text = "SP: 99/99"

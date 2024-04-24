@@ -1,8 +1,6 @@
 ## Instance of a character in a battle. Stores needed data.
 class_name Combatant extends Node
 
-# TODO: const scale variables for the health, sp, and other numbers?
-
 ## Called when a stat on this character has been changed.
 signal stat_changed( combatant: Combatant )
 
@@ -15,6 +13,9 @@ const EXPERTISE_PHYSICAL_POWER_SCALER: int = 2
 
 ## Stores the stats for this character.
 var stats: Dictionary = {}
+
+## Stores the appearance for this character.
+var portrait_data: PortraitData
 
 ## The status effects being monitored for this character.
 var status_effect_holder: StatusEffectHolder = StatusEffectHolder.new()
@@ -237,7 +238,7 @@ func take_damage(damage_data: Dictionary) -> void:
 		
 		# Tell anything that needs to know about the changes
 		stat_changed.emit( self )
-		if get_current_hp() == 0:
+		if get_current_hp() <= 0:
 			die()
 			return
 

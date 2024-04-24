@@ -1,25 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://cjy7rqj2i7mo8"]
+[gd_scene load_steps=5 format=3 uid="uid://cjy7rqj2i7mo8"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Battle/CombatantBattleUI.gd" id="1_bhbwu"]
 [ext_resource type="Texture2D" uid="uid://b2dvigjefvd7u" path="res://Imported Assets/Aekashics Librarium Sprites/Cyber Ogre.png" id="1_fx5ve"]
 [ext_resource type="PackedScene" uid="uid://hjy64lja4jo5" path="res://Scenes/UI/Battle/Damage Text Displayer.tscn" id="3_aphws"]
 
-[node name="Enemy Battle UI" type="Control" node_paths=PackedStringArray("portrait")]
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 3
-anchors_preset = 0
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_45agv"]
+
+[node name="Enemy Battle UI" type="PanelContainer" node_paths=PackedStringArray("portrait")]
 offset_right = 20.0
 offset_bottom = 20.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxEmpty_45agv")
 script = ExtResource("1_bhbwu")
 portrait = NodePath("Enemy Portrait")
 damage_text_template = ExtResource("3_aphws")
 
 [node name="Enemy Portrait" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
 texture = ExtResource("1_fx5ve")
 expand_mode = 1
+stretch_mode = 5

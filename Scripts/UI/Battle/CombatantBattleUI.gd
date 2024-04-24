@@ -1,11 +1,11 @@
 ## Displays the vitals for a character. Doubles as a middleman for accessing
 ## a character's data.
-class_name CombatantBattleUI extends Control
+class_name CombatantBattleUI extends PanelContainer
 
-## The instance of the combatant currently being monitored.
-@export var combatant: Combatant
+@export var portrait_displayer: PortraitDisplayer
 
 ## Used by enemies to display their portrait.
+# TODO: Update enemies to use the displayer.
 @export var portrait: TextureRect
 
 @export var damage_text_template: PackedScene
@@ -14,6 +14,9 @@ class_name CombatantBattleUI extends Control
 
 @export var hp_display_text: RichTextLabel
 @export var sp_display_text: RichTextLabel
+
+## The combatant currently being monitored.
+var combatant: Combatant
 
 ## Stores a copy of the character's vitals for showing the differences.
 var vital_stats: Dictionary = {} 
@@ -26,6 +29,9 @@ func set_combatant(new_combatant: Combatant, is_player_owned: bool) -> void:
 	vital_stats[StatTypes.stat_types.CurrentSP] = combatant.get_current_sp()
 	combatant.stat_changed.connect( on_stat_changed )
 	if is_player_controlled == true:
+		portrait_displayer.display_icon.set_texture( 
+			combatant.portrait_data.small_portrait
+		)
 		update_hp_display()
 		update_sp_display()
 	else:
@@ -45,7 +51,7 @@ func on_stat_changed(monitored: Combatant) -> void:
 			diff = absi(diff)
 			vital_stats[StatTypes.stat_types.CurrentHP] = combatant.get_current_hp()
 			var damage_display_text: DamageTextDisplayer = damage_text_template.instantiate()
-			get_parent().get_parent().add_child( damage_display_text )
+			get_parent().get_parent().get_parent().add_child( damage_display_text )
 			damage_display_text.global_position = global_position
 			damage_display_text.display( diff )
 			
@@ -54,7 +60,7 @@ func on_stat_changed(monitored: Combatant) -> void:
 			diff = absi(diff)
 			vital_stats[StatTypes.stat_types.CurrentHP] = combatant.get_current_hp()
 			var damage_display_text: DamageTextDisplayer = damage_text_template.instantiate()
-			get_parent().get_parent().add_child( damage_display_text )
+			get_parent().get_parent().get_parent().add_child( damage_display_text )
 			damage_display_text.global_position = global_position
 			damage_display_text.set("theme_override_colors/font_color", Color.GREEN)
 			damage_display_text.display( diff )

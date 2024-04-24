@@ -108,7 +108,7 @@ func on_slot_clicked(char_slot_data: PartyMemberHolderUI, index: int, button: in
 		[_, MOUSE_BUTTON_LEFT]:
 			# Cache the character being swapped
 			var swapped_character: PlayerCombatant = char_slot_data.stored_character
-			var swapped_texture                    = char_slot_data.portrait
+			var swapped_texture                    = char_slot_data.portrait.texture
 			
 			# Set the new character and see if they have to be removed from the party
 			char_slot_data.set_character( grabbed_ui.stored_character )

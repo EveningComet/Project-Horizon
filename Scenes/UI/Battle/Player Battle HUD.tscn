@@ -18,17 +18,23 @@ grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("1_3pk3i")
 player_battle_ui_scene = ExtResource("2_qiq87")
-player_party_container = NodePath("PC Boxes/GridContainer")
+player_party_container = NodePath("Margin Container/GridContainer")
 
-[node name="PC Boxes" type="Control" parent="."]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Margin Container" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -347.5
+offset_top = -210.0
+offset_right = 347.5
+grow_horizontal = 2
+grow_vertical = 0
 
-[node name="GridContainer" type="GridContainer" parent="PC Boxes"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-theme_override_constants/h_separation = 30
+[node name="GridContainer" type="GridContainer" parent="Margin Container"]
+layout_mode = 2
+theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 3

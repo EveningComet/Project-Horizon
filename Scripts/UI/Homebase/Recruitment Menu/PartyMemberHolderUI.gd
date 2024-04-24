@@ -15,8 +15,8 @@ func _ready() -> void:
 
 ## Set the character being tracked of.
 func set_character(recruited_character: PlayerCombatant) -> void:
-	# TODO: Figure out setting the portrait texture.
 	stored_character = recruited_character
+	portrait.set_texture( stored_character.portrait_data.small_portrait )
 
 func on_gui_input(event: InputEvent) -> void:
 	# Drag and drop code

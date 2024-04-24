@@ -11,7 +11,6 @@ func enter(msgs: Dictionary = {}) -> void:
 	display_classes( my_state_machine.character_classes )
 
 func exit() -> void:
-	my_state_machine.portraits_container.hide()
 	close_out()
 
 func check_for_unhandled_input(event: InputEvent) -> void:
@@ -42,8 +41,12 @@ func close_out() -> void:
 		)
 		child.queue_free()
 	
+	for c in my_state_machine.portraits_container.get_children():
+		c.queue_free()
+	
 	my_state_machine.class_description_holder.hide()
 	my_state_machine.class_container.hide()
+	my_state_machine.portraits_container.hide()
 
 func on_player_highlighted_character_class_button(pc_class: CharacterClass) -> void:
 	my_state_machine.class_description_label.set_text(

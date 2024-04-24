@@ -3,6 +3,7 @@ class_name CharacterInspectionWindow extends Control
 
 @export var char_name_label: Label
 @export var character_class_name_label: Label
+@export var portrait_displayer: PortraitDisplayer
 
 @export var equipment_displayer: InventoryDisplayer
 
@@ -26,6 +27,9 @@ var current_character: PlayerCombatant = null:
 		current_character = value
 		equipment_displayer.set_inventory_to_display(
 			current_character.equipment_holder
+		)
+		portrait_displayer.display_icon.set_texture(
+			current_character.portrait_data.small_portrait
 		)
 		current_character.stat_changed.connect( on_stat_changed )
 		displayed_character_changed.emit( current_character )
