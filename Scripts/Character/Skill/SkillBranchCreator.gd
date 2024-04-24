@@ -10,9 +10,9 @@ static func create_branch(skill_data_instances: Dictionary, start_skill: SkillDa
 	var branch = SkillBranch.new()
 	var unlockables = []
 	populate_unlockables(start_skill, unlockables)
-	branch.starting_skill = skill_data_instances[start_skill]
+	branch.skills.append(skill_data_instances[start_skill])
 	for unlockable_data in unlockables:
-		branch.unlockables.append(skill_data_instances[unlockable_data])
+		branch.skills.append(skill_data_instances[unlockable_data])
 	return branch
 
 static func populate_unlockables(skill: SkillData, unlockables: Array):

@@ -1,4 +1,6 @@
 class_name SkillBranch
 
-var starting_skill: SkillInstance
-var unlockables: Array[SkillInstance] = []
+var skills: Array[SkillInstance] = []
+
+func starting_skill() -> SkillInstance:
+    return null if skills.is_empty() else skills[0]
