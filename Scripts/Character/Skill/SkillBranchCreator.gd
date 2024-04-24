@@ -4,6 +4,7 @@ static func create(skill_data_instances: Dictionary, starting_skills: Array) -> 
 	var result: Array[SkillBranch] = []
 	for skill in starting_skills:
 		result.append(create_branch(skill_data_instances, skill))
+	result.sort_custom(func(a, b): return len(a.skills) < len(b.skills))
 	return result
 
 static func create_branch(skill_data_instances: Dictionary, start_skill: SkillData) -> SkillBranch:

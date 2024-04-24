@@ -47,7 +47,7 @@ func render_tab(index: int):
 	if (PlayerPartyController.has_members()):
 		current_character = characters[index]
 		emit_signal("character_changed", current_character)
-		skills_tree_renderer.start(current_character.skill_holder.skills())
+		skills_tree_renderer.start( current_character.skill_holder.skill_branches )
 		set_draft_skill_points( current_character.available_skill_points )
 
 func confirm_points():

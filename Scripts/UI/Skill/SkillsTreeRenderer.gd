@@ -2,7 +2,7 @@
 ## by spawning the buttons and their connecting lines
 class_name SkillsTreeRenderer extends Node
 
-@export var skill_container: HBoxContainer
+@export var skill_container: VBoxContainer
 @export var skill_menu_button_template: PackedScene
 @export var wait_skills_render_timer: Timer
 @export var skills_group_name : String = "skills"
@@ -21,13 +21,19 @@ func initialize(_on_skill_upgraded: Callable, _skill_points_depleted: Signal):
 	on_skill_upgraded = _on_skill_upgraded
 	skill_points_depleted = _skill_points_depleted
 
-func start(skills: Array):
+func start(skill_branches: Array):
 	clear_skills()
-	for skill in skills:
+	for branch in skill_branches:
+		skill_container.add_child(spawn_branch(branch))
+	wait_skills_render_timer.start()
+
+func spawn_branch(branch: SkillBranch) -> HBoxContainer:
+	var branch_container := HBoxContainer.new()
+	for skill in branch.skills:
 		var button:= make_skill_button( skill ) as SkillMenuButton
 		button_per_skill[skill.monitored_skill] = button
-		skill_container.add_child( button )
-	wait_skills_render_timer.start() 
+		branch_container.add_child( button )
+	return branch_container
 
 func finish():
 	for skill_data in button_per_skill.keys():
@@ -41,7 +47,7 @@ func draw_lines_to_all_unlockables_from(button: SkillMenuButton):
 		var target := button_per_skill[unlockable] as SkillMenuButton
 		var line := spawn_connecting_line( button, target )
 		fade_in( line )
-		skill_container.add_child( line )
+		button.get_parent().add_child( line )
 
 func spawn_connecting_line(begin: SkillMenuButton, end: SkillMenuButton) -> Line2D:
 	var line := Line2D.new()
