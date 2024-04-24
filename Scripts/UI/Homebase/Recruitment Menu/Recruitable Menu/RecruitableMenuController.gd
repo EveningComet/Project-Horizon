@@ -21,19 +21,24 @@ class_name RecruitableMenuController extends StateMachine
 
 @export var portrait_displayer_template: PackedScene
 
-# TODO: Figure out how to load the classes without having to set them here.
-## The character classes.
-@export var character_classes: Array[CharacterClass] = []
+## Stores a local copy of the character classes.
+var character_classes: Array[CharacterClass] = []
 
 var created_character: PlayerCombatant = null
 var starting_class:    CharacterClass  = null
 
 func set_me_up() -> void:
+	load_classes()
 	character_classes.sort_custom( sort_name )
 	super()
 
 func _unhandled_input(event: InputEvent) -> void:
 	curr_state.check_for_unhandled_input( event )
+
+## Load the needed character classes.
+func load_classes() -> void:
+	character_classes.clear()
+	character_classes.append_array( CharacterClassDb.get_database() )
 
 ## Sorts the classes alphabetically.
 func sort_name(a: CharacterClass, b: CharacterClass) -> bool:
