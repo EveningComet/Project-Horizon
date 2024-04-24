@@ -3,11 +3,14 @@ class_name SkillHolder
 # Dictionary { skill_data : skill_instance }
 var skill_data_instances: = {}
 
+var skill_branches: Array[SkillBranch] = []
+
 func initialize(skills_data: Array[SkillData]):
 	for data in skills_data:
 		skill_data_instances[data] = SkillInstance.new()
 		skill_data_instances[data].initialize(data, on_new_skills_unlocked)
 	unlock_and_upgrade_starting_skills()
+	skill_branches = SkillBranchCreator.create(skill_data_instances, starting_skills())
 
 func skills() -> Array:
 	return skill_data_instances.values()
@@ -19,13 +22,19 @@ func usable_skills() -> Array:
 			result.append(skill_instance)
 	return result
 
+func starting_skills() -> Array:
+	var result = []
+	for data in skill_data_instances.keys():
+		if (data.is_unlocked_by_default):
+			result.append(data)
+	return result
+
 func on_new_skills_unlocked(unlocked: Array[SkillData]):
 	for data in unlocked:
 		if (skill_data_instances.has(data)):
 			skill_data_instances[data].unlock()
 
 func unlock_and_upgrade_starting_skills():
-	for data in skill_data_instances.keys():
-		if (data.is_unlocked_by_default):
-			skill_data_instances[data].unlock()	
-			skill_data_instances[data].upgrade_to_level( 1 )	
+	for data in starting_skills():
+		skill_data_instances[data].unlock()	
+		skill_data_instances[data].upgrade_to_level( 1 )	
