@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3 uid="uid://et3jymc3h2tu"]
+
+[ext_resource type="Script" path="res://Scripts/Character/Skill/SkillData.gd" id="1_pjbi5"]
+
+[resource]
+script = ExtResource("1_pjbi5")
+localization_name = "Teleport"
+localization_description = "New description."
+cost = 5
+is_passive = false
+action_type = 6
+skill_type = 6
+num_activations = 1
+max_rank = 3
+minimum_rank_of_previous = 1
+unlocks_at_class_level = 3
+success_chance = 1.0
+is_unlocked_by_default = false
+unlockable = Array[ExtResource("1_pjbi5")]([])
+is_ranged = false
+effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([])
