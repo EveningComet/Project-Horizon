@@ -10,7 +10,7 @@ func initialize(skills_data: Array[SkillData]):
 		skill_data_instances[data] = SkillInstance.new()
 		skill_data_instances[data].initialize(data, on_new_skills_unlocked)
 	unlock_and_upgrade_starting_skills()
-	skill_branches = SkillBranchCreator.create(skill_data_instances, starting_skills())
+	skill_branches = SkillBranchCreator.create( skill_data_instances, starting_skills() )
 
 func skills() -> Array:
 	return skill_data_instances.values()
@@ -26,7 +26,7 @@ func starting_skills() -> Array:
 	var result = []
 	for data in skill_data_instances.keys():
 		if (data.is_unlocked_by_default):
-			result.append(data)
+			result.append( data )
 	return result
 
 func on_new_skills_unlocked(unlocked: Array[SkillData]):
