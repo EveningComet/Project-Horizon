@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3 uid="uid://et3jymc3h2tu"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=3 format=3 uid="uid://et3jymc3h2tu"]
 
+[ext_resource type="Texture2D" uid="uid://b1etw4u6yt2ch" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Icons/Icon33.png" id="1_jbcfa"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillData.gd" id="1_pjbi5"]
 
 [resource]
@@ -19,3 +20,4 @@ is_unlocked_by_default = true
 unlockable = Array[ExtResource("1_pjbi5")]([])
 is_ranged = false
 effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([])
+display_texture = ExtResource("1_jbcfa")
