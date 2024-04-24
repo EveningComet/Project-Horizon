@@ -6,8 +6,8 @@
 
 [resource]
 script = ExtResource("1_cua74")
-localization_name = "Stun"
-localization_description = "New description."
+localization_name = "Tactical Scan"
+localization_description = "Use your high tech targeting computer to scan an enemy."
 cost = 5
 is_passive = false
 action_type = 0

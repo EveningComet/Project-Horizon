@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillData.gd" id="1_4ubh5"]
 [ext_resource type="Texture2D" uid="uid://1po8y2n058vb" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Icons/Icon28.png" id="1_v56qg"]
-[ext_resource type="Resource" uid="uid://dllai6a8rfsqh" path="res://Game Data/Player Character Classes/Class Skills/Aegis Skills/Aegis Stun.tres" id="2_w2jyj"]
+[ext_resource type="Resource" uid="uid://dllai6a8rfsqh" path="res://Game Data/Player Character Classes/Class Skills/Aegis Skills/Aegis Tactical Scan.tres" id="2_w2jyj"]
 
 [resource]
 script = ExtResource("1_4ubh5")
-localization_name = "Disorient"
-localization_description = "New description."
+localization_name = "Emergency Medical Systems"
+localization_description = "A percentage of the character's max health will be healed."
 cost = 5
 is_passive = false
 action_type = 0

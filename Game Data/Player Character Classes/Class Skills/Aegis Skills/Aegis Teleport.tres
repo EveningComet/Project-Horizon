@@ -5,8 +5,8 @@
 
 [resource]
 script = ExtResource("1_pjbi5")
-localization_name = "Teleport"
-localization_description = "New description."
+localization_name = "Stun"
+localization_description = "A non-lethal beam, powerful enough to cause disorientation."
 cost = 5
 is_passive = false
 action_type = 6

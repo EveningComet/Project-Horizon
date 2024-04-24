@@ -9,9 +9,9 @@
 [ext_resource type="Resource" uid="uid://3xrcu5e75sjq" path="res://Game Data/Items/Equipment/Test Weapon.tres" id="4_j3ard"]
 [ext_resource type="Resource" uid="uid://b6jjntfgycyoe" path="res://Game Data/Items/Equipment/Cool Hat.tres" id="5_k2cfl"]
 [ext_resource type="Resource" uid="uid://et3jymc3h2tu" path="res://Game Data/Player Character Classes/Class Skills/Aegis Skills/Aegis Teleport.tres" id="7_0f6sv"]
-[ext_resource type="Resource" uid="uid://dllai6a8rfsqh" path="res://Game Data/Player Character Classes/Class Skills/Aegis Skills/Aegis Stun.tres" id="8_e6dcy"]
+[ext_resource type="Resource" uid="uid://dllai6a8rfsqh" path="res://Game Data/Player Character Classes/Class Skills/Aegis Skills/Aegis Tactical Scan.tres" id="8_e6dcy"]
 [ext_resource type="Resource" uid="uid://48fsmsqsnkt0" path="res://Game Data/Player Character Classes/Class Skills/Aegis Skills/Aegis Stun Crowd.tres" id="9_3yh88"]
-[ext_resource type="Resource" uid="uid://bwvga3ciq3a8r" path="res://Game Data/Player Character Classes/Class Skills/Aegis Skills/Aegis Disorient.tres" id="10_ktkvc"]
+[ext_resource type="Resource" uid="uid://bwvga3ciq3a8r" path="res://Game Data/Player Character Classes/Class Skills/Aegis Skills/Aegis Emergency Medical Systems.tres" id="10_ktkvc"]
 
 [sub_resource type="Resource" id="Resource_87hqs"]
 script = ExtResource("2_82u53")
