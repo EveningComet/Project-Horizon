@@ -29,9 +29,9 @@ attributes_menu = NodePath("AttributesMenu")
 class_upgrade_menu = NodePath("ClassUpgradeMenu")
 attributes_upgrader = NodePath("AttributesUpgrader")
 
-[node name="SkillsTreeRenderer" type="Node" parent="SkillMenu" node_paths=PackedStringArray("skill_container", "wait_skills_render_timer")]
+[node name="SkillsTreeRenderer" type="Node" parent="SkillMenu" node_paths=PackedStringArray("branches_container", "wait_skills_render_timer")]
 script = ExtResource("3_3kt4c")
-skill_container = NodePath("../OverviewPanel/SkillsPanel/SkillsContainer/BranchesContainer")
+branches_container = NodePath("../OverviewPanel/SkillsPanel/SkillsContainer/BranchesContainer")
 skill_menu_button_template = ExtResource("2_44m12")
 wait_skills_render_timer = NodePath("../../WaitSkillsRenderTimer")
 

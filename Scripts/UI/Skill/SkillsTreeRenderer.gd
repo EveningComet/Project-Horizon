@@ -2,7 +2,7 @@
 ## by spawning the buttons and their connecting lines
 class_name SkillsTreeRenderer extends Node
 
-@export var skill_container: VBoxContainer
+@export var branches_container: VBoxContainer
 @export var skill_menu_button_template: PackedScene
 @export var wait_skills_render_timer: Timer
 @export var skills_group_name : String = "skills"
@@ -24,7 +24,7 @@ func initialize(_on_skill_upgraded: Callable, _skill_points_depleted: Signal):
 func start(skill_branches: Array):
 	clear_skills()
 	for branch in skill_branches:
-		skill_container.add_child(spawn_branch(branch))
+		branches_container.add_child( spawn_branch(branch) )
 	wait_skills_render_timer.start()
 
 func spawn_branch(branch: SkillBranch) -> HBoxContainer:
@@ -74,7 +74,7 @@ func make_skill_button(skill: SkillInstance) -> SkillMenuButton:
 	return button
 
 func clear_skills():
-	for child in skill_container.get_children():
+	for child in branches_container.get_children():
 		button_per_skill = {}
-		skill_container.remove_child( child )
+		branches_container.remove_child( child )
 		child.queue_free()
