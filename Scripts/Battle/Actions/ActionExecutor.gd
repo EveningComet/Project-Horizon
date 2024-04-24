@@ -52,7 +52,8 @@ func execute_action(action: StoredAction) -> void:
 	if activator == null or activator.stats[StatTypes.stat_types.CurrentHP] <= 0:
 		next_action()
 		return
-		
+	
+	action = check_if_new_target_needed( action )
 	var action_mediator: ActionMediator = ActionMediator.new()
 	
 	# Get all the data we need before hand
@@ -74,13 +75,9 @@ func execute_action(action: StoredAction) -> void:
 	match action.action_type:
 		ActionTypes.ActionTypes.AllEnemies, ActionTypes.ActionTypes.SingleEnemy:
 			
-			# TODO: If enemy target is dead, and their are still enemies, target another enemy.
 			for target: Combatant in action.get_targets():
 				if target != null:
 					var generated_number: int = prng.randi() % 101
-					
-					if OS.is_debug_build() == true:
-						print("ActionExecutor :: PRNG generated %s for chance to hit." % [str(generated_number)])
 					
 					# Chance to hit
 					if generated_number <= Formulas.get_chance_to_hit(activator, target):
@@ -104,12 +101,29 @@ func execute_action(action: StoredAction) -> void:
 		ActionTypes.ActionTypes.Flee:
 			# TODO: Proper running away from a battle.
 			get_tree().quit()
+			return
 	
 	# Execute the mediator
 	await execute_mediator( action_mediator )
 	
 	# The action has been finished, move onto the next one, if able
 	next_action()
+
+## Check if a new target is needed for actions targeting a single enemy.
+func check_if_new_target_needed(action: StoredAction) -> StoredAction:
+	if action.action_type == ActionTypes.ActionTypes.SingleEnemy:
+		var activator = action.activator
+		if action.get_targets()[0] == null:
+			for com in death_handler.spawned_combatants:
+				if (activator is EnemyCombatant and com is PlayerCombatant) \
+				or (activator is PlayerCombatant and com is EnemyCombatant):
+					action.recipients[0] = com
+					break
+					
+		return action
+	
+	else:
+		return action
 
 ## Execute the passed mediator.
 func execute_mediator(action_mediator: ActionMediator) -> void:
