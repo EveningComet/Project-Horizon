@@ -22,6 +22,7 @@ func enter(msgs: Dictionary = {}) -> void:
 func exit() -> void:
 	for pdb: PortraitDisplayerButton in my_state_machine.portraits_container.get_children():
 		pdb.portrait_selected.disconnect( on_portrait_data_selected )
+		pdb.queue_free()
 	my_state_machine.portraits_container.hide()
 
 func check_for_unhandled_input(event: InputEvent) -> void:

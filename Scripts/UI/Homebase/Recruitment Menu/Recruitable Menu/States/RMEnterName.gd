@@ -19,10 +19,9 @@ func exit() -> void:
 	)
 
 func check_for_unhandled_input(event: InputEvent) -> void:
-	# TODO: Once the portrait selection is properly implmented, return to that.
 	# TODO: If we allow gamepads for name entry, this might cause problems.
 	if event.is_action_pressed("ui_cancel"):
-		my_state_machine.change_to_state("RMSelectClass")
+		my_state_machine.change_to_state("RMSelectPortrait")
 		return
 
 ## When the player finishes entering the name for their created character,
