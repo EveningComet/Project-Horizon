@@ -11,7 +11,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_wq8uj")
-randomize_name_button = NodePath("VBoxContainer/Randomize Name Button")
+randomize_name_button = NodePath("Background/MarginContainer/VBoxContainer/Randomize Name Button")
 names_list = "Nyx
 Spock
 Natalya
@@ -23,8 +23,8 @@ Sulu
 Scotty
 Chekov
 Leonard"
-accept_name_button = NodePath("VBoxContainer/Accept Name")
-name_entry = NodePath("VBoxContainer/LineEdit")
+accept_name_button = NodePath("Background/MarginContainer/VBoxContainer/Accept Name")
+name_entry = NodePath("Background/MarginContainer/VBoxContainer/LineEdit")
 
 [node name="Background" type="Panel" parent="."]
 custom_minimum_size = Vector2(400, 250)
@@ -35,39 +35,46 @@ anchor_right = 0.5
 offset_left = -328.0
 offset_top = 100.0
 offset_right = 328.0
-offset_bottom = 337.0
+offset_bottom = 350.0
 grow_horizontal = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="Background"]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -198.5
-offset_top = 100.0
-offset_right = 198.5
-offset_bottom = 189.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/MarginContainer"]
+layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="Label" type="Label" parent="Background/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "Enter a name for your character:"
+horizontal_alignment = 1
 
-[node name="LineEdit" type="LineEdit" parent="VBoxContainer"]
+[node name="LineEdit" type="LineEdit" parent="Background/MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_font_sizes/font_size = 25
+alignment = 1
 caret_blink = true
 
-[node name="Randomize Name Button" type="Button" parent="VBoxContainer"]
+[node name="Randomize Name Button" type="Button" parent="Background/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "Randomize Name"
 
-[node name="Accept Name" type="Button" parent="VBoxContainer"]
+[node name="Accept Name" type="Button" parent="Background/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
