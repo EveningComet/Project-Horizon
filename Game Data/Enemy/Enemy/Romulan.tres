@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EnemyData" load_steps=8 format=3 uid="uid://dqwis64wnxudx"]
+[gd_resource type="Resource" script_class="EnemyData" load_steps=9 format=3 uid="uid://dqwis64wnxudx"]
 
 [ext_resource type="Resource" uid="uid://clp5m14utgxbx" path="res://Game Data/Enemy/Behaviors/Attack Single Weakest.tres" id="1_6pt4g"]
 [ext_resource type="Resource" uid="uid://d17igemxkf6al" path="res://Game Data/Generic Skills/Generic Regular Attack.tres" id="1_dot56"]
@@ -20,6 +20,13 @@ stat_modifier_type = 0
 value = 7.0
 sort_order = 0
 
+[sub_resource type="Resource" id="Resource_yrb8o"]
+script = ExtResource("5_pf6qe")
+stat_changing = 11
+stat_modifier_type = 0
+value = 7.0
+sort_order = 0
+
 [resource]
 script = ExtResource("2_4b1m4")
 portrait = ExtResource("2_48axc")
@@ -28,7 +35,7 @@ vitality = 5
 expertise = 5
 will = 5
 exp_on_death = 100
-stat_modifiers = Array[ExtResource("5_pf6qe")]([SubResource("Resource_k888g"), SubResource("Resource_ksg8e")])
+stat_modifiers = Array[ExtResource("5_pf6qe")]([SubResource("Resource_k888g"), SubResource("Resource_ksg8e"), SubResource("Resource_yrb8o")])
 available_skills = Array[Resource("res://Scripts/Character/Skill/SkillData.gd")]([ExtResource("1_dot56")])
 efficiency = 0.25
 behaviors = Array[Resource("res://addons/utility_ai/core/utility_ai_behavior.gd")]([ExtResource("1_6pt4g")])

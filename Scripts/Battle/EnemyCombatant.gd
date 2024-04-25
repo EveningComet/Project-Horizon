@@ -3,11 +3,6 @@ class_name EnemyCombatant extends Combatant
 
 var stored_enemy_data: EnemyData = null
 
-## The experience points this enemy should give on death.
-var experience_to_give_on_death: int = 15
-
-# TODO: The Sprite/Portrait for this enemy.
-
 ## Is the regular attack ranged?
 var is_regular_attack_ranged: bool = false
 
@@ -28,10 +23,13 @@ func initialize_with_enemy_data(enemy_data: EnemyData) -> void:
 		enemy_data.will,
 		true
 	)
-	experience_to_give_on_death = enemy_data.exp_on_death
 	initialize_vitals()
 	initialize_other_stats()
-	skill_holder.initialize( enemy_data.available_skills )
+	
+	for skill: SkillData in enemy_data.available_skills:
+		var skill_instance = SkillInstance.new()
+		skill_instance.monitored_skill = skill
+		skill_holder.skill_data_instances[skill] = skill_instance
 
 func initialize_vitals() -> void:
 	var true_max_hp: Stat = Stat.new(

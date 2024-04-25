@@ -59,6 +59,7 @@ func get_usable_data(activator: Combatant) -> ActionMediator:
 	action_mediator.status_effects_to_apply = {}
 	action_mediator.heal_amount = 0
 	for effect: SkillEffect in effects:
+		
 		# Check for damage
 		if effect is DirectDamage:
 			var damage_effect = effect as DirectDamage

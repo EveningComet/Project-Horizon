@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://cpubwbdfs8v2c"]
 
-[ext_resource type="Script" path="res://Scripts/UI/Homebase/Character/CharacterStatsWindow.gd" id="1_i66a6"]
+[ext_resource type="Script" path="res://Scripts/UI/Homebase/Character/CharacterInspectionWindow.gd" id="1_i66a6"]
 [ext_resource type="PackedScene" uid="uid://ca4n4diruu0kx" path="res://Scenes/UI/Homebase/Inventory/Equipment Slot UI.tscn" id="2_0dnpb"]
 [ext_resource type="Script" path="res://Scripts/Inventory/EquipmentDisplayer.gd" id="2_bpjie"]
 [ext_resource type="Script" path="res://Scripts/UI/General/PortraitDisplayer.gd" id="2_xqvk3"]
