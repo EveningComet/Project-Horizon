@@ -98,7 +98,7 @@ func level_up() -> void:
 func upgrade_class_to_level(_class: CharacterClass, level: int):
 	if (level != pc_classes[_class]):
 		pc_classes[_class] = level
-		emit_signal("class_upgraded", _class, level)
+		emit_signal( "class_upgraded", _class, level )
 
 func get_attributes_increase() -> Dictionary:
 	return {

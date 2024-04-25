@@ -23,8 +23,8 @@ func store_stats(_character: PlayerCombatant):
 
 func confirm():
 	for attribute in attributes:
-		character.raise_base_value_by(attribute, upgraded_amount(attribute))
-	character.upgrade_class_to_level(character.pc_class(), draft_class_level)
+		character.raise_base_value_by( attribute, upgraded_amount( attribute ) )
+	character.upgrade_class_to_level( character.pc_class(), draft_class_level )
 	reset_draft_stats()
 	emit_signal( "stats_confirmed" )
 

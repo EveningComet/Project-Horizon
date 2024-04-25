@@ -7,7 +7,7 @@ static func create(skill_data_instances: Dictionary, starting_skills: Array) -> 
 		var branch := create_branch( skill_data_instances, skill )
 		handed_skills.append_array( branch.skills )
 		result.append( branch )
-	result.append( create_standalone_branch(skill_data_instances, handed_skills) )
+	result.append( create_standalone_branch( skill_data_instances, handed_skills ) )
 	result.sort_custom( func(a, b): return len( a.skills ) < len( b.skills ) )
 	return result
 
@@ -24,7 +24,7 @@ static func create_standalone_branch(skill_data_instances: Dictionary, handed_sk
 	var branch = SkillBranch.new()
 	for skill_instance in skill_data_instances.values():
 		if (not skill_instance in handed_skills):
-			branch.skills.append(skill_instance)
+			branch.skills.append( skill_instance )
 	return branch
 
 static func populate_unlockables(skill: SkillData, unlockables: Array):
