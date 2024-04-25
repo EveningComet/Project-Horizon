@@ -10,6 +10,7 @@ signal stats_undone
 signal stats_changed(new_stats: Dictionary)
 
 var character: PlayerCombatant
+var draft_class_level: int
 var draft_stats: Dictionary = {} 
 var attributes := StatTypes.new().attributes()
 
@@ -22,7 +23,7 @@ func store_stats(_character: PlayerCombatant):
 
 func confirm():
 	for attribute in attributes:
-		character.pc_classes[character.pc_class()] += 1
+		character.pc_classes[character.pc_class()] = draft_class_level
 		character.raise_base_value_by(attribute, upgraded_amount(attribute))
 	reset_draft_stats()
 	emit_signal( "stats_confirmed" )
@@ -39,10 +40,12 @@ func attribute_upgrade(attribute: StatTypes.stat_types):
 func class_upgrade(amount: Dictionary):
 	for attribute in attributes:
 		draft_stats[attribute] += amount[attribute]
+	draft_class_level += 1
 	emit_signal( "class_upgraded" )
 	emit_signal( "stats_changed", draft_stats )
 
 func reset_draft_stats():
+	draft_class_level = character.pc_classes[character.pc_class()]
 	for attribute in attributes:
 		draft_stats[attribute] = character.stats[attribute].get_base_value()
 	emit_signal( "stats_changed", draft_stats )
