@@ -36,7 +36,7 @@ func _ready():
 func add_tabs_per_character():
 	tab_bar.clear_tabs()
 	for character in characters:
-		var tab_name = "[" + character.pc_class().localization_name + "] " + character.char_name
+		var tab_name = character.char_name
 		tab_bar.add_tab( tab_name )
 
 func on_visibility_changed():

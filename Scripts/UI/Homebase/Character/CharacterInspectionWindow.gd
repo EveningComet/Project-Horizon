@@ -84,10 +84,24 @@ func on_swap_left(curr_index: int) -> void:
 	if current_character != PlayerPartyController.party_members[curr_index]:
 		current_character = PlayerPartyController.party_members[curr_index]
 
+func get_character_classes_as_displayable_string(new_character: PlayerCombatant) -> String:
+	var classes_as_string: String = ""
+	var i: int = 0
+	var classes: Dictionary = new_character.pc_classes
+	for character_class in classes:
+		classes_as_string += character_class.localization_name
+		classes_as_string += " %s " % [str(classes[character_class])]
+		i += 1
+		if i < classes.size():
+			classes_as_string += " / "
+	return classes_as_string
+
 ## When a character's stats change, update the relevant information.
 func on_stat_changed(combatant: PlayerCombatant) -> void:
 	char_name_label.set_text( combatant.char_name )
-	character_class_name_label.set_text( combatant.pc_class().localization_name )
+	character_class_name_label.set_text( 
+		get_character_classes_as_displayable_string(combatant)
+	)
 	
 	# TODO: Figure out a nicer way to do this. I tried looping through the stats
 	# dictionary and it didn't work as expected
