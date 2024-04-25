@@ -209,7 +209,8 @@ func check_if_max_vital_values_need_updating() -> void:
 	if get_current_sp() > get_max_sp():
 		stats[StatTypes.stat_types.CurrentSP] = get_max_sp()
 
-func take_damage(damage_data: Dictionary) -> void:
+func take_damage(action_mediator: ActionMediator) -> void:
+	var damage_data: Dictionary = action_mediator.damage_data
 	# Go through the damage types and apply the damage
 	for damage_type: StatTypes.DamageTypes in damage_data:
 		
@@ -230,8 +231,6 @@ func take_damage(damage_data: Dictionary) -> void:
 			dmg_amt = 0
 	
 		stats[StatTypes.stat_types.CurrentHP] -= dmg_amt
-		if get_current_hp() < 0:
-			stats[StatTypes.stat_types.CurrentHP] = 0
 		
 		if OS.is_debug_build() == true:
 			print("Combatant :: Somebody took %s damage of type %s." % [str(dmg_amt), StatTypes.DamageTypes.keys()[damage_type]])

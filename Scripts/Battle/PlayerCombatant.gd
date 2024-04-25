@@ -93,3 +93,11 @@ func get_attributes_increase() -> Dictionary:
 		StatTypes.stat_types.Expertise : pc_class.expertise_on_increase,
 		StatTypes.stat_types.Will : pc_class.will_on_increase,
 	}
+
+func take_damage(action_mediator: ActionMediator) -> void:
+	super(action_mediator)
+	
+	# Don't allow the hp to be displayed below zero
+	if get_current_hp() < 0:
+		stats[StatTypes.stat_types.CurrentHP] = 0
+		stat_changed.emit( self )

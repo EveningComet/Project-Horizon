@@ -52,6 +52,7 @@ class_name SkillData extends Resource
 ## Get the needed data for the passed character.
 func get_usable_data(activator: Combatant) -> ActionMediator:
 	var action_mediator: ActionMediator = ActionMediator.new()
+	action_mediator.activator = activator
 	
 	# Loop through the effects, checking for ones that will increase the base damage
 	action_mediator.damage_data = {}
@@ -61,10 +62,15 @@ func get_usable_data(activator: Combatant) -> ActionMediator:
 		# Check for damage
 		if effect is DirectDamage:
 			var damage_effect = effect as DirectDamage
+			
 			if action_mediator.damage_data.has(damage_effect.damage_type) == true:
 				action_mediator.damage_data[damage_effect.damage_type] += damage_effect.get_power( activator )
+				action_mediator.power_scalings[damage_effect.damage_type] += damage_effect.power_scale
+				action_mediator.status_damage_scalers[damage_effect.damage_type] += damage_effect.bonus_damage_scale_on_debuffs_present
 			else:
 				action_mediator.damage_data[damage_effect.damage_type] = damage_effect.get_power( activator )
+				action_mediator.power_scalings[damage_effect.damage_type] = damage_effect.power_scale
+				action_mediator.status_damage_scalers[damage_effect.damage_type] = damage_effect.bonus_damage_scale_on_debuffs_present
 	
 		# Check for status effects
 		elif effect is ApplyStatusEffect:
