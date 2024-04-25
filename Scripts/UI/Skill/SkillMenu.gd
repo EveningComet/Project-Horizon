@@ -51,20 +51,16 @@ func render_tab(index: int):
 		set_draft_skill_points( current_character.available_skill_points )
 
 func confirm_points():
-	confirm_skills()
 	attributes_upgrader.confirm()
-
-func confirm_skills():
 	get_tree().call_group( skills_tree_renderer.skills_group_name, "confirm" )
 	current_character.available_skill_points = draft_available_skill_points
+	# Set this last, as the buttons upgrade based on skill point signal 
 	set_draft_skill_points( current_character.available_skill_points )
 
 func undo_points():
-	undo_skills()
 	attributes_upgrader.undo()
-
-func undo_skills():
 	get_tree().call_group( skills_tree_renderer.skills_group_name, "undo" )
+	# Set this last, as the buttons upgrade based on skill point signal 
 	set_draft_skill_points( current_character.available_skill_points )
 
 func deduct_one_point():
