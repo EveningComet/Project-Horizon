@@ -29,9 +29,9 @@ attributes_menu = NodePath("AttributesMenu")
 class_upgrade_menu = NodePath("ClassUpgradeMenu")
 attributes_upgrader = NodePath("AttributesUpgrader")
 
-[node name="SkillsTreeRenderer" type="Node" parent="SkillMenu" node_paths=PackedStringArray("skill_container", "wait_skills_render_timer")]
+[node name="SkillsTreeRenderer" type="Node" parent="SkillMenu" node_paths=PackedStringArray("branches_container", "wait_skills_render_timer")]
 script = ExtResource("3_3kt4c")
-skill_container = NodePath("../OverviewPanel/SkillsPanel/SkillsContainer/VBoxContainer/MarginContainer/HBoxContainer")
+branches_container = NodePath("../OverviewPanel/SkillsPanel/SkillsContainer/BranchesContainer")
 skill_menu_button_template = ExtResource("2_44m12")
 wait_skills_render_timer = NodePath("../../WaitSkillsRenderTimer")
 
@@ -100,22 +100,8 @@ offset_top = 88.0
 offset_right = 1040.0
 offset_bottom = 528.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SkillMenu/OverviewPanel/SkillsPanel/SkillsContainer"]
+[node name="BranchesContainer" type="VBoxContainer" parent="SkillMenu/OverviewPanel/SkillsPanel/SkillsContainer"]
 layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="SkillMenu/OverviewPanel/SkillsPanel/SkillsContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 15
-
-[node name="HBoxContainer" type="HBoxContainer" parent="SkillMenu/OverviewPanel/SkillsPanel/SkillsContainer/VBoxContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="PartyEmptyLabel" type="Label" parent="SkillMenu/OverviewPanel/SkillsPanel/SkillsContainer/VBoxContainer/MarginContainer/HBoxContainer"]
-layout_mode = 2
-text = "No members recruited"
 
 [node name="ClassInfoContainer" type="VBoxContainer" parent="SkillMenu/OverviewPanel/SkillsPanel"]
 layout_mode = 0

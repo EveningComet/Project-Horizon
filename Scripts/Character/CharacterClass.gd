@@ -1,6 +1,8 @@
 ## Stores data for a class that a player character can be.
 class_name CharacterClass extends Resource
 
+const STARTING_LEVEL := 1
+
 ## The name for the class.
 @export var localization_name: String = "New Class"
 @export_multiline var localization_description: String = "New description."

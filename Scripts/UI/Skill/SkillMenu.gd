@@ -36,7 +36,7 @@ func _ready():
 func add_tabs_per_character():
 	tab_bar.clear_tabs()
 	for character in characters:
-		var tab_name = "[" + character.pc_class.localization_name + "] " + character.char_name
+		var tab_name = "[" + character.pc_class().localization_name + "] " + character.char_name
 		tab_bar.add_tab( tab_name )
 
 func on_visibility_changed():
@@ -47,25 +47,21 @@ func render_tab(index: int):
 	if (PlayerPartyController.has_members()):
 		current_character = characters[index]
 		emit_signal("character_changed", current_character)
-		skills_tree_renderer.start(current_character.skill_holder.skills())
+		skills_tree_renderer.start( current_character.skill_holder.skill_branches )
 		set_draft_skill_points( current_character.available_skill_points )
 
 func confirm_points():
-	confirm_skills()
 	attributes_upgrader.confirm()
-
-func confirm_skills():
-	current_character.available_skill_points = draft_available_skill_points
-	set_draft_skill_points( current_character.available_skill_points )
 	get_tree().call_group( skills_tree_renderer.skills_group_name, "confirm" )
+	current_character.available_skill_points = draft_available_skill_points
+	# Set this last, as the buttons upgrade based on skill point signal 
+	set_draft_skill_points( current_character.available_skill_points )
 
 func undo_points():
-	undo_skills()
 	attributes_upgrader.undo()
-
-func undo_skills():
-	set_draft_skill_points( current_character.available_skill_points )
 	get_tree().call_group( skills_tree_renderer.skills_group_name, "undo" )
+	# Set this last, as the buttons upgrade based on skill point signal 
+	set_draft_skill_points( current_character.available_skill_points )
 
 func deduct_one_point():
 	set_draft_skill_points( draft_available_skill_points - 1 )

@@ -1,6 +1,7 @@
 class_name SkillInstance
 
 var monitored_skill: SkillData
+var skill_class: CharacterClass
 var unlocked_skills: Array[SkillData]
 
 var is_unlocked: bool
@@ -9,8 +10,9 @@ var current_upgrade_level: int
 var on_this_skill_unlocked: Callable
 var on_new_skills_unlocked: Callable
 
-func initialize(skill: SkillData, _on_new_skills_unlocked: Callable):
+func initialize(skill: SkillData, _skill_class: CharacterClass, _on_new_skills_unlocked: Callable):
 	monitored_skill = skill
+	skill_class = _skill_class
 	unlocked_skills = []
 	current_upgrade_level = 0
 	on_new_skills_unlocked = _on_new_skills_unlocked
@@ -25,10 +27,15 @@ func upgrade_to_level(new_level: int):
 	if (not new_skills.is_empty()):
 		on_new_skills_unlocked.call( new_skills )
 
+func try_unlock_with_class_levels(_class: CharacterClass, level: int):
+	if (skill_class == _class and level >= monitored_skill.unlocks_at_class_level):
+		unlock()
+
 func unlock():
-	is_unlocked = true
-	if (not on_this_skill_unlocked.is_null()):
-		on_this_skill_unlocked.call()
+	if (not is_unlocked):
+		is_unlocked = true
+		if (not on_this_skill_unlocked.is_null()):
+			on_this_skill_unlocked.call()
 
 func get_new_unlocked_skills() -> Array[SkillData]:
 	var new_skills: Array[SkillData] = []

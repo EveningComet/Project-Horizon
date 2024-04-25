@@ -4,11 +4,15 @@ class_name PlayerCombatant extends Combatant
 ## Fired when the character gets experience points.
 signal experience_gained(growth_data: Array)
 
+## Fired when a class gets upgraded
+signal class_upgraded(pc_class: CharacterClass, new_class: int)
+
 ## The name for this player character.
 var char_name: String
 
-## The class this character is.
-var pc_class: CharacterClass # TODO: Implement multiclassing.
+## The classes of this character
+## Dictionary { class, current_level }
+var pc_classes: Dictionary = {}
 
 var curr_level:              int = 1
 var curr_experience_points:  int = 0
@@ -48,12 +52,16 @@ func initialize_with_class_data(class_data: CharacterClass) -> void:
 	initialize_other_stats()
 	
 	# Setup the relevant skills
-	skill_holder.initialize(class_data.skills)
+	skill_holder.initialize(class_data, class_upgraded)
 
 # TODO: Multiclassing.
 func set_pc_class(new_class: CharacterClass) -> void:
-	pc_class = new_class
+	pc_classes[new_class] = new_class.STARTING_LEVEL
 	initialize_with_class_data( new_class )
+
+# TODO: Removed when multiclassing is implemented.
+func pc_class() -> CharacterClass:
+	return pc_classes.keys()[0]
 
 ## Return how much experience is required for this character to level up.
 ## Calculation is: 100 * (growth_percent^( current level - 1))
@@ -87,11 +95,16 @@ func level_up() -> void:
 	available_attribute_points += 1
 	available_skill_points     += 3
 
+func upgrade_class_to_level(_class: CharacterClass, level: int):
+	if (level != pc_classes[_class]):
+		pc_classes[_class] = level
+		emit_signal( "class_upgraded", _class, level )
+
 func get_attributes_increase() -> Dictionary:
 	return {
-		StatTypes.stat_types.Vitality : pc_class.vitality_on_increase,
-		StatTypes.stat_types.Expertise : pc_class.expertise_on_increase,
-		StatTypes.stat_types.Will : pc_class.will_on_increase,
+		StatTypes.stat_types.Vitality : pc_class().vitality_on_increase,
+		StatTypes.stat_types.Expertise : pc_class().expertise_on_increase,
+		StatTypes.stat_types.Will : pc_class().will_on_increase,
 	}
 
 func take_damage(action_mediator: ActionMediator) -> void:
