@@ -27,14 +27,15 @@ func upgrade_to_level(new_level: int):
 	if (not new_skills.is_empty()):
 		on_new_skills_unlocked.call( new_skills )
 
-func try_unlock_with_class_levels(class_levels: Dictionary):
-	if (class_levels[skill_class] >= monitored_skill.unlocks_at_class_level):
+func try_unlock_with_class_levels(_class: CharacterClass, level: int):
+	if (skill_class == _class and level >= monitored_skill.unlocks_at_class_level):
 		unlock()
 
 func unlock():
-	is_unlocked = true
-	if (not on_this_skill_unlocked.is_null()):
-		on_this_skill_unlocked.call()
+	if (not is_unlocked):
+		is_unlocked = true
+		if (not on_this_skill_unlocked.is_null()):
+			on_this_skill_unlocked.call()
 
 func get_new_unlocked_skills() -> Array[SkillData]:
 	var new_skills: Array[SkillData] = []

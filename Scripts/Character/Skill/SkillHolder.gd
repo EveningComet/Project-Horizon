@@ -5,11 +5,11 @@ var skill_data_instances: = {}
 
 var skill_branches: Array[SkillBranch] = []
 
-func initialize(skill_class: CharacterClass, stat_changed: Signal):
+func initialize(skill_class: CharacterClass, class_upgraded: Signal):
 	initialize_skill_data_instances(skill_class)
 	unlock_and_upgrade_starting_skills()
 	skill_branches = SkillBranchCreator.create( skill_data_instances, starting_skills() )
-	stat_changed.connect( try_unlock_with_class_levels )
+	class_upgraded.connect( try_unlock_upgraded_class_skills )
 
 func skills() -> Array:
 	return skill_data_instances.values()
@@ -33,9 +33,9 @@ func on_new_skills_unlocked(unlocked: Array[SkillData]):
 		if (skill_data_instances.has(data)):
 			skill_data_instances[data].unlock()
 
-func try_unlock_with_class_levels(character: PlayerCombatant):
+func try_unlock_upgraded_class_skills(_class: CharacterClass, level: int):
 	for skill in skill_data_instances.values():
-		skill.try_unlock_with_class_levels(character.pc_classes)
+		skill.try_unlock_with_class_levels(_class, level)
 
 func initialize_skill_data_instances(skill_class: CharacterClass):
 	for data in skill_class.skills:

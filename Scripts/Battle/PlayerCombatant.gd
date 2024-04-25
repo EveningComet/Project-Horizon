@@ -4,6 +4,9 @@ class_name PlayerCombatant extends Combatant
 ## Fired when the character gets experience points.
 signal experience_gained(growth_data: Array)
 
+## Fired when a class gets upgraded
+signal class_upgraded(pc_class: CharacterClass, new_class: int)
+
 ## The name for this player character.
 var char_name: String
 
@@ -49,7 +52,7 @@ func initialize_with_class_data(class_data: CharacterClass) -> void:
 	initialize_other_stats()
 	
 	# Setup the relevant skills
-	skill_holder.initialize(class_data, stat_changed)
+	skill_holder.initialize(class_data, class_upgraded)
 
 # TODO: Multiclassing.
 func set_pc_class(new_class: CharacterClass) -> void:
@@ -91,6 +94,11 @@ func level_up() -> void:
 	# Give the character skill points/attribute points/etc.
 	available_attribute_points += 1
 	available_skill_points     += 3
+
+func upgrade_class_to_level(_class: CharacterClass, level: int):
+	if (level != pc_classes[_class]):
+		pc_classes[_class] = level
+		emit_signal("class_upgraded", _class, level)
 
 func get_attributes_increase() -> Dictionary:
 	return {
