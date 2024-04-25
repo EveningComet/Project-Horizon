@@ -94,6 +94,7 @@ offset_bottom = 250.0
 grow_vertical = 2
 
 [node name="Shop Dashboard" type="Control" parent="." node_paths=PackedStringArray("shop_inventory_holder", "shop_inventory_displayer", "player_inventory_ui", "character_inspection_window", "grabbed_slot_ui")]
+visible = false
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 3
 anchors_preset = 15

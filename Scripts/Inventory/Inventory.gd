@@ -7,6 +7,8 @@ signal inventory_updated(inventory: Inventory)
 ## When interacted with, we want others to know about the interaction.
 signal inventory_interacted(inventory_data: Inventory, index: int, button: int)
 
+signal money_changed(amt: int)
+
 ## The items being kept track of.
 @export var stored_items: Array[ItemSlotData] = []
 
@@ -18,6 +20,7 @@ func initialize_slots() -> void:
 
 func add_money(amt: int) -> void:
 	money += amt
+	money_changed.emit( money )
 
 ## Return a slot data object, given the passed index.
 func grab_slot_data(index: int) -> ItemSlotData:

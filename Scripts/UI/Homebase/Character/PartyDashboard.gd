@@ -4,7 +4,7 @@
 class_name PartyDashboard extends Control
 
 ## The node displaying the inventory.
-@export var player_inventory_ui: InventoryDisplayer
+@export var player_inventory_ui: PlayerInventoryDisplayer
 
 ## The node storing the character information.
 @export var character_inspection_window: CharacterInspectionWindow

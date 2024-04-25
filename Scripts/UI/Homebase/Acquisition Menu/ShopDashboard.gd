@@ -36,6 +36,10 @@ func on_shop_inventory_interacted(inventory_data: ShopInventoryData, index: int,
 	match [grabbed_slot_data, button]:
 		
 		[null, MOUSE_BUTTON_LEFT]:
+			if PlayerInventory.does_player_have_enough_money_for_item(
+				inventory_data.stored_items[index].stored_item
+			) == false:
+				return
 			grabbed_slot_data = inventory_data.grab_slot_data(index)
 		
 		[_, MOUSE_BUTTON_LEFT]:
@@ -44,6 +48,11 @@ func on_shop_inventory_interacted(inventory_data: ShopInventoryData, index: int,
 			grabbed_slot_data = null
 		
 		[null, MOUSE_BUTTON_RIGHT]:
+			if PlayerInventory.does_player_have_enough_money_for_item(
+				inventory_data.stored_items[index].stored_item
+			) == false:
+				return
+			
 			# Add the item to the player's inventory immediately
 			player_inventory.add_slot_data(
 				inventory_data.grab_slot_data(index)
