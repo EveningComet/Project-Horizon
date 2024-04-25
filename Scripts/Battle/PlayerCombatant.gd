@@ -49,7 +49,7 @@ func initialize_with_class_data(class_data: CharacterClass) -> void:
 	initialize_other_stats()
 	
 	# Setup the relevant skills
-	skill_holder.initialize(class_data.skills)
+	skill_holder.initialize(class_data, stat_changed)
 
 # TODO: Multiclassing.
 func set_pc_class(new_class: CharacterClass) -> void:
