@@ -3,8 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://fbiacn1aka7f" path="res://Imported Assets/coraxdigitalart-space-station-inhabitants/coraxdigitalart-space-station-portraits (130).png" id="1_p5gnp"]
 [ext_resource type="Script" path="res://Scripts/Character/CharacterClass.gd" id="1_uayuu"]
 [ext_resource type="Script" path="res://Scripts/Character/PortraitData.gd" id="2_0m25f"]
-[ext_resource type="Resource" uid="uid://by8cb3jap5hqh" path="res://Game Data/Player Character Classes/Class Skills/Seeker Skills/Seeker Field Medicine.tres" id="2_dtmpd"]
-[ext_resource type="Resource" uid="uid://cukjs3d4dg3pp" path="res://Game Data/Player Character Classes/Class Skills/Seeker Skills/Seeker Spray.tres" id="3_2kvmw"]
+[ext_resource type="Resource" uid="uid://by8cb3jap5hqh" path="res://Game Data/Player Character Classes/Class Skills/Seeker/Seeker Field Medicine.tres" id="2_dtmpd"]
+[ext_resource type="Resource" uid="uid://cukjs3d4dg3pp" path="res://Game Data/Player Character Classes/Class Skills/Seeker/Seeker Spray.tres" id="3_2kvmw"]
 [ext_resource type="Texture2D" uid="uid://d04oamgdpt4d3" path="res://Imported Assets/coraxdigitalart-space-station-inhabitants/coraxdigitalart-space-station-portraits (138).png" id="3_s6f1p"]
 
 [sub_resource type="Resource" id="Resource_qc3h8"]

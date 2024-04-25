@@ -22,7 +22,7 @@ var power_scalings: Dictionary = {}
 var status_damage_scalers: Dictionary = {}
 
 ## For attacks that heal the attacker.
-var heal_percentage: float = 0.0
+var damage_heal_percentage: float = 0.0
 
 ## Go through the container for damage data and return that as potential damage.
 func get_total_possible_damage() -> int:
