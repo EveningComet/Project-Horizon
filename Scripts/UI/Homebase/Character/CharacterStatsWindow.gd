@@ -83,7 +83,7 @@ func on_swap_left(curr_index: int) -> void:
 ## When a character's stats change, update the relevant information.
 func on_stat_changed(combatant: PlayerCombatant) -> void:
 	char_name_label.set_text( combatant.char_name )
-	character_class_name_label.set_text( combatant.pc_class.localization_name )
+	character_class_name_label.set_text( combatant.pc_class().localization_name )
 	
 	# TODO: Figure out a nicer way to do this. I tried looping through the stats
 	# dictionary and it didn't work as expected

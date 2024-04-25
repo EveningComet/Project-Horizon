@@ -38,7 +38,7 @@ func on_text_submitted(new_text: String) -> void:
 		return
 	current_character.set_char_name( name_entry.text )
 	if OS.is_debug_build() == true:
-		print("CharacterNameInput :: The new character's name is %s and their class is: %s." % [current_character.char_name, current_character.pc_class.localization_name])
+		print("CharacterNameInput :: The new character's name is %s and their class is: %s." % [current_character.char_name, current_character.pc_class().localization_name])
 	player_finished_entering_name.emit()
 
 func on_randomize_name_button_pressed() -> void:

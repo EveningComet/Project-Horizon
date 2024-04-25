@@ -44,7 +44,7 @@ func update_info_labels():
 
 func update_class_name_label():
 	class_name_label.text = "Class: "
-	class_name_label.text += str( character.pc_class.localization_name ).to_upper()
+	class_name_label.text += str( character.pc_class().localization_name ).to_upper()
 
 func spawn_labels_for_attributes():
 	class_name_label = Label.new()

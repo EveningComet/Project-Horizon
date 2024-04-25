@@ -7,8 +7,9 @@ signal experience_gained(growth_data: Array)
 ## The name for this player character.
 var char_name: String
 
-## The class this character is.
-var pc_class: CharacterClass # TODO: Implement multiclassing.
+## The classes of this character
+## Dictionary { class, current_level }
+var pc_classes: Dictionary = {}
 
 var curr_level:              int = 1
 var curr_experience_points:  int = 0
@@ -52,8 +53,12 @@ func initialize_with_class_data(class_data: CharacterClass) -> void:
 
 # TODO: Multiclassing.
 func set_pc_class(new_class: CharacterClass) -> void:
-	pc_class = new_class
+	pc_classes[new_class] = new_class.STARTING_LEVEL
 	initialize_with_class_data( new_class )
+
+# TODO: Removed when multiclassing is implemented.
+func pc_class() -> CharacterClass:
+	return pc_classes.keys()[0]
 
 ## Return how much experience is required for this character to level up.
 ## Calculation is: 100 * (growth_percent^( current level - 1))
@@ -89,7 +94,7 @@ func level_up() -> void:
 
 func get_attributes_increase() -> Dictionary:
 	return {
-		StatTypes.stat_types.Vitality : pc_class.vitality_on_increase,
-		StatTypes.stat_types.Expertise : pc_class.expertise_on_increase,
-		StatTypes.stat_types.Will : pc_class.will_on_increase,
+		StatTypes.stat_types.Vitality : pc_class().vitality_on_increase,
+		StatTypes.stat_types.Expertise : pc_class().expertise_on_increase,
+		StatTypes.stat_types.Will : pc_class().will_on_increase,
 	}
