@@ -18,7 +18,7 @@ small_portrait = ExtResource("3_tfw51")
 [resource]
 script = ExtResource("1_0so4e")
 localization_name = "Operative"
-localization_description = "Burned spies with nowhere else to go. Masters of infiltration, thievery, and assassanations."
+localization_description = "Burned spies with nowhere else to go. Masters of infiltration, thievery, and assassinations."
 starting_vitality = 5
 starting_expertise = 7
 starting_will = 6

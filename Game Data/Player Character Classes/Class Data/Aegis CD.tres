@@ -26,7 +26,7 @@ small_portrait = ExtResource("3_t5acx")
 [resource]
 script = ExtResource("1_01b5t")
 localization_name = "Aegis"
-localization_description = "Operators of high tech suits of armor or small craft."
+localization_description = "Users of high tech suits of armor or small craft."
 starting_vitality = 8
 starting_expertise = 5
 starting_will = 7
