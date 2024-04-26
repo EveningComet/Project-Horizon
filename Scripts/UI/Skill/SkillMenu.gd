@@ -23,7 +23,8 @@ var draft_available_skill_points
 func _ready():
 	add_tabs_per_character()
 	visibility_changed.connect( on_visibility_changed )
-	character_tab_bar.tab_changed.connect( render_tab )
+	character_tab_bar.tab_changed.connect( on_character_tab_changed )
+	class_tabs.tab_changed.connect( on_character_class_tab_changed )
 	exit_button.button_down.connect( canvas.hide )
 	confirm_button.button_down.connect( confirm_points )
 	undo_skill_points_button.button_down.connect( undo_points )
@@ -31,7 +32,8 @@ func _ready():
 	attributes_upgrader.initialize( character_changed )
 	attributes_menu.initialize( character_changed )
 	class_upgrade_menu.initialize( 
-		character_changed, skill_points_depleted, skill_points_available )
+		character_changed, skill_points_depleted, skill_points_available
+	)
 	attributes_upgrader.class_upgraded.connect( deduct_one_point )
 
 func add_tabs_per_character():
@@ -42,14 +44,31 @@ func add_tabs_per_character():
 
 func on_visibility_changed():
 	if visible == true:
-		render_tab( character_tab_bar.current_tab )
+		on_character_tab_changed( character_tab_bar.current_tab )
 
-func render_tab(index: int):
+func on_character_tab_changed(index: int):
 	if PlayerPartyController.has_members() == true:
+		class_tabs.clear_tabs()
 		current_character = characters[index]
 		emit_signal("character_changed", current_character)
 		skills_tree_renderer.start( current_character.skill_holder.skill_branches )
 		set_draft_skill_points( current_character.available_skill_points )
+		
+		for cc: CharacterClass in current_character.pc_classes:
+			var tab_name = cc.localization_name
+			class_tabs.add_tab( tab_name )
+		on_character_class_tab_changed(0)
+
+## When the player changes a tab related to a character's class, show the
+## proper skills.
+func on_character_class_tab_changed(index: int) -> void:
+	# Convert the character's stored classes to an array and index that array
+	var classes_as_array: Array[CharacterClass]
+	for class_key: CharacterClass in current_character.pc_classes:
+		classes_as_array.append(class_key)
+	skills_tree_renderer.display_skills_for_class(
+		classes_as_array[index]
+	)
 
 func confirm_points():
 	attributes_upgrader.confirm()

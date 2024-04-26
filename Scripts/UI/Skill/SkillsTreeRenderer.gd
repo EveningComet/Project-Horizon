@@ -21,6 +21,9 @@ func initialize(_on_skill_upgraded: Callable, _skill_points_depleted: Signal):
 	on_skill_upgraded = _on_skill_upgraded
 	skill_points_depleted = _skill_points_depleted
 
+func display_skills_for_class(cc: CharacterClass) -> void:
+	clear_skills()
+
 func start(skill_branches: Array):
 	clear_skills()
 	for branch in skill_branches:

@@ -1,6 +1,6 @@
 class_name SkillHolder
 
-# Dictionary { skill_data : skill_instance }
+## Dictionary { skill_data : skill_instance }
 var skill_data_instances: = {}
 
 var skill_branches: Array[SkillBranch] = []
@@ -14,7 +14,7 @@ func initialize(skill_class: CharacterClass, class_upgraded: Signal):
 func skills() -> Array:
 	return skill_data_instances.values()
 
-func usable_skills() -> Array:
+func get_usable_skills() -> Array:
 	var result = []
 	for skill_instance in skill_data_instances.values():
 		if (skill_instance.is_unlocked and skill_instance.current_upgrade_level > 0):

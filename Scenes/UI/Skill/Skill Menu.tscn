@@ -78,9 +78,12 @@ offset_right = 1137.0
 offset_bottom = 683.0
 
 [node name="Class Tabs" type="TabBar" parent="SkillMenu/OverviewPanel/SkillsPanel"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 31.0
+grow_horizontal = 2
 tab_count = 2
 clip_tabs = false
 tab_0/title = "Class 1"
@@ -88,19 +91,19 @@ tab_1/title = "Class 2"
 
 [node name="AttributesHeaderLabel" type="Label" parent="SkillMenu/OverviewPanel/SkillsPanel"]
 layout_mode = 0
-offset_left = 249.0
-offset_top = 24.0
-offset_right = 425.0
-offset_bottom = 47.0
+offset_left = 493.0
+offset_top = 564.0
+offset_right = 669.0
+offset_bottom = 587.0
 text = "SKILLS & CLASS LEVELS"
 uppercase = true
 
 [node name="SkillPointsLabel" type="Label" parent="SkillMenu/OverviewPanel/SkillsPanel"]
 layout_mode = 0
-offset_left = 249.0
-offset_top = 56.0
-offset_right = 436.0
-offset_bottom = 79.0
+offset_left = 493.0
+offset_top = 596.0
+offset_right = 680.0
+offset_bottom = 619.0
 text = "No available skills point"
 
 [node name="SkillsContainer" type="ScrollContainer" parent="SkillMenu/OverviewPanel/SkillsPanel"]
@@ -109,6 +112,7 @@ offset_left = 24.0
 offset_top = 88.0
 offset_right = 1040.0
 offset_bottom = 528.0
+follow_focus = true
 
 [node name="BranchesContainer" type="VBoxContainer" parent="SkillMenu/OverviewPanel/SkillsPanel/SkillsContainer"]
 layout_mode = 2

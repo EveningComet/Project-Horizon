@@ -18,17 +18,14 @@ func _ready() -> void:
 
 func set_skill_user(new_user: PlayerCombatant) -> void:
 	skill_user = new_user
-	for skill_instance: SkillInstance in skill_user.skill_holder.usable_skills():
+	for skill_instance: SkillInstance in skill_user.skill_holder.get_usable_skills():
 		if skill_instance.monitored_skill.is_passive == false:
-			var b: BattleActionButton = battle_skill_button_template.instantiate() as BattleActionButton
+			var b: BattleActionButton = battle_skill_button_template.instantiate()
 			b.skill_instance = skill_instance
 			spawned_button_node.add_child( b )
 			# TODO: Proper disabling based on the cost.
-			b.disabled = skill_user.stats[StatTypes.stat_types.CurrentSP] < skill_instance.monitored_skill.cost
+			b.disabled = skill_user.get_current_sp() < skill_instance.monitored_skill.cost
 			b.skill_button_highlighted.connect( on_skill_button_highlighted )
-
-	if OS.is_debug_build() == true:
-		print("BattleSkillsMenu :: Skills for character: ", skill_user.skill_holder.skills())
 
 ## Display the skills of the passed character to the player.
 func open() -> void:
