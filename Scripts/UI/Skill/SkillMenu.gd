@@ -50,10 +50,10 @@ func on_character_tab_changed(index: int):
 	if PlayerPartyController.has_members() == true:
 		class_tabs.clear_tabs()
 		current_character = characters[index]
-		emit_signal("character_changed", current_character)
-		skills_tree_renderer.start( current_character.skill_holder.skill_branches )
+		character_changed.emit( current_character )
 		set_draft_skill_points( current_character.available_skill_points )
 		
+		# Create the needed tabs for character classes
 		for cc: CharacterClass in current_character.pc_classes:
 			var tab_name = cc.localization_name
 			class_tabs.add_tab( tab_name )
@@ -66,9 +66,26 @@ func on_character_class_tab_changed(index: int) -> void:
 	var classes_as_array: Array[CharacterClass]
 	for class_key: CharacterClass in current_character.pc_classes:
 		classes_as_array.append(class_key)
-	skills_tree_renderer.display_skills_for_class(
-		classes_as_array[index]
+	var desired_class: CharacterClass = classes_as_array[index]
+	
+	# Get the skills of that class and then display the skill instances
+	var skill_instances: Array[SkillInstance] = get_skill_instances_of_class(
+		desired_class
 	)
+	skills_tree_renderer.display_skill_instances(
+		skill_instances
+	)
+
+## Get the skills of the class for the current character.
+func get_skill_instances_of_class(desired_class: CharacterClass) -> Array[SkillInstance]:
+	var skill_instances: Array[SkillInstance] = []
+	for skill: SkillData in desired_class.skills:
+		var d: Dictionary = current_character.skill_holder.skill_data_instances
+		skill_instances.append( d[skill] )
+	return skill_instances
+
+func on_skills_renderer_finished_drawing_skills(skill_buttons) -> void:
+	pass
 
 func confirm_points():
 	attributes_upgrader.confirm()
@@ -93,10 +110,10 @@ func set_draft_skill_points(new_value: int):
 	disable_confirm_and_undo_if_no_action_taken()
 
 func emit_correct_signal():
-	if (draft_available_skill_points == 0):
-		emit_signal("skill_points_depleted")
+	if draft_available_skill_points == 0:
+		skill_points_depleted.emit()
 	else:
-		emit_signal("skill_points_available")
+		skill_points_available.emit()
 
 func set_draft_skill_points_label():
 	skill_points_label.text = "Available skill points: "

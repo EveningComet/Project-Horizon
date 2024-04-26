@@ -1,15 +1,15 @@
+## Works as an interface between the instance of a skill and the ui.
 class_name SkillMenuButton extends TextureButton
+
+signal skill_upgraded(stored_skill: SkillInstance)
+
+@export var level_label: Label
 
 var skill: SkillInstance
 var draft_level
 
-@export var level_label: Label
-
-signal skill_upgraded()
-
 func initialize(_skill: SkillInstance, _points_depleted_signal: Signal):
 	skill = _skill
-	skill.subscribe_skill_unlocked( enable_button_if_possible )
 	button_down.connect( upgrade_skill )
 	_points_depleted_signal.connect( disable )
 	set_correct_texture_and_text()
@@ -24,7 +24,7 @@ func enable():
 
 func upgrade_skill():
 	set_upgrade_level( draft_level + 1 )
-	emit_signal( "skill_upgraded" )
+	skill_upgraded.emit( skill )
 
 func confirm():
 	skill.upgrade_to_level( draft_level )
@@ -58,7 +58,7 @@ func unapply_grayscale():
 
 func enable_button_if_possible():
 	var is_maxed_out: bool = draft_level >= skill.monitored_skill.max_rank
-	if (skill.is_unlocked and not is_maxed_out):
+	if skill.current_upgrade_level > 0 and is_maxed_out == false:
 		enable()
 	else:
 		disable()

@@ -38,7 +38,7 @@ class_name SkillData extends Resource
 @export var is_unlocked_by_default: bool = false
 
 ## The skills that get unlocked based on the rank of this skill.
-@export var unlockable: Array[SkillData] = []
+@export var branches: Array[SkillData] = []
 
 ## If the skill is some form of attack, is it ranged?
 @export var is_ranged: bool = false

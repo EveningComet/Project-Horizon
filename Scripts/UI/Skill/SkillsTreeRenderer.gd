@@ -7,8 +7,10 @@ class_name SkillsTreeRenderer extends Node
 @export var wait_skills_render_timer: Timer
 @export var skills_group_name : String = "skills"
 
-# Dictionary { skill_data : skill_menu_button }
-var button_per_skill = {}
+# {button : leaves}
+var root_to_leaves: Dictionary = {}
+
+var visited_skill_instances: Dictionary = {}
 
 var on_skill_upgraded: Callable
 var skill_points_depleted: Signal
@@ -18,39 +20,85 @@ func _ready():
 	wait_skills_render_timer.timeout.connect( finish )
 
 func initialize(_on_skill_upgraded: Callable, _skill_points_depleted: Signal):
-	on_skill_upgraded = _on_skill_upgraded
+	on_skill_upgraded     = _on_skill_upgraded
 	skill_points_depleted = _skill_points_depleted
 
-func display_skills_for_class(cc: CharacterClass) -> void:
+## Display the passed skill instances.
+func display_skill_instances(skill_instances: Array[SkillInstance]) -> void:
 	clear_skills()
+	
+	for root_skill: SkillInstance in skill_instances:
+		var root_container: HBoxContainer = spawn_branch(root_skill)
+		branches_container.add_child(root_container)
+	
+	await get_tree().create_timer(0.1).timeout
+	finish()
 
-func start(skill_branches: Array):
-	clear_skills()
-	for branch in skill_branches:
-		branches_container.add_child( spawn_branch(branch) )
-	wait_skills_render_timer.start()
-
-func spawn_branch(branch: SkillBranch) -> HBoxContainer:
-	var branch_container := HBoxContainer.new()
-	for skill in branch.skills:
-		var button:= make_skill_button( skill ) as SkillMenuButton
-		button_per_skill[skill.monitored_skill] = button
-		branch_container.add_child( button )
-	return branch_container
+func spawn_branch(root_skill: SkillInstance) -> HBoxContainer:
+	var root_container := HBoxContainer.new()
+	
+	# Use depth first search to iterate over the leaves
+	var stack:   Array[SkillInstance] = []
+	visited_skill_instances[root_skill] = true
+	stack.append(root_skill)
+	
+	var root_button: SkillMenuButton = make_skill_button(root_skill)
+	root_button.initialize(root_skill, skill_points_depleted)
+	root_container.add_child(root_button)
+	root_to_leaves[root_button] = []
+	
+	while stack.is_empty() == false:
+		# Get the current skill
+		var current_skill: SkillInstance = stack.pop_front()
+		if visited_skill_instances.has(current_skill) == false:
+			visited_skill_instances[current_skill] = true
+			root_button = make_skill_button(root_skill)
+			root_button.initialize(root_skill, skill_points_depleted)
+			root_container.add_child(root_button)
+			root_to_leaves[root_button] = []
+		
+		# Go through the "nearby" skills of the current skill
+		for neighbor: SkillInstance in current_skill.branched_skills:
+			var current_child: SkillInstance = neighbor
+			if visited_skill_instances.has(current_child) == false:
+				stack.append(current_child)
+				visited_skill_instances[current_child] = true
+				
+				# TODO: The logic here is correct, just not for the UI.
+				# Account for multiple branches.
+				
+				# Found a skill that needs a button
+				var new_button: SkillMenuButton = make_skill_button(current_child)
+				new_button.initialize(current_child, skill_points_depleted)
+				root_to_leaves[root_button].append(new_button)
+				root_container.add_child(new_button)
+	
+	return root_container
 
 func finish():
-	for skill_data in button_per_skill.keys():
-		if (not skill_data.unlockable.is_empty()):
-			draw_lines_to_all_unlockables_from( button_per_skill[skill_data] )
+	for root in root_to_leaves.keys():
+		if root_to_leaves[root].is_empty() == false:
+			draw_lines_to_all_unlockables_from(root)
 
-func draw_lines_to_all_unlockables_from(button: SkillMenuButton):
-	var skill_data := button.skill.monitored_skill
-	var unlockables := skill_data.unlockable
-	for unlockable in unlockables:
-		var target := button_per_skill[unlockable] as SkillMenuButton
-		var line := spawn_connecting_line( button, target )
-		fade_in( line )
-		button.get_parent().add_child( line )
+func draw_lines_to_all_unlockables_from(root: SkillMenuButton):
+	# Use dfs to draw the nodes
+	var visited: Dictionary = {}
+	visited[root] = true
+	var stack: Array[SkillMenuButton]
+	stack.append(root)
+	
+	while stack.is_empty() == false:
+		var current: SkillMenuButton = stack.pop_front()
+		for neighbor in root_to_leaves[root]:
+			var current_child = neighbor
+			if visited.has(current_child) == false:
+				stack.append(current_child)
+				visited[current_child] = true
+				
+				# Found a target to draw to
+				var line = spawn_connecting_line(current, current_child)
+				fade_in(line)
+				current_child.get_parent().add_child(line)
 
 func spawn_connecting_line(begin: SkillMenuButton, end: SkillMenuButton) -> Line2D:
 	var line := Line2D.new()
@@ -77,7 +125,8 @@ func make_skill_button(skill: SkillInstance) -> SkillMenuButton:
 	return button
 
 func clear_skills():
+	root_to_leaves.clear()
+	visited_skill_instances.clear()
 	for child in branches_container.get_children():
-		button_per_skill = {}
 		branches_container.remove_child( child )
 		child.queue_free()

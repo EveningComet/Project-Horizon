@@ -19,7 +19,7 @@ const STARTING_LEVEL := 1
 
 @export var starting_equipment: Array[ItemData] = []
 
-## The skills available to this character class.
+## The skills available to this character class. Only attach to the "root" skill.
 @export var skills: Array[SkillData] = []
 
 @export_category("Portraits")

@@ -52,7 +52,7 @@ func initialize_with_class_data(class_data: CharacterClass) -> void:
 	initialize_other_stats()
 	
 	# Setup the relevant skills
-	skill_holder.initialize(class_data, class_upgraded)
+	skill_holder.initialize_for_player_character(class_data)
 
 ## Add a character class to the player character. The first one will be the
 ## "starting" class.
@@ -60,6 +60,8 @@ func set_pc_class(new_class: CharacterClass) -> void:
 	pc_classes[new_class] = new_class.STARTING_LEVEL
 	if pc_classes.size() == 1:
 		initialize_with_class_data( new_class )
+	else:
+		skill_holder.add_skills( new_class.skills )
 
 # TODO: Removed when multiclassing is implemented.
 func pc_class() -> CharacterClass:
