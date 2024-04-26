@@ -1,0 +1,169 @@
+[gd_scene load_steps=8 format=3 uid="uid://64ufmv52k5cc"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Homebase/Recruitment Menu/Multiclassing/MulticlassingMenuController.gd" id="1_oirsx"]
+[ext_resource type="PackedScene" uid="uid://ch3pwv51jc48b" path="res://Scenes/UI/Homebase/Character Recruitment/MMCPC Button.tscn" id="2_ik8fy"]
+[ext_resource type="Script" path="res://Scripts/UI/Homebase/Recruitment Menu/Multiclassing/States/MMCInactive.gd" id="2_w5cje"]
+[ext_resource type="Script" path="res://Scripts/UI/Homebase/Recruitment Menu/Multiclassing/States/MMCSelectCharacter.gd" id="3_nra4b"]
+[ext_resource type="PackedScene" uid="uid://b8dv05151p3tj" path="res://Scenes/UI/Homebase/Character Recruitment/Character Class Button.tscn" id="3_uc4sa"]
+[ext_resource type="Script" path="res://Scripts/UI/Homebase/Recruitment Menu/Multiclassing/States/MMCAddClass.gd" id="5_mgo2d"]
+[ext_resource type="Script" path="res://Scripts/UI/Homebase/Recruitment Menu/Multiclassing/States/MMCConfirmation.gd" id="7_t6m1x"]
+
+[node name="Multiclassing Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MulticlassingMenuController" type="Node" parent="." node_paths=PackedStringArray("multiclassing_menu_ui_node", "class_description_holder", "class_description_label", "button_holder")]
+script = ExtResource("1_oirsx")
+multiclassing_menu_ui_node = NodePath("..")
+mmcpc_button_prefab = ExtResource("2_ik8fy")
+char_class_button_prefab = ExtResource("3_uc4sa")
+class_description_holder = NodePath("../Class Description Holder")
+class_description_label = NodePath("../Class Description Holder/Panel/MarginContainer/Class Description Label")
+button_holder = NodePath("../ScrollContainer/MarginContainer/Button Holder")
+initial_state = NodePath("MMCInactive")
+
+[node name="MMCInactive" type="Node" parent="MulticlassingMenuController"]
+script = ExtResource("2_w5cje")
+
+[node name="MMCSelectCharacter" type="Node" parent="MulticlassingMenuController"]
+script = ExtResource("3_nra4b")
+
+[node name="MMCAddClass" type="Node" parent="MulticlassingMenuController"]
+script = ExtResource("5_mgo2d")
+
+[node name="MMCConfirmation" type="Node" parent="MulticlassingMenuController" node_paths=PackedStringArray("confirmation_menu_holder", "confimation_button_holder", "confirmation_dialog", "confirm_button", "cancel_button")]
+script = ExtResource("7_t6m1x")
+confirmation_menu_holder = NodePath("../../Confirmation Menu")
+confimation_button_holder = NodePath("../../Confirmation Menu/MarginContainer/VBoxContainer/HBoxContainer")
+confirmation_dialog = NodePath("../../Confirmation Menu/MarginContainer/VBoxContainer/Confirmation Dialog")
+confirm_button = NodePath("../../Confirmation Menu/MarginContainer/VBoxContainer/HBoxContainer/Confirm Button")
+cancel_button = NodePath("../../Confirmation Menu/MarginContainer/VBoxContainer/HBoxContainer/Cancel")
+
+[node name="Class Description Holder" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -420.0
+offset_top = -205.0
+offset_right = -380.0
+offset_bottom = -165.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Panel" type="Panel" parent="Class Description Holder"]
+custom_minimum_size = Vector2(700, 300)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -150.0
+offset_right = 250.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Class Description Holder/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Class Description Label" type="Label" parent="Class Description Holder/Panel/MarginContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "This is where the class description goes. The description will contain a tiny amount of lore and what the role of the class is."
+autowrap_mode = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(400, 600)
+offset_left = 200.0
+offset_top = 200.0
+offset_right = 600.0
+offset_bottom = 800.0
+follow_focus = true
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Button Holder" type="VBoxContainer" parent="ScrollContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Confirmation Menu" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Confirmation Menu"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Confirmation Menu/MarginContainer"]
+layout_mode = 2
+
+[node name="Confirmation Dialog" type="Label" parent="Confirmation Menu/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 25
+text = "Are you sure?"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Confirmation Menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Confirm Button" type="Button" parent="Confirmation Menu/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+focus_neighbor_left = NodePath("../Cancel")
+theme_override_font_sizes/font_size = 25
+text = "Yeah, man, I wanna do it"
+
+[node name="Cancel" type="Button" parent="Confirmation Menu/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+focus_neighbor_right = NodePath("../Confirm Button")
+theme_override_font_sizes/font_size = 25
+text = "No"

@@ -2,7 +2,7 @@
 class_name State extends Node
 
 ## The state machine we manage
-var my_state_machine = null
+var my_state_machine: StateMachine = null
 
 func setup_state(new_sm) -> void:
 	my_state_machine = new_sm

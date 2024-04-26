@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://887py14m8irs"]
+[gd_scene load_steps=6 format=3 uid="uid://887py14m8irs"]
 
 [ext_resource type="PackedScene" uid="uid://4er7ynu7iu7k" path="res://Scenes/UI/Homebase/Character Recruitment/Recruitable Menu.tscn" id="1_emqc0"]
 [ext_resource type="Script" path="res://Scripts/UI/Homebase/Recruitment Menu/RecruitmentMenuController.gd" id="1_vtc45"]
 [ext_resource type="PackedScene" uid="uid://b8dv05151p3tj" path="res://Scenes/UI/Homebase/Character Recruitment/Character Class Button.tscn" id="2_7ildh"]
 [ext_resource type="PackedScene" uid="uid://t37lvdmqohit" path="res://Scenes/UI/Homebase/Character Recruitment/Party Management Menu.tscn" id="3_g4pws"]
+[ext_resource type="PackedScene" uid="uid://64ufmv52k5cc" path="res://Scenes/UI/Homebase/Character Recruitment/Multiclassing Menu.tscn" id="5_j6fdi"]
 
 [node name="Recruitment Menu" type="CanvasLayer"]
 
@@ -50,6 +51,11 @@ custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 text = "Manage Party"
 
+[node name="Multiclass" type="Button" parent="Main Screen/Main Screen Buttons/VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+text = "Multiclass"
+
 [node name="Return" type="Button" parent="Main Screen/Main Screen Buttons/VBoxContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
@@ -62,13 +68,18 @@ visible = false
 [node name="Party Management Menu" parent="." instance=ExtResource("3_g4pws")]
 visible = false
 
-[node name="RecruitmentMenuController" type="Node" parent="." node_paths=PackedStringArray("main_screen_button_holder", "party_management_menu", "recruitable_menu", "recruitment_button", "manage_party_button", "return_button")]
+[node name="Multiclassing Menu" parent="." instance=ExtResource("5_j6fdi")]
+visible = false
+
+[node name="RecruitmentMenuController" type="Node" parent="." node_paths=PackedStringArray("main_screen_button_holder", "party_management_menu", "recruitable_menu", "multiclassing_menu", "recruitment_button", "manage_party_button", "set_multiclass_button", "return_button")]
 script = ExtResource("1_vtc45")
 homebase_main_menu_scene = "res://Scenes/UI/Homebase/Homebase Home Menu.tscn"
 character_class_button_template = ExtResource("2_7ildh")
 main_screen_button_holder = NodePath("../Main Screen/Main Screen Buttons/VBoxContainer")
 party_management_menu = NodePath("../Party Management Menu")
 recruitable_menu = NodePath("../Recruitable Menu")
+multiclassing_menu = NodePath("../Multiclassing Menu")
 recruitment_button = NodePath("../Main Screen/Main Screen Buttons/VBoxContainer/Recruit")
 manage_party_button = NodePath("../Main Screen/Main Screen Buttons/VBoxContainer/Manage Party")
+set_multiclass_button = NodePath("../Main Screen/Main Screen Buttons/VBoxContainer/Multiclass")
 return_button = NodePath("../Main Screen/Main Screen Buttons/VBoxContainer/Return")

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://ch3pwv51jc48b"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Homebase/Recruitment Menu/Multiclassing/MMCPCButton.gd" id="1_kcn5y"]
+
+[node name="MMCPCButton" type="Button"]
+custom_minimum_size = Vector2(200, 50)
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Char Name"
+script = ExtResource("1_kcn5y")

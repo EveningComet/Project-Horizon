@@ -2,7 +2,7 @@
 class_name CharacterInspectionWindow extends Control
 
 @export var char_name_label: Label
-@export var character_class_name_label: Label
+@export var character_classes_name_label: Label
 @export var portrait_displayer: PortraitDisplayer
 
 @export var equipment_displayer: InventoryDisplayer
@@ -90,7 +90,7 @@ func get_character_classes_as_displayable_string(new_character: PlayerCombatant)
 	var classes: Dictionary = new_character.pc_classes
 	for character_class in classes:
 		classes_as_string += character_class.localization_name
-		classes_as_string += " %s " % [str(classes[character_class])]
+		classes_as_string += " %s" % [str(classes[character_class])]
 		i += 1
 		if i < classes.size():
 			classes_as_string += " / "
@@ -99,7 +99,7 @@ func get_character_classes_as_displayable_string(new_character: PlayerCombatant)
 ## When a character's stats change, update the relevant information.
 func on_stat_changed(combatant: PlayerCombatant) -> void:
 	char_name_label.set_text( combatant.char_name )
-	character_class_name_label.set_text( 
+	character_classes_name_label.set_text( 
 		get_character_classes_as_displayable_string(combatant)
 	)
 	

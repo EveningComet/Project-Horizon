@@ -9,7 +9,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7r0ni"]
 
-[node name="Character Inspection Window" type="Control" node_paths=PackedStringArray("char_name_label", "character_class_name_label", "portrait_displayer", "equipment_displayer", "swap_right_button", "swap_left_button", "stats_container")]
+[node name="Character Inspection Window" type="Control" node_paths=PackedStringArray("char_name_label", "character_classes_name_label", "portrait_displayer", "equipment_displayer", "swap_right_button", "swap_left_button", "stats_container")]
 custom_minimum_size = Vector2(500, 550)
 layout_mode = 3
 anchors_preset = 0
@@ -17,7 +17,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_i66a6")
 char_name_label = NodePath("Char Name Label")
-character_class_name_label = NodePath("Character Class Label")
+character_classes_name_label = NodePath("Character Classes Label")
 portrait_displayer = NodePath("Portrait Displayer")
 equipment_displayer = NodePath("Equipment Displayer")
 swap_right_button = NodePath("Swap Right Button")
@@ -79,7 +79,7 @@ theme_override_font_sizes/font_size = 35
 text = "Char Name"
 horizontal_alignment = 1
 
-[node name="Character Class Label" type="Label" parent="."]
+[node name="Character Classes Label" type="Label" parent="."]
 custom_minimum_size = Vector2(100, 20)
 layout_mode = 1
 anchors_preset = 5
