@@ -57,5 +57,3 @@ func spawn_labels_for_attributes():
 		var label := Label.new()
 		info_labels[attribute] = label
 		info_container.add_child( label )
-		
-	
