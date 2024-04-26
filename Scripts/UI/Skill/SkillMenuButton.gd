@@ -58,7 +58,7 @@ func unapply_grayscale():
 
 func enable_button_if_possible():
 	var is_maxed_out: bool = draft_level >= skill.monitored_skill.max_rank
-	if (skill.is_unlocked and not is_maxed_out):
+	if (skill.is_unlocked() and not is_maxed_out):
 		enable()
 	else:
 		disable()

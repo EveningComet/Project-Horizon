@@ -15,18 +15,10 @@ func skills() -> Array:
 	return skill_data_instances.values()
 
 func get_usable_skills() -> Array:
-	var result = []
-	for skill_instance in skill_data_instances.values():
-		if (skill_instance.is_unlocked and skill_instance.current_upgrade_level > 0):
-			result.append( skill_instance )
-	return result
+	return skill_data_instances.values().filter(func(skill): return skill.is_usable())
 
 func starting_skills() -> Array:
-	var result = []
-	for data in skill_data_instances.keys():
-		if (data.is_unlocked_by_default):
-			result.append( data )
-	return result
+	return skill_data_instances.keys().filter(func(data): return data.is_unlocked_by_default)
 
 func on_new_skills_unlocked(unlocked: Array[SkillData]):
 	for data in unlocked:
