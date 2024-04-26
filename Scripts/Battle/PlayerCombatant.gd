@@ -20,7 +20,7 @@ var experience_required:     int = get_experience_required( curr_level )
 var total_experience_points: int = 0
 
 ## The points for boosting one of this character's skills or class levels.
-var available_skill_points:     int = 0
+var available_skill_points:     int = 5
 
 ## The points for boosting one of the three core attributes.
 var available_attribute_points: int = 0
@@ -63,10 +63,6 @@ func set_pc_class(new_class: CharacterClass) -> void:
 	else:
 		skill_holder.add_skills( new_class.skills )
 
-# TODO: Removed when multiclassing is implemented.
-func pc_class() -> CharacterClass:
-	return pc_classes.keys()[0]
-
 ## Return how much experience is required for this character to level up.
 ## Calculation is: 100 * (growth_percent^( current level - 1))
 func get_experience_required(level: int) -> int:
@@ -105,11 +101,29 @@ func upgrade_class_to_level(_class: CharacterClass, level: int):
 		stat_changed.emit( self )
 		emit_signal( "class_upgraded", _class, level )
 
-func get_attributes_increase() -> Dictionary:
+func upgrade_class_by(_class: CharacterClass, additional_class_levels: int) -> void:
+	for i in additional_class_levels:
+		for attribute in get_attributes_increase_for_class(_class):
+			raise_base_value_by(
+				attribute,
+				get_attributes_increase_for_class(_class)[attribute]
+			)
+			print("PlayerCombatant :: %s", attribute, " ", stats[attribute].get_calculated_value())
+	pc_classes[_class] += additional_class_levels
+	stat_changed.emit( self )
+	emit_signal( "class_upgraded", _class, pc_classes[_class] )
+
+func get_classes_as_array() -> Array:
+	return pc_classes.keys()
+
+func get_attributes_increase_for_class(cc: CharacterClass) -> Dictionary:
+	var classes_as_array = get_classes_as_array()
+	var index: int = classes_as_array.find(cc)
+	var dc: CharacterClass = classes_as_array[index]
 	return {
-		StatTypes.stat_types.Vitality : pc_class().vitality_on_increase,
-		StatTypes.stat_types.Expertise : pc_class().expertise_on_increase,
-		StatTypes.stat_types.Will : pc_class().will_on_increase,
+		StatTypes.stat_types.Vitality  : dc.vitality_on_increase,
+		StatTypes.stat_types.Expertise : dc.expertise_on_increase,
+		StatTypes.stat_types.Will      : dc.will_on_increase
 	}
 
 func take_damage(action_mediator: ActionMediator) -> void:

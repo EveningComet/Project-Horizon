@@ -2,9 +2,11 @@
 ## by spawning the buttons and their connecting lines
 class_name SkillsTreeRenderer extends Node
 
+signal skill_buttons_finished_rendering
+var skill_points_depleted: Signal
+
 @export var branches_container: VBoxContainer
 @export var skill_menu_button_template: PackedScene
-@export var wait_skills_render_timer: Timer
 @export var skills_group_name : String = "skills"
 
 # {button : leaves}
@@ -12,16 +14,8 @@ var root_to_leaves: Dictionary = {}
 
 var visited_skill_instances: Dictionary = {}
 
-var on_skill_upgraded: Callable
-var skill_points_depleted: Signal
-
-func _ready():
-	# The buttons must first render before we can get their position for drawing lines
-	wait_skills_render_timer.timeout.connect( finish )
-
-func initialize(_on_skill_upgraded: Callable, _skill_points_depleted: Signal):
-	on_skill_upgraded     = _on_skill_upgraded
-	skill_points_depleted = _skill_points_depleted
+func initialize(points_depleted: Signal) -> void:
+	skill_points_depleted = points_depleted
 
 ## Display the passed skill instances.
 func display_skill_instances(skill_instances: Array[SkillInstance]) -> void:
@@ -31,8 +25,11 @@ func display_skill_instances(skill_instances: Array[SkillInstance]) -> void:
 		var root_container: HBoxContainer = spawn_branch(root_skill)
 		branches_container.add_child(root_container)
 	
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(0.01).timeout
 	finish()
+	
+	# Tell anything that needs to know about the spawned buttons
+	skill_buttons_finished_rendering.emit()
 
 func spawn_branch(root_skill: SkillInstance) -> HBoxContainer:
 	var root_container := HBoxContainer.new()
@@ -43,7 +40,6 @@ func spawn_branch(root_skill: SkillInstance) -> HBoxContainer:
 	stack.append(root_skill)
 	
 	var root_button: SkillMenuButton = make_skill_button(root_skill)
-	root_button.initialize(root_skill, skill_points_depleted)
 	root_container.add_child(root_button)
 	root_to_leaves[root_button] = []
 	
@@ -53,7 +49,6 @@ func spawn_branch(root_skill: SkillInstance) -> HBoxContainer:
 		if visited_skill_instances.has(current_skill) == false:
 			visited_skill_instances[current_skill] = true
 			root_button = make_skill_button(root_skill)
-			root_button.initialize(root_skill, skill_points_depleted)
 			root_container.add_child(root_button)
 			root_to_leaves[root_button] = []
 		
@@ -69,7 +64,6 @@ func spawn_branch(root_skill: SkillInstance) -> HBoxContainer:
 				
 				# Found a skill that needs a button
 				var new_button: SkillMenuButton = make_skill_button(current_child)
-				new_button.initialize(current_child, skill_points_depleted)
 				root_to_leaves[root_button].append(new_button)
 				root_container.add_child(new_button)
 	
@@ -121,7 +115,6 @@ func make_skill_button(skill: SkillInstance) -> SkillMenuButton:
 	var button := skill_menu_button_template.instantiate() as SkillMenuButton
 	button.initialize( skill, skill_points_depleted )
 	button.add_to_group( skills_group_name )
-	button.skill_upgraded.connect( on_skill_upgraded )
 	return button
 
 func clear_skills():

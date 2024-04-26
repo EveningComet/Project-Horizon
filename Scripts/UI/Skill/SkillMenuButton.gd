@@ -10,8 +10,9 @@ var draft_level
 
 func initialize(_skill: SkillInstance, _points_depleted_signal: Signal):
 	skill = _skill
+	skill.skill_unlocked.connect( enable_button_if_possible )
 	button_down.connect( upgrade_skill )
-	_points_depleted_signal.connect( disable )
+	_points_depleted_signal.connect(disable)
 	set_correct_texture_and_text()
 	
 func disable():
@@ -58,7 +59,7 @@ func unapply_grayscale():
 
 func enable_button_if_possible():
 	var is_maxed_out: bool = draft_level >= skill.monitored_skill.max_rank
-	if skill.current_upgrade_level > 0 and is_maxed_out == false:
+	if skill.is_unlocked == true and is_maxed_out == false:
 		enable()
 	else:
 		disable()

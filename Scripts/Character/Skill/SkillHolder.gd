@@ -23,12 +23,13 @@ func get_usable_skills() -> Array:
 
 func on_new_skills_unlocked(unlocked: Array[SkillData]):
 	for data in unlocked:
-		if (skill_data_instances.has( data )):
+		if skill_data_instances.has( data ):
 			skill_data_instances[data].unlock()
 
-func try_unlock_with_class_levels(_class: CharacterClass, level: int):
+## Mainly for player characters.
+func try_to_unlock_with_class_level(level: int):
 	for skill in skill_data_instances.values():
-		skill.try_unlock_with_class_levels( _class, level )
+		skill.try_to_unlock_with_class_level( level )
 
 func initialize_skill_data_instances(skills: Array[SkillData]):
 	for data in skills:

@@ -26,6 +26,14 @@ const STARTING_LEVEL := 1
 @export var male_portraits:   Array[PortraitData] = []
 @export var female_portraits: Array[PortraitData] = []
 
+## Returns the stats on increase as a dictionary.
+func get_upgrade_attributes() -> Dictionary:
+	return{
+		StatTypes.stat_types.Vitality  : vitality_on_increase,
+		StatTypes.stat_types.Expertise : expertise_on_increase,
+		StatTypes.stat_types.Will      : will_on_increase
+	}
+
 func get_portraits() -> Array[PortraitData]:
 	var portraits: Array[PortraitData] = []
 	for mp in male_portraits:

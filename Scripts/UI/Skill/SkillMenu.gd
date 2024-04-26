@@ -1,8 +1,9 @@
 class_name SkillMenu extends Control
 
-signal skill_points_depleted
 signal skill_points_available
+signal skill_points_depleted
 signal character_changed(character: PlayerCombatant)
+signal class_changed(new_class: CharacterClass)
 
 @export var character_tab_bar: TabBar
 @export var class_tabs:  TabBar
@@ -23,17 +24,21 @@ var draft_available_skill_points
 func _ready():
 	add_tabs_per_character()
 	visibility_changed.connect( on_visibility_changed )
+	skills_tree_renderer.initialize(skill_points_depleted)
+	skills_tree_renderer.skill_buttons_finished_rendering.connect(
+		on_skills_renderer_finished_drawing_skills
+	)
 	character_tab_bar.tab_changed.connect( on_character_tab_changed )
 	class_tabs.tab_changed.connect( on_character_class_tab_changed )
 	exit_button.button_down.connect( canvas.hide )
 	confirm_button.button_down.connect( confirm_points )
 	undo_skill_points_button.button_down.connect( undo_points )
-	skills_tree_renderer.initialize( deduct_one_point, skill_points_depleted )
-	attributes_upgrader.initialize( character_changed )
 	attributes_menu.initialize( character_changed )
+	
 	class_upgrade_menu.initialize( 
-		character_changed, skill_points_depleted, skill_points_available
+		class_changed, skill_points_depleted, skill_points_available
 	)
+	attributes_upgrader.initialize( character_changed, class_changed )
 	attributes_upgrader.class_upgraded.connect( deduct_one_point )
 
 func add_tabs_per_character():
@@ -50,8 +55,8 @@ func on_character_tab_changed(index: int):
 	if PlayerPartyController.has_members() == true:
 		class_tabs.clear_tabs()
 		current_character = characters[index]
-		character_changed.emit( current_character )
 		set_draft_skill_points( current_character.available_skill_points )
+		character_changed.emit( current_character )
 		
 		# Create the needed tabs for character classes
 		for cc: CharacterClass in current_character.pc_classes:
@@ -75,6 +80,8 @@ func on_character_class_tab_changed(index: int) -> void:
 	skills_tree_renderer.display_skill_instances(
 		skill_instances
 	)
+	
+	class_changed.emit( desired_class )
 
 ## Get the skills of the class for the current character.
 func get_skill_instances_of_class(desired_class: CharacterClass) -> Array[SkillInstance]:
@@ -84,8 +91,11 @@ func get_skill_instances_of_class(desired_class: CharacterClass) -> Array[SkillI
 		skill_instances.append( d[skill] )
 	return skill_instances
 
-func on_skills_renderer_finished_drawing_skills(skill_buttons) -> void:
-	pass
+func on_skills_renderer_finished_drawing_skills() -> void:
+	emit_correct_signal()
+
+func on_skill_upgraded(skill_instance: SkillInstance) -> void:
+	deduct_one_point()
 
 func confirm_points():
 	attributes_upgrader.confirm()
