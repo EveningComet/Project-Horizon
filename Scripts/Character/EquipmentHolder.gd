@@ -29,10 +29,17 @@ func grab_slot_data(index: int) -> ItemSlotData:
 ## A modified version of the drop slot data method that only accepts equipment
 func drop_slot_data(grabbed_slot_data: ItemSlotData, index: int) -> ItemSlotData:
 	
-	# If something wants to place an item in us that is not a weapon, stop it
+	if grabbed_slot_data.stored_item == null:
+		return grabbed_slot_data
+	
+	# If something wants to place an item in us that is not equipment, stop it
 	if grabbed_slot_data.stored_item.item_type != ItemTypes.ItemTypes.Equipment:
 		return grabbed_slot_data
 	
+	if meets_attribute_requirements(grabbed_slot_data.stored_item) == false:
+		return grabbed_slot_data
+	
+	# TODO: Cleaner way to do this?
 	# Prevent armors and weapons from going into the wrong slot
 	# 0: Weapons
 	# 1-3: Armor/Accessories
@@ -56,8 +63,11 @@ func drop_single_slot_data(grabbed_slot_data: ItemSlotData, index: int) -> ItemS
 	
 	if grabbed_slot_data.stored_item == null:
 		return grabbed_slot_data
+		
+	if meets_attribute_requirements(grabbed_slot_data.stored_item) == false:
+		return grabbed_slot_data
 	
-	# If something wants to place an item in us that is not a weapon, stop it
+	# If something wants to place an item in us that is not equipment, stop it
 	if grabbed_slot_data.stored_item.item_type != ItemTypes.ItemTypes.Equipment:
 		return grabbed_slot_data
 		
@@ -79,6 +89,20 @@ func drop_single_slot_data(grabbed_slot_data: ItemSlotData, index: int) -> ItemS
 	add_modifiers_from_equipment( grabbed_slot_data.stored_item )
 	
 	return super.drop_single_slot_data( grabbed_slot_data, index )
+
+## Used to check if the character meets all the attribute requirements for a
+## piece of equipment.
+func meets_attribute_requirements(item_data: ItemData) -> bool:
+	if item_data.attribute_requirements.size() == 0:
+		return true
+	
+	var stats: Dictionary = monitored_combatant.stats
+	for sr: StatRequirement in item_data.attribute_requirements:
+		var attribute_value: int = floor(stats[sr.attribute].get_calculated_value())
+		if attribute_value < sr.requirement:
+			return false
+	
+	return true
 
 func add_modifiers_from_equipment(item_data: ItemData) -> void:
 	for sm: StatModifier in item_data.stat_modifiers:

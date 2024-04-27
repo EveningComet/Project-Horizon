@@ -21,4 +21,5 @@ max_stack_size = 1
 cost = 10
 equip_type = 2
 stat_modifiers = Array[ExtResource("3_5dqrn")]([SubResource("Resource_s38b3")])
+attribute_requirements = Array[Resource("res://Scripts/Inventory/StatRequirement.gd")]([])
 weapon_type = 0

@@ -15,5 +15,8 @@ class_name ItemData extends Resource
 ## If this is a piece of equipment, what stats does this change?
 @export var stat_modifiers: Array[StatModifier] = []
 
+## What are the requirements to use this piece of equipment?
+@export var attribute_requirements: Array[StatRequirement] = []
+
 @export_category("Weapon Info")
 @export var weapon_type: ItemTypes.WeaponTypes = ItemTypes.WeaponTypes.None
