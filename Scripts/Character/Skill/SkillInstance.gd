@@ -1,7 +1,10 @@
 ## Stores an instance of a skill.
 class_name SkillInstance
 
-signal skill_unlocked()
+signal skill_lock_status_changed()
+
+# TODO: Handling for if the skill unlocks at a class level and a previous
+# minimum rank.
 
 var monitored_skill: SkillData
 var branched_skills: Array[SkillInstance] = []
@@ -34,14 +37,23 @@ func unlock() -> void:
 	if is_unlocked == true:
 		return
 	is_unlocked = true
-	skill_unlocked.emit()
+	skill_lock_status_changed.emit()
+
+func relock() -> void:
+	is_unlocked = false
+	skill_lock_status_changed.emit()
 
 func try_to_unlock_with_class_level(new_level: int) -> void:
 	if new_level >= monitored_skill.unlocks_at_class_level:
 		unlock()
 
+func try_to_relock_with_class_level(new_level: int) -> void:
+	if new_level < monitored_skill.unlocks_at_class_level:
+		relock()
+
 func upgrade_to_level(new_level: int) -> void:
 	current_upgrade_level = new_level
+	handle_unlock(current_upgrade_level)
 
 func handle_unlock(new_level: int) -> void:
 	for branch in branched_skills:
@@ -49,6 +61,16 @@ func handle_unlock(new_level: int) -> void:
 		unlocked_skills.has(branch) == false:
 			branch.unlock()
 			unlocked_skills.append(branch)
+
+func downgrade(new_level: int) -> void:
+	current_upgrade_level = new_level
+	handle_relock()
+
+func handle_relock() -> void:
+	for s in unlocked_skills:
+		if s.can_unlock_skill(current_upgrade_level) == false:
+			s.relock()
+			unlocked_skills.erase(s)
 
 func can_unlock_skill(new_level: int) -> bool:
 	return new_level >= monitored_skill.minimum_rank_of_previous

@@ -61,7 +61,7 @@ func set_pc_class(new_class: CharacterClass) -> void:
 	if pc_classes.size() == 1:
 		initialize_with_class_data( new_class )
 	else:
-		skill_holder.add_skills( new_class.skills )
+		skill_holder.add_from_character_class( new_class )
 
 ## Return how much experience is required for this character to level up.
 ## Calculation is: 100 * (growth_percent^( current level - 1))

@@ -6,11 +6,11 @@ signal skill_upgraded(stored_skill: SkillInstance)
 @export var level_label: Label
 
 var skill: SkillInstance
-var draft_level
+var draft_level: int = 0
 
 func initialize(_skill: SkillInstance, _points_depleted_signal: Signal):
 	skill = _skill
-	skill.skill_unlocked.connect( enable_button_if_possible )
+	skill.skill_lock_status_changed.connect( enable_button_if_possible )
 	button_down.connect( upgrade_skill )
 	_points_depleted_signal.connect(disable)
 	set_correct_texture_and_text()
@@ -32,6 +32,7 @@ func confirm():
 
 func undo():
 	set_upgrade_level( skill.current_upgrade_level )
+	skill.downgrade( skill.current_upgrade_level )
 
 func set_correct_texture_and_text():
 	texture_normal = skill.monitored_skill.display_texture
@@ -41,6 +42,8 @@ func set_correct_texture_and_text():
 func set_upgrade_level(new_value: int):
 	draft_level = new_value
 	set_level_text()
+	skill.handle_unlock(draft_level)
+	
 	enable_button_if_possible()
 
 func set_level_text():

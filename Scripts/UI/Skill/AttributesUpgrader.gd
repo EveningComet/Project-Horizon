@@ -51,6 +51,13 @@ func class_upgrade(upgrading_class: CharacterClass):
 	classes_and_class_levels[upgrading_class] += 1
 	for attribute in attributes:
 		draft_stats[attribute] += upgrading_class.get_upgrade_attributes()[attribute]
+	
+	# The class is being upgraded, see if there are any skills that can be
+	# unlocked for that class
+	character.skill_holder.try_to_unlock_with_class_level(
+		current_class, classes_and_class_levels[upgrading_class]
+	)
+	
 	emit_signal( "class_upgraded" )
 	emit_signal( "stats_changed", draft_stats )
 
@@ -59,6 +66,12 @@ func reset_draft_stats():
 		classes_and_class_levels[current_class] = character.pc_classes[current_class]
 		for attribute in attributes:
 			draft_stats[attribute] = character.stats[attribute].get_base_value()
+		
+		# See if some skills have to be relocked
+		character.skill_holder.try_to_relock_with_class_level(
+			current_class, character.pc_classes[current_class]
+		)
+		
 		emit_signal( "stats_changed", draft_stats )
 
 func get_draft_stats(attribute: StatTypes.stat_types) -> int:

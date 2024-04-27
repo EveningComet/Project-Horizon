@@ -6,9 +6,14 @@ var skill_data_instances: = {}
 
 func initialize_for_player_character(skill_class: CharacterClass):
 	initialize_skill_data_instances( skill_class.skills )
+	try_to_unlock_with_class_level(skill_class, 1)
 
 func add_skills(skills_to_add: Array[SkillData]) -> void:
 	initialize_skill_data_instances(skills_to_add)
+
+func add_from_character_class(cc: CharacterClass) -> void:
+	initialize_skill_data_instances( cc.skills )
+	try_to_unlock_with_class_level( cc, 1 )
 
 ## Return all the stored skills.
 func skills() -> Array:
@@ -21,15 +26,20 @@ func get_usable_skills() -> Array:
 			result.append( skill_instance )
 	return result
 
-func on_new_skills_unlocked(unlocked: Array[SkillData]):
-	for data in unlocked:
-		if skill_data_instances.has( data ):
-			skill_data_instances[data].unlock()
-
 ## Mainly for player characters.
-func try_to_unlock_with_class_level(level: int):
-	for skill in skill_data_instances.values():
-		skill.try_to_unlock_with_class_level( level )
+func try_to_unlock_with_class_level(cc: CharacterClass, level: int):
+	for skill in skill_data_instances:
+		# TODO: This does not take branching into account!
+		if cc.skills.has(skill) == true:
+			var skill_instance = skill_data_instances[skill]
+			skill_instance.try_to_unlock_with_class_level( level )
+
+func try_to_relock_with_class_level(cc: CharacterClass, level: int) -> void:
+	for skill in skill_data_instances:
+		# TODO: This does not take branching into account!
+		if cc.skills.has(skill) == true:
+			var skill_instance = skill_data_instances[skill]
+			skill_instance.try_to_relock_with_class_level( level )
 
 func initialize_skill_data_instances(skills: Array[SkillData]):
 	for data in skills:
