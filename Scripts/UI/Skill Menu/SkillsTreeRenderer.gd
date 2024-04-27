@@ -39,7 +39,7 @@ func spawn_branch(root_skill: SkillInstance) -> HBoxContainer:
 	visited_skill_instances[root_skill] = true
 	stack.append(root_skill)
 	
-	var root_button: SkillMenuButton = make_skill_button(root_skill)
+	var root_button: SkillTreeButton = make_skill_button(root_skill)
 	root_container.add_child(root_button)
 	root_to_leaves[root_button] = []
 	
@@ -63,7 +63,7 @@ func spawn_branch(root_skill: SkillInstance) -> HBoxContainer:
 				# Account for multiple branches.
 				
 				# Found a skill that needs a button
-				var new_button: SkillMenuButton = make_skill_button(current_child)
+				var new_button: SkillTreeButton = make_skill_button(current_child)
 				root_to_leaves[root_button].append(new_button)
 				root_container.add_child(new_button)
 	
@@ -74,15 +74,15 @@ func finish():
 		if root_to_leaves[root].is_empty() == false:
 			draw_lines_to_all_unlockables_from(root)
 
-func draw_lines_to_all_unlockables_from(root: SkillMenuButton):
+func draw_lines_to_all_unlockables_from(root: SkillTreeButton):
 	# Use dfs to draw the nodes
 	var visited: Dictionary = {}
 	visited[root] = true
-	var stack: Array[SkillMenuButton]
+	var stack: Array[SkillTreeButton]
 	stack.append(root)
 	
 	while stack.is_empty() == false:
-		var current: SkillMenuButton = stack.pop_front()
+		var current: SkillTreeButton = stack.pop_front()
 		for neighbor in root_to_leaves[root]:
 			var current_child = neighbor
 			if visited.has(current_child) == false:
@@ -94,7 +94,7 @@ func draw_lines_to_all_unlockables_from(root: SkillMenuButton):
 				fade_in(line)
 				current_child.get_parent().add_child(line)
 
-func spawn_connecting_line(begin: SkillMenuButton, end: SkillMenuButton) -> Line2D:
+func spawn_connecting_line(begin: SkillTreeButton, end: SkillTreeButton) -> Line2D:
 	var line := Line2D.new()
 	line.add_point( center_position( begin ) )
 	line.add_point( center_position( end ) )
@@ -111,8 +111,8 @@ func fade_in(item: CanvasItem):
 	var tween:= get_tree().create_tween()
 	tween.tween_property( item, "modulate", target_modulate , 0.5 )
 
-func make_skill_button(skill: SkillInstance) -> SkillMenuButton:
-	var button := skill_menu_button_template.instantiate() as SkillMenuButton
+func make_skill_button(skill: SkillInstance) -> SkillTreeButton:
+	var button := skill_menu_button_template.instantiate() as SkillTreeButton
 	button.initialize( skill, skill_points_depleted )
 	button.add_to_group( skills_group_name )
 	return button

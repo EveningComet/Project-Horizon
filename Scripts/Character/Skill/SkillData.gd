@@ -26,7 +26,7 @@ class_name SkillData extends Resource
 @export var max_rank: int = 3
 
 ## The minimum rank of the previous skill needed to unlock this skill.
-@export var minimum_rank_of_previous: int = 1
+@export var minimum_rank_of_previous: int = 0
 
 ## If belonging to a class, at what class level should this skill be unlocked?
 @export var unlocks_at_class_level: int = 1

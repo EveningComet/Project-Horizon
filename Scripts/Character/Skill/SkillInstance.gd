@@ -22,9 +22,19 @@ var is_unlocked: bool = false
 
 func initialize(skill: SkillData) -> void:
 	monitored_skill = skill
+	
+	# Check if this skill needs to be locked on creation
+	
+	# The character can use this skill right from the start
 	if monitored_skill.is_unlocked_by_default == true:
 		is_unlocked = true
 		current_upgrade_level = 1
+	
+	# The skill is not usable from the start, but it doesn't need a previous
+	# rank
+	elif monitored_skill.is_unlocked_by_default == false and \
+	monitored_skill.minimum_rank_of_previous < 1:
+		is_unlocked = true
 	
 	# Create the branched skills
 	for branch: SkillData in skill.branches:

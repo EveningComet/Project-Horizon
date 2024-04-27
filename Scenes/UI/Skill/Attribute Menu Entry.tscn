@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dq83dljr1ulfa"]
 
-[ext_resource type="Script" path="res://Scripts/UI/Skill/AttributeMenuEntry.gd" id="1_ey26o"]
+[ext_resource type="Script" path="res://Scripts/UI/Skill Menu/AttributeMenuEntry.gd" id="1_ey26o"]
 
 [node name="AttributeMenuEntry" type="HBoxContainer" node_paths=PackedStringArray("attribute_label", "upgrade_button")]
 script = ExtResource("1_ey26o")

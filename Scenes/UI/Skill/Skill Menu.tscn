@@ -1,12 +1,12 @@
 [gd_scene load_steps=8 format=3 uid="uid://dks4qxa6s4ful"]
 
-[ext_resource type="Script" path="res://Scripts/UI/Skill/SkillMenu.gd" id="1_gb7ft"]
-[ext_resource type="PackedScene" uid="uid://bngujmgvwnby5" path="res://Scenes/UI/Skill/Skill Menu Button.tscn" id="2_44m12"]
-[ext_resource type="Script" path="res://Scripts/UI/Skill/SkillsTreeRenderer.gd" id="3_3kt4c"]
-[ext_resource type="Script" path="res://Scripts/UI/Skill/AttributesMenu.gd" id="4_k8sm6"]
+[ext_resource type="Script" path="res://Scripts/UI/Skill Menu/SkillMenu.gd" id="1_gb7ft"]
+[ext_resource type="PackedScene" uid="uid://bngujmgvwnby5" path="res://Scenes/UI/Skill/Skill Tree Button.tscn" id="2_44m12"]
+[ext_resource type="Script" path="res://Scripts/UI/Skill Menu/SkillsTreeRenderer.gd" id="3_3kt4c"]
+[ext_resource type="Script" path="res://Scripts/UI/Skill Menu/AttributesMenu.gd" id="4_k8sm6"]
 [ext_resource type="PackedScene" uid="uid://dq83dljr1ulfa" path="res://Scenes/UI/Skill/Attribute Menu Entry.tscn" id="5_b7hp3"]
-[ext_resource type="Script" path="res://Scripts/UI/Skill/ClassUpgradeMenu.gd" id="6_j0n5l"]
-[ext_resource type="Script" path="res://Scripts/UI/Skill/AttributesUpgrader.gd" id="7_ufqe0"]
+[ext_resource type="Script" path="res://Scripts/UI/Skill Menu/ClassUpgradeMenu.gd" id="6_j0n5l"]
+[ext_resource type="Script" path="res://Scripts/UI/Skill Menu/AttributesUpgrader.gd" id="7_ufqe0"]
 
 [node name="SkillMenu" type="CanvasLayer"]
 

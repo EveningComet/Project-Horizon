@@ -92,7 +92,8 @@ func get_skill_instances_of_class(desired_class: CharacterClass) -> Array[SkillI
 	return skill_instances
 
 func on_skills_renderer_finished_drawing_skills() -> void:
-	pass
+	if current_character.available_skill_points < 1:
+		get_tree().call_group(skills_tree_renderer.skills_group_name, "disable")
 
 func on_skill_upgraded(skill_instance: SkillInstance) -> void:
 	deduct_one_point()

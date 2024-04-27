@@ -1,5 +1,5 @@
 ## Works as an interface between the instance of a skill and the ui.
-class_name SkillMenuButton extends TextureButton
+class_name SkillTreeButton extends TextureButton
 
 signal skill_upgraded(stored_skill: SkillInstance)
 
@@ -42,7 +42,6 @@ func set_correct_texture_and_text():
 func set_upgrade_level(new_value: int):
 	draft_level = new_value
 	set_level_text()
-	skill.handle_unlock(draft_level)
 	
 	enable_button_if_possible()
 
