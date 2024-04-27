@@ -92,7 +92,12 @@ func get_skill_instances_of_class(desired_class: CharacterClass) -> Array[SkillI
 	return skill_instances
 
 func on_skills_renderer_finished_drawing_skills() -> void:
-	emit_correct_signal()
+	var monitored_buttons: Array[SkillMenuButton]
+	var sbs = get_tree().get_nodes_in_group(skills_tree_renderer.skills_group_name)
+	monitored_buttons.append_array(sbs)
+	# Go through the buttons and see what we can do with them
+	for b in monitored_buttons:
+		b.skill_upgraded.connect( on_skill_upgraded )
 
 func on_skill_upgraded(skill_instance: SkillInstance) -> void:
 	deduct_one_point()

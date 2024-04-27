@@ -34,7 +34,6 @@ func store_stats(_character: PlayerCombatant):
 func confirm():
 	for key in classes_and_class_levels:
 		var diff: int = classes_and_class_levels[key] - character.pc_classes[key]
-		print("AttributesUpgrader :: Drafted v ", classes_and_class_levels[key], " original v: ", character.pc_classes[key])
 		character.upgrade_class_by(key, diff)
 	reset_draft_stats()
 	emit_signal( "stats_confirmed" )

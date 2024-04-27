@@ -108,7 +108,6 @@ func upgrade_class_by(_class: CharacterClass, additional_class_levels: int) -> v
 				attribute,
 				get_attributes_increase_for_class(_class)[attribute]
 			)
-			print("PlayerCombatant :: %s", attribute, " ", stats[attribute].get_calculated_value())
 	pc_classes[_class] += additional_class_levels
 	stat_changed.emit( self )
 	emit_signal( "class_upgraded", _class, pc_classes[_class] )

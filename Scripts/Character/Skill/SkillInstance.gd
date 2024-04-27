@@ -28,6 +28,7 @@ func initialize(skill: SkillData) -> void:
 		var new_branch = SkillInstance.new()
 		new_branch.initialize(branch)
 		branched_skills.append(new_branch)
+		handle_unlock(current_upgrade_level)
 
 func unlock() -> void:
 	if is_unlocked == true:
