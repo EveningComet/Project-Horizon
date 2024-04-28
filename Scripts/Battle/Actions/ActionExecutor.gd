@@ -8,9 +8,6 @@ signal finished_processing_actions(results: Dictionary)
 ## Used for checking for battle ends and if characters are dead.
 @export var death_handler: BattleDeathHandler
 
-## Used for executing status effect
-@export var status_effect_manager: StatusEffectManager
-
 ## The actions that will be executed during the resolve phase.
 var actions_to_execute: Array[StoredAction] = []
 
