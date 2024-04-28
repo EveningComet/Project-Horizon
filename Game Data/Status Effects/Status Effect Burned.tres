@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=6 format=3 uid="uid://buul67l7164jj"]
+
+[ext_resource type="Script" path="res://Scripts/Character/Status Effect/StatusEffect.gd" id="1_7s4dm"]
+[ext_resource type="Script" path="res://Scripts/Character/Status Effect/Status Effect Data/StatusEffectOnApplyData.gd" id="1_wu8ok"]
+[ext_resource type="Script" path="res://Scripts/Character/Status Effect/Status Effect Data/StatusEffectOnTurnTickData.gd" id="2_ihqes"]
+
+[sub_resource type="Resource" id="Resource_7ttbn"]
+script = ExtResource("1_wu8ok")
+damage_to_inflict = 3
+damage_type = 1
+
+[sub_resource type="Resource" id="Resource_1dhul"]
+script = ExtResource("2_ihqes")
+damage_to_inflict = 5
+damage_type = 1
+
+[resource]
+script = ExtResource("1_7s4dm")
+localization_name = "Burned"
+localization_description = "The fire got to you, what can I say."
+on_apply = SubResource("Resource_7ttbn")
+on_turn_tick = SubResource("Resource_1dhul")
+duration_in_turns = 3

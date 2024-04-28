@@ -17,7 +17,9 @@ func exit() -> void:
 	action_executer.finished_processing_actions.disconnect( on_action_execution_finished )
 
 func check_start_of_turn_status_effects() -> void:
-	pass
+	for combatant_node in my_state_machine.spawned_combatants_node.get_children():
+		var combatant := combatant_node as Combatant
+		combatant.status_effect_holder.apply_status_effects()
 
 ## Tell the action executor to start doing work.
 func execute_actions() -> void:

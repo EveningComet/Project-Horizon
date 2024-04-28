@@ -23,6 +23,7 @@ func initialize_with_enemy_data(enemy_data: EnemyData) -> void:
 		enemy_data.will,
 		true
 	)
+	status_effect_holder.initialize(self)
 	initialize_vitals()
 	initialize_other_stats()
 	

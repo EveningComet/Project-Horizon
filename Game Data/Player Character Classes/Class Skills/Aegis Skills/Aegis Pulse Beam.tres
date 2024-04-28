@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=6 format=3 uid="uid://cydkltv3usq2l"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=9 format=3 uid="uid://cydkltv3usq2l"]
 
 [ext_resource type="Script" path="res://Scripts/Character/Skill/Skill Effects/DirectDamage.gd" id="1_2lgx2"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillData.gd" id="1_m3w6m"]
 [ext_resource type="Texture2D" uid="uid://qd1gmfqfgvyb" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Icons/Icon35.png" id="1_tmpa6"]
 [ext_resource type="Resource" uid="uid://c0h3wsdqfllab" path="res://Game Data/Player Character Classes/Class Skills/Aegis Skills/Aegis Shell.tres" id="4_87x5o"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/Skill Effects/ApplyStatusEffect.gd" id="4_blwco"]
+[ext_resource type="Resource" uid="uid://buul67l7164jj" path="res://Game Data/Status Effects/Status Effect Burned.tres" id="5_vow2x"]
 
 [sub_resource type="Resource" id="Resource_pol7e"]
 script = ExtResource("1_2lgx2")
@@ -12,6 +14,13 @@ bonus_damage_scale_on_debuffs_present = 0.0
 attacker_heal_percentage = 0.0
 power_scale = 1.25
 use_special_stat = true
+
+[sub_resource type="Resource" id="Resource_ir1m0"]
+script = ExtResource("4_blwco")
+status_effect_to_apply = ExtResource("5_vow2x")
+chance_to_apply = 1.0
+power_scale = 1.0
+use_special_stat = false
 
 [resource]
 script = ExtResource("1_m3w6m")
@@ -29,5 +38,5 @@ success_chance = 1.0
 is_unlocked_by_default = true
 branches = Array[ExtResource("1_m3w6m")]([ExtResource("4_87x5o")])
 is_ranged = false
-effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([SubResource("Resource_pol7e")])
+effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([SubResource("Resource_pol7e"), SubResource("Resource_ir1m0")])
 display_texture = ExtResource("1_tmpa6")
