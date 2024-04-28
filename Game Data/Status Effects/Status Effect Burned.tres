@@ -18,3 +18,4 @@ localization_name = "Burned"
 localization_description = "The fire got to you, what can I say."
 on_apply = SubResource("Resource_7ttbn")
 on_turn_tick = SubResource("Resource_1dhul")
+duration_in_turns = 3

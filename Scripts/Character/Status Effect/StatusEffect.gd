@@ -8,6 +8,7 @@ class_name StatusEffect extends Resource
 @export var on_apply: StatusEffectOnApplyData
 @export var on_turn_tick: StatusEffectOnTurnTickData
 @export var on_expire: StatusEffectOnExpireData
+@export var duration_in_turns: int = 0
 
 
 func apply(character_to_add_to: Combatant) -> void:
