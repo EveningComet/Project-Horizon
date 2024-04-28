@@ -1,16 +1,31 @@
-[gd_resource type="Resource" script_class="StatusEffect" load_steps=6 format=3 uid="uid://buul67l7164jj"]
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=9 format=3 uid="uid://buul67l7164jj"]
 
 [ext_resource type="Script" path="res://Scripts/Character/Status Effect/StatusEffect.gd" id="1_7s4dm"]
+[ext_resource type="Script" path="res://Scripts/Stats/StatModifier.gd" id="1_cp8gn"]
 [ext_resource type="Script" path="res://Scripts/Character/Status Effect/Status Effect Data/StatusEffectOnApplyData.gd" id="1_wu8ok"]
 [ext_resource type="Script" path="res://Scripts/Character/Status Effect/Status Effect Data/StatusEffectOnTurnTickData.gd" id="2_ihqes"]
 
+[sub_resource type="Resource" id="Resource_krkl4"]
+script = ExtResource("1_cp8gn")
+stat_changing = 4
+stat_modifier_type = 0
+value = 3.0
+sort_order = 0
+
 [sub_resource type="Resource" id="Resource_7ttbn"]
 script = ExtResource("1_wu8ok")
-damage_to_inflict = 3
+damage_data = SubResource("Resource_krkl4")
+
+[sub_resource type="Resource" id="Resource_vk7lq"]
+script = ExtResource("1_cp8gn")
+stat_changing = 4
+stat_modifier_type = 0
+value = 5.0
+sort_order = 0
 
 [sub_resource type="Resource" id="Resource_1dhul"]
 script = ExtResource("2_ihqes")
-damage_to_inflict = 5
+damage_data = SubResource("Resource_vk7lq")
 
 [resource]
 script = ExtResource("1_7s4dm")
