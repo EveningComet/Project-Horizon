@@ -47,7 +47,7 @@ func initialize_with_class_data(class_data: CharacterClass) -> void:
 		class_data.starting_will,
 		true
 	)
-	
+	status_effect_holder.initialize(self)
 	initialize_vitals()
 	initialize_other_stats()
 	

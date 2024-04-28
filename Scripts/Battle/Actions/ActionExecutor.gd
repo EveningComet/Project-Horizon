@@ -73,7 +73,9 @@ func execute_action(action: StoredAction) -> void:
 						# Apply damage
 						target.take_damage( action_mediator )
 					
-					# TODO: Apply status effects, if any
+					for effect in action_mediator.status_effects_to_apply.keys():
+						if (prng.randf_range(0.0, 1.0) <= action_mediator.status_effects_to_apply[effect]):
+							target.status_effect_holder.add_status_effect(effect)
 		
 		ActionTypes.ActionTypes.AllAllies, ActionTypes.ActionTypes.SingleAlly:
 			for target: Combatant in action.get_targets():
