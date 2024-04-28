@@ -5,6 +5,9 @@ class_name HomebaseHome extends Control
 @export_file("*.tscn") var recruitment_home_menu_scene: String
 @export_file("*.tscn") var acquisition_menu_scene: String
 
+@export var buttons_container: Container
+@export var party_dashboard: PartyDashboard
+
 @export var missions_button: BaseButton
 @export var manage_characters_button: BaseButton
 @export var acquisition_button: BaseButton
@@ -14,6 +17,28 @@ class_name HomebaseHome extends Control
 
 ## The background music that will play upon entering this menu.
 @export var background_music: AudioStream
+
+var previous_focus: Control
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("open_skills"):
+		skill_menu.visible = !skill_menu.visible
+		
+		# Store and get the previously focused node depending on what happens
+		if skill_menu.visible == true:
+			previous_focus = get_viewport().gui_get_focus_owner()
+			buttons_container.hide()
+		else:
+			previous_focus.grab_focus()
+			buttons_container.show()
+	
+	elif event.is_action_pressed("toggle_inventory"):
+		if party_dashboard.visible == true:
+			previous_focus = get_viewport().gui_get_focus_owner()
+			buttons_container.hide()
+		else:
+			previous_focus.grab_focus()
+			buttons_container.show()
 
 func _ready() -> void:
 	# Play the background music for this menu
@@ -31,10 +56,6 @@ func _ready() -> void:
 	
 	get_first_enabled_button_or_default().grab_focus()
 	skill_menu.hide()
-
-func _process(delta):
-	if (Input.is_action_just_pressed("open_skills")):
-		skill_menu.visible = !skill_menu.visible
 
 func on_mission_button_pressed() -> void:
 	SceneController.switch_to_scene( missions_scene )

@@ -7,7 +7,7 @@
 
 [node name="Homebase Home Menu" type="CanvasLayer"]
 
-[node name="HomebaseHome" type="Control" parent="." node_paths=PackedStringArray("missions_button", "manage_characters_button", "acquisition_button", "quit_button", "skill_menu")]
+[node name="HomebaseHome" type="Control" parent="." node_paths=PackedStringArray("buttons_container", "party_dashboard", "missions_button", "manage_characters_button", "acquisition_button", "quit_button", "skill_menu")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,6 +18,8 @@ script = ExtResource("1_ordyh")
 missions_scene = "res://Scenes/UI/Homebase/Missions/Missions Menu.tscn"
 recruitment_home_menu_scene = "res://Scenes/UI/Homebase/Character Recruitment/Recruitment Menu.tscn"
 acquisition_menu_scene = "res://Scenes/UI/Homebase/Acquisitions/Acquisitions Menu.tscn"
+buttons_container = NodePath("VBoxContainer")
+party_dashboard = NodePath("Party Dashboard")
 missions_button = NodePath("VBoxContainer/Mission")
 manage_characters_button = NodePath("VBoxContainer/Manage Characters")
 acquisition_button = NodePath("VBoxContainer/Acquisitions")
