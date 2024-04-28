@@ -1,14 +1,14 @@
 class_name AttributesMenu extends Node
 
+signal attribute_points_depleted
+signal attribute_points_available
+
 @export var points_label: Label
 @export var container: VBoxContainer
 @export var menu_entry_template: PackedScene
 @export var upgrader: AttributesUpgrader
 @export var confirm_button: Button
 @export var undo_button: Button
-
-signal attribute_points_depleted
-signal attribute_points_available
 
 var character: PlayerCombatant
 var draft_points: int = 0

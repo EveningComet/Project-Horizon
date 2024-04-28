@@ -15,6 +15,7 @@ var current_class: CharacterClass
 ## Stores the classes and their potentially new levels.
 var classes_and_class_levels: Dictionary
 
+## Stores what the player's attributes will be depending on the upgrades.
 var draft_stats: Dictionary = {}
 var attributes := StatTypes.new().attributes()
 
@@ -32,9 +33,21 @@ func store_stats(_character: PlayerCombatant):
 	reset_draft_stats()
 
 func confirm():
-	for key in classes_and_class_levels:
+	
+	# Upgrade the class level
+	for key: CharacterClass in classes_and_class_levels:
 		var diff: int = classes_and_class_levels[key] - character.pc_classes[key]
-		character.upgrade_class_by(key, diff)
+		if diff > 0:
+			character.upgrade_class_by(key, diff)
+	
+	# Upgrade the attributes
+	for attribute in attributes:
+		var draft_val:    int = draft_stats[attribute]
+		var original_val: int = character.stats[attribute].get_base_value()
+		var diff:         int = draft_val - original_val
+		if diff > 0:
+			character.raise_base_value_by(attribute, diff)
+	
 	reset_draft_stats()
 	emit_signal( "stats_confirmed" )
 
@@ -73,9 +86,3 @@ func reset_draft_stats():
 		)
 		
 		emit_signal( "stats_changed", draft_stats )
-
-func get_draft_stats(attribute: StatTypes.stat_types) -> int:
-	return draft_stats[attribute]
-
-func upgraded_amount(attribute: StatTypes.stat_types) -> int:
-	return draft_stats[attribute] - character.stats[attribute].get_base_value()

@@ -101,7 +101,16 @@ func upgrade_class_to_level(_class: CharacterClass, level: int):
 		stat_changed.emit( self )
 		emit_signal( "class_upgraded", _class, level )
 
+## Upgrade the passed class by the amount.
 func upgrade_class_by(_class: CharacterClass, additional_class_levels: int) -> void:
+	pc_classes[_class] += additional_class_levels
+	stat_changed.emit( self )
+	emit_signal( "class_upgraded", _class, pc_classes[_class] )
+
+## Upgrades the class and internally handles boosting the stats.
+func upgrade_class_and_self_handle_upgrades(
+		_class: CharacterClass, additional_class_levels: int
+	) -> void:
 	for i in additional_class_levels:
 		for attribute in get_attributes_increase_for_class(_class):
 			raise_base_value_by(
