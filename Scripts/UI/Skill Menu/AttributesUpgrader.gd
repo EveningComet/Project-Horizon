@@ -24,7 +24,7 @@ func initialize(_character_changed: Signal, _class_changed: Signal):
 
 func set_class(_new_class: CharacterClass):
 	current_class = _new_class
-	#reset_draft_stats()
+	reset_draft_stats()
 
 func store_stats(_character: PlayerCombatant):
 	character = _character

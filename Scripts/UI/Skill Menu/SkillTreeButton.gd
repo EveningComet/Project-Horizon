@@ -1,5 +1,6 @@
 ## Works as an interface between the instance of a skill and the ui.
 class_name SkillTreeButton extends TextureButton
+# TODO: Should this be a regular button?
 
 signal skill_upgraded(stored_skill: SkillInstance)
 
@@ -8,11 +9,10 @@ signal skill_upgraded(stored_skill: SkillInstance)
 var skill: SkillInstance
 var draft_level: int = 0
 
-func initialize(_skill: SkillInstance, _points_depleted_signal: Signal):
+func initialize(_skill: SkillInstance):
 	skill = _skill
 	skill.skill_lock_status_changed.connect( enable_button_if_possible )
 	button_down.connect( upgrade_skill )
-	_points_depleted_signal.connect(disable)
 	set_correct_texture_and_text()
 	
 func disable():
@@ -42,6 +42,7 @@ func set_correct_texture_and_text():
 func set_upgrade_level(new_value: int):
 	draft_level = new_value
 	set_level_text()
+	skill.handle_unlock(draft_level)
 	
 	enable_button_if_possible()
 

@@ -1,94 +1,94 @@
-[gd_scene load_steps=8 format=3 uid="uid://dks4qxa6s4ful"]
+[gd_scene load_steps=8 format=3 uid="uid://bjvar0ie3f2x"]
 
-[ext_resource type="Script" path="res://Scripts/UI/Skill Menu/SkillMenu.gd" id="1_gb7ft"]
-[ext_resource type="PackedScene" uid="uid://bngujmgvwnby5" path="res://Scenes/UI/Skill/Skill Tree Button.tscn" id="2_44m12"]
-[ext_resource type="Script" path="res://Scripts/UI/Skill Menu/SkillsTreeRenderer.gd" id="3_3kt4c"]
-[ext_resource type="Script" path="res://Scripts/UI/Skill Menu/AttributesMenu.gd" id="4_k8sm6"]
-[ext_resource type="PackedScene" uid="uid://dq83dljr1ulfa" path="res://Scenes/UI/Skill/Attribute Menu Entry.tscn" id="5_b7hp3"]
-[ext_resource type="Script" path="res://Scripts/UI/Skill Menu/ClassUpgradeMenu.gd" id="6_j0n5l"]
-[ext_resource type="Script" path="res://Scripts/UI/Skill Menu/AttributesUpgrader.gd" id="7_ufqe0"]
+[ext_resource type="Script" path="res://Scripts/UI/Skill Menu/SkillMenuController.gd" id="1_qqvha"]
+[ext_resource type="Script" path="res://Scripts/UI/Skill Menu/SkillTreeRenderer.gd" id="2_ojcqh"]
+[ext_resource type="PackedScene" uid="uid://bngujmgvwnby5" path="res://Scenes/UI/Skill/Skill Tree Button.tscn" id="3_g67wd"]
+[ext_resource type="Script" path="res://Scripts/UI/Skill Menu/AttributesMenu.gd" id="4_p8lrj"]
+[ext_resource type="PackedScene" uid="uid://dq83dljr1ulfa" path="res://Scenes/UI/Skill/Attribute Menu Entry.tscn" id="5_bcf1b"]
+[ext_resource type="Script" path="res://Scripts/UI/Skill Menu/ClassUpgradeMenu.gd" id="5_f68im"]
+[ext_resource type="Script" path="res://Scripts/UI/Skill Menu/AttributesUpgrader.gd" id="6_x1qmq"]
 
-[node name="SkillMenu" type="CanvasLayer"]
+[node name="Skill Menu" type="CanvasLayer"]
 
-[node name="SkillMenu" type="Control" parent="." node_paths=PackedStringArray("character_tab_bar", "class_tabs", "exit_button", "confirm_button", "undo_skill_points_button", "skill_points_label", "canvas", "skills_tree_renderer", "attributes_menu", "class_upgrade_menu", "attributes_upgrader")]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 399.0
-offset_top = 213.0
-offset_right = 439.0
-offset_bottom = 253.0
-script = ExtResource("1_gb7ft")
-character_tab_bar = NodePath("Character Tabs")
-class_tabs = NodePath("OverviewPanel/SkillsPanel/Class Tabs")
-exit_button = NodePath("ExitButton")
-confirm_button = NodePath("OverviewPanel/SkillsPanel/ConfirmButton")
-undo_skill_points_button = NodePath("OverviewPanel/SkillsPanel/UndoButton")
-skill_points_label = NodePath("OverviewPanel/SkillsPanel/SkillPointsLabel")
+[node name="SkillMenuController" type="Node" parent="." node_paths=PackedStringArray("character_tab_bar", "class_tabs", "exit_button", "confirm_button", "undo_skill_points_button", "skill_points_label", "canvas", "skill_tree_renderer", "attributes_menu", "class_upgrade_menu", "attributes_upgrader")]
+script = ExtResource("1_qqvha")
+character_tab_bar = NodePath("../OverviewPanel/Character Tabs")
+class_tabs = NodePath("../OverviewPanel/SkillsPanel/Class Tabs")
+exit_button = NodePath("../OverviewPanel/ExitButton")
+confirm_button = NodePath("../OverviewPanel/SkillsPanel/ConfirmButton")
+undo_skill_points_button = NodePath("../OverviewPanel/SkillsPanel/UndoButton")
+skill_points_label = NodePath("../OverviewPanel/SkillsPanel/SkillPointsLabel")
 canvas = NodePath("..")
-skills_tree_renderer = NodePath("SkillsTreeRenderer")
-attributes_menu = NodePath("AttributesMenu")
-class_upgrade_menu = NodePath("ClassUpgradeMenu")
-attributes_upgrader = NodePath("AttributesUpgrader")
+skill_tree_renderer = NodePath("../SkillTreeRenderer")
+attributes_menu = NodePath("../AttributesMenu")
+class_upgrade_menu = NodePath("../ClassUpgradeMenu")
+attributes_upgrader = NodePath("../AttributesUpgrader")
 
-[node name="SkillsTreeRenderer" type="Node" parent="SkillMenu" node_paths=PackedStringArray("branches_container")]
-script = ExtResource("3_3kt4c")
+[node name="SkillTreeRenderer" type="Node" parent="." node_paths=PackedStringArray("branches_container")]
+script = ExtResource("2_ojcqh")
 branches_container = NodePath("../OverviewPanel/SkillsPanel/SkillsContainer/BranchesContainer")
-skill_menu_button_template = ExtResource("2_44m12")
+stb_template = ExtResource("3_g67wd")
 
-[node name="AttributesUpgrader" type="Node" parent="SkillMenu"]
-script = ExtResource("7_ufqe0")
-
-[node name="AttributesMenu" type="Node" parent="SkillMenu" node_paths=PackedStringArray("points_label", "container", "upgrader", "confirm_button", "undo_button")]
-script = ExtResource("4_k8sm6")
+[node name="AttributesMenu" type="Node" parent="." node_paths=PackedStringArray("points_label", "container", "upgrader", "confirm_button", "undo_button")]
+script = ExtResource("4_p8lrj")
 points_label = NodePath("../OverviewPanel/AttributesPanel/AttributePointsLabel")
 container = NodePath("../OverviewPanel/AttributesPanel/AttributesContainer")
-menu_entry_template = ExtResource("5_b7hp3")
+menu_entry_template = ExtResource("5_bcf1b")
 upgrader = NodePath("../AttributesUpgrader")
 confirm_button = NodePath("../OverviewPanel/SkillsPanel/ConfirmButton")
 undo_button = NodePath("../OverviewPanel/SkillsPanel/UndoButton")
 
-[node name="ClassUpgradeMenu" type="Node" parent="SkillMenu" node_paths=PackedStringArray("info_container", "upgrade_button", "upgrader")]
-script = ExtResource("6_j0n5l")
+[node name="ClassUpgradeMenu" type="Node" parent="." node_paths=PackedStringArray("info_container", "upgrade_button", "upgrader")]
+script = ExtResource("5_f68im")
 info_container = NodePath("../OverviewPanel/SkillsPanel/ClassInfoContainer")
 upgrade_button = NodePath("../OverviewPanel/SkillsPanel/ClassUpgradeButton")
 upgrader = NodePath("../AttributesUpgrader")
 
-[node name="Character Tabs" type="TabBar" parent="SkillMenu"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="AttributesUpgrader" type="Node" parent="."]
+script = ExtResource("6_x1qmq")
+
+[node name="OverviewPanel" type="Panel" parent="."]
+custom_minimum_size = Vector2(1500, 800)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -750.0
+offset_top = -400.0
+offset_right = 750.0
+offset_bottom = 400.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Character Tabs" type="TabBar" parent="OverviewPanel"]
+layout_mode = 1
+offset_top = -39.0
+offset_right = 220.0
+offset_bottom = 1.0
 tab_count = 2
 clip_tabs = false
 tab_0/title = "Character 1"
 tab_1/title = "Character 2"
 
-[node name="OverviewPanel" type="Panel" parent="SkillMenu"]
-custom_minimum_size = Vector2(1500, 800)
-layout_mode = 0
-offset_top = 40.0
-offset_right = 40.0
-offset_bottom = 80.0
-
-[node name="SkillsPanel" type="Panel" parent="SkillMenu/OverviewPanel"]
+[node name="SkillsPanel" type="Panel" parent="OverviewPanel"]
 layout_mode = 0
 offset_left = 33.0
 offset_top = 35.0
 offset_right = 1137.0
 offset_bottom = 683.0
 
-[node name="Class Tabs" type="TabBar" parent="SkillMenu/OverviewPanel/SkillsPanel"]
+[node name="Class Tabs" type="TabBar" parent="OverviewPanel/SkillsPanel"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 31.0
+offset_top = 7.0
+offset_bottom = 57.0
 grow_horizontal = 2
-tab_count = 2
 clip_tabs = false
-tab_0/title = "Class 1"
-tab_1/title = "Class 2"
 
-[node name="AttributesHeaderLabel" type="Label" parent="SkillMenu/OverviewPanel/SkillsPanel"]
+[node name="AttributesHeaderLabel" type="Label" parent="OverviewPanel/SkillsPanel"]
 layout_mode = 0
 offset_left = 493.0
 offset_top = 564.0
@@ -97,7 +97,7 @@ offset_bottom = 587.0
 text = "SKILLS & CLASS LEVELS"
 uppercase = true
 
-[node name="SkillPointsLabel" type="Label" parent="SkillMenu/OverviewPanel/SkillsPanel"]
+[node name="SkillPointsLabel" type="Label" parent="OverviewPanel/SkillsPanel"]
 layout_mode = 0
 offset_left = 493.0
 offset_top = 596.0
@@ -105,7 +105,7 @@ offset_right = 680.0
 offset_bottom = 619.0
 text = "No available skills point"
 
-[node name="SkillsContainer" type="ScrollContainer" parent="SkillMenu/OverviewPanel/SkillsPanel"]
+[node name="SkillsContainer" type="ScrollContainer" parent="OverviewPanel/SkillsPanel"]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 88.0
@@ -113,17 +113,17 @@ offset_right = 1040.0
 offset_bottom = 528.0
 follow_focus = true
 
-[node name="BranchesContainer" type="VBoxContainer" parent="SkillMenu/OverviewPanel/SkillsPanel/SkillsContainer"]
+[node name="BranchesContainer" type="VBoxContainer" parent="OverviewPanel/SkillsPanel/SkillsContainer"]
 layout_mode = 2
 
-[node name="ClassInfoContainer" type="VBoxContainer" parent="SkillMenu/OverviewPanel/SkillsPanel"]
+[node name="ClassInfoContainer" type="VBoxContainer" parent="OverviewPanel/SkillsPanel"]
 layout_mode = 0
 offset_left = 48.0
 offset_top = 528.0
 offset_right = 272.0
 offset_bottom = 632.0
 
-[node name="ClassUpgradeButton" type="Button" parent="SkillMenu/OverviewPanel/SkillsPanel"]
+[node name="ClassUpgradeButton" type="Button" parent="OverviewPanel/SkillsPanel"]
 layout_mode = 0
 offset_left = 280.0
 offset_top = 560.0
@@ -132,7 +132,7 @@ offset_bottom = 608.0
 disabled = true
 text = "Upgrade"
 
-[node name="ConfirmButton" type="Button" parent="SkillMenu/OverviewPanel/SkillsPanel"]
+[node name="ConfirmButton" type="Button" parent="OverviewPanel/SkillsPanel"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 0
 offset_left = 1144.0
@@ -142,7 +142,7 @@ offset_bottom = 370.0
 disabled = true
 text = "Confirm"
 
-[node name="UndoButton" type="Button" parent="SkillMenu/OverviewPanel/SkillsPanel"]
+[node name="UndoButton" type="Button" parent="OverviewPanel/SkillsPanel"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 0
 offset_left = 1144.0
@@ -152,14 +152,14 @@ offset_bottom = 434.0
 disabled = true
 text = "Undo points"
 
-[node name="AttributesPanel" type="Panel" parent="SkillMenu/OverviewPanel"]
+[node name="AttributesPanel" type="Panel" parent="OverviewPanel"]
 layout_mode = 0
 offset_left = 1177.0
 offset_top = 43.0
 offset_right = 1457.0
 offset_bottom = 334.0
 
-[node name="AttributesHeaderLabel" type="Label" parent="SkillMenu/OverviewPanel/AttributesPanel"]
+[node name="AttributesHeaderLabel" type="Label" parent="OverviewPanel/AttributesPanel"]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 24.0
@@ -168,7 +168,7 @@ offset_bottom = 47.0
 text = "Attributes"
 uppercase = true
 
-[node name="AttributePointsLabel" type="Label" parent="SkillMenu/OverviewPanel/AttributesPanel"]
+[node name="AttributePointsLabel" type="Label" parent="OverviewPanel/AttributesPanel"]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 48.0
@@ -176,18 +176,21 @@ offset_right = 187.0
 offset_bottom = 71.0
 text = "Available attribute points: 0"
 
-[node name="AttributesContainer" type="VBoxContainer" parent="SkillMenu/OverviewPanel/AttributesPanel"]
+[node name="AttributesContainer" type="VBoxContainer" parent="OverviewPanel/AttributesPanel"]
 layout_mode = 0
 offset_left = 32.0
 offset_top = 88.0
 offset_right = 72.0
 offset_bottom = 128.0
 
-[node name="ExitButton" type="Button" parent="SkillMenu"]
+[node name="ExitButton" type="Button" parent="OverviewPanel"]
 custom_minimum_size = Vector2(50, 0)
-layout_mode = 0
-offset_left = 1450.0
-offset_top = 8.0
-offset_right = 1500.0
-offset_bottom = 39.0
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -50.0
+offset_top = -35.0
+offset_bottom = -4.0
+grow_horizontal = 0
 text = "X"

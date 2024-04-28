@@ -1,21 +1,16 @@
-## This node spawns the skills tree
-## by spawning the buttons and their connecting lines
-class_name SkillsTreeRenderer extends Node
+## Handles displaying the skill tree.
+class_name SkillTreeRenderer extends Node
 
 signal skill_buttons_finished_rendering
-var skill_points_depleted: Signal
+const SKILL_TREE_BUTTON_GROUP_NAME : String = "Skill Tree Buttons"
 
 @export var branches_container: VBoxContainer
 @export var stb_template: PackedScene
-@export var skills_group_name : String = "skills"
 
 # {button : leaves}
 var root_to_leaves: Dictionary = {}
 
 var visited_skill_instances: Dictionary = {}
-
-func initialize(points_depleted: Signal) -> void:
-	skill_points_depleted = points_depleted
 
 ## Display the passed skill instances.
 func display_skill_instances(skill_instances: Array[SkillInstance]) -> void:
@@ -114,7 +109,7 @@ func fade_in(item: CanvasItem):
 func make_skill_button(skill: SkillInstance) -> SkillTreeButton:
 	var button := stb_template.instantiate() as SkillTreeButton
 	button.initialize( skill )
-	button.add_to_group( skills_group_name )
+	button.add_to_group( SKILL_TREE_BUTTON_GROUP_NAME )
 	return button
 
 func clear_skills():

@@ -1,4 +1,5 @@
-class_name SkillMenu extends Control
+## Controls all aspects of the skills menu.
+class_name SkillMenuController extends Node
 
 signal skill_points_available
 signal skill_points_depleted
@@ -12,7 +13,7 @@ signal class_changed(new_class: CharacterClass)
 @export var undo_skill_points_button: Button
 @export var skill_points_label: Label
 @export var canvas: CanvasLayer
-@export var skills_tree_renderer: SkillsTreeRenderer
+@export var skill_tree_renderer: SkillTreeRenderer
 @export var attributes_menu: AttributesMenu
 @export var class_upgrade_menu: ClassUpgradeMenu
 @export var attributes_upgrader: AttributesUpgrader
@@ -21,12 +22,11 @@ var characters:= PlayerPartyController.party_members
 var current_character: PlayerCombatant
 var draft_available_skill_points
 
-func _ready():
+func _ready() -> void:
 	add_tabs_per_character()
-	visibility_changed.connect( on_visibility_changed )
-	skills_tree_renderer.initialize(skill_points_depleted)
-	skills_tree_renderer.skill_buttons_finished_rendering.connect(
-		on_skills_renderer_finished_drawing_skills
+	canvas.visibility_changed.connect( on_visibility_changed )
+	skill_tree_renderer.skill_buttons_finished_rendering.connect(
+		on_skills_finished_spawning
 	)
 	character_tab_bar.tab_changed.connect( on_character_tab_changed )
 	class_tabs.tab_changed.connect( on_character_class_tab_changed )
@@ -48,7 +48,7 @@ func add_tabs_per_character():
 		character_tab_bar.add_tab( tab_name )
 
 func on_visibility_changed():
-	if visible == true:
+	if canvas.visible == true:
 		on_character_tab_changed( character_tab_bar.current_tab )
 
 func on_character_tab_changed(index: int):
@@ -77,7 +77,7 @@ func on_character_class_tab_changed(index: int) -> void:
 	var skill_instances: Array[SkillInstance] = get_skill_instances_of_class(
 		desired_class
 	)
-	skills_tree_renderer.display_skill_instances(
+	skill_tree_renderer.display_skill_instances(
 		skill_instances
 	)
 	
@@ -91,23 +91,32 @@ func get_skill_instances_of_class(desired_class: CharacterClass) -> Array[SkillI
 		skill_instances.append( d[skill] )
 	return skill_instances
 
-func on_skills_renderer_finished_drawing_skills() -> void:
-	if current_character.available_skill_points < 1:
-		get_tree().call_group(skills_tree_renderer.skills_group_name, "disable")
+## Fired when the skills tree renderer has finished spawning all the buttons.
+func on_skills_finished_spawning() -> void:
+	if draft_available_skill_points > 0:
+		var stbs = get_tree().get_nodes_in_group(skill_tree_renderer.SKILL_TREE_BUTTON_GROUP_NAME)
+		var skill_buttons: Array[SkillTreeButton]
+		skill_buttons.append_array( stbs )
+		for b in skill_buttons:
+			b.enable_button_if_possible()
+			b.skill_upgraded.connect( on_skill_upgraded )
+	else:
+		get_tree().call_group(skill_tree_renderer.SKILL_TREE_BUTTON_GROUP_NAME, "disable")
 
 func on_skill_upgraded(skill_instance: SkillInstance) -> void:
 	deduct_one_point()
+	pass
 
 func confirm_points():
 	attributes_upgrader.confirm()
-	get_tree().call_group( skills_tree_renderer.skills_group_name, "confirm" )
+	get_tree().call_group( skill_tree_renderer.SKILL_TREE_BUTTON_GROUP_NAME, "confirm" )
 	current_character.available_skill_points = draft_available_skill_points
 	# Set this last, as the buttons upgrade based on skill point signal 
 	set_draft_skill_points( current_character.available_skill_points )
 
 func undo_points():
 	attributes_upgrader.undo()
-	get_tree().call_group( skills_tree_renderer.skills_group_name, "undo" )
+	get_tree().call_group( skill_tree_renderer.SKILL_TREE_BUTTON_GROUP_NAME, "undo" )
 	# Set this last, as the buttons upgrade based on skill point signal 
 	set_draft_skill_points( current_character.available_skill_points )
 
@@ -116,21 +125,25 @@ func deduct_one_point():
 
 func set_draft_skill_points(new_value: int):
 	draft_available_skill_points = new_value
-	emit_correct_signal()
 	set_draft_skill_points_label()
-	disable_confirm_and_undo_if_no_action_taken()
+	emit_correct_signal()
+	handle_confirm_and_undo()
+
+func set_draft_skill_points_label():
+	skill_points_label.text = "Available skill points: "
+	skill_points_label.text += str( draft_available_skill_points )
 
 func emit_correct_signal():
 	if draft_available_skill_points == 0:
 		skill_points_depleted.emit()
 	else:
 		skill_points_available.emit()
-
-func set_draft_skill_points_label():
-	skill_points_label.text = "Available skill points: "
-	skill_points_label.text += str( draft_available_skill_points )
-
-func disable_confirm_and_undo_if_no_action_taken():
-	var no_action_taken: bool = draft_available_skill_points == current_character.available_skill_points
-	confirm_button.disabled = no_action_taken
-	undo_skill_points_button.disabled = no_action_taken
+	
+func handle_confirm_and_undo() -> void:
+	if draft_available_skill_points == 0 or draft_available_skill_points == \
+	current_character.available_skill_points:
+		confirm_button.disabled           = true
+		undo_skill_points_button.disabled = true
+	else:
+		confirm_button.disabled           = false
+		undo_skill_points_button.disabled = false

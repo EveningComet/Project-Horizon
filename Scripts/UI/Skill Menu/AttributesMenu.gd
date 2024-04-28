@@ -41,9 +41,9 @@ func set_draft_points(points: int):
 	disable_confirm_and_undo_if_no_action_taken()
 
 func emit_correct_signal():
-	if (draft_points == 0):
+	if draft_points == 0:
 		emit_signal( "attribute_points_depleted" )
-	elif (draft_points > 0):
+	elif draft_points > 0:
 		emit_signal( "attribute_points_available" )
 
 func update_points_label():
