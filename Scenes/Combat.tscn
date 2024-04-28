@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b5ob880mpsigo"]
+[gd_scene load_steps=26 format=3 uid="uid://b5ob880mpsigo"]
 
 [ext_resource type="Script" path="res://Scripts/Battle/Battle Manager/BattleManager.gd" id="2_6ahfq"]
 [ext_resource type="Script" path="res://Scripts/Battle/Battle Manager/Battle Manager States/BattleStart.gd" id="2_t654k"]
@@ -12,7 +12,11 @@
 [ext_resource type="Script" path="res://Scripts/Battle/Player Battle/PlayerBattleController.gd" id="8_e6ewj"]
 [ext_resource type="Script" path="res://Scripts/Battle/Player Battle/PlayerActionCommands.gd" id="10_c8j50"]
 [ext_resource type="PackedScene" uid="uid://cojhji8fg6py0" path="res://Scenes/UI/Battle/UI Battle Cursor.tscn" id="13_nw3rt"]
+[ext_resource type="Script" path="res://Scripts/Battle/Status Effects/StatusEffectManager.gd" id="14_3av72"]
 [ext_resource type="Script" path="res://Scripts/Battle/EnemyDecisionHandler.gd" id="14_mr7ht"]
+[ext_resource type="Script" path="res://Scripts/Battle/Status Effects/TryApplyEffect.gd" id="15_7qkp2"]
+[ext_resource type="Script" path="res://Scripts/Battle/Status Effects/OnApply.gd" id="15_8xqjc"]
+[ext_resource type="Script" path="res://Scripts/Battle/Status Effects/EffectInactive.gd" id="15_i8yuy"]
 [ext_resource type="Script" path="res://Scripts/Battle/BattleCursorController.gd" id="16_idmqv"]
 [ext_resource type="PackedScene" uid="uid://d3oovqlxv70nw" path="res://Scenes/UI/Battle/Enemy Battle HUD.tscn" id="16_iosug"]
 [ext_resource type="PackedScene" uid="uid://d0rud050eh1c1" path="res://Scenes/UI/Battle/Player Battle HUD.tscn" id="17_57lxs"]
@@ -76,9 +80,23 @@ script = ExtResource("6_nchxf")
 homebase_home_scene = "res://Scenes/UI/Homebase/Homebase Home Menu.tscn"
 battle_results_screen = NodePath("../../CanvasLayer/Battle Results Screen")
 
-[node name="ActionExecutor" type="Node" parent="." node_paths=PackedStringArray("death_handler")]
+[node name="ActionExecutor" type="Node" parent="." node_paths=PackedStringArray("death_handler", "status_effect_manager")]
 script = ExtResource("17_i3r5f")
 death_handler = NodePath("../BattleDeathHandler")
+status_effect_manager = NodePath("../StatusEffectManager")
+
+[node name="StatusEffectManager" type="Node" parent="."]
+script = ExtResource("14_3av72")
+initial_state = NodePath("EffectInactive")
+
+[node name="EffectInactive" type="Node" parent="StatusEffectManager"]
+script = ExtResource("15_i8yuy")
+
+[node name="TryApplyEffect" type="Node" parent="StatusEffectManager"]
+script = ExtResource("15_7qkp2")
+
+[node name="OnApply" type="Node" parent="StatusEffectManager"]
+script = ExtResource("15_8xqjc")
 
 [node name="EnemyDecisionHandler" type="Node" parent="."]
 script = ExtResource("14_mr7ht")
