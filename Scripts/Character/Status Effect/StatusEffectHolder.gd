@@ -27,7 +27,9 @@ func apply_status_effects() -> void:
 		if (combat_data.duration <= 0):
 			remove_status_effect(status)
 		else:
-			apply_if_not_null(combat_data.on_tick_action_mediator)
+			if (status.on_turn_tick != null):
+				combat_data.on_tick_action_mediator.damage_data[status.on_turn_tick.damage_type] += status.on_turn_tick.damage_increase_per_turn
+				apply_if_not_null(combat_data.on_tick_action_mediator)
 			combat_data.duration -= 1
 			print(monitored_combatant, ": ticked status ", status.localization_name, ", turns left: ", combat_data.duration)
 
@@ -35,7 +37,7 @@ func remove_status_effect(status_to_remove: StatusEffect) -> void:
 	apply_if_not_null(statuses[status_to_remove].on_expire_action_mediator)
 	statuses.erase(status_to_remove)
 	print(monitored_combatant, ": removed status ", status_to_remove.localization_name)
-	
+
 func apply_if_not_null(action_mediator: ActionMediator):
 	if (action_mediator != null):
 		monitored_combatant.take_damage(action_mediator)
