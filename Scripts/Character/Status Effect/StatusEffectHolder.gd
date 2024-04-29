@@ -8,14 +8,13 @@ var monitored_combatant: Combatant
 ## { status_effect : status_effect_combat_data }
 var statuses: Dictionary = {}
 
-var executor:= StatusEffectExecutor.new()
 
 func initialize(combatant: Combatant) -> void:
 	monitored_combatant = combatant
 	
 func add_status_effect(status_to_add: StatusEffect) -> void:
-	executor.trigger_on_apply(monitored_combatant, status_to_add)
 	statuses[status_to_add] = status_to_add.duration_in_turns
+	status_to_add.trigger(monitored_combatant, StatusEffectTypes.Application.OnApply)
 	print(monitored_combatant, ": added status ", status_to_add.localization_name, " for ", status_to_add.duration_in_turns, " turns")
 
 func apply_status_effects() -> void:
@@ -23,11 +22,11 @@ func apply_status_effects() -> void:
 		if (statuses[status] <= 0):
 			remove_status_effect(status)
 		else:
-			executor.trigger_on_turn_tick(monitored_combatant, status)
+			status.trigger(monitored_combatant, StatusEffectTypes.Application.OnTurnTick)
 			statuses[status] -= 1
 			print(monitored_combatant, ": ticked status ", status.localization_name, ", turns left: ", statuses[status])
 
 func remove_status_effect(status_to_remove: StatusEffect) -> void:
-	executor.trigger_on_expire(monitored_combatant, status_to_remove)
+	status_to_remove.trigger(monitored_combatant, StatusEffectTypes.Application.OnExpire)
 	statuses.erase(status_to_remove)
 	print(monitored_combatant, ": removed status ", status_to_remove.localization_name)
