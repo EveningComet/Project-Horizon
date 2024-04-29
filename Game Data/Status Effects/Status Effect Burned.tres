@@ -6,13 +6,13 @@
 
 [sub_resource type="Resource" id="Resource_7ttbn"]
 script = ExtResource("1_wu8ok")
-damage_to_inflict = 3
+base_damage = 3
 damage_type = 1
 
 [sub_resource type="Resource" id="Resource_1dhul"]
 script = ExtResource("2_ihqes")
 damage_increase_per_turn = 1
-damage_to_inflict = 3
+base_damage = 3
 damage_type = 1
 
 [resource]
