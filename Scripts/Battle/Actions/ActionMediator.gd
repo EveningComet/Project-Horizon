@@ -24,6 +24,9 @@ var status_damage_scalers: Dictionary = {}
 ## For attacks that heal the attacker.
 var damage_heal_percentage: float = 0.0
 
+## How many times an individual character can attack at once, heal, etc.
+var num_activations: int = 1
+
 ## Go through the container for damage data and return that as potential damage.
 func get_total_possible_damage() -> int:
 	var potential_damage: int = 0

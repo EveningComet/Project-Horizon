@@ -53,6 +53,7 @@ class_name SkillData extends Resource
 func get_usable_data(activator: Combatant) -> ActionMediator:
 	var action_mediator: ActionMediator = ActionMediator.new()
 	action_mediator.activator = activator
+	action_mediator.num_activations = num_activations
 	
 	# Loop through the effects, checking for ones that will increase the base damage
 	action_mediator.damage_data = {}

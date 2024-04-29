@@ -17,13 +17,31 @@ func add_from_character_class(cc: CharacterClass) -> void:
 
 ## Return all the stored skills.
 func skills() -> Array:
-	return skill_data_instances.values()
+	var results: Array = []
+	var visited: Dictionary = {}
+	# Use dfs to go through the skills
+	for skill_instance: SkillInstance in skill_data_instances.values():
+		
+		var stack: Array[SkillInstance] = []
+		visited[skill_instance] = true
+		stack.append(skill_instance)
+		while stack.is_empty() == false:
+			var current: SkillInstance = stack.pop_front()
+			for neighbor in current.branched_skills:
+				if visited.has(neighbor) == false:
+					visited[neighbor] = true
+					stack.append(visited)
+
+	return visited.keys()
 
 func get_usable_skills() -> Array:
 	var result = []
-	for skill_instance in skill_data_instances.values():
+	var visited: Array = skills()
+	for v in visited:
+		var skill_instance = v as SkillInstance
 		if skill_instance.current_upgrade_level > 0:
-			result.append( skill_instance )
+			result.append(v)
+	
 	return result
 
 ## Mainly for player characters.

@@ -58,46 +58,49 @@ func execute_action(action: StoredAction) -> void:
 	# Get all the data we need before hand
 	var action_mediator: ActionMediator = get_usable_data(action)
 	
-	# Check what to do based on the stored action object
-	match action.action_type:
-		ActionTypes.ActionTypes.AllEnemies, ActionTypes.ActionTypes.SingleEnemy:
-			
-			for target: Combatant in action.get_targets():
-				if target != null:
-					var generated_number: int = prng.randi() % 101
-					
-					# Chance to hit
-					if generated_number <= Formulas.get_chance_to_hit(activator, target):
-						# TODO: Crit chance
+	# Activate for the number of activations
+	for i: int in action_mediator.num_activations:
+	
+		# Check what to do based on the stored action object
+		match action.action_type:
+			ActionTypes.ActionTypes.AllEnemies, ActionTypes.ActionTypes.SingleEnemy:
+				
+				for target: Combatant in action.get_targets():
+					if target != null:
+						var generated_number: int = prng.randi() % 101
 						
-						# Apply damage
-						target.take_damage( action_mediator )
-					
-					for effect in action_mediator.status_effects_to_apply.keys():
-						if (prng.randf_range(0.0, 1.0) <= action_mediator.status_effects_to_apply[effect]):
-							target.status_effect_holder.add_status_effect(effect)
+						# Chance to hit
+						if generated_number <= Formulas.get_chance_to_hit(activator, target):
+							# TODO: Crit chance
+							
+							# Apply damage
+							target.take_damage( action_mediator )
+						
+						for effect in action_mediator.status_effects_to_apply.keys():
+							if (prng.randf_range(0.0, 1.0) <= action_mediator.status_effects_to_apply[effect]):
+								target.status_effect_holder.add_status_effect(effect)
+			
+			ActionTypes.ActionTypes.AllAllies, ActionTypes.ActionTypes.SingleAlly:
+				for target: Combatant in action.get_targets():
+					if target != null:
+						# TODO: Chance for success?
+						target.heal( action_mediator.heal_amount )
+						
+						# TODO: Apply status effects, if any
+						
+						if OS.is_debug_build() == true:
+							print("ActionExecutor :: %s got healed %s" % [target, action_mediator.heal_amount])
+			
+			ActionTypes.ActionTypes.Flee:
+				# TODO: Proper running away from a battle.
+				get_tree().quit()
+				return
 		
-		ActionTypes.ActionTypes.AllAllies, ActionTypes.ActionTypes.SingleAlly:
-			for target: Combatant in action.get_targets():
-				if target != null:
-					# TODO: Chance for success?
-					target.heal( action_mediator.heal_amount )
-					
-					# TODO: Apply status effects, if any
-					
-					if OS.is_debug_build() == true:
-						print("ActionExecutor :: %s got healed %s" % [target, action_mediator.heal_amount])
+		# Execute the mediator
+		await execute_mediator( action_mediator )
 		
-		ActionTypes.ActionTypes.Flee:
-			# TODO: Proper running away from a battle.
-			get_tree().quit()
-			return
-	
-	# Execute the mediator
-	await execute_mediator( action_mediator )
-	
-	# The action has been finished, move onto the next one, if able
-	next_action()
+		# The action has been finished, move onto the next one, if able
+		next_action()
 
 ## Check if a new target is needed for actions targeting a single enemy.
 func check_if_new_target_needed(action: StoredAction) -> StoredAction:

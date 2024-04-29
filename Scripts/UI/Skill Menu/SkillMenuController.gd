@@ -140,8 +140,8 @@ func emit_correct_signal():
 		skill_points_available.emit()
 	
 func handle_confirm_and_undo() -> void:
-	if draft_available_skill_points == 0 or draft_available_skill_points == \
-	current_character.available_skill_points:
+	if draft_available_skill_points == 0 and \
+	draft_available_skill_points == current_character.available_skill_points:
 		confirm_button.disabled           = true
 		undo_skill_points_button.disabled = true
 	else:
