@@ -11,7 +11,7 @@ damage_type = 1
 
 [sub_resource type="Resource" id="Resource_1dhul"]
 script = ExtResource("2_ihqes")
-damage_increase_per_turn = 1
+increase_ratio_per_turn = 0.5
 base_damage = 3
 damage_type = 1
 

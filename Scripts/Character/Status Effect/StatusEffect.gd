@@ -18,7 +18,7 @@ func trigger_on_apply(combatant: Combatant):
 func trigger_on_turn_tick(combatant: Combatant, turns_elapsed: int):
 	if (on_turn_tick != null):
 		var action_mediator := on_turn_tick.to_mediator(combatant)
-		action_mediator.damage_data[on_turn_tick.damage_type] += turns_elapsed * on_turn_tick.damage_increase_per_turn
+		action_mediator.damage_data[on_turn_tick.damage_type] += turns_elapsed * on_turn_tick.damage_increase_per_turn() 
 		combatant.take_damage(action_mediator)
 
 func trigger_on_expire(combatant: Combatant):
