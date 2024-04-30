@@ -37,6 +37,9 @@ class_name SkillData extends Resource
 ## If the skill is unlocked by default
 @export var is_unlocked_by_default: bool = false
 
+## The tier upgrades for this skill.
+@export var upgrades: Array[SkillData] = []
+
 ## The skills that get unlocked based on the rank of this skill.
 @export var branches: Array[SkillData] = []
 
