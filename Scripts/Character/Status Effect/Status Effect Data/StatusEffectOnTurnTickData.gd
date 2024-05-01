@@ -6,3 +6,8 @@ class_name StatusEffectOnTurnTickData extends StatusEffectData
 
 func damage_increase_per_turn() -> int:
 	return floor(increase_ratio_per_turn * base_damage)
+
+func trigger(combatant: Combatant, turns_elapsed: int):
+	var action_mediator := to_mediator(combatant)
+	action_mediator.damage_data[damage_type] += turns_elapsed * damage_increase_per_turn() 
+	combatant.take_damage(action_mediator)
