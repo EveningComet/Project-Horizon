@@ -4,7 +4,7 @@ class_name PBSelectAction extends PlayerBattleState
 func enter(msgs: Dictionary = {}) -> void:
 	my_state_machine.get_pac().action_selected.connect( on_action_selected )
 	my_state_machine.get_pac().open( my_state_machine.get_current_combatant() )
-	
+	EventBus.player_combatant_turn_started.emit( my_state_machine.get_current_combatant() )
 	if OS.is_debug_build() == true:
 		print("PBSelectAction :: Entered.")
 

@@ -14,6 +14,8 @@ signal battle_setup_finished
 
 signal begin_player_turn
 
+signal player_combatant_turn_started(combatant: Combatant)
+
 ## Used when the player or the enemy finishes their turn.
 signal side_finished_turn(actions_to_send: Array[StoredAction])
 
