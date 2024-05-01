@@ -12,9 +12,10 @@ func initialize(combatant: Combatant) -> void:
 	monitored_combatant = combatant
 	
 func add_status_effect(status_to_add: StatusEffect) -> void:
-	statuses[status_to_add] = status_to_add.duration_in_turns
-	status_to_add.trigger_on_apply(monitored_combatant)
-	print(monitored_combatant, ": added status effect ", status_to_add.localization_name, " for ", status_to_add.duration_in_turns, " turns")
+	if (not statuses.has(status_to_add)):
+		statuses[status_to_add] = status_to_add.duration_in_turns
+		status_to_add.trigger_on_apply(monitored_combatant)
+		print(monitored_combatant, ": added status effect ", status_to_add.localization_name, " for ", status_to_add.duration_in_turns, " turns")
 
 func apply_status_effects() -> void:
 	for status in statuses:
