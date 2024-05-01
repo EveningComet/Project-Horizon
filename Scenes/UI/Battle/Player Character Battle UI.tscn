@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c65rp21ut40w8"]
+[gd_scene load_steps=8 format=3 uid="uid://c65rp21ut40w8"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Battle/CombatantBattleUI.gd" id="1_k7vii"]
 [ext_resource type="Texture2D" uid="uid://cyuyl8f5a5uw7" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Panel01.png" id="1_mcyht"]
@@ -8,17 +8,31 @@
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v5rcx"]
 texture = ExtResource("1_mcyht")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kvnyo"]
+bg_color = Color(1, 1, 1, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7r0ni"]
 
-[node name="Player Character Battle UI" type="PanelContainer" node_paths=PackedStringArray("portrait_displayer", "hp_display_text", "sp_display_text")]
+[node name="Player Character Battle UI" type="PanelContainer" node_paths=PackedStringArray("portrait_displayer", "border", "hp_display_text", "sp_display_text")]
 custom_minimum_size = Vector2(225, 100)
 offset_right = 200.0
 offset_bottom = 100.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_v5rcx")
 script = ExtResource("1_k7vii")
 portrait_displayer = NodePath("MarginContainer/HBoxContainer/Portrait Displayer")
+border = NodePath("BorderPanel")
 hp_display_text = NodePath("MarginContainer/HBoxContainer/Vitals/VBoxContainer/HP Display")
 sp_display_text = NodePath("MarginContainer/HBoxContainer/Vitals/VBoxContainer/SP Display")
+
+[node name="BorderPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kvnyo")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

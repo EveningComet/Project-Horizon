@@ -8,6 +8,8 @@ class_name CombatantBattleUI extends PanelContainer
 # TODO: Update enemies to use the displayer.
 @export var portrait: TextureRect
 
+@export var border: Panel
+
 @export var damage_text_template: PackedScene
 
 @export var is_player_controlled: bool = false
@@ -38,6 +40,14 @@ func set_combatant(new_combatant: Combatant, is_player_owned: bool) -> void:
 		# Set the proper sprite/portrait for the enemy
 		var enemy = new_combatant as EnemyCombatant
 		portrait.set_texture( enemy.stored_enemy_data.portrait )
+	EventBus.player_combatant_turn_started.connect(player_combatant_turn_started)
+
+func player_combatant_turn_started(active_combatant: Combatant) -> void:
+	if is_player_controlled == true:
+		if (combatant == active_combatant):
+			border.show()
+		else:
+			border.hide()
 
 func on_stat_changed(monitored: Combatant) -> void:
 	if is_player_controlled == true:

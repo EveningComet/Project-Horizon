@@ -86,7 +86,9 @@ func execute_action(action: StoredAction) -> void:
 						# TODO: Chance for success?
 						target.heal( action_mediator.heal_amount )
 						
-						# TODO: Apply status effects, if any
+						for effect in action_mediator.status_effects_to_apply.keys():
+							if (prng.randf_range(0.0, 1.0) <= action_mediator.status_effects_to_apply[effect]):
+								target.status_effect_holder.add_status_effect(effect)
 						
 						if OS.is_debug_build() == true:
 							print("ActionExecutor :: %s got healed %s" % [target, action_mediator.heal_amount])

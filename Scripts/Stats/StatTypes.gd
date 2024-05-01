@@ -62,5 +62,8 @@ func attributes() -> Array[stat_types]:
 var stat_types_to_string:= {
 	stat_types.Vitality : "Vitality",
 	stat_types.Expertise : "Expertise",
-	stat_types.Will : "Will"
+	stat_types.Will : "Will",
+	stat_types.Perception : "Perception",
+	stat_types.Evasion : "Evasion",
+	stat_types.Speed : "Speed",
 }

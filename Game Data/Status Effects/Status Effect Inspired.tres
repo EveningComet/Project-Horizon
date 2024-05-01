@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=6 format=3 uid="uid://budclfsmtpc5x"]
+
+[ext_resource type="Script" path="res://Scripts/Character/Status Effect/StatusEffect.gd" id="1_ce3bg"]
+[ext_resource type="Script" path="res://Scripts/Character/Status Effect/Status Effect Data/StatusEffectOnApplyData.gd" id="1_q4yfk"]
+[ext_resource type="Script" path="res://Scripts/Stats/StatModifier.gd" id="2_wt74u"]
+
+[sub_resource type="Resource" id="Resource_1h6my"]
+script = ExtResource("2_wt74u")
+stat_changing = 7
+stat_modifier_type = 0
+value = 1.0
+sort_order = 0
+
+[sub_resource type="Resource" id="Resource_figji"]
+script = ExtResource("1_q4yfk")
+stat_modifiers = Array[ExtResource("2_wt74u")]([SubResource("Resource_1h6my")])
+base_damage = 0
+damage_type = 0
+
+[resource]
+script = ExtResource("1_ce3bg")
+localization_name = "Inspired"
+localization_description = "The sky's the limit for you."
+on_apply = SubResource("Resource_figji")
+duration_in_turns = 1
