@@ -8,7 +8,7 @@ class_name StatusEffect extends Resource
 @export var on_apply: StatusEffectOnApplyData
 @export var on_turn_tick: StatusEffectOnTurnTickData
 @export var on_expire: StatusEffectOnExpireData
-@export var duration_in_turns: int = 0
+@export var duration_in_turns: int = 1
 
 func trigger_on_apply(combatant: Combatant):
 	if (on_apply != null):
@@ -19,5 +19,7 @@ func trigger_on_turn_tick(combatant: Combatant, turns_elapsed: int):
 		on_turn_tick.trigger(combatant, turns_elapsed)
 
 func trigger_on_expire(combatant: Combatant):
+	if (on_apply != null):
+		on_apply.remove_modifiers(combatant)
 	if (on_expire != null):
 		on_expire.trigger(combatant)

@@ -6,6 +6,7 @@
 
 [sub_resource type="Resource" id="Resource_7ttbn"]
 script = ExtResource("1_wu8ok")
+perception_increase = 0
 base_damage = 3
 damage_type = 1
 
