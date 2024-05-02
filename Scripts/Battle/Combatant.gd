@@ -212,6 +212,9 @@ func check_if_max_vital_values_need_updating() -> void:
 func take_damage(action_mediator: ActionMediator) -> void:
 	var damage_data: Dictionary = action_mediator.damage_data
 	# Go through the damage types and apply the damage
+	# TODO: Hookup lifesteal for the attacker. (Make sure to not heal more health
+	# than the target has.)
+	# TODO: Hookup dealing more damage based on the target having debuffs.
 	for damage_type: StatTypes.DamageTypes in damage_data:
 		
 		# Get the damage and see how it should get scaled.

@@ -22,9 +22,6 @@ class_name SkillData extends Resource
 ## If the skill is not passive, how many times does it activate?
 @export var num_activations: int = 1
 
-## What is the highest level this skill can be?
-@export var max_rank: int = 3
-
 ## The minimum rank of the previous skill needed to unlock this skill.
 @export var minimum_rank_of_previous: int = 0
 
@@ -37,7 +34,7 @@ class_name SkillData extends Resource
 ## If the skill is unlocked by default
 @export var is_unlocked_by_default: bool = false
 
-## The tier upgrades for this skill.
+## The tier upgrades for this skill. Think of this as above rank 1.
 @export var upgrades: Array[SkillData] = []
 
 ## The skills that get unlocked based on the rank of this skill.
@@ -52,8 +49,17 @@ class_name SkillData extends Resource
 ## Texture for button in skills menu
 @export var display_texture: Texture2D
 
+## The max rank is determined by amount of upgrades.
+var max_rank: int = 1:
+	get:
+		if upgrades.size() == 0:
+			return 1
+		else:
+			return upgrades.size() + 1
+
 ## Get the needed data for the passed character.
-func get_usable_data(activator: Combatant) -> ActionMediator:
+## The upgrade level determines things such as power scaling.
+func get_usable_data(activator: Combatant, upgrade_level: int = 0) -> ActionMediator:
 	var action_mediator: ActionMediator = ActionMediator.new()
 	action_mediator.activator = activator
 	action_mediator.num_activations = num_activations
