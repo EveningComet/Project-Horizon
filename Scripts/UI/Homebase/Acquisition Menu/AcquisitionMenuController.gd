@@ -42,6 +42,7 @@ func _ready() -> void:
 	
 	deal_button.button_down.connect( on_deal_button_pressed )
 	recuperate_button.button_down.connect( on_recuperate_button_pressed )
+	recuperate_button.disabled = PlayerPartyController.has_members() == false
 	return_button.button_down.connect( on_return_button_pressed )
 	main_buttons_container.get_child(0).grab_focus()
 
@@ -51,8 +52,6 @@ func on_deal_button_pressed() -> void:
 	shop_inventory_displayer.show()
 
 func on_recuperate_button_pressed() -> void:
-	if PlayerPartyController.has_members() == false:
-		return
 	PlayerPartyController.fully_restore_hp_and_sp_of_party()
 
 func on_return_button_pressed() -> void:

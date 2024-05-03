@@ -23,8 +23,10 @@ func set_skill_user(new_user: PlayerCombatant) -> void:
 			var b: BattleActionButton = battle_skill_button_template.instantiate()
 			b.skill_instance = skill_instance
 			spawned_button_node.add_child( b )
-			# TODO: Proper disabling based on the cost.
-			b.disabled = skill_user.get_current_sp() < skill_instance.monitored_skill.cost
+			var sp_cost: int = skill_instance.monitored_skill.get_cost(
+				skill_instance.current_upgrade_level
+			)
+			b.disabled = skill_user.get_current_sp() < sp_cost
 			b.skill_button_highlighted.connect( on_skill_button_highlighted )
 
 ## Display the skills of the passed character to the player.

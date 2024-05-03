@@ -128,13 +128,13 @@ func get_usable_data(action: StoredAction) -> ActionMediator:
 	action_mediator.activator = activator
 	var has_skill: bool = action.skill_instance != null
 	if has_skill == true:
-		# TODO: Proper getting of the power based on the upgrade.
-		action_mediator = action.skill_instance.monitored_skill.get_usable_data(
-			activator
+		var skill_instance: SkillInstance  = action.skill_instance
+		var upgrade_level = skill_instance.current_upgrade_level
+		action_mediator = skill_instance.monitored_skill.get_usable_data(
+			activator, upgrade_level
 		)
 		# TODO: Get the skill chance to hit.
-		# TODO: Proper getting of the subtraction based on the instance upgrade level.
-		activator.sub_sp( action.skill_instance.monitored_skill.cost )
+		activator.sub_sp( skill_instance.monitored_skill.get_cost(upgrade_level) )
 	
 	# Get some normal damage
 	else:

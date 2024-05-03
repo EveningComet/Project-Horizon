@@ -25,6 +25,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		skill_menu.visible = !skill_menu.visible
 		
 		# Store and get the previously focused node depending on what happens
+		# TODO: Fix the error that occurs here when opening/closing these menus.
 		if skill_menu.visible == true:
 			previous_focus = get_viewport().gui_get_focus_owner()
 			buttons_container.hide()

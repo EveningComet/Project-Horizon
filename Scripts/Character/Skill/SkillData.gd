@@ -35,7 +35,7 @@ class_name SkillData extends Resource
 @export var is_unlocked_by_default: bool = false
 
 ## The tier upgrades for this skill. Think of this as above rank 1.
-@export var upgrades: Array[SkillData] = []
+@export var upgrades: Array[SkillUpgrade] = []
 
 ## The skills that get unlocked based on the rank of this skill.
 @export var branches: Array[SkillData] = []
@@ -56,6 +56,12 @@ var max_rank: int = 1:
 			return 1
 		else:
 			return upgrades.size() + 1
+
+## Get the cost based on the upgrade level or just the base cost.
+func get_cost(upgrade_level: int = 1) -> int:
+	if upgrade_level > 1 and upgrade_level - 2 < upgrades.size():
+		return upgrades[upgrade_level - 2].new_cost
+	return cost
 
 ## Get the needed data for the passed character.
 ## The upgrade level determines things such as power scaling.
@@ -100,3 +106,6 @@ func get_usable_data(activator: Combatant, upgrade_level: int = 0) -> ActionMedi
 			pass
 	
 	return action_mediator
+
+func get_damage_effect(de: DirectDamage):
+	return null
