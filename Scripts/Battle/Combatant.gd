@@ -24,7 +24,7 @@ var status_effect_holder: StatusEffectHolder = StatusEffectHolder.new()
 var equipment_holder: EquipmentInventory = EquipmentInventory.new(self)
 
 ## The skills being monitored for this character.
-var skill_holder: SkillHolder = SkillHolder.new()
+var skill_holder: SkillHolder = SkillHolder.new(self)
 
 ## Initialize the stats. This version just gives base values.
 func initialize() -> void:

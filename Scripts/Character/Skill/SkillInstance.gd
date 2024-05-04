@@ -1,10 +1,14 @@
 ## Stores an instance of a skill.
 class_name SkillInstance
 
-signal skill_lock_status_changed()
+## Notifiies about upgrades.
+signal skill_upgraded(si: SkillInstance)
 
-# TODO: Handling for if the skill unlocks at a class level and a previous
-# minimum rank.
+## Notifies about downgrades.
+signal skill_downgraded(si: SkillInstance)
+
+## Notifies things for whether or not the player is able to upgrade this skill.
+signal skill_lock_status_changed()
 
 var monitored_skill: SkillData
 var branched_skills: Array[SkillInstance] = []
@@ -64,6 +68,7 @@ func try_to_relock_with_class_level(new_level: int) -> void:
 func upgrade_to_level(new_level: int) -> void:
 	current_upgrade_level = new_level
 	handle_unlock(current_upgrade_level)
+	skill_upgraded.emit(self)
 
 func handle_unlock(new_level: int) -> void:
 	for branch in branched_skills:
@@ -75,6 +80,7 @@ func handle_unlock(new_level: int) -> void:
 func downgrade(new_level: int) -> void:
 	current_upgrade_level = new_level
 	handle_relock()
+	skill_downgraded.emit(self)
 
 func handle_relock() -> void:
 	for s in unlocked_skills:

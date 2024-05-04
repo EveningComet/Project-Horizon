@@ -15,7 +15,7 @@ use_special_stat = false
 
 [sub_resource type="Resource" id="Resource_eofvm"]
 script = ExtResource("5_nwpx6")
-new_cost = 5
+cost = 5
 power_scale = 1.0
 bonus_damage_scale_on_debuffs_present = 0.0
 attacker_heal_percentage = 0.0

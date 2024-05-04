@@ -13,7 +13,7 @@ func initialize(
 	
 	attribute = _attribute
 	upgrader = _upgrader
-	upgrader.stats_changed.connect( update_and_render )
+	upgrader.draft_stats_changed.connect( update_and_render )
 	_points_depleted.connect( disable_upgrade )
 	_points_available.connect( enable_upgrade )
 	upgrade_button.button_down.connect( upgrade )

@@ -110,11 +110,6 @@ func get_usable_data(activator: Combatant, upgrade_level: int = 0) -> ActionMedi
 				upgrade_level,
 				healing_effect
 			)
-		
-		# See what permanent stat boosters will be applied
-		elif effect is PermanentStatBooster:
-			# TODO: Implement permanent stat boosters.
-			pass
 	
 	return action_mediator
 

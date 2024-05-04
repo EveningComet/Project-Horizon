@@ -7,7 +7,7 @@ signal class_upgraded
 
 signal stats_confirmed
 signal stats_undone
-signal stats_changed(new_stats: Dictionary)
+signal draft_stats_changed(new_stats: Dictionary)
 
 var character: PlayerCombatant
 var current_class: CharacterClass
@@ -28,12 +28,20 @@ func set_class(_new_class: CharacterClass):
 	reset_draft_stats()
 
 func store_stats(_character: PlayerCombatant):
+	if character != null:
+		character.stat_changed.disconnect( on_character_stats_changed )
 	character = _character
+	character.stat_changed.connect( on_character_stats_changed )
 	classes_and_class_levels = character.pc_classes.duplicate()
 	reset_draft_stats()
 
+## When the stats of the monitored character change.
+func on_character_stats_changed(_character: PlayerCombatant) -> void:
+	for attribute in attributes:
+		draft_stats[attribute] = character.stats[attribute].get_base_value()
+	draft_stats_changed.emit( draft_stats )
+
 func confirm():
-	
 	# Upgrade the class level
 	for key: CharacterClass in classes_and_class_levels:
 		var diff: int = classes_and_class_levels[key] - character.pc_classes[key]
@@ -49,16 +57,16 @@ func confirm():
 			character.raise_base_value_by(attribute, diff)
 	
 	reset_draft_stats()
-	emit_signal( "stats_confirmed" )
+	stats_confirmed.emit()
 
 func undo():
 	reset_draft_stats()
-	emit_signal( "stats_undone" )
+	stats_undone.emit()
 
 func attribute_upgrade(attribute: StatTypes.stat_types):
 	draft_stats[attribute] += 1
-	emit_signal( "attribute_upgraded" )
-	emit_signal( "stats_changed", draft_stats )
+	attribute_upgraded.emit()
+	draft_stats_changed.emit(draft_stats)
 
 func class_upgrade(upgrading_class: CharacterClass):
 	classes_and_class_levels[upgrading_class] += 1
@@ -71,8 +79,8 @@ func class_upgrade(upgrading_class: CharacterClass):
 		current_class, classes_and_class_levels[upgrading_class]
 	)
 	
-	emit_signal( "class_upgraded" )
-	emit_signal( "stats_changed", draft_stats )
+	class_upgraded.emit()
+	draft_stats_changed.emit( draft_stats )
 
 func reset_draft_stats():
 	if current_class != null and character != null and character.pc_classes.has(current_class):
@@ -85,4 +93,4 @@ func reset_draft_stats():
 			current_class, character.pc_classes[current_class]
 		)
 		
-		emit_signal( "stats_changed", draft_stats )
+		draft_stats_changed.emit( draft_stats )
