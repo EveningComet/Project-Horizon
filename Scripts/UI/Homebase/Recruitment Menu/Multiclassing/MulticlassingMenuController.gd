@@ -24,7 +24,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	curr_state.check_for_unhandled_input(event)
 
 func set_me_up() -> void:
-	potential_classes.append_array( CharacterClassDb.get_database() )
+	potential_classes.append_array( Database.get_character_class_database() )
 	potential_classes.sort_custom( sort_name )
 	super()
 

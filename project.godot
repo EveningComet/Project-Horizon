@@ -24,7 +24,7 @@ EventBus="*res://Scripts/Autoloads/EventBus.gd"
 PlayerInventory="*res://Scripts/Autoloads/PlayerInventory.gd"
 MissionController="*res://Scripts/Autoloads/MissionController.gd"
 SoundManager="*res://addons/sound_manager/sound_manager.gd"
-CharacterClassDb="*res://Scripts/Autoloads/CharacterClassDb.gd"
+Database="*res://Scripts/Autoloads/Database.gd"
 
 [display]
 

@@ -142,6 +142,7 @@ theme_override_constants/margin_bottom = 10
 [node name="Class Container" type="VBoxContainer" parent="ScrollContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
+alignment = 1
 
 [node name="Character Name Input Screen" parent="." instance=ExtResource("10_fiy61")]
 visible = false

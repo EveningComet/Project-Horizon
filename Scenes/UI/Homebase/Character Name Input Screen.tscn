@@ -24,7 +24,7 @@ Scotty
 Chekov
 Leonard"
 accept_name_button = NodePath("Background/MarginContainer/VBoxContainer/Accept Name")
-name_entry = NodePath("Background/MarginContainer/VBoxContainer/LineEdit")
+name_entry = NodePath("Background/MarginContainer/VBoxContainer/Name Entry")
 
 [node name="Background" type="Panel" parent="."]
 custom_minimum_size = Vector2(400, 250)
@@ -61,7 +61,7 @@ theme_override_font_sizes/font_size = 25
 text = "Enter a name for your character:"
 horizontal_alignment = 1
 
-[node name="LineEdit" type="LineEdit" parent="Background/MarginContainer/VBoxContainer"]
+[node name="Name Entry" type="LineEdit" parent="Background/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 25

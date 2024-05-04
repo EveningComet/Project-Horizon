@@ -17,6 +17,8 @@ signal player_finished_entering_name()
 ## The current player character the player is naming or renaming.
 var current_character: PlayerCombatant
 
+var previous_name: String = ""
+
 func _ready() -> void:
 	name_entry.text_submitted.connect( on_text_submitted )
 	randomize_name_button.button_down.connect( on_randomize_name_button_pressed )
@@ -40,9 +42,17 @@ func on_text_submitted(new_text: String) -> void:
 	player_finished_entering_name.emit()
 
 func on_randomize_name_button_pressed() -> void:
-	var names = names_list.split('\n')
-	var random_index = randi_range(0, len(names) - 1)
-	name_entry.text = names[random_index]
+	var name: String = Database.get_male_name()
+	if Database.is_male_portrait(current_character.portrait_data) == true:
+		name = Database.get_male_name()
+		while previous_name == name:
+			name = Database.get_male_name()
+	if Database.is_female_portrait(current_character.portrait_data) == true:
+		name = Database.get_female_name()
+		while previous_name == name:
+			name = Database.get_female_name()
+	name_entry.set_text(name)
+	previous_name = name
 
 func on_accept_name_button_pressed() -> void:
 	on_text_submitted( name_entry.text )

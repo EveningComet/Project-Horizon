@@ -38,7 +38,7 @@ func _unhandled_input(event: InputEvent) -> void:
 ## Load the needed character classes.
 func load_classes() -> void:
 	character_classes.clear()
-	character_classes.append_array( CharacterClassDb.get_database() )
+	character_classes.append_array( Database.get_character_class_database() )
 
 ## Sorts the classes alphabetically.
 func sort_name(a: CharacterClass, b: CharacterClass) -> bool:
