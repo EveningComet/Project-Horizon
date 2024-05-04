@@ -37,8 +37,6 @@ func store_stats(_character: PlayerCombatant):
 
 ## When the stats of the monitored character change.
 func on_character_stats_changed(_character: PlayerCombatant) -> void:
-	for attribute in attributes:
-		draft_stats[attribute] = character.stats[attribute].get_base_value()
 	draft_stats_changed.emit( draft_stats )
 
 func confirm():
