@@ -45,3 +45,15 @@ func get_debuff_scaled_damage(damage_type: StatTypes.DamageTypes) -> int:
 		original_damage * (power_scale + status_damage_scale)
 	)
 	return new_damage
+
+## Get the lifesteal which based on the stored percentage, the damage type
+## and the target's health.
+func get_lifesteal_amount(damage_type: StatTypes.DamageTypes, target: Combatant) -> int:
+	var lifesteal_amount: int = 0
+	var damage: int = damage_data[damage_type]
+	lifesteal_amount = floor( damage * damage_heal_percentage )
+	
+	# Make sure the lifesteal is not outside of the range of the target's health
+	# and return it
+	lifesteal_amount = clamp(lifesteal_amount, 1, target.get_current_hp())
+	return lifesteal_amount

@@ -250,8 +250,8 @@ func fully_restore_hp_and_sp() -> void:
 
 func heal(heal_amount: int) -> void:
 	stats[StatTypes.stat_types.CurrentHP] += heal_amount
-	if stats[StatTypes.stat_types.CurrentHP] > stats[StatTypes.stat_types.MaxHP].get_calculated_value():
-		stats[StatTypes.stat_types.CurrentHP] = stats[StatTypes.stat_types.MaxHP].get_calculated_value()
+	if get_current_hp() > get_max_hp():
+		stats[StatTypes.stat_types.CurrentHP] = get_max_hp()
 	
 	stat_changed.emit( self )
 

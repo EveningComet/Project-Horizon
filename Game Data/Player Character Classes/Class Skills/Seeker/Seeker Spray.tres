@@ -1,31 +1,39 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=5 format=3 uid="uid://cukjs3d4dg3pp"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=7 format=3 uid="uid://cukjs3d4dg3pp"]
 
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillData.gd" id="1_cn1li"]
 [ext_resource type="Texture2D" uid="uid://d3rnajtkaw8ms" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Icons/Icon37.png" id="1_qbgdk"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/Skill Effects/DirectDamage.gd" id="2_qcpgk"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/SkillTier.gd" id="4_vt2hm"]
 
 [sub_resource type="Resource" id="Resource_g6mnu"]
 script = ExtResource("2_qcpgk")
 damage_type = 0
 bonus_damage_scale_on_debuffs_present = 0.0
 attacker_heal_percentage = 0.0
-power_scale = 1.1
+power_scale = 1.0
 use_special_stat = false
+
+[sub_resource type="Resource" id="Resource_6hrax"]
+script = ExtResource("4_vt2hm")
+new_cost = 10
+power_scale = 0.9
+bonus_damage_scale_on_debuffs_present = 0.0
+attacker_heal_percentage = 0.0
+stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
 
 [resource]
 script = ExtResource("1_cn1li")
 localization_name = "Spray"
 localization_description = "Open fire on the enemy team."
-cost = 5
 is_passive = false
 action_type = 1
 skill_type = 0
 num_activations = 1
-max_rank = 5
 minimum_rank_of_previous = 1
 unlocks_at_class_level = 1
 success_chance = 1.0
 is_unlocked_by_default = false
+tiers = Array[ExtResource("4_vt2hm")]([SubResource("Resource_6hrax")])
 branches = Array[ExtResource("1_cn1li")]([])
 is_ranged = false
 effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([SubResource("Resource_g6mnu")])

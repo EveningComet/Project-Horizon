@@ -1,29 +1,37 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=5 format=3 uid="uid://by8cb3jap5hqh"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=7 format=3 uid="uid://by8cb3jap5hqh"]
 
 [ext_resource type="Texture2D" uid="uid://bfn1k6ty5eivc" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Icons/Icon38.png" id="1_bgqvg"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillData.gd" id="1_g62jx"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/Skill Effects/DirectHealing.gd" id="1_olgdp"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/SkillTier.gd" id="4_mtunn"]
 
 [sub_resource type="Resource" id="Resource_3qk50"]
 script = ExtResource("1_olgdp")
-power_scale = 1.1
+power_scale = 1.0
 use_special_stat = true
+
+[sub_resource type="Resource" id="Resource_fhmt0"]
+script = ExtResource("4_mtunn")
+new_cost = 5
+power_scale = 0.75
+bonus_damage_scale_on_debuffs_present = 0.0
+attacker_heal_percentage = 0.0
+stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
 
 [resource]
 script = ExtResource("1_g62jx")
 localization_name = "Field Medicine"
 localization_description = "Use rudimentary medicine to heal an ally."
-cost = 5
 is_passive = false
 action_type = 2
 skill_type = 0
 num_activations = 1
-max_rank = 3
-minimum_rank_of_previous = 1
-unlocks_at_class_level = 1
+minimum_rank_of_previous = 0
+unlocks_at_class_level = 0
 success_chance = 1.0
 is_unlocked_by_default = true
-unlockable = Array[ExtResource("1_g62jx")]([])
+tiers = Array[ExtResource("4_mtunn")]([SubResource("Resource_fhmt0")])
+branches = Array[ExtResource("1_g62jx")]([])
 is_ranged = false
 effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([SubResource("Resource_3qk50")])
 display_texture = ExtResource("1_bgqvg")

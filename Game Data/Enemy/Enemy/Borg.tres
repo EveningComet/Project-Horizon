@@ -1,60 +1,75 @@
-[gd_resource type="Resource" script_class="EnemyData" load_steps=13 format=3 uid="uid://lwnkgixvx6n5"]
+[gd_resource type="Resource" script_class="EnemyData" load_steps=16 format=3 uid="uid://i1jus80d7yeu"]
 
-[ext_resource type="Resource" uid="uid://d17igemxkf6al" path="res://Game Data/Generic Skills/Generic Regular Attack.tres" id="1_mv1jc"]
+[ext_resource type="Script" path="res://Scripts/Mission/EnemyData.gd" id="1_38vrr"]
+[ext_resource type="Texture2D" uid="uid://b2dvigjefvd7u" path="res://Imported Assets/Aekashics Librarium Sprites/Cyber Ogre.png" id="1_fa83k"]
+[ext_resource type="Resource" uid="uid://d17igemxkf6al" path="res://Game Data/Generic Skills/Generic Regular Attack.tres" id="1_seahu"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/Skill Effects/DirectHealing.gd" id="2_0dwde"]
-[ext_resource type="Resource" uid="uid://clp5m14utgxbx" path="res://Game Data/Enemy/Behaviors/Attack Single Weakest.tres" id="2_0o474"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillData.gd" id="3_6smvp"]
-[ext_resource type="Texture2D" uid="uid://b2dvigjefvd7u" path="res://Imported Assets/Aekashics Librarium Sprites/Cyber Ogre.png" id="3_6y8ts"]
-[ext_resource type="Script" path="res://Scripts/Stats/StatModifier.gd" id="5_75q05"]
-[ext_resource type="Resource" uid="uid://cnsi3v06mccpl" path="res://Game Data/Enemy/Behaviors/Heal Ally.tres" id="5_bn1wi"]
-[ext_resource type="Script" path="res://Scripts/Mission/EnemyData.gd" id="5_ff5nn"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/SkillTier.gd" id="4_iax00"]
+[ext_resource type="Script" path="res://Scripts/Stats/StatModifier.gd" id="5_g8ejg"]
+[ext_resource type="Resource" uid="uid://clp5m14utgxbx" path="res://Game Data/Enemy/Behaviors/Attack Single Weakest.tres" id="5_lxc4w"]
+[ext_resource type="Resource" uid="uid://cnsi3v06mccpl" path="res://Game Data/Enemy/Behaviors/Heal Ally.tres" id="6_ccw53"]
 
-[sub_resource type="Resource" id="Resource_ygtww"]
+[sub_resource type="Resource" id="Resource_eopbh"]
 script = ExtResource("2_0dwde")
-power_scale = 1.25
+power_scale = 1.0
 use_special_stat = true
 
-[sub_resource type="Resource" id="Resource_3nigy"]
+[sub_resource type="Resource" id="Resource_irdfy"]
+script = ExtResource("4_iax00")
+cost = 5
+power_scale = 1.0
+bonus_damage_scale_on_debuffs_present = 0.0
+attacker_heal_percentage = 0.0
+stat_modifiers = Array[ExtResource("5_g8ejg")]([])
+
+[sub_resource type="Resource" id="Resource_5cwv6"]
 script = ExtResource("3_6smvp")
 localization_name = "Heal"
-localization_description = "A generic enemy heal."
-cost = 2
+localization_description = "Heal a friend."
 is_passive = false
 action_type = 2
-skill_type = 0
+skill_type = 2
 num_activations = 1
-max_rank = 3
-minimum_rank_of_previous = 1
-unlocks_at_class_level = 1
+minimum_rank_of_previous = 0
+unlocks_at_class_level = 0
 success_chance = 1.0
 is_unlocked_by_default = true
-unlockable = Array[ExtResource("3_6smvp")]([])
+tiers = Array[ExtResource("4_iax00")]([SubResource("Resource_irdfy")])
+branches = Array[ExtResource("3_6smvp")]([])
 is_ranged = false
-effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([SubResource("Resource_ygtww")])
+effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([SubResource("Resource_eopbh")])
 
-[sub_resource type="Resource" id="Resource_ieaos"]
-script = ExtResource("5_75q05")
+[sub_resource type="Resource" id="Resource_6p1d0"]
+script = ExtResource("5_g8ejg")
 stat_changing = 3
 stat_modifier_type = 0
-value = 10.0
+value = 9.0
 sort_order = 0
 
-[sub_resource type="Resource" id="Resource_dfr35"]
-script = ExtResource("5_75q05")
-stat_changing = 7
+[sub_resource type="Resource" id="Resource_fswlg"]
+script = ExtResource("5_g8ejg")
+stat_changing = 11
 stat_modifier_type = 0
 value = 5.0
 sort_order = 0
 
+[sub_resource type="Resource" id="Resource_l81bw"]
+script = ExtResource("5_g8ejg")
+stat_changing = 13
+stat_modifier_type = 0
+value = -4.0
+sort_order = 0
+
 [resource]
-script = ExtResource("5_ff5nn")
-portrait = ExtResource("3_6y8ts")
+script = ExtResource("1_38vrr")
+portrait = ExtResource("1_fa83k")
 enemy_name = "Borg"
 vitality = 3
 expertise = 3
 will = 3
 exp_on_death = 100
-stat_modifiers = Array[ExtResource("5_75q05")]([SubResource("Resource_ieaos"), SubResource("Resource_dfr35")])
-available_skills = Array[ExtResource("3_6smvp")]([ExtResource("1_mv1jc"), SubResource("Resource_3nigy")])
+stat_modifiers = Array[ExtResource("5_g8ejg")]([SubResource("Resource_6p1d0"), SubResource("Resource_fswlg"), SubResource("Resource_l81bw")])
+available_skills = Array[ExtResource("3_6smvp")]([ExtResource("1_seahu"), SubResource("Resource_5cwv6")])
 efficiency = 0.25
-behaviors = Array[Resource("res://addons/utility_ai/core/utility_ai_behavior.gd")]([ExtResource("2_0o474"), ExtResource("5_bn1wi")])
+behaviors = Array[Resource("res://addons/utility_ai/core/utility_ai_behavior.gd")]([ExtResource("5_lxc4w"), ExtResource("6_ccw53")])

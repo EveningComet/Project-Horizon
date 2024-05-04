@@ -1,14 +1,14 @@
-[gd_resource type="Resource" script_class="MissionData" load_steps=5 format=3 uid="uid://di22yj7ffpw1x"]
+[gd_resource type="Resource" script_class="MissionData" load_steps=5 format=3 uid="uid://b5mr0kqufjkm4"]
 
 [ext_resource type="Script" path="res://Scripts/Mission/MissionData.gd" id="1_3101i"]
-[ext_resource type="Resource" uid="uid://lwnkgixvx6n5" path="res://Game Data/Enemy/Enemy/Borg.tres" id="1_o8r5o"]
-[ext_resource type="Resource" uid="uid://dqwis64wnxudx" path="res://Game Data/Enemy/Enemy/Romulan.tres" id="2_5ws5l"]
-[ext_resource type="Resource" uid="uid://gkj3jmtsms7l" path="res://Game Data/Mission/Operation Rainfall.tres" id="3_5jp3b"]
+[ext_resource type="Resource" uid="uid://i1jus80d7yeu" path="res://Game Data/Enemy/Enemy/Borg.tres" id="1_vndpx"]
+[ext_resource type="Resource" uid="uid://gkj3jmtsms7l" path="res://Game Data/Mission/Operation Rainfall.tres" id="1_w7hqy"]
+[ext_resource type="Resource" uid="uid://dqwis64wnxudx" path="res://Game Data/Enemy/Enemy/Romulan.tres" id="2_vt2gh"]
 
 [resource]
 script = ExtResource("1_3101i")
 mission_name = "Operation Voyager"
 mission_description = "There is coffee in that nebula."
-enemies = Array[Resource("res://Scripts/Mission/EnemyData.gd")]([ExtResource("1_o8r5o"), ExtResource("2_5ws5l"), ExtResource("1_o8r5o")])
-next_mission = ExtResource("3_5jp3b")
+enemies = Array[Resource("res://Scripts/Mission/EnemyData.gd")]([ExtResource("1_vndpx"), ExtResource("2_vt2gh"), ExtResource("1_vndpx")])
+next_mission = ExtResource("1_w7hqy")
 is_unlocked_by_default = true

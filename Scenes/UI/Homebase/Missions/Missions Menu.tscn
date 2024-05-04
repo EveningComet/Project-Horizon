@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/Homebase/Missions/Missions.gd" id="1_31vta"]
 [ext_resource type="Resource" uid="uid://gkj3jmtsms7l" path="res://Game Data/Mission/Operation Rainfall.tres" id="2_4kd4j"]
 [ext_resource type="PackedScene" uid="uid://y8mbs37oueg1" path="res://Scenes/UI/Homebase/Missions/Mission Select Button.tscn" id="2_5nbyk"]
-[ext_resource type="Resource" uid="uid://di22yj7ffpw1x" path="res://Game Data/Mission/Operation Voyager.tres" id="3_5qayr"]
+[ext_resource type="Resource" uid="uid://b5mr0kqufjkm4" path="res://Game Data/Mission/Operation Voyager.tres" id="3_5qayr"]
 
 [node name="Missions Menu" type="CanvasLayer"]
 

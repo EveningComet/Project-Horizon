@@ -13,9 +13,9 @@ sort_order = 0
 
 [sub_resource type="Resource" id="Resource_figji"]
 script = ExtResource("1_q4yfk")
-stat_modifiers = Array[ExtResource("2_wt74u")]([SubResource("Resource_1h6my")])
 base_damage = 0
 damage_type = 0
+stat_modifiers = Array[ExtResource("2_wt74u")]([SubResource("Resource_1h6my")])
 
 [resource]
 script = ExtResource("1_ce3bg")

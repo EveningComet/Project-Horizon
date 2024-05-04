@@ -1,28 +1,38 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=4 format=3 uid="uid://duyikf2axxksw"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=6 format=3 uid="uid://duyikf2axxksw"]
 
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillData.gd" id="1_jxxhx"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/Skill Effects/DirectDamage.gd" id="1_w8we5"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/SkillTier.gd" id="3_8f8mr"]
 
 [sub_resource type="Resource" id="Resource_5cw83"]
 script = ExtResource("1_w8we5")
 damage_type = 0
+bonus_damage_scale_on_debuffs_present = 0.0
+attacker_heal_percentage = 0.0
 power_scale = 1.0
 use_special_stat = true
+
+[sub_resource type="Resource" id="Resource_j8gf3"]
+script = ExtResource("3_8f8mr")
+new_cost = 0
+power_scale = 1.0
+bonus_damage_scale_on_debuffs_present = 0.0
+attacker_heal_percentage = 0.0
+stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
 
 [resource]
 script = ExtResource("1_jxxhx")
 localization_name = "Shoot"
 localization_description = "A generic attack that uses the character's special attack power."
-cost = 0
 is_passive = false
 action_type = 0
 skill_type = 0
 num_activations = 1
-max_rank = 3
 minimum_rank_of_previous = 1
 unlocks_at_class_level = 1
 success_chance = 1.0
 is_unlocked_by_default = true
-unlockable = Array[ExtResource("1_jxxhx")]([])
+tiers = Array[ExtResource("3_8f8mr")]([SubResource("Resource_j8gf3")])
+branches = Array[ExtResource("1_jxxhx")]([])
 is_ranged = false
 effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([SubResource("Resource_5cw83")])

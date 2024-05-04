@@ -1,38 +1,47 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=11 format=3 uid="uid://cydkltv3usq2l"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=11 format=3 uid="uid://cklqful7fhtp6"]
 
 [ext_resource type="Script" path="res://Scripts/Character/Skill/Skill Effects/DirectDamage.gd" id="1_2lgx2"]
+[ext_resource type="Texture2D" uid="uid://qd1gmfqfgvyb" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Icons/Icon35.png" id="1_hxbul"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillData.gd" id="1_m3w6m"]
-[ext_resource type="Texture2D" uid="uid://qd1gmfqfgvyb" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Icons/Icon35.png" id="1_tmpa6"]
-[ext_resource type="Resource" uid="uid://c0h3wsdqfllab" path="res://Game Data/Player Character Classes/Class Skills/Aegis Skills/Aegis Shell.tres" id="4_87x5o"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/Skill Effects/ApplyStatusEffect.gd" id="4_blwco"]
 [ext_resource type="Resource" uid="uid://buul67l7164jj" path="res://Game Data/Status Effects/Status Effect Burned.tres" id="5_vow2x"]
-[ext_resource type="Script" path="res://Scripts/Character/Skill/SkillUpgrade.gd" id="7_81a3n"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/SkillTier.gd" id="7_81a3n"]
 
-[sub_resource type="Resource" id="Resource_pol7e"]
+[sub_resource type="Resource" id="Resource_gy3qy"]
 script = ExtResource("1_2lgx2")
 damage_type = 1
 bonus_damage_scale_on_debuffs_present = 0.0
 attacker_heal_percentage = 0.0
-power_scale = 1.25
+power_scale = 1.0
 use_special_stat = true
 
-[sub_resource type="Resource" id="Resource_ir1m0"]
+[sub_resource type="Resource" id="Resource_oksc7"]
 script = ExtResource("4_blwco")
 status_effect_to_apply = ExtResource("5_vow2x")
-chance_to_apply = 1.0
+chance_to_apply = 0.5
 power_scale = 1.0
 use_special_stat = false
 
-[sub_resource type="Resource" id="Resource_5ktbv"]
+[sub_resource type="Resource" id="Resource_ffbvh"]
 script = ExtResource("7_81a3n")
-new_cost = 10
-new_power_scale = 2.0
+cost = 5
+power_scale = 1.25
+bonus_damage_scale_on_debuffs_present = 0.0
+attacker_heal_percentage = 0.0
+stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
+
+[sub_resource type="Resource" id="Resource_kd176"]
+script = ExtResource("7_81a3n")
+cost = 10
+power_scale = 2.5
+bonus_damage_scale_on_debuffs_present = 0.0
+attacker_heal_percentage = 0.0
+stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
 
 [resource]
 script = ExtResource("1_m3w6m")
 localization_name = "Pulse Beam"
-localization_description = "Fire a laser beam at an enemy. It will hit twice."
-cost = 5
+localization_description = "Fire a laser beam at the enemy. It will hit twice."
 is_passive = false
 action_type = 0
 skill_type = 0
@@ -41,8 +50,8 @@ minimum_rank_of_previous = 0
 unlocks_at_class_level = 1
 success_chance = 1.0
 is_unlocked_by_default = true
-upgrades = Array[ExtResource("7_81a3n")]([SubResource("Resource_5ktbv")])
-branches = Array[ExtResource("1_m3w6m")]([ExtResource("4_87x5o")])
-is_ranged = false
-effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([SubResource("Resource_pol7e"), SubResource("Resource_ir1m0")])
-display_texture = ExtResource("1_tmpa6")
+tiers = Array[ExtResource("7_81a3n")]([SubResource("Resource_ffbvh"), SubResource("Resource_kd176")])
+branches = Array[ExtResource("1_m3w6m")]([])
+is_ranged = true
+effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([SubResource("Resource_gy3qy"), SubResource("Resource_oksc7")])
+display_texture = ExtResource("1_hxbul")
