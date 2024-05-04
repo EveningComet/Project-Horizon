@@ -12,17 +12,6 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_wq8uj")
 randomize_name_button = NodePath("Background/MarginContainer/VBoxContainer/Randomize Name Button")
-names_list = "Nyx
-Spock
-Natalya
-Gael
-Kirk
-Flynn
-Uhura
-Sulu
-Scotty
-Chekov
-Leonard"
 accept_name_button = NodePath("Background/MarginContainer/VBoxContainer/Accept Name")
 name_entry = NodePath("Background/MarginContainer/VBoxContainer/Name Entry")
 

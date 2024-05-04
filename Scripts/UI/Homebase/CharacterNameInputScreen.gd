@@ -6,7 +6,6 @@ class_name CharacterNameInputScreen extends Control
 signal player_finished_entering_name()
 
 @export var randomize_name_button: BaseButton = null
-@export_multiline var names_list
 
 ## Convenience for when the player doesn't want to enter the name.
 @export var accept_name_button: BaseButton = null
