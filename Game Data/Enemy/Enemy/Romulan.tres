@@ -10,7 +10,7 @@
 script = ExtResource("5_pf6qe")
 stat_changing = 3
 stat_modifier_type = 0
-value = 30.0
+value = 200.0
 sort_order = 0
 
 [sub_resource type="Resource" id="Resource_ksg8e"]
@@ -24,7 +24,7 @@ sort_order = 0
 script = ExtResource("5_pf6qe")
 stat_changing = 11
 stat_modifier_type = 0
-value = 7.0
+value = 10.0
 sort_order = 0
 
 [resource]

@@ -44,7 +44,7 @@ effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffec
 script = ExtResource("5_g8ejg")
 stat_changing = 3
 stat_modifier_type = 0
-value = 9.0
+value = 101.0
 sort_order = 0
 
 [sub_resource type="Resource" id="Resource_fswlg"]
