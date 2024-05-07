@@ -87,27 +87,19 @@ func on_stat_changed(monitored: Combatant) -> void:
 func on_status_effect_added(monitored: Combatant, effect: StatusEffect) -> void:
 	if effect.display_texture == null:
 		return
-	if is_player_controlled == true:
-		# TODO: add for player
-		pass
-	else:
-		var new_icon := TextureRect.new()
-		new_icon.texture = effect.display_texture
-		new_icon.tooltip_text = effect.localization_name + "\n" + effect.localization_description
-		status_effects[effect] = new_icon
-		status_effects_container.add_child(status_effects[effect])
+	var new_icon := TextureRect.new()
+	new_icon.texture = effect.display_texture
+	new_icon.tooltip_text = effect.localization_name + "\n" + effect.localization_description
+	status_effects[effect] = new_icon
+	status_effects_container.add_child(status_effects[effect])
 
 
 func on_status_effect_removed(monitored: Combatant, effect: StatusEffect) -> void:
 	if not effect in status_effects: 
 		return
-	if is_player_controlled == true:
-		# TODO: add for player
-		pass
-	else:
-		status_effects_container.remove_child(status_effects[effect])
-		status_effects[effect].queue_free()
-		status_effects.erase(effect)
+	status_effects_container.remove_child(status_effects[effect])
+	status_effects[effect].queue_free()
+	status_effects.erase(effect)
 		
 
 func get_combatant() -> Combatant:
