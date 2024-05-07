@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="StatusEffect" load_steps=6 format=3 uid="uid://budclfsmtpc5x"]
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=7 format=3 uid="uid://cbwa3cddmrgx7"]
 
 [ext_resource type="Script" path="res://Scripts/Character/Status Effect/StatusEffect.gd" id="1_ce3bg"]
+[ext_resource type="Texture2D" uid="uid://b2fnwlaebjwee" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Icons/Icon11.png" id="1_easrt"]
 [ext_resource type="Script" path="res://Scripts/Character/Status Effect/Status Effect Data/StatusEffectOnApplyData.gd" id="1_q4yfk"]
 [ext_resource type="Script" path="res://Scripts/Stats/StatModifier.gd" id="2_wt74u"]
 
@@ -21,5 +22,6 @@ stat_modifiers = Array[ExtResource("2_wt74u")]([SubResource("Resource_1h6my")])
 script = ExtResource("1_ce3bg")
 localization_name = "Inspired"
 localization_description = "The sky's the limit for you."
+display_texture = ExtResource("1_easrt")
 on_apply = SubResource("Resource_figji")
 duration_in_turns = 1
