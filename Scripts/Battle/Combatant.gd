@@ -3,6 +3,8 @@ class_name Combatant extends Node
 
 ## Called when a stat on this character has been changed.
 signal stat_changed( combatant: Combatant )
+signal status_effect_added( combatant: Combatant, effect: StatusEffect )
+signal status_effect_removed( combatant: Combatant, effect: StatusEffect )
 
 # Scaling values
 const VITALITY_HP_SCALER:              int = 3

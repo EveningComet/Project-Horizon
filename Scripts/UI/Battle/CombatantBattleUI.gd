@@ -1,6 +1,6 @@
 ## Displays the vitals for a character. Doubles as a middleman for accessing
 ## a character's data.
-class_name CombatantBattleUI extends PanelContainer
+class_name CombatantBattleUI extends Control
 
 @export var portrait_displayer: PortraitDisplayer
 
@@ -16,12 +16,15 @@ class_name CombatantBattleUI extends PanelContainer
 
 @export var hp_display_text: RichTextLabel
 @export var sp_display_text: RichTextLabel
+@export var status_effects_container: Container
 
 ## The combatant currently being monitored.
 var combatant: Combatant
 
 ## Stores a copy of the character's vitals for showing the differences.
 var vital_stats: Dictionary = {} 
+
+var status_effects: Dictionary = {}
 
 ## Set the new combatant to monitor and update the displays if needed.
 func set_combatant(new_combatant: Combatant, is_player_owned: bool) -> void:
@@ -30,6 +33,8 @@ func set_combatant(new_combatant: Combatant, is_player_owned: bool) -> void:
 	vital_stats[StatTypes.stat_types.CurrentHP] = combatant.get_current_hp()
 	vital_stats[StatTypes.stat_types.CurrentSP] = combatant.get_current_sp()
 	combatant.stat_changed.connect( on_stat_changed )
+	combatant.status_effect_added.connect( on_status_effect_added )
+	combatant.status_effect_removed.connect( on_status_effect_removed )
 	if is_player_controlled == true:
 		portrait_displayer.display_icon.set_texture( 
 			combatant.portrait_data.small_portrait
@@ -77,6 +82,33 @@ func on_stat_changed(monitored: Combatant) -> void:
 		
 		if monitored.stats[StatTypes.stat_types.CurrentHP] <= 0:
 			queue_free()
+
+
+func on_status_effect_added(monitored: Combatant, effect: StatusEffect) -> void:
+	if effect.display_texture == null:
+		return
+	if is_player_controlled == true:
+		# TODO: add for player
+		pass
+	else:
+		var new_icon := TextureRect.new()
+		new_icon.texture = effect.display_texture
+		new_icon.tooltip_text = effect.localization_name + "\n" + effect.localization_description
+		status_effects[effect] = new_icon
+		status_effects_container.add_child(status_effects[effect])
+
+
+func on_status_effect_removed(monitored: Combatant, effect: StatusEffect) -> void:
+	if not effect in status_effects: 
+		return
+	if is_player_controlled == true:
+		# TODO: add for player
+		pass
+	else:
+		status_effects_container.remove_child(status_effects[effect])
+		status_effects[effect].queue_free()
+		status_effects.erase(effect)
+		
 
 func get_combatant() -> Combatant:
 	return combatant

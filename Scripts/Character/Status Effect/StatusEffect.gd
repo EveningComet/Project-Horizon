@@ -4,7 +4,7 @@ class_name StatusEffect extends Resource
 ## The name for this status effect.
 @export var localization_name:                  String = "New Status Effect"
 @export_multiline var localization_description: String = "Status effect description."
-
+@export var display_texture: Texture2D
 @export var on_apply: StatusEffectOnApplyData
 @export var on_turn_tick: StatusEffectOnTurnTickData
 @export var on_expire: StatusEffectOnExpireData

@@ -15,6 +15,7 @@ func add_status_effect(status_to_add: StatusEffect) -> void:
 	if (not statuses.has(status_to_add)):
 		statuses[status_to_add] = status_to_add.duration_in_turns
 		status_to_add.trigger_on_apply(monitored_combatant)
+		monitored_combatant.status_effect_added.emit(monitored_combatant, status_to_add)
 		print(monitored_combatant, ": added status effect ", status_to_add.localization_name, " for ", status_to_add.duration_in_turns, " turns")
 
 func apply_status_effects() -> void:
@@ -30,4 +31,5 @@ func apply_status_effects() -> void:
 func remove_status_effect(status_to_remove: StatusEffect) -> void:
 	status_to_remove.trigger_on_expire(monitored_combatant)
 	statuses.erase(status_to_remove)
+	monitored_combatant.status_effect_removed.emit(monitored_combatant, status_to_remove)
 	print(monitored_combatant, ": removed status effect ", status_to_remove.localization_name)
