@@ -41,6 +41,12 @@ func handle_player_victory(xp_to_reward: int) -> void:
 	
 	# Populate the item menu, if relevant
 	
+	# Give the player money for winning
+	# TODO: Show the player's money count going up
+	PlayerInventory.inventory.add_money(
+		MissionController.current_mission.money_on_victory
+	)
+	
 	# Prevent the player from dipping before seeing anything
 	await get_tree().create_timer(0.5).timeout 
 	is_active = true

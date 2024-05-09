@@ -9,3 +9,5 @@ class_name MissionData extends Resource
 @export var next_mission: MissionData
 
 @export var is_unlocked_by_default: bool
+
+@export var money_on_victory: int = 50

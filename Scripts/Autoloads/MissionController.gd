@@ -1,3 +1,5 @@
+## Keeps track of the current mission the player is on and what missions
+## the player can perform.
 extends Node
 
 var current_mission: MissionData = null
