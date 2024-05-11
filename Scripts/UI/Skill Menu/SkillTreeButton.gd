@@ -15,6 +15,9 @@ func initialize(_skill: SkillInstance):
 	button_down.connect( upgrade_skill )
 	set_correct_texture_and_text()
 	
+	mouse_entered.connect( on_mouse_entered )
+	mouse_exited.connect( on_mouse_exited )
+	
 func disable():
 	disabled = true
 	apply_grayscale()
@@ -36,7 +39,6 @@ func undo():
 
 func set_correct_texture_and_text():
 	texture_normal = skill.monitored_skill.display_texture
-	tooltip_text = get_formatted_skill_text()
 	set_upgrade_level( skill.current_upgrade_level )
 
 func set_upgrade_level(new_value: int):
@@ -66,3 +68,9 @@ func enable_button_if_possible():
 		enable()
 	else:
 		disable()
+
+func on_mouse_entered() -> void:
+	EventBus.on_tooltip_needed(self)
+
+func on_mouse_exited() -> void:
+	EventBus.tooltip_hide.emit()

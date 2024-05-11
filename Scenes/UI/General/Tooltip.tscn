@@ -1,0 +1,55 @@
+[gd_scene load_steps=2 format=3 uid="uid://dqldkw28rs0cq"]
+
+[ext_resource type="Script" path="res://Scripts/UI/General/Tooltip.gd" id="1_fiv60"]
+
+[node name="Tooltip" type="PanelContainer" node_paths=PackedStringArray("title", "level_value_displayer", "description_displayer", "upgrade_displayer")]
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+script = ExtResource("1_fiv60")
+title = NodePath("MarginContainer/VBoxContainer/Title Label")
+level_value_displayer = NodePath("MarginContainer/VBoxContainer/Level Label Container/Level Value")
+description_displayer = NodePath("MarginContainer/VBoxContainer/Description Label")
+upgrade_displayer = NodePath("MarginContainer/VBoxContainer/Upgrade Label")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Title Label" type="Label" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+text = "Title Here"
+
+[node name="Level Label Container" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="Level Label" type="Label" parent="MarginContainer/VBoxContainer/Level Label Container"]
+layout_mode = 2
+text = "Level"
+
+[node name="Level Value" type="Label" parent="MarginContainer/VBoxContainer/Level Label Container"]
+layout_mode = 2
+text = "5"
+
+[node name="Description Label" type="Label" parent="MarginContainer/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "Description"
+
+[node name="Upgrade Label" type="Label" parent="MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "0 / 5"

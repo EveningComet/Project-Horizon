@@ -7,21 +7,25 @@ signal slot_clicked(index: int, button: int)
 ## The visual of the item that will be displayed.
 @export var icon: TextureRect
 
-## Used to help with sorting items.
-var index: int = -1
-
 ## Visualizes the quantity of the item to the player.
 @export var amount_label: Label
 
+## Used to help with sorting items.
+var index: int = -1
+
+var item: ItemData
+
 func _ready() -> void:
 	gui_input.connect( on_gui_input )
+	mouse_entered.connect( on_mouse_over )
+	mouse_exited.connect( on_mouse_exit )
 
 func set_slot_data(slot_data: ItemSlotData) -> void:
 	if slot_data == null:
 		icon.set_texture(null)
 		return
 	
-	var item: ItemData = slot_data.stored_item
+	item = slot_data.stored_item
 	icon.set_texture( item.image )
 	
 	update_quantity_text( slot_data )
@@ -32,7 +36,7 @@ func set_slot_data_with_index(slot_data: ItemSlotData, new_index: int) -> void:
 		return
 	
 	index = new_index
-	var item: ItemData = slot_data.stored_item
+	item  = slot_data.stored_item
 	icon.set_texture( item.image )
 	
 	update_quantity_text( slot_data )
@@ -53,3 +57,16 @@ func on_gui_input(event: InputEvent) -> void:
 			slot_clicked.emit(
 				index if index > -1 else get_index(), event.button_index
 			) 
+
+func on_focused() -> void:
+	pass
+
+func on_focus_exited() -> void:
+	pass
+
+func on_mouse_over() -> void:
+	if item != null:
+		EventBus.on_tooltip_needed(self)
+
+func on_mouse_exit() -> void:
+	EventBus.tooltip_hide.emit()
