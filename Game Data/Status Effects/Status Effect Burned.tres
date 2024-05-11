@@ -13,7 +13,6 @@ stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
 
 [sub_resource type="Resource" id="Resource_1dhul"]
 script = ExtResource("2_ihqes")
-perception_increase = 0
 increase_ratio_per_turn = 0.5
 base_damage = 3
 damage_type = 1
@@ -24,6 +23,8 @@ script = ExtResource("1_7s4dm")
 localization_name = "Burned"
 localization_description = "The fire got to you, what can I say."
 display_texture = ExtResource("1_tbqd7")
+is_contagious = false
+incubation_time = 0
 on_apply = SubResource("Resource_7ttbn")
 on_turn_tick = SubResource("Resource_1dhul")
 duration_in_turns = 2

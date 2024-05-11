@@ -23,5 +23,6 @@ script = ExtResource("1_ce3bg")
 localization_name = "Inspired"
 localization_description = "The sky's the limit for you."
 display_texture = ExtResource("1_easrt")
+is_contagious = false
 on_apply = SubResource("Resource_figji")
 duration_in_turns = 1

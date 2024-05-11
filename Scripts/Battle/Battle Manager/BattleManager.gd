@@ -13,6 +13,12 @@ class_name BattleManager extends StateMachine
 ## Houses the spawned characters.
 @export var spawned_combatants_node: Node
 
+## The group name of nodes that are EnemyCombatant
+const ENEMY_GROUP_NAME := "EnemyCombatants"
+
+## The group name of nodes that are PlayerCombatant
+const PLAYER_GROUP_NAME := "PlayerCombatants"
+
 ## The current actions that will be executed.
 var current_turn_actions: Array[StoredAction] = []
 
