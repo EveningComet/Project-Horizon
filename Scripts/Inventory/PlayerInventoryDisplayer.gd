@@ -2,7 +2,7 @@
 class_name PlayerInventoryDisplayer extends InventoryDisplayer
 
 ## Displays the player's money.
-@export var money_displayer_label: Label
+@export var money_value_displayer_label: Label
 
 func set_inventory_to_display(inventory_data: Inventory) -> void:
 	super(inventory_data)
@@ -10,4 +10,4 @@ func set_inventory_to_display(inventory_data: Inventory) -> void:
 	on_money_changed(inventory_data.money)
 
 func on_money_changed(amount: int) -> void:
-	money_displayer_label.set_text("Money: %s" % [str(amount)])
+	money_value_displayer_label.set_text(str(amount))

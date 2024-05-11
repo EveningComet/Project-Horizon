@@ -1,11 +1,13 @@
 ## Displays the results of a battle to the player.
 class_name BattleResultsScreen extends Control
 
+@export_file("*.tscn") var homebase_scene: String
+
 @export var pm_result_prefab: PackedScene
 
 @export var party_grid_container: GridContainer
 
-@export_file("*.tscn") var homebase_scene: String
+@export var money_value_displayer_label: Label
 
 var is_active = false
 
@@ -47,14 +49,22 @@ func handle_player_victory(xp_to_reward: int) -> void:
 		MissionController.current_mission.money_on_victory
 	)
 	
+	update_money_display()
+	
 	# Prevent the player from dipping before seeing anything
 	await get_tree().create_timer(0.5).timeout 
 	is_active = true
 
 func handle_player_defeat() -> void:
+	update_money_display()
+	
 	# Prevent the player from dipping before seeing anything
 	await get_tree().create_timer(0.5).timeout 
 	is_active = true
+
+## Update the displayer to reflect the money in the player's inventory.
+func update_money_display() -> void:
+	money_value_displayer_label.set_text( str(PlayerInventory.inventory.money) )
 
 # TODO: Implement retreat.
 func player_retreat() -> void:

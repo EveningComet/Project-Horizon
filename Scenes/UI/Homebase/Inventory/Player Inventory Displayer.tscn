@@ -3,14 +3,14 @@
 [ext_resource type="Script" path="res://Scripts/Inventory/PlayerInventoryDisplayer.gd" id="1_n18hs"]
 [ext_resource type="PackedScene" uid="uid://cxr1y4he1kmnn" path="res://Scenes/UI/Homebase/Inventory/Item Slot UI.tscn" id="2_s0jfl"]
 
-[node name="Player Inventory Displayer" type="Control" node_paths=PackedStringArray("money_displayer_label", "item_container")]
+[node name="Player Inventory Displayer" type="Control" node_paths=PackedStringArray("money_value_displayer_label", "item_container")]
 custom_minimum_size = Vector2(570, 500)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 350.0
 offset_bottom = 500.0
 script = ExtResource("1_n18hs")
-money_displayer_label = NodePath("Money Displayer")
+money_value_displayer_label = NodePath("Money Displayer Container/Money Value Displayer")
 item_slot_prefab = ExtResource("2_s0jfl")
 item_container = NodePath("PanelContainer/MarginContainer/ScrollContainer/Item Grid")
 
@@ -41,16 +41,19 @@ theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
 columns = 8
 
-[node name="Money Displayer" type="Label" parent="."]
-custom_minimum_size = Vector2(100, 30)
+[node name="Money Displayer Container" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = -40.0
-offset_right = 147.0
+offset_left = 20.0
+offset_top = -45.0
+offset_right = 120.0
 offset_bottom = -5.0
 grow_vertical = 0
+
+[node name="Money Value Displayer" type="Label" parent="Money Displayer Container"]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
 theme_override_font_sizes/font_size = 25
-text = "Money: 200"
+text = "200"

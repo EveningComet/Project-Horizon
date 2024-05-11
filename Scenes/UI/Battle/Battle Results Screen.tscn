@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/Battle/BattleResultsScreen.gd" id="1_32lsi"]
 [ext_resource type="PackedScene" uid="uid://crcjyxfo37yxe" path="res://Scenes/UI/Battle/PM Battle Result.tscn" id="2_1ot60"]
 
-[node name="Battle Results Screen" type="Control" node_paths=PackedStringArray("party_grid_container")]
+[node name="Battle Results Screen" type="Control" node_paths=PackedStringArray("party_grid_container", "money_value_displayer_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,12 +11,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_32lsi")
+homebase_scene = "res://Scenes/UI/Homebase/Homebase Home Menu.tscn"
 pm_result_prefab = ExtResource("2_1ot60")
 party_grid_container = NodePath("Panel/MarginContainer/Party Grid Container")
-homebase_scene = "res://Scenes/UI/Homebase/Homebase Home Menu.tscn"
+money_value_displayer_label = NodePath("Money Label Container/Money Value Displayer")
 
 [node name="Background" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -63,3 +63,31 @@ offset_right = -280.0
 offset_bottom = -140.0
 grow_horizontal = 0
 grow_vertical = 0
+
+[node name="Money Label Container" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -180.0
+offset_top = -180.0
+offset_right = 174.0
+offset_bottom = -80.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Money Name Displayer" type="Label" parent="Money Label Container"]
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Money:"
+vertical_alignment = 1
+
+[node name="Money Value Displayer" type="Label" parent="Money Label Container"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "200"
+vertical_alignment = 1
