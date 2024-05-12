@@ -31,6 +31,7 @@ func setup_battle() -> void:
 func spawn_player_characters() -> void:
 	# Add the player's party to the battle
 	for player_character: PlayerCombatant in PlayerPartyController.party_members:
+		player_character.add_to_group( my_state_machine.PLAYER_GROUP_NAME )
 		player_character.reparent( my_state_machine.spawned_combatants_node )
 		
 		# Make the state machine keep track of the character
@@ -42,6 +43,7 @@ func spawn_player_characters() -> void:
 func spawn_enemies() -> void:
 	for enemy_data in MissionController.current_mission.enemies:
 		var enemy_combatant = make_enemy( enemy_data )
+		enemy_combatant.add_to_group( my_state_machine.ENEMY_GROUP_NAME )
 		my_state_machine.add_combatant( enemy_combatant )
 		my_state_machine.spawned_combatants_node.add_child( enemy_combatant )
 		EventBus.combatant_spawned_in_battle.emit( enemy_combatant )
