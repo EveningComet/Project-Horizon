@@ -24,6 +24,7 @@ localization_name = "Burned"
 localization_description = "The fire got to you, what can I say."
 display_texture = ExtResource("1_tbqd7")
 is_contagious = false
+chance_of_spreading = 0.0
 incubation_time = 0
 on_apply = SubResource("Resource_7ttbn")
 on_turn_tick = SubResource("Resource_1dhul")

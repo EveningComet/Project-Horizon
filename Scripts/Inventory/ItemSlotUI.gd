@@ -10,6 +10,10 @@ signal slot_clicked(index: int, button: int)
 ## Visualizes the quantity of the item to the player.
 @export var amount_label: Label
 
+## A quick way to prevent the drag and drop character ui from making the system
+## go haywire.
+@export var fires_tooltip_event: bool = true
+
 ## Used to help with sorting items.
 var index: int = -1
 
@@ -73,7 +77,7 @@ func on_focus_exited() -> void:
 	pass
 
 func on_mouse_over() -> void:
-	if item != null:
+	if item != null and fires_tooltip_event == true:
 		EventBus.on_tooltip_needed(self)
 
 func on_mouse_exit() -> void:
