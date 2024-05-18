@@ -17,4 +17,5 @@ func set_inventory_to_display(inventory_data: Inventory) -> void:
 func populate_items(inventory_data: Inventory) -> void:
 	for i in inventory_data.stored_items.size():
 		var slot: ItemSlotData = inventory_data.stored_items[i]
-		item_container.get_child(i).set_slot_data( slot )
+		var ui_slot: ItemSlotUI = item_container.get_child(i)
+		set_slot_data(ui_slot, slot)

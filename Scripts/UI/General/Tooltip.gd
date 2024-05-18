@@ -38,6 +38,13 @@ func on_tooltip_hide() -> void:
 func handle_item_slot(item_slot: ItemSlotUI) -> void:
 	title.set_text(item_slot.item.localization_name)
 	description_displayer.set_text(item_slot.item.localization_description)
+	
+	# If there is currently a character being inspected, display their stats
+	var char_inspection_window: CharacterInspectionWindow = item_slot.character_inspection_window
+	if char_inspection_window != null and char_inspection_window.current_character != null:
+		if OS.is_debug_build() == true:
+			print("Tooltip :: There is a character. Stat changes should be displayed.")
+	
 	description_displayer.show()
 
 func handle_party_member_holder_ui(pmhui: PartyMemberHolderUI) -> void:

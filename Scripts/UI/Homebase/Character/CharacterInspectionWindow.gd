@@ -49,6 +49,8 @@ func _unhandled_input(event: InputEvent) -> void:
 				on_swap_left( index )
 
 func _ready() -> void:
+	equipment_displayer.set_character_inspection_window(self)
+	
 	swap_left_button.button_down.connect( on_button_swap_left )
 	swap_right_button.button_down.connect( on_button_swap_right )
 	

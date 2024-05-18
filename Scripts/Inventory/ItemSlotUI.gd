@@ -15,6 +15,10 @@ var index: int = -1
 
 var item: ItemData
 
+## Reference to the character inspection window so that the tooltip can
+## display stat changes.
+var character_inspection_window: CharacterInspectionWindow
+
 func _ready() -> void:
 	gui_input.connect( on_gui_input )
 	mouse_entered.connect( on_mouse_over )
@@ -41,6 +45,9 @@ func set_slot_data_with_index(slot_data: ItemSlotData, new_index: int) -> void:
 	
 	update_quantity_text( slot_data )
 
+func set_char_inspection_window(char_inspector: CharacterInspectionWindow) -> void:
+	character_inspection_window = char_inspector
+
 func update_quantity_text(slot_data: ItemSlotData) -> void:
 	if slot_data.quantity > 1:
 		amount_label.set_text( str(slot_data.quantity) )
@@ -58,6 +65,7 @@ func on_gui_input(event: InputEvent) -> void:
 				index if index > -1 else get_index(), event.button_index
 			) 
 
+# TODO: Functionality for gamepads.
 func on_focused() -> void:
 	pass
 

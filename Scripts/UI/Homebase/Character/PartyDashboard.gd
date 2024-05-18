@@ -43,6 +43,9 @@ func set_player_inventory(inventory_data: Inventory) -> void:
 	player_inventory = inventory_data
 	player_inventory.inventory_interacted.connect( on_inventory_interacted )
 	player_inventory_ui.set_inventory_to_display( player_inventory )
+	player_inventory_ui.set_character_inspection_window(
+		character_inspection_window
+	)
 
 	# Connect to the gui input of the inventory displayer so that clicking
 	# over it with a held item will drop it there
@@ -54,7 +57,8 @@ func on_visibility_changed() -> void:
 		player_inventory.add_slot_data( grabbed_slot_data )
 		grabbed_slot_data = null
 		update_grabbed_slot()
-	
+
+## Handle dropping an item into the player's inventory.
 func on_player_inventory_displayer_selected(event: InputEvent) -> void:
 	if grabbed_slot_data != null:
 		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:

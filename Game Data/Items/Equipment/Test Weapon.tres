@@ -13,8 +13,8 @@ sort_order = 0
 
 [resource]
 script = ExtResource("1_ya2gs")
-localization_name = "New Item"
-localization_description = "An item."
+localization_name = "Strong Device"
+localization_description = "A device that makes your mind stronger."
 item_type = 1
 image = ExtResource("1_mtkh6")
 max_stack_size = 1

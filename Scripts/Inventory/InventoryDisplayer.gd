@@ -10,6 +10,10 @@ class_name InventoryDisplayer extends Control
 ## Stores where the visual objects will be displayed.
 @export var item_container: GridContainer
 
+## Some inherited classes will need to know what is the current character being
+## inspected.
+var character_inspection_window: CharacterInspectionWindow
+
 func set_inventory_to_display(inventory_data: Inventory) -> void:
 	if inventory_to_display != null:
 		inventory_to_display.inventory_updated.disconnect( populate_items )
@@ -35,4 +39,11 @@ func populate_items(inventory_data: Inventory) -> void:
 		slot.slot_clicked.connect( inventory_to_display.on_slot_clicked )
 		
 		if slot_data != null:
-			slot.set_slot_data( slot_data )
+			set_slot_data(slot, slot_data)
+
+func set_character_inspection_window(char_inspector: CharacterInspectionWindow) -> void:
+	character_inspection_window = char_inspector
+
+func set_slot_data(slot: ItemSlotUI, slot_data: ItemSlotData) -> void:
+	slot.set_slot_data( slot_data )
+	slot.set_char_inspection_window( character_inspection_window )
