@@ -3,6 +3,7 @@
 ## A version of party dashboard that plays well with the shop.
 class_name ShopDashboard extends PartyDashboard
 
+## The node storing the shop.
 @export var shop_inventory_holder: ShopInventoryHolder
 
 ## A referece to the shop's inventory UI. This is used to assist with selling
@@ -13,6 +14,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	return
 
 func _ready() -> void:
+	shop_inventory_displayer.set_inventory_to_display(shop_inventory_holder.inventory)
+	shop_inventory_displayer.set_character_inspection_window(character_inspection_window)
 	shop_inventory_holder.inventory.inventory_interacted.connect(
 		on_shop_inventory_interacted
 	)

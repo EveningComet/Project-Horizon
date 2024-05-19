@@ -71,7 +71,7 @@ text = "Return"
 script = ExtResource("2_nt8t0")
 inventory = SubResource("Resource_e5xbi")
 
-[node name="AcquisitionMenuController" type="Node" parent="." node_paths=PackedStringArray("main_buttons_container", "deal_button", "recuperate_button", "return_button", "shop_dashboard", "shop_inventory_displayer", "shop_inventory_data")]
+[node name="AcquisitionMenuController" type="Node" parent="." node_paths=PackedStringArray("main_buttons_container", "deal_button", "recuperate_button", "return_button", "shop_dashboard", "shop_inventory_displayer")]
 script = ExtResource("6_6110m")
 homebase_menu_scene = "res://Scenes/UI/Homebase/Homebase Home Menu.tscn"
 main_buttons_container = NodePath("../Acquisitions Main Menu/Main Buttons Container")
@@ -80,7 +80,6 @@ recuperate_button = NodePath("../Acquisitions Main Menu/Main Buttons Container/R
 return_button = NodePath("../Acquisitions Main Menu/Main Buttons Container/Return")
 shop_dashboard = NodePath("../Shop Dashboard")
 shop_inventory_displayer = NodePath("../Shop Inventory Displayer")
-shop_inventory_data = NodePath("../Shop Inventory Holder")
 
 [node name="Shop Inventory Displayer" parent="." instance=ExtResource("1_pi68x")]
 visible = false

@@ -105,3 +105,9 @@ func add_slot_data(slot_data: ItemSlotData) -> void:
 ## When the player clicks on an item slot in the ui, we want to keep track of that.
 func on_slot_clicked(index: int, button: int) -> void:
 	inventory_interacted.emit( self, index, button )
+
+func has_item(item: ItemData) -> bool:
+	for slot: ItemSlotData in stored_items:
+		if slot.stored_item != null and slot.stored_item == item:
+			return true
+	return false

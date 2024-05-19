@@ -10,8 +10,8 @@ class_name InventoryDisplayer extends Control
 ## Stores where the visual objects will be displayed.
 @export var item_container: GridContainer
 
-## Some inherited classes will need to know what is the current character being
-## inspected.
+## Used as an easy way to display stat changes for a character the player
+## is inspecting.
 var character_inspection_window: CharacterInspectionWindow
 
 func set_inventory_to_display(inventory_data: Inventory) -> void:

@@ -22,11 +22,6 @@ class_name AcquisitionMenuController extends Node
 ## The object that displays the contents of the shop.
 @export var shop_inventory_displayer: ShopInventoryDisplayer
 
-## Node storing the inventory data of the shop.
-@export var shop_inventory_data: ShopInventoryHolder
-
-var player_inventory: Inventory
-
 func _unhandled_input(event: InputEvent) -> void:
 	# Maybe this class should be a state machine.
 	if event.is_action_pressed("ui_cancel") and shop_inventory_displayer.visible == true:
@@ -36,10 +31,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		main_buttons_container.get_child(0).grab_focus()
 
 func _ready() -> void:
-	player_inventory = PlayerInventory.inventory
-	
-	shop_inventory_displayer.set_inventory_to_display( shop_inventory_data.inventory )
-	
 	deal_button.button_down.connect( on_deal_button_pressed )
 	recuperate_button.button_down.connect( on_recuperate_button_pressed )
 	recuperate_button.disabled = PlayerPartyController.has_members() == false

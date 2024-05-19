@@ -28,23 +28,13 @@ func _ready() -> void:
 	mouse_entered.connect( on_mouse_over )
 	mouse_exited.connect( on_mouse_exit )
 
-func set_slot_data(slot_data: ItemSlotData) -> void:
+func set_slot_data(slot_data: ItemSlotData, new_index: int = -1) -> void:
 	if slot_data == null:
 		icon.set_texture(null)
 		return
 	
 	item = slot_data.stored_item
-	icon.set_texture( item.image )
-	
-	update_quantity_text( slot_data )
-
-func set_slot_data_with_index(slot_data: ItemSlotData, new_index: int) -> void:
-	if slot_data == null:
-		icon.set_texture(null)
-		return
-	
-	index = new_index
-	item  = slot_data.stored_item
+	index = new_index if new_index > -1 else index
 	icon.set_texture( item.image )
 	
 	update_quantity_text( slot_data )
