@@ -13,6 +13,8 @@ class_name Tooltip extends PanelContainer
 ## be an item's description, a skill's description, and so on.
 @export var description_displayer: Label
 
+@export var cost_value_label: Label
+
 @export_category("Character Related")
 ## Used for displaying a character's level.
 @export var level_value_displayer: Label
@@ -50,27 +52,28 @@ func handle_item_slot(item_slot: ItemSlotUI) -> void:
 		title.set_text(item.localization_name)
 		description_displayer.set_text(item.localization_description)
 		description_displayer.show()
+		cost_value_label.set_text( str(item.cost) )
+		cost_value_label.get_parent().show()
 		
 		# If there is currently a character being inspected, display stat changes
 		# for the relevant item
 		var char_inspection_window: CharacterInspectionWindow = item_slot.character_inspection_window
-		if char_inspection_window != null:
-			var curr_character: PlayerCombatant = char_inspection_window.current_character
-			if char_inspection_window != null and curr_character != null and \
-			item.item_type != ItemTypes.EquipmentTypes.None:
+		var curr_character: PlayerCombatant = char_inspection_window.current_character
+		if char_inspection_window != null and curr_character != null and \
+		item.item_type != ItemTypes.EquipmentTypes.None:
+			
+			var equipment_holder: EquipmentInventory = curr_character.equipment_holder
+			if equipment_holder.has_item(item) == false:
 				
-				var equipment_holder: EquipmentInventory = curr_character.equipment_holder
-				if equipment_holder.has_item(item) == false:
+				if OS.is_debug_build() == true:
+					print("Tooltip :: Character available with a relevant item. Displaying stat changes.")
+				
+				# For each modifier, create a text object displaying what stats
+				# are changing
+				for mod: StatModifier in item.stat_modifiers:
+					create_stat_change_label(curr_character, mod)
 					
-					if OS.is_debug_build() == true:
-						print("Tooltip :: Character available with a relevant item. Displaying stat changes.")
-					
-					# For each modifier, create a text object displaying what stats
-					# are changing
-					for mod: StatModifier in item.stat_modifiers:
-						create_stat_change_label(curr_character, mod)
-						
-					stat_change_container.get_parent().show()
+				stat_change_container.get_parent().show()
 
 func create_stat_change_label(character: Combatant, mod: StatModifier) -> void:
 	var cds: CharacterStatDisplayer = stat_displayer.instantiate()

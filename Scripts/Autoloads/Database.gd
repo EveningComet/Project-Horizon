@@ -51,9 +51,6 @@ func load_character_names() -> void:
 		if csv.size() > 2:
 			if csv[2] != UNISEX and csv[2] != "":
 				char_names[UNISEX].append(csv[2])
-				
-	if OS.is_debug_build() == true:
-		print("Database :: The names are: ", char_names)
 	
 	file.close()
 	

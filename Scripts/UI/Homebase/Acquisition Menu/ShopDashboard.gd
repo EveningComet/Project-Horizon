@@ -14,12 +14,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	return
 
 func _ready() -> void:
-	shop_inventory_displayer.set_inventory_to_display(shop_inventory_holder.inventory)
-	shop_inventory_displayer.set_character_inspection_window(character_inspection_window)
-	shop_inventory_holder.inventory.inventory_interacted.connect(
-		on_shop_inventory_interacted
-	)
-	shop_inventory_displayer.gui_input.connect( on_shop_gui_input )
+	setup_shop()
 	super()
 
 ## When the player clicks over the shop, sell the item.
@@ -34,6 +29,14 @@ func on_shop_gui_input(event: InputEvent) -> void:
 		if grabbed_slot_data.quantity < 1:
 			grabbed_slot_data = null
 		update_grabbed_slot()
+
+func setup_shop() -> void:
+	shop_inventory_displayer.set_character_inspection_window(character_inspection_window)
+	shop_inventory_displayer.set_inventory_to_display(shop_inventory_holder.inventory)
+	shop_inventory_holder.inventory.inventory_interacted.connect(
+		on_shop_inventory_interacted
+	)
+	shop_inventory_displayer.gui_input.connect( on_shop_gui_input )
 
 func on_shop_inventory_interacted(inventory_data: ShopInventoryData, index: int, button: int) -> void:
 	match [grabbed_slot_data, button]:

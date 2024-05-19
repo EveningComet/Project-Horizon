@@ -108,6 +108,6 @@ func on_slot_clicked(index: int, button: int) -> void:
 
 func has_item(item: ItemData) -> bool:
 	for slot: ItemSlotData in stored_items:
-		if slot.stored_item != null and slot.stored_item == item:
+		if slot != null and slot.stored_item != null and slot.stored_item == item:
 			return true
 	return false

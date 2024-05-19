@@ -3,13 +3,14 @@
 [ext_resource type="Script" path="res://Scripts/UI/General/Tooltip.gd" id="1_fiv60"]
 [ext_resource type="PackedScene" uid="uid://d2nqesf7j60nu" path="res://Scenes/UI/Homebase/Character Stat Displayer.tscn" id="2_sgrsp"]
 
-[node name="Tooltip" type="PanelContainer" node_paths=PackedStringArray("title", "description_displayer", "level_value_displayer", "stat_change_container", "upgrade_displayer")]
+[node name="Tooltip" type="PanelContainer" node_paths=PackedStringArray("title", "description_displayer", "cost_value_label", "level_value_displayer", "stat_change_container", "upgrade_displayer")]
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
 script = ExtResource("1_fiv60")
 title = NodePath("MarginContainer/VBoxContainer/Title Label")
 description_displayer = NodePath("MarginContainer/VBoxContainer/Description Label")
+cost_value_label = NodePath("MarginContainer/VBoxContainer/Cost Displayer Container/Cost Value Label")
 level_value_displayer = NodePath("MarginContainer/VBoxContainer/Level Label Container/Level Value")
 stat_displayer = ExtResource("2_sgrsp")
 stat_change_container = NodePath("MarginContainer/VBoxContainer/MarginContainer/Stat Displayer Container")
@@ -31,6 +32,7 @@ theme_override_constants/separation = 5
 [node name="Title Label" type="Label" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
+theme_override_font_sizes/font_size = 25
 text = "Title Here"
 
 [node name="Level Label Container" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
@@ -70,3 +72,17 @@ visible = false
 layout_mode = 2
 size_flags_vertical = 3
 text = "0 / 5"
+
+[node name="Cost Displayer Container" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Cost Name Label" type="Label" parent="MarginContainer/VBoxContainer/Cost Displayer Container"]
+layout_mode = 2
+text = "Cost"
+
+[node name="Cost Value Label" type="Label" parent="MarginContainer/VBoxContainer/Cost Displayer Container"]
+layout_mode = 2
+text = "42
+"
