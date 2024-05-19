@@ -64,10 +64,6 @@ func handle_item_slot(item_slot: ItemSlotUI) -> void:
 			
 			var equipment_holder: EquipmentInventory = curr_character.equipment_holder
 			if equipment_holder.has_item(item) == false:
-				
-				if OS.is_debug_build() == true:
-					print("Tooltip :: Character available with a relevant item. Displaying stat changes.")
-				
 				# For each modifier, create a text object displaying what stats
 				# are changing
 				for mod: StatModifier in item.stat_modifiers:

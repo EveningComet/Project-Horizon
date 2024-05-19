@@ -7,6 +7,13 @@ class_name SkillEffect extends Resource
 ## Does the skill require the special (will/mind/etc.) stat?
 @export var use_special_stat: bool = false
 
+## Get the uncalculated power, if desired.
+func get_uncalculated_power(activator: Combatant) -> int:
+	if use_special_stat == true:
+		return activator.get_special_power()
+	else:
+		return activator.get_physical_power()
+
 ## Get the power output. The value returned is typically used for damage and
 ## healing.
 func get_power(activator: Combatant) -> int:

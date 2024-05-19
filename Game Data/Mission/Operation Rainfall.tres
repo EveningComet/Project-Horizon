@@ -9,3 +9,4 @@ mission_name = "Operation Rainfall"
 mission_description = "It's cloudy with a chance of meatballs."
 enemies = Array[Resource("res://Scripts/Mission/EnemyData.gd")]([ExtResource("2_xm5di")])
 is_unlocked_by_default = false
+money_on_victory = 50

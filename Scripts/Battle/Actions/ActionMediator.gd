@@ -8,6 +8,9 @@ var activator: Combatant
 ## Stores the different types of damage that can be applied.
 var damage_data: Dictionary = {}
 
+## The original, pre-calculation damage powers.
+var damage_powers: Dictionary = {}
+
 ## The status effects that need to be sent. A key value pair of:
 ## {status effect : success chance}.
 var status_effects_to_apply: Dictionary = {}
@@ -38,7 +41,7 @@ func get_total_possible_damage() -> int:
 ## If the target has at least one debuff applied, this will cause the damage
 ## to be scaled.
 func get_debuff_scaled_damage(damage_type: StatTypes.DamageTypes) -> int:
-	var original_damage:     int = damage_data[damage_type]
+	var original_damage:     int   = damage_powers[damage_type]
 	var power_scale:         float = power_scalings[damage_type]
 	var status_damage_scale: float = status_damage_scalers[damage_type]
 	var new_damage: int = floor(
@@ -46,7 +49,13 @@ func get_debuff_scaled_damage(damage_type: StatTypes.DamageTypes) -> int:
 	)
 	return new_damage
 
-## Get the lifesteal which based on the stored percentage, the damage type
+func deals_more_damage_when_debuffs_present() -> bool:
+	for dt in status_damage_scalers.keys():
+		if status_damage_scalers[dt] > 0.0:
+			return true
+	return false
+
+## Get the lifesteal which is based on the stored percentage, the damage type,
 ## and the target's health.
 func get_lifesteal_amount(damage_type: StatTypes.DamageTypes, target: Combatant) -> int:
 	var lifesteal_amount: int = 0

@@ -8,6 +8,8 @@
 [sub_resource type="Resource" id="Resource_7ttbn"]
 script = ExtResource("1_wu8ok")
 base_damage = 3
+power_scale = 1.0
+status_damage_scaler = 0.0
 damage_type = 1
 stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
 
@@ -15,6 +17,8 @@ stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
 script = ExtResource("2_ihqes")
 increase_ratio_per_turn = 0.5
 base_damage = 3
+power_scale = 1.0
+status_damage_scaler = 0.0
 damage_type = 1
 stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
 
@@ -28,4 +32,5 @@ chance_of_spreading = 0.0
 incubation_time = 0
 on_apply = SubResource("Resource_7ttbn")
 on_turn_tick = SubResource("Resource_1dhul")
+is_negative = true
 duration_in_turns = 2

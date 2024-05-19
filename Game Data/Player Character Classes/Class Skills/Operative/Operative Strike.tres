@@ -1,0 +1,48 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=8 format=3 uid="uid://cyhml8pp265nt"]
+
+[ext_resource type="Script" path="res://Scripts/Character/Skill/SkillData.gd" id="1_dcyti"]
+[ext_resource type="Texture2D" uid="uid://d3rnajtkaw8ms" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Icons/Icon37.png" id="1_qy246"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/Skill Effects/DirectDamage.gd" id="2_dqh1k"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/SkillTier.gd" id="3_lxnlo"]
+
+[sub_resource type="Resource" id="Resource_7dih3"]
+script = ExtResource("2_dqh1k")
+damage_type = 0
+bonus_damage_scale_on_debuffs_present = 0.0
+attacker_heal_percentage = 0.0
+power_scale = 1.0
+use_special_stat = false
+
+[sub_resource type="Resource" id="Resource_nhkvm"]
+script = ExtResource("3_lxnlo")
+cost = 5
+power_scale = 0.6
+bonus_damage_scale_on_debuffs_present = 0.6
+attacker_heal_percentage = 0.0
+stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
+
+[sub_resource type="Resource" id="Resource_hrc8n"]
+script = ExtResource("3_lxnlo")
+cost = 5
+power_scale = 0.7
+bonus_damage_scale_on_debuffs_present = 0.6
+attacker_heal_percentage = 0.0
+stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
+
+[resource]
+script = ExtResource("1_dcyti")
+localization_name = "Strike"
+localization_description = "Attack the enemy. More damage will be dealt if they have a debuff."
+is_passive = false
+action_type = 0
+skill_type = 0
+num_activations = 1
+minimum_rank_of_previous = 0
+unlocks_at_class_level = 0
+success_chance = 1.0
+is_unlocked_by_default = true
+tiers = Array[ExtResource("3_lxnlo")]([SubResource("Resource_nhkvm"), SubResource("Resource_hrc8n")])
+branches = Array[ExtResource("1_dcyti")]([])
+is_ranged = false
+effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([SubResource("Resource_7dih3")])
+display_texture = ExtResource("1_qy246")

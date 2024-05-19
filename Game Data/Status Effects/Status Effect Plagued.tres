@@ -28,4 +28,5 @@ chance_of_spreading = 0.5
 incubation_time = 2
 on_apply = SubResource("Resource_lxqdp")
 on_turn_tick = SubResource("Resource_kqobo")
+is_negative = true
 duration_in_turns = 3

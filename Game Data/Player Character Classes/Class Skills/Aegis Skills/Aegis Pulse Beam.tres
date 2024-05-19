@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=11 format=3 uid="uid://cklqful7fhtp6"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=13 format=3 uid="uid://cklqful7fhtp6"]
 
 [ext_resource type="Script" path="res://Scripts/Character/Skill/Skill Effects/DirectDamage.gd" id="1_2lgx2"]
 [ext_resource type="Texture2D" uid="uid://qd1gmfqfgvyb" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Icons/Icon35.png" id="1_hxbul"]
@@ -25,15 +25,31 @@ use_special_stat = false
 [sub_resource type="Resource" id="Resource_ffbvh"]
 script = ExtResource("7_81a3n")
 cost = 5
-power_scale = 1.25
+power_scale = 0.75
 bonus_damage_scale_on_debuffs_present = 0.0
 attacker_heal_percentage = 0.0
 stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
 
 [sub_resource type="Resource" id="Resource_kd176"]
 script = ExtResource("7_81a3n")
-cost = 10
-power_scale = 2.5
+cost = 7
+power_scale = 0.85
+bonus_damage_scale_on_debuffs_present = 0.0
+attacker_heal_percentage = 0.0
+stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
+
+[sub_resource type="Resource" id="Resource_vryq4"]
+script = ExtResource("7_81a3n")
+cost = 9
+power_scale = 0.95
+bonus_damage_scale_on_debuffs_present = 0.0
+attacker_heal_percentage = 0.0
+stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
+
+[sub_resource type="Resource" id="Resource_j8ti0"]
+script = ExtResource("7_81a3n")
+cost = 11
+power_scale = 1.05
 bonus_damage_scale_on_debuffs_present = 0.0
 attacker_heal_percentage = 0.0
 stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
@@ -50,7 +66,7 @@ minimum_rank_of_previous = 0
 unlocks_at_class_level = 1
 success_chance = 1.0
 is_unlocked_by_default = true
-tiers = Array[ExtResource("7_81a3n")]([SubResource("Resource_ffbvh"), SubResource("Resource_kd176")])
+tiers = Array[ExtResource("7_81a3n")]([SubResource("Resource_ffbvh"), SubResource("Resource_kd176"), SubResource("Resource_vryq4"), SubResource("Resource_j8ti0")])
 branches = Array[ExtResource("1_m3w6m")]([])
 is_ranged = true
 effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([SubResource("Resource_gy3qy"), SubResource("Resource_oksc7")])

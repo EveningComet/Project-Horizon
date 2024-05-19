@@ -75,27 +75,30 @@ func get_usable_data(activator: Combatant, upgrade_level: int = 0) -> ActionMedi
 		# Check for damage
 		if effect is DirectDamage:
 			var damage_effect = effect as DirectDamage
+			var damage_type   = damage_effect.damage_type
 			
-			if action_mediator.damage_data.has(damage_effect.damage_type) == true:
-				action_mediator.damage_data[damage_effect.damage_type] += get_power(
+			if action_mediator.damage_data.has(damage_type) == true:
+				action_mediator.damage_data[damage_type] += get_power(
 					activator, upgrade_level, damage_effect
 				)
-				action_mediator.power_scalings[damage_effect.damage_type] += get_power_scale(
+				action_mediator.power_scalings[damage_type] += get_power_scale(
 					upgrade_level
 				)
-				action_mediator.status_damage_scalers[damage_effect.damage_type] += get_bonus_power_on_debuffs_present(
+				action_mediator.status_damage_scalers[damage_type] += get_bonus_power_on_debuffs_present(
 					activator, upgrade_level, damage_effect
 				)
+				action_mediator.damage_powers[damage_type] += get_uncalculated_power(activator, damage_effect)
 			else:
-				action_mediator.damage_data[damage_effect.damage_type] = get_power(
+				action_mediator.damage_data[damage_type] = get_power(
 					activator, upgrade_level, damage_effect
 				)
-				action_mediator.power_scalings[damage_effect.damage_type] = get_power_scale(
+				action_mediator.power_scalings[damage_type] = get_power_scale(
 					upgrade_level
 				)
-				action_mediator.status_damage_scalers[damage_effect.damage_type] = get_bonus_power_on_debuffs_present(
+				action_mediator.status_damage_scalers[damage_type] = get_bonus_power_on_debuffs_present(
 					activator, upgrade_level, damage_effect
 				)
+				action_mediator.damage_powers[damage_type] = get_uncalculated_power(activator, damage_effect)
 	
 		# Check for status effects
 		elif effect is ApplyStatusEffect:
@@ -116,6 +119,9 @@ func get_usable_data(activator: Combatant, upgrade_level: int = 0) -> ActionMedi
 func get_power(activator: Combatant, upgrade_level: int, e: SkillEffect) -> int:
 	var new_scale: float = get_tier(upgrade_level).power_scale
 	return e.get_power_with_alt_scale(activator, new_scale)
+
+func get_uncalculated_power(activator: Combatant, e: SkillEffect) -> int:
+	return e.get_uncalculated_power(activator)
 
 func get_power_scale(upgrade_level: int) -> float:
 	return get_tier(upgrade_level).power_scale

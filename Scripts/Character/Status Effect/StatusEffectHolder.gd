@@ -10,20 +10,16 @@ var statuses: Dictionary = {}
 ## The queued statuses and how many turns before their activation
 var queued_statuses: Dictionary = {}
 
-
-func initialize(combatant: Combatant) -> void:
+func _init(combatant: Combatant):
 	monitored_combatant = combatant
-
 
 func get_contagious_status_effects() -> Array:
 	return statuses.keys().filter(func(status): return status.is_contagious)
-
 
 func queue_status_effect(status_to_queue: StatusEffect) -> void:
 	if not queued_statuses.has(status_to_queue) and not statuses.has(status_to_queue):
 		queued_statuses[status_to_queue] = status_to_queue.incubation_time
 		print(monitored_combatant, ": queued status effect ", status_to_queue.localization_name, ", incubation time: ", queued_statuses[status_to_queue], " turns")
-
 
 func add_status_effect(status_to_add: StatusEffect) -> void:
 	if (not statuses.has(status_to_add)):
@@ -52,9 +48,15 @@ func tick_queued_effects() -> void:
 			add_status_effect(status)
 			queued_statuses.erase(status)
 
-
 func remove_status_effect(status_to_remove: StatusEffect) -> void:
 	status_to_remove.trigger_on_expire(monitored_combatant)
 	statuses.erase(status_to_remove)
 	monitored_combatant.status_effect_removed.emit(monitored_combatant, status_to_remove)
 	print(monitored_combatant, ": removed status effect ", status_to_remove.localization_name)
+
+## Are there status effects considered negative?
+func has_negative_statuses_present() -> bool:
+	for status: StatusEffect in statuses.keys():
+		if status.is_negative == true:
+			return true
+	return false

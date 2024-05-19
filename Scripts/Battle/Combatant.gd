@@ -20,7 +20,7 @@ var stats: Dictionary = {}
 var portrait_data: PortraitData
 
 ## The status effects being monitored for this character.
-var status_effect_holder: StatusEffectHolder = StatusEffectHolder.new()
+var status_effect_holder: StatusEffectHolder = StatusEffectHolder.new(self)
 
 ## The equipment being monitored for this character.
 var equipment_holder: EquipmentInventory = EquipmentInventory.new(self)
@@ -216,11 +216,19 @@ func take_damage(action_mediator: ActionMediator) -> void:
 	# Go through the damage types and apply the damage
 	# TODO: Hookup lifesteal for the attacker. (Make sure to not heal more health
 	# than the target has.)
-	# TODO: Hookup dealing more damage based on the target having debuffs.
 	for damage_type: StatTypes.DamageTypes in damage_data:
 		
 		# Get the damage and see how it should get scaled.
 		var dmg_amt: int = damage_data[damage_type]
+		
+		# Check if the damage should be increased based on any present debuffs
+		if status_effect_holder.has_negative_statuses_present() == true and \
+		action_mediator.deals_more_damage_when_debuffs_present() == true:
+			dmg_amt = action_mediator.get_debuff_scaled_damage(damage_type)
+			
+			if OS.is_debug_build() == true:
+				print("Combatant :: A target taking damage is taking more damage to debuffs.")
+		
 		match damage_type:
 			
 			# Subtract the damage
