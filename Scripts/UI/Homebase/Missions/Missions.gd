@@ -1,5 +1,6 @@
 extends Control
 
+@export_file("*.tscn") var homebase_scene: String
 @export_file("*.tscn") var battle_scene: String
 
 @export var buttons_container: VBoxContainer
@@ -14,6 +15,10 @@ const mission_button_group_name: String = "missions"
 func _ready():
 	add_mision_buttons()
 	description_panel.hide()
+
+func _process(_delta):
+	if Input.is_action_just_pressed( "escape" ):
+		SceneController.switch_to_scene( homebase_scene )
 
 func add_mision_buttons() -> void:
 	for mission in missions:

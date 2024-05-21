@@ -15,6 +15,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_31vta")
+homebase_scene = "res://Scenes/UI/Homebase/Homebase Home Menu.tscn"
 battle_scene = "res://Scenes/Combat.tscn"
 buttons_container = NodePath("VBoxContainer")
 mission_description = NodePath("Background/MarginContainer/MissionDescription")
