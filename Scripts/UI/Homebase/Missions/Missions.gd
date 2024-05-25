@@ -17,7 +17,7 @@ func _ready():
 	description_panel.hide()
 
 func _process(_delta):
-	if Input.is_action_just_pressed( "escape" ):
+	if Input.is_action_just_pressed( "ui_cancel" ):
 		SceneController.switch_to_scene( homebase_scene )
 
 func add_mision_buttons() -> void:
