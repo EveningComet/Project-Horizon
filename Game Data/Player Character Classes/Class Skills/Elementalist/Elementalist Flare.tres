@@ -1,0 +1,88 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=13 format=3 uid="uid://b103gsiwq74j6"]
+
+[ext_resource type="Texture2D" uid="uid://d3rnajtkaw8ms" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Icons/Icon37.png" id="1_hwvsf"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/SkillData.gd" id="1_wnof8"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/Skill Effects/DirectDamage.gd" id="2_hj147"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/SkillTier.gd" id="4_10tew"]
+
+[sub_resource type="Resource" id="Resource_4h84g"]
+script = ExtResource("2_hj147")
+damage_type = 0
+bonus_damage_scale_on_debuffs_present = 0.0
+attacker_heal_percentage = 0.0
+power_scale = 1.0
+use_special_stat = true
+
+[sub_resource type="Resource" id="Resource_i482y"]
+script = ExtResource("4_10tew")
+cost = 6
+power_scale = 0.75
+bonus_damage_scale_on_debuffs_present = 0.0
+attacker_heal_percentage = 0.0
+stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
+
+[sub_resource type="Resource" id="Resource_b5se5"]
+script = ExtResource("4_10tew")
+cost = 7
+power_scale = 0.8
+bonus_damage_scale_on_debuffs_present = 0.0
+attacker_heal_percentage = 0.0
+stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
+
+[sub_resource type="Resource" id="Resource_hv2mw"]
+script = ExtResource("4_10tew")
+cost = 8
+power_scale = 0.85
+bonus_damage_scale_on_debuffs_present = 0.0
+attacker_heal_percentage = 0.0
+stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
+
+[sub_resource type="Resource" id="Resource_lik4e"]
+script = ExtResource("4_10tew")
+cost = 9
+power_scale = 0.9
+bonus_damage_scale_on_debuffs_present = 0.0
+attacker_heal_percentage = 0.0
+stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
+
+[sub_resource type="Resource" id="Resource_312rt"]
+script = ExtResource("4_10tew")
+cost = 10
+power_scale = 0.95
+bonus_damage_scale_on_debuffs_present = 0.0
+attacker_heal_percentage = 0.0
+stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
+
+[sub_resource type="Resource" id="Resource_t2rwy"]
+script = ExtResource("4_10tew")
+cost = 11
+power_scale = 1.0
+bonus_damage_scale_on_debuffs_present = 0.0
+attacker_heal_percentage = 0.0
+stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
+
+[sub_resource type="Resource" id="Resource_3de3x"]
+script = ExtResource("4_10tew")
+cost = 12
+power_scale = 1.05
+bonus_damage_scale_on_debuffs_present = 0.0
+attacker_heal_percentage = 0.0
+stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
+
+[resource]
+script = ExtResource("1_wnof8")
+localization_name = "Flare"
+localization_description = "Attack a single enemy with fire."
+is_passive = false
+action_type = 0
+skill_type = 0
+num_activations = 1
+minimum_rank_of_previous = 0
+unlocks_at_class_level = 1
+success_chance = 1.0
+is_unlocked_by_default = false
+tiers = Array[ExtResource("4_10tew")]([SubResource("Resource_i482y"), SubResource("Resource_b5se5"), SubResource("Resource_hv2mw"), SubResource("Resource_lik4e"), SubResource("Resource_312rt"), SubResource("Resource_t2rwy"), SubResource("Resource_3de3x")])
+branches = Array[ExtResource("1_wnof8")]([])
+is_ranged = true
+effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([SubResource("Resource_4h84g")])
+display_texture = ExtResource("1_hwvsf")

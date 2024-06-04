@@ -1,9 +1,12 @@
-[gd_resource type="Resource" script_class="CharacterClass" load_steps=7 format=3 uid="uid://dubwwlqygfq5d"]
+[gd_resource type="Resource" script_class="CharacterClass" load_steps=10 format=3 uid="uid://dubwwlqygfq5d"]
 
 [ext_resource type="Texture2D" uid="uid://cy0rxkveb7trd" path="res://Imported Assets/coraxdigitalart-space-station-inhabitants/coraxdigitalart-space-station-portraits (174).png" id="1_bnkow"]
 [ext_resource type="Script" path="res://Scripts/Character/CharacterClass.gd" id="1_mv1mg"]
 [ext_resource type="Script" path="res://Scripts/Character/PortraitData.gd" id="2_h46rd"]
 [ext_resource type="Texture2D" uid="uid://deq2lu3rkw7ir" path="res://Imported Assets/coraxdigitalart-space-station-inhabitants/coraxdigitalart-space-station-portraits (76).png" id="3_65lpb"]
+[ext_resource type="Resource" uid="uid://cip1isrto5tff" path="res://Game Data/Player Character Classes/Class Skills/Elementalist/Elementalist Electric Bolt.tres" id="5_ghhlq"]
+[ext_resource type="Resource" uid="uid://b103gsiwq74j6" path="res://Game Data/Player Character Classes/Class Skills/Elementalist/Elementalist Flare.tres" id="6_gx1fp"]
+[ext_resource type="Resource" uid="uid://bnal8grpsrii1" path="res://Game Data/Player Character Classes/Class Skills/Elementalist/Elementalist Sickle.tres" id="7_nqh1j"]
 
 [sub_resource type="Resource" id="Resource_7ytp5"]
 script = ExtResource("2_h46rd")
@@ -26,6 +29,6 @@ vitality_on_increase = 5
 expertise_on_increase = 5
 will_on_increase = 5
 starting_equipment = Array[Resource("res://Scripts/Inventory/ItemData.gd")]([])
-skills = Array[Resource("res://Scripts/Character/Skill/SkillData.gd")]([])
+skills = Array[Resource("res://Scripts/Character/Skill/SkillData.gd")]([ExtResource("5_ghhlq"), ExtResource("6_gx1fp"), ExtResource("7_nqh1j")])
 male_portraits = Array[ExtResource("2_h46rd")]([SubResource("Resource_3soab")])
 female_portraits = Array[ExtResource("2_h46rd")]([SubResource("Resource_7ytp5")])

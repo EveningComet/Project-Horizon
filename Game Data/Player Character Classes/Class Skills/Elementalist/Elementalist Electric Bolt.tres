@@ -1,0 +1,88 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=13 format=3 uid="uid://cip1isrto5tff"]
+
+[ext_resource type="Texture2D" uid="uid://fjaj5tl8mrra" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Icons/Icon29.png" id="1_8wdd8"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/SkillData.gd" id="1_65epr"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/Skill Effects/DirectDamage.gd" id="1_81cio"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/SkillTier.gd" id="2_wawhc"]
+
+[sub_resource type="Resource" id="Resource_ix0ig"]
+script = ExtResource("1_81cio")
+damage_type = 0
+bonus_damage_scale_on_debuffs_present = 0.0
+attacker_heal_percentage = 0.0
+power_scale = 1.0
+use_special_stat = true
+
+[sub_resource type="Resource" id="Resource_1ag72"]
+script = ExtResource("2_wawhc")
+cost = 6
+power_scale = 0.75
+bonus_damage_scale_on_debuffs_present = 0.0
+attacker_heal_percentage = 0.0
+stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
+
+[sub_resource type="Resource" id="Resource_gjg4b"]
+script = ExtResource("2_wawhc")
+cost = 7
+power_scale = 0.8
+bonus_damage_scale_on_debuffs_present = 0.0
+attacker_heal_percentage = 0.0
+stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
+
+[sub_resource type="Resource" id="Resource_4y872"]
+script = ExtResource("2_wawhc")
+cost = 8
+power_scale = 0.85
+bonus_damage_scale_on_debuffs_present = 0.0
+attacker_heal_percentage = 0.0
+stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
+
+[sub_resource type="Resource" id="Resource_qu1y1"]
+script = ExtResource("2_wawhc")
+cost = 9
+power_scale = 0.9
+bonus_damage_scale_on_debuffs_present = 0.0
+attacker_heal_percentage = 0.0
+stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
+
+[sub_resource type="Resource" id="Resource_tmg7e"]
+script = ExtResource("2_wawhc")
+cost = 10
+power_scale = 0.95
+bonus_damage_scale_on_debuffs_present = 0.0
+attacker_heal_percentage = 0.0
+stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
+
+[sub_resource type="Resource" id="Resource_wq5sv"]
+script = ExtResource("2_wawhc")
+cost = 11
+power_scale = 1.0
+bonus_damage_scale_on_debuffs_present = 0.0
+attacker_heal_percentage = 0.0
+stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
+
+[sub_resource type="Resource" id="Resource_h2tlf"]
+script = ExtResource("2_wawhc")
+cost = 12
+power_scale = 1.05
+bonus_damage_scale_on_debuffs_present = 0.0
+attacker_heal_percentage = 0.0
+stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
+
+[resource]
+script = ExtResource("1_65epr")
+localization_name = "Bolt"
+localization_description = "Fire a bolt of electricity at an enemy."
+is_passive = false
+action_type = 0
+skill_type = 0
+num_activations = 1
+minimum_rank_of_previous = 0
+unlocks_at_class_level = 1
+success_chance = 1.0
+is_unlocked_by_default = true
+tiers = Array[ExtResource("2_wawhc")]([SubResource("Resource_1ag72"), SubResource("Resource_gjg4b"), SubResource("Resource_4y872"), SubResource("Resource_qu1y1"), SubResource("Resource_tmg7e"), SubResource("Resource_wq5sv"), SubResource("Resource_h2tlf")])
+branches = Array[ExtResource("1_65epr")]([])
+is_ranged = true
+effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([SubResource("Resource_ix0ig")])
+display_texture = ExtResource("1_8wdd8")
