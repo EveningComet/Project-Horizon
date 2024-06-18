@@ -12,8 +12,8 @@ var skill_instance: SkillInstance = null:
 	set(value):
 		skill_instance = value
 		if skill_instance != null:
-			text        = skill_instance.monitored_skill.localization_name
-			action_type = skill_instance.monitored_skill.action_type
+			text        = skill_instance.skill.localization_name
+			action_type = skill_instance.skill.action_type
 			focus_entered.connect( on_focused )
 			mouse_entered.connect( on_mouse_entered )
 

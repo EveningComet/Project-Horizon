@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/Homebase/HomebaseHome.gd" id="1_ordyh"]
 [ext_resource type="AudioStream" uid="uid://f4a3dt6u60a4" path="res://Imported Assets/Audio/Music/Alkakrab Sci-Fi Music Pack 2 ogg/2 - Galactic Odyssey (Loop).ogg" id="2_vsm81"]
 [ext_resource type="PackedScene" uid="uid://bek88fdvhms4b" path="res://Scenes/UI/Homebase/Party Dashboard.tscn" id="3_i1jwn"]
-[ext_resource type="PackedScene" uid="uid://bjvar0ie3f2x" path="res://Scenes/UI/Skill/Skill Menu.tscn" id="4_o3dl3"]
+[ext_resource type="PackedScene" uid="uid://bjvar0ie3f2x" path="res://Scenes/UI/Skill Menu/Skill Menu.tscn" id="4_o3dl3"]
 
 [node name="Homebase Home Menu" type="CanvasLayer"]
 

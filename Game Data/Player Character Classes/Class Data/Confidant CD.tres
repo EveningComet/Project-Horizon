@@ -4,9 +4,9 @@
 [ext_resource type="Script" path="res://Scripts/Character/CharacterClass.gd" id="1_w7spn"]
 [ext_resource type="Script" path="res://Scripts/Character/PortraitData.gd" id="2_3gaf8"]
 [ext_resource type="Texture2D" uid="uid://gwr5a7cj2tfl" path="res://Imported Assets/coraxdigitalart-space-station-inhabitants/coraxdigitalart-space-station-portraits (53).png" id="3_8532s"]
-[ext_resource type="Resource" uid="uid://d2mxjb33dhn0t" path="res://Game Data/Player Character Classes/Class Skills/Confidant/Confidant First Aid.tres" id="5_vkrxc"]
-[ext_resource type="Resource" uid="uid://05l5egkpynnr" path="res://Game Data/Player Character Classes/Class Skills/Confidant/Confidant Inspire.tres" id="6_dsrsd"]
-[ext_resource type="Resource" uid="uid://bwfrxhbnao2tq" path="res://Game Data/Player Character Classes/Class Skills/Confidant/Confidant Intelligence.tres" id="7_kplsd"]
+[ext_resource type="Resource" uid="uid://bwfrxhbnao2tq" path="res://Game Data/Player Character Classes/Class Skills/Confidant/Confidant Intelligence.tres" id="5_bswdt"]
+[ext_resource type="Resource" uid="uid://d2mxjb33dhn0t" path="res://Game Data/Player Character Classes/Class Skills/Confidant/Confidant First Aid.tres" id="6_jn7bt"]
+[ext_resource type="Resource" uid="uid://05l5egkpynnr" path="res://Game Data/Player Character Classes/Class Skills/Confidant/Confidant Inspire.tres" id="7_xg238"]
 
 [sub_resource type="Resource" id="Resource_frx2l"]
 script = ExtResource("2_3gaf8")
@@ -29,6 +29,8 @@ vitality_on_increase = 2
 expertise_on_increase = 2
 will_on_increase = 4
 starting_equipment = Array[Resource("res://Scripts/Inventory/ItemData.gd")]([])
-skills = Array[Resource("res://Scripts/Character/Skill/SkillData.gd")]([ExtResource("5_vkrxc"), ExtResource("6_dsrsd"), ExtResource("7_kplsd")])
+file_path_to_job_skills = "res://Game Data/Player Character Classes/Class Skills/Confidant/"
+update_attached_skills = false
+skills = Array[Resource("res://Scripts/Character/Skill/SkillData.gd")]([ExtResource("5_bswdt"), ExtResource("6_jn7bt"), ExtResource("7_xg238")])
 male_portraits = Array[ExtResource("2_3gaf8")]([SubResource("Resource_w2dq2")])
 female_portraits = Array[ExtResource("2_3gaf8")]([SubResource("Resource_frx2l")])

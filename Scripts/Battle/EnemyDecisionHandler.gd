@@ -59,8 +59,8 @@ func _get_best_action_for_enemy(
 					# Find the skill that will deal the most damage
 					for skill: SkillData in enemy.stored_enemy_data.available_skills:
 						var mediator: ActionMediator = skill.get_usable_data( enemy )
-						potential_action.skill_instance = SkillInstance.new()
-						potential_action.skill_instance.monitored_skill = skill
+						potential_action.skill_instance = SkillInstance.new(skill)
+						potential_action.skill_instance.skill = skill
 						context["potential_damage"] = mediator.get_total_possible_damage()
 						var choice = UtilityAIOption.new(
 							behavior, context, potential_action
@@ -80,16 +80,14 @@ func _get_best_action_for_enemy(
 					
 					for skill: SkillData in enemy.stored_enemy_data.available_skills:
 						var mediator = skill.get_usable_data( enemy )
-						potential_action.skill_instance = SkillInstance.new()
-						potential_action.skill_instance.monitored_skill = skill
+						potential_action.skill_instance = SkillInstance.new(skill)
+						potential_action.skill_instance.skill = skill
 						context["healing_power"] = mediator.heal_amount
 						var choice = UtilityAIOption.new(
 							behavior, context, potential_action
 						)
 						choices.append( choice )
 	
-	if OS.is_debug_build() == true:
-		print("EnemyDecisionHandler :: Possible decisions for %s: %s" % [enemy.stored_enemy_data.enemy_name, choices])
 	# Get and return an action
 	var decision = UtilityAI.choose_highest(
 		choices, 

@@ -19,12 +19,12 @@ func _ready() -> void:
 func set_skill_user(new_user: PlayerCombatant) -> void:
 	skill_user = new_user
 	for skill_instance: SkillInstance in skill_user.skill_holder.get_usable_skills():
-		if skill_instance.monitored_skill.is_passive == false:
+		if skill_instance.skill.is_passive == false:
 			var b: BattleActionButton = battle_skill_button_template.instantiate()
 			b.skill_instance = skill_instance
 			spawned_button_node.add_child( b )
-			var sp_cost: int = skill_instance.monitored_skill.get_cost(
-				skill_instance.current_upgrade_level
+			var sp_cost: int = skill_instance.skill.get_cost(
+				skill_instance.curr_rank
 			)
 			b.disabled = skill_user.get_current_sp() < sp_cost
 			b.skill_button_highlighted.connect( on_skill_button_highlighted )
@@ -48,5 +48,5 @@ func close() -> void:
 
 ## Update the description when the player has focused a skill button in some way.
 func on_skill_button_highlighted(si: SkillInstance) -> void:
-	description.set_text(si.monitored_skill.localization_description)
+	description.set_text(si.skill.localization_description)
 	# TODO: Display the needed info like power output.

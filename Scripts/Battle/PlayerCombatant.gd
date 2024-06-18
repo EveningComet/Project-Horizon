@@ -20,7 +20,7 @@ var experience_required:     int = get_experience_required( curr_level )
 var total_experience_points: int = 0
 
 ## The points for boosting one of this character's skills or class levels.
-var available_skill_points:     int = 0
+var available_skill_points:     int = 6
 
 ## The points for boosting one of the three core attributes.
 var available_attribute_points: int = 0
@@ -52,7 +52,7 @@ func initialize_with_class_data(class_data: CharacterClass) -> void:
 	initialize_other_stats()
 	
 	# Setup the relevant skills
-	skill_holder.initialize_for_player_character(class_data)
+	skill_holder.add_character_class_skills(class_data)
 
 ## Add a character class to the player character. The first one will be the
 ## "starting" class.

@@ -1,107 +1,70 @@
 ## Stores a collection of instanced skills.
-class_name SkillHolder
+class_name SkillHolder extends Resource
 
 ## The combatant being kept track of.
 var combatant: Combatant
 
-## Dictionary { skill_data : skill_instance }
-var skill_data_instances: = {}
+## Dictionary { SkillInstance : Current Rank }
+var skills: = {}
 
 func _init(new_combatant: Combatant) -> void:
 	combatant = new_combatant
 
-func initialize_for_player_character(skill_class: CharacterClass):
-	initialize_skill_data_instances( skill_class.skills )
-	try_to_unlock_with_class_level(skill_class, 1)
+## Return a list of all the stored skill instances.
+func get_all_skills() -> Array[SkillInstance]:
+	var all_skills: Array[SkillInstance] = []
+	for instance: SkillInstance in skills.keys():
+		all_skills.append(instance)
+	return all_skills
 
-func add_skills(skills_to_add: Array[SkillData]) -> void:
-	initialize_skill_data_instances(skills_to_add)
+## Return a list of skill instances that have a rank greater than 0.
+func get_usable_skills() -> Array[SkillInstance]:
+	var usable_skills: Array[SkillInstance] = []
+	for instance in skills.keys():
+		if instance.curr_rank > 0:
+			usable_skills.append(instance)
+	return usable_skills
 
-func add_from_character_class(cc: CharacterClass) -> void:
-	initialize_skill_data_instances( cc.skills )
-	try_to_unlock_with_class_level( cc, 1 )
+## Add a collection of skills from a character class.
+func add_character_class_skills(cd: CharacterClass) -> void:
+	initialize_skill_instances(cd.skills)
 
-## Return all the stored skills.
-func skills() -> Array:
-	var results: Array = []
-	var visited: Dictionary = {}
-	# Use dfs to go through the skills
-	for skill_instance: SkillInstance in skill_data_instances.values():
+func initialize_skill_instances(new_skills: Array[SkillData]) -> void:
+	for sd: SkillData in new_skills:
+		var skill_instance = SkillInstance.new(sd)
+		skills[skill_instance] = skill_instance.curr_rank
+		skill_instance.rank_changed.connect( on_skill_rank_changed )
+
+func on_skill_rank_changed(changed_skill: SkillInstance) -> void:
+	# Make the necessary stat changes
+	var previous_rank: int = skills[changed_skill]
+	var target_rank:   int = changed_skill.curr_rank
+	var tiers: Array[SkillTier] = changed_skill.skill.tiers
+	if target_rank > previous_rank:
+		print("SkillHolder :: Target rank is: ", target_rank)
+		for i in range(0, target_rank):
+			var tier: SkillTier = changed_skill.skill.tiers[i]
+			if tier.stat_modifiers.size() > 0:
+				for mod: StatModifier in tier.stat_modifiers:
+					combatant.remove_modifier(mod.stat_changing, mod)
 		
-		var stack: Array[SkillInstance] = []
-		visited[skill_instance] = true
-		stack.append(skill_instance)
-		while stack.is_empty() == false:
-			var current: SkillInstance = stack.pop_front()
-			for neighbor in current.branched_skills:
-				if visited.has(neighbor) == false:
-					visited[neighbor] = true
-					stack.append(visited)
-
-	return visited.keys()
-
-func get_usable_skills() -> Array:
-	var result = []
-	var visited: Array = skills()
-	for v in visited:
-		var skill_instance = v as SkillInstance
-		if skill_instance.current_upgrade_level > 0:
-			result.append(v)
+		# Apply the proper stat upgrade
+		var curr_tier: SkillTier = changed_skill.skill.get_tier(target_rank)
+		if curr_tier.stat_modifiers.size() > 0:
+			for mod: StatModifier in curr_tier.stat_modifiers:
+				combatant.add_modifier(mod.stat_changing, mod)
 	
-	return result
-
-## Mainly for player characters.
-func try_to_unlock_with_class_level(cc: CharacterClass, level: int):
-	for skill in skill_data_instances:
-		# TODO: This does not take branching into account!
-		if cc.skills.has(skill) == true:
-			var skill_instance = skill_data_instances[skill]
-			skill_instance.try_to_unlock_with_class_level( level )
-
-func try_to_relock_with_class_level(cc: CharacterClass, level: int) -> void:
-	for skill in skill_data_instances:
-		# TODO: This does not take branching into account!
-		if cc.skills.has(skill) == true:
-			var skill_instance = skill_data_instances[skill]
-			skill_instance.try_to_relock_with_class_level( level )
-
-func initialize_skill_data_instances(skills: Array[SkillData]):
-	for data in skills:
-		var skill_instance: SkillInstance = SkillInstance.new()
-		skill_instance.initialize( data )
-		skill_data_instances[data] = skill_instance
+	elif target_rank < previous_rank:
+		var total_tiers: int = changed_skill.skill.tiers.size()
+		var i: int = total_tiers - 1
+		while i >= target_rank:
+			var tier: SkillTier = tiers[i]
+			if tier.stat_modifiers.size() > 0:
+				for mod: StatModifier in tier.stat_modifiers:
+					combatant.remove_modifier(mod.stat_changing, mod)
+			i -= 1
 		
-		# Connect to the upgrades and downgrades
-		skill_instance.skill_upgraded.connect( on_skill_upgraded )
-		skill_instance.skill_downgraded.connect( on_skill_downgraded )
-
-func on_skill_upgraded(instance: SkillInstance) -> void:
-	# If the upgraded skill changes stats, handle that with the combatant
-	# Remove all the lower tier upgrades
-	var upgrade_level: int = instance.current_upgrade_level
-	var tiers: Array[SkillTier] = instance.monitored_skill.tiers
-	for i in range(0, upgrade_level):
-		var tier: SkillTier = instance.monitored_skill.get_tier(i + 1)
-		if tier.stat_modifiers.size() > 0:
-			for mod: StatModifier in tier.stat_modifiers:
-				combatant.remove_modifier(mod.stat_changing, mod)
-	
-	# Apply the proper stat upgrade
-	var curr_tier: SkillTier = instance.monitored_skill.get_tier(upgrade_level)
-	if curr_tier.stat_modifiers.size() > 0:
-		for mod: StatModifier in curr_tier.stat_modifiers:
-			combatant.add_modifier(mod.stat_changing, mod)
-
-func on_skill_downgraded(instance: SkillInstance) -> void:
-	# If the upgraded skill changes stats, handle that with the combatant
-	# Remove any of the higher tiers
-	var total_tiers: int = instance.monitored_skill.tiers.size()
-	var tiers: Array[SkillTier] = instance.monitored_skill.tiers
-	var i: int = tiers.size() - 1
-	var downgraded_level: int = instance.current_upgrade_level
-	while i >= downgraded_level:
-		var tier: SkillTier = tiers[i]
-		if tier.stat_modifiers.size() > 0:
-			for mod: StatModifier in tier.stat_modifiers:
-				combatant.remove_modifier(mod.stat_changing, mod)
-		i -= 1
+		# Apply the proper stat change
+		
+		
+	skills[changed_skill] = target_rank

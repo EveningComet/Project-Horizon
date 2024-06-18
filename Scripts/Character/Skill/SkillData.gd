@@ -1,41 +1,18 @@
 ## Stores data for a skill.
 class_name SkillData extends Resource
 
+@export_category("Base Info")
 ## The name for the skill.
 @export var localization_name: String = "New Skill"
 
 ## The description for this skill.
 @export_multiline var localization_description: String = "New description."
 
-## Does the skill have to be activated?
-@export var is_passive: bool = false
-
-## What is the action type for the skill, if needed?
-@export var action_type: ActionTypes.ActionTypes = ActionTypes.ActionTypes.SingleEnemy
-
-## What is the "point" of this skill? This is used to help the AI make decisions.
-@export var skill_type: SkillTypes.SkillTypes
-
-## If the skill is not passive, how many times does it activate?
-@export var num_activations: int = 1
-
-## The minimum rank of the previous skill needed to unlock this skill.
-@export var minimum_rank_of_previous: int = 0
-
-## If belonging to a class, at what class level should this skill be unlocked?
-@export var unlocks_at_class_level: int = 1
-
 ## For skills that need a success chance, what is the base chance of succeeding?
 @export_range(0.0, 1.0) var success_chance: float = 1.0
 
-## If the skill is unlocked by default
-@export var is_unlocked_by_default: bool = false
-
 ## The tier tiers for this skill. Think of this as above rank 1.
 @export var tiers: Array[SkillTier] = []
-
-## The skills that get unlocked based on the rank of this skill.
-@export var branches: Array[SkillData] = []
 
 ## If the skill is some form of attack, is it ranged?
 @export var is_ranged: bool = false
@@ -45,6 +22,26 @@ class_name SkillData extends Resource
 
 ## Texture for button in skills menu
 @export var display_texture: Texture2D
+
+## Does the skill have to be activated?
+@export var is_passive: bool = false
+
+## What is the action type for the skill, if needed?
+@export var action_type: ActionTypes.ActionTypes = ActionTypes.ActionTypes.SingleEnemy
+
+## If the skill is not passive, how many times does it activate?
+@export var num_activations: int = 1
+
+@export_category("Unlock Data")
+## The minimum rank of the previous skill needed to unlock this skill.
+@export var minimum_rank_of_previous: int = 0
+
+## If belonging to a class, at what class level should this skill be unlocked?
+@export var unlocks_at_class_level: int = 1
+
+## If the skill is unlocked by default
+@export var is_starting_skill: bool = false
+
 
 ## The max rank is determined by the amount of tiers.
 var max_rank: int = 1:

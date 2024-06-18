@@ -27,10 +27,7 @@ func initialize_with_enemy_data(enemy_data: EnemyData) -> void:
 	initialize_vitals()
 	initialize_other_stats()
 	
-	for skill: SkillData in enemy_data.available_skills:
-		var skill_instance = SkillInstance.new()
-		skill_instance.monitored_skill = skill
-		skill_holder.skill_data_instances[skill] = skill_instance
+	skill_holder.initialize_skill_instances(enemy_data.available_skills)
 
 func initialize_vitals() -> void:
 	var true_max_hp: Stat = Stat.new(

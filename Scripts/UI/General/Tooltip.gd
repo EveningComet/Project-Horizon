@@ -39,8 +39,8 @@ func on_tooltip_display(tooltip_data: Control) -> void:
 	elif tooltip_data is PartyMemberHolderUI:
 		handle_party_member_holder_ui(tooltip_data as PartyMemberHolderUI)
 	
-	elif tooltip_data is SkillTreeButton:
-		handle_skill_button(tooltip_data as SkillTreeButton)
+	elif tooltip_data is SkillNode:
+		handle_skill_node(tooltip_data as SkillNode)
 
 ## Performed when the player is not looking at something worthy of a tooltip.
 func on_tooltip_hide() -> void:
@@ -93,14 +93,13 @@ func handle_party_member_holder_ui(pmhui: PartyMemberHolderUI) -> void:
 	level_value_displayer.set_text(str(player_char.curr_level))
 	level_value_displayer.get_parent().show()
 
-func handle_skill_button(skill_button: SkillTreeButton) -> void:
-	var skill_instance: SkillInstance = skill_button.skill
-	title.set_text(skill_instance.monitored_skill.localization_name)
-	description_displayer.set_text(skill_instance.monitored_skill.localization_description)
+func handle_skill_node(skill_node: SkillNode) -> void:
+	var skill_instance: SkillInstance = skill_node.skill_instance
+	title.set_text(skill_instance.skill.localization_name)
+	description_displayer.set_text(skill_instance.skill.localization_description)
 	description_displayer.show()
 	
-	if skill_instance.monitored_skill.max_rank > 1:
-		var curr: int = skill_instance.current_upgrade_level
-		var max:  int = skill_instance.monitored_skill.max_rank
-		upgrade_displayer.set_text( "%s / %s" % [curr, max])
-		upgrade_displayer.show()
+	var curr: int = skill_instance.curr_rank
+	var max:  int = skill_instance.skill.max_rank
+	upgrade_displayer.set_text( "%s / %s" % [curr, max])
+	upgrade_displayer.show()
