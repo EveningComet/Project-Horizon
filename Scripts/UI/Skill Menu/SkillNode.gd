@@ -45,7 +45,6 @@ func set_associated_skill(new_skill: SkillData) -> void:
 func set_instanced_skill(instance: SkillInstance) -> void:
 	skill_instance = instance
 	update_rank_label(skill_instance.curr_rank)
-	print("SkillNode :: ", skill_instance)
 
 ## Make the line draw to another node.
 func draw_point_to(point_to: Vector2) -> void:

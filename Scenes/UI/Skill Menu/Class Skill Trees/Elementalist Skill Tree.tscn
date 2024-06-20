@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://u4tdd8tea21h"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Skill Menu/SkillTree.gd" id="1_vsrdn"]
+[ext_resource type="PackedScene" uid="uid://bngujmgvwnby5" path="res://Scenes/UI/Skill Menu/Skill Node.tscn" id="2_tbk8j"]
+[ext_resource type="Resource" uid="uid://cip1isrto5tff" path="res://Game Data/Player Character Classes/Class Skills/Elementalist/Elementalist Electric Bolt.tres" id="3_l2tig"]
+
+[node name="Elementalist Skill Tree" type="Control"]
+custom_minimum_size = Vector2(1000, 1080)
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -500.0
+offset_top = -1080.0
+offset_right = 500.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_vsrdn")
+
+[node name="Bolt" parent="." instance=ExtResource("2_tbk8j")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -45.0
+offset_top = -100.0
+offset_right = 45.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+associated_skill = ExtResource("3_l2tig")

@@ -31,6 +31,8 @@ func _ready() -> void:
 func setup() -> void:
 	add_tabs_per_character()
 	undo_skill_points_button.pressed.connect( on_undo_skill_points_button_pressed )
+	character_tab_bar.tab_changed.connect( on_character_tab_changed )
+	class_tabs.tab_changed.connect( on_character_class_tab_changed )
 	canvas.visibility_changed.connect( on_visibility_changed )
 
 func add_tabs_per_character():
@@ -43,13 +45,20 @@ func on_visibility_changed():
 	if canvas.visible == true:
 		on_character_tab_changed( character_tab_bar.current_tab )
 	else:
+		if current_character != null:
+			current_character.available_skill_points = draft_available_skill_points
 		alloted_history.clear() # Make any previously set upgrades permanent
 
 func on_character_tab_changed(index: int):
 	if PlayerPartyController.has_members() == true:
-		# Refresh the alloted history
+		# Refresh the alloted history and delete the old tree(s)
 		alloted_history.clear()
+		if tree_container.get_child_count() > 0:
+			for c in tree_container.get_children():
+				c.queue_free()
 		
+		if current_character != null:
+			current_character.available_skill_points = draft_available_skill_points
 		class_tabs.clear_tabs()
 		current_character = characters[index]
 		set_draft_skill_points( current_character.available_skill_points )
@@ -66,8 +75,6 @@ func on_character_tab_changed(index: int):
 ## When the player changes a tab related to a character's class, show the
 ## proper skills.
 func on_character_class_tab_changed(index: int) -> void:
-	if tree_container.get_child_count() > 0:
-		tree_container.get_child(0).queue_free()
 	
 	var classes_as_array: Array = current_character.pc_classes.keys()
 	var desired_class: CharacterClass = classes_as_array[index]

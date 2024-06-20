@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="CharacterClass" load_steps=8 format=3 uid="uid://t862v6s6esbv"]
+[gd_resource type="Resource" script_class="CharacterClass" load_steps=9 format=3 uid="uid://t862v6s6esbv"]
 
 [ext_resource type="Script" path="res://Scripts/Character/CharacterClass.gd" id="1_0so4e"]
 [ext_resource type="Texture2D" uid="uid://cvvsukhjg2ci6" path="res://Imported Assets/coraxdigitalart-space-station-inhabitants/coraxdigitalart-space-station-portraits (124).png" id="1_vp2po"]
 [ext_resource type="Script" path="res://Scripts/Character/PortraitData.gd" id="2_mlcmh"]
 [ext_resource type="Texture2D" uid="uid://b7yiwq7kku75" path="res://Imported Assets/coraxdigitalart-space-station-inhabitants/coraxdigitalart-space-station-portraits (35).png" id="3_tfw51"]
 [ext_resource type="Resource" uid="uid://cyhml8pp265nt" path="res://Game Data/Player Character Classes/Class Skills/Operative/Operative Strike.tres" id="5_aqjqs"]
+[ext_resource type="PackedScene" uid="uid://d1oiaq74w60bk" path="res://Scenes/UI/Skill Menu/Class Skill Trees/Operative Skill Tree.tscn" id="5_i62dq"]
 
 [sub_resource type="Resource" id="Resource_6q6ve"]
 script = ExtResource("2_mlcmh")
@@ -30,5 +31,6 @@ starting_equipment = Array[Resource("res://Scripts/Inventory/ItemData.gd")]([])
 file_path_to_job_skills = "res://Game Data/Player Character Classes/Class Skills/Operative/"
 update_attached_skills = false
 skills = Array[Resource("res://Scripts/Character/Skill/SkillData.gd")]([ExtResource("5_aqjqs")])
+skill_tree_prefab = ExtResource("5_i62dq")
 male_portraits = Array[ExtResource("2_mlcmh")]([SubResource("Resource_arf2w")])
 female_portraits = Array[ExtResource("2_mlcmh")]([SubResource("Resource_6q6ve")])
