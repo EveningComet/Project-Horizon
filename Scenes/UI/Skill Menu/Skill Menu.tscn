@@ -3,12 +3,12 @@
 [ext_resource type="Script" path="res://Scripts/UI/Skill Menu/SkillMenuController.gd" id="1_qqvha"]
 [ext_resource type="Script" path="res://Scripts/UI/Skill Menu/AttributesMenu.gd" id="4_p8lrj"]
 [ext_resource type="PackedScene" uid="uid://dq83dljr1ulfa" path="res://Scenes/UI/Skill Menu/Attribute Menu Entry.tscn" id="5_bcf1b"]
-[ext_resource type="Script" path="res://Scripts/UI/Skill Menu/ClassUpgradeMenu.gd" id="5_f68im"]
+[ext_resource type="Script" path="res://Scripts/UI/Skill Menu/ClassUpgrader.gd" id="5_f68im"]
 [ext_resource type="Script" path="res://Scripts/UI/Skill Menu/AttributesUpgrader.gd" id="6_x1qmq"]
 
 [node name="Skill Menu" type="CanvasLayer"]
 
-[node name="SkillMenuController" type="Node" parent="." node_paths=PackedStringArray("tree_container", "character_tab_bar", "class_tabs", "exit_button", "undo_skill_points_button", "skill_points_label", "canvas", "attributes_menu", "class_upgrade_menu", "attributes_upgrader")]
+[node name="SkillMenuController" type="Node" parent="." node_paths=PackedStringArray("tree_container", "character_tab_bar", "class_tabs", "exit_button", "undo_skill_points_button", "skill_points_label", "canvas", "attributes_menu", "class_upgrader", "attributes_upgrader")]
 script = ExtResource("1_qqvha")
 tree_container = NodePath("../OverviewPanel/SkillsPanel/ScrollContainer")
 character_tab_bar = NodePath("../OverviewPanel/Character Tabs")
@@ -18,7 +18,7 @@ undo_skill_points_button = NodePath("../OverviewPanel/SkillsPanel/UndoButton")
 skill_points_label = NodePath("../OverviewPanel/SkillsPanel/SkillPointsLabel")
 canvas = NodePath("..")
 attributes_menu = NodePath("../AttributesMenu")
-class_upgrade_menu = NodePath("../ClassUpgradeMenu")
+class_upgrader = NodePath("../ClassUpgrader")
 attributes_upgrader = NodePath("../AttributesUpgrader")
 
 [node name="AttributesMenu" type="Node" parent="." node_paths=PackedStringArray("points_label", "container", "upgrader", "undo_button")]
@@ -29,7 +29,7 @@ menu_entry_template = ExtResource("5_bcf1b")
 upgrader = NodePath("../AttributesUpgrader")
 undo_button = NodePath("../OverviewPanel/SkillsPanel/UndoButton")
 
-[node name="ClassUpgradeMenu" type="Node" parent="." node_paths=PackedStringArray("info_container", "upgrade_button", "upgrader")]
+[node name="ClassUpgrader" type="Node" parent="." node_paths=PackedStringArray("info_container", "upgrade_button", "upgrader")]
 script = ExtResource("5_f68im")
 info_container = NodePath("../OverviewPanel/SkillsPanel/ClassInfoContainer")
 upgrade_button = NodePath("../OverviewPanel/SkillsPanel/ClassUpgradeButton")

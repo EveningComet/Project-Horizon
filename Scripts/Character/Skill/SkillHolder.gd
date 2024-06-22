@@ -41,7 +41,6 @@ func on_skill_rank_changed(changed_skill: SkillInstance) -> void:
 	var target_rank:   int = changed_skill.curr_rank
 	var tiers: Array[SkillTier] = changed_skill.skill.tiers
 	if target_rank > previous_rank:
-		print("SkillHolder :: Target rank is: ", target_rank)
 		for i in range(0, target_rank):
 			var tier: SkillTier = changed_skill.skill.tiers[i]
 			if tier.stat_modifiers.size() > 0:
@@ -65,6 +64,5 @@ func on_skill_rank_changed(changed_skill: SkillInstance) -> void:
 			i -= 1
 		
 		# Apply the proper stat change
-		
 		
 	skills[changed_skill] = target_rank

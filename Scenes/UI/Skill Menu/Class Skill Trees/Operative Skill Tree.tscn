@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://Scripts/UI/Skill Menu/SkillTree.gd" id="1_u6oig"]
 [ext_resource type="PackedScene" uid="uid://bngujmgvwnby5" path="res://Scenes/UI/Skill Menu/Skill Node.tscn" id="2_88ff6"]
-[ext_resource type="Resource" uid="uid://cukjs3d4dg3pp" path="res://Game Data/Player Character Classes/Class Skills/Seeker/Seeker Spray.tres" id="3_8jwlm"]
+[ext_resource type="Resource" uid="uid://cyhml8pp265nt" path="res://Game Data/Player Character Classes/Class Skills/Operative/Operative Strike.tres" id="3_0k3i0"]
 
-[node name="Seeker Skill Tree" type="Control"]
+[node name="Operative Skill Tree" type="Control"]
 custom_minimum_size = Vector2(1000, 1080)
 layout_mode = 3
 anchors_preset = 7
@@ -19,7 +19,7 @@ grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("1_u6oig")
 
-[node name="Spray" parent="." instance=ExtResource("2_88ff6")]
+[node name="Strike" parent="." instance=ExtResource("2_88ff6")]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -32,4 +32,4 @@ offset_right = 45.0
 offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 0
-associated_skill = ExtResource("3_8jwlm")
+associated_skill = ExtResource("3_0k3i0")

@@ -1,7 +1,8 @@
 ## Deals with upgrading the class.
-class_name ClassUpgradeMenu extends Node
+class_name ClassUpgrader extends Node
+# TODO: Make this work more like a CharacterUpgrader or just ClassUpgrader
 
-signal class_upgraded
+signal class_upgraded(class_upgraded: ClassUpgrader)
 
 @export var info_container: VBoxContainer
 @export var upgrade_button: Button
@@ -11,36 +12,41 @@ var info_labels:= {}
 var class_name_label: Label
 
 var stat_types := StatTypes.new()
-var current_class: CharacterClass
+var current_character: PlayerCombatant
+var current_class:     CharacterClass
+
+## Caching the current skill tree to easily pass along class upgrades.
+var curr_skill_tree: SkillTree
 
 func initialize(
-	_class_changed_signal: Signal,
-	_points_depleted_signal: Signal,
-	_points_available_signal: Signal
+	_character_changed_signal: Signal,
+	_class_changed_signal:     Signal,
+	_points_available_signal:  Signal
 	) -> void:
-	
+	_character_changed_signal.connect( update_character )
 	_class_changed_signal.connect( update_and_render )
-	_points_depleted_signal.connect( disable_upgrade )
-	_points_available_signal.connect( enable_upgrade )
-	upgrade_button.button_down.connect( upgrade )
+	_points_available_signal.connect( toggle_upgrade )
+	upgrade_button.button_down.connect( upgrade_class )
 	upgrader.class_upgraded.connect( update_class_name_label )
 	upgrader.stats_undone.connect( update_class_name_label )
 	spawn_labels_for_attributes()
+
+func update_character(new_character: PlayerCombatant) -> void:
+	current_character = new_character
 
 func update_and_render(_class: CharacterClass):
 	current_class = _class
 	update_info_labels()
 
-func disable_upgrade():
-	upgrade_button.disabled = true
+func toggle_upgrade(points_available: int) -> void:
+	if points_available == 0:
+		upgrade_button.disabled = true
+	else:
+		upgrade_button.disabled = false
 
-func enable_upgrade():
-	upgrade_button.disabled = false
-
-func upgrade():
-	upgrader.class_upgrade(
-		current_class
-	)
+func upgrade_class():
+	class_upgraded.emit(self)
+	update_class_name_label()
 
 func update_info_labels():
 	update_class_name_label()
@@ -55,7 +61,7 @@ func update_class_name_label():
 	class_name_label.text = "Class: "
 	class_name_label.text += str( current_class.localization_name ).to_upper()
 	class_name_label.text += "- Lvl: "
-	class_name_label.text += str( upgrader.classes_and_class_levels[current_class] )
+	class_name_label.text += str( current_character.pc_classes[current_class] )
 
 func spawn_labels_for_attributes():
 	class_name_label = Label.new()

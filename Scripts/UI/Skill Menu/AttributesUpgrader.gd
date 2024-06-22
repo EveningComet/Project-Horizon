@@ -1,6 +1,5 @@
 ## Interface for spending attribute points and skill points
-class_name AttributesUpgrader
-extends Node
+class_name AttributesUpgrader extends Node
 
 signal attribute_upgraded
 signal class_upgraded
@@ -86,9 +85,6 @@ func reset_draft_stats():
 		for attribute in attributes:
 			draft_stats[attribute] = character.stats[attribute].get_base_value()
 		
-		# See if some skills have to be relocked
-		character.skill_holder.try_to_relock_with_class_level(
-			current_class, character.pc_classes[current_class]
-		)
+		# TODO: See if some skills have to be relocked.
 		
 		draft_stats_changed.emit( draft_stats )

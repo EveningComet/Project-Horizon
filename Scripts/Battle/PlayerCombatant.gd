@@ -96,16 +96,16 @@ func level_up() -> void:
 	available_skill_points     += 3
 
 func upgrade_class_to_level(_class: CharacterClass, level: int):
-	if (level != pc_classes[_class]):
+	if level != pc_classes[_class]:
 		pc_classes[_class] = level
 		stat_changed.emit( self )
-		emit_signal( "class_upgraded", _class, level )
+		class_upgraded.emit(_class, level)
 
 ## Upgrade the passed class by the amount.
 func upgrade_class_by(_class: CharacterClass, additional_class_levels: int) -> void:
 	pc_classes[_class] += additional_class_levels
 	stat_changed.emit( self )
-	emit_signal( "class_upgraded", _class, pc_classes[_class] )
+	class_upgraded.emit(_class, pc_classes[_class])
 
 ## Upgrades the class and internally handles boosting the stats.
 func upgrade_class_and_self_handle_upgrades(
@@ -119,7 +119,7 @@ func upgrade_class_and_self_handle_upgrades(
 			)
 	pc_classes[_class] += additional_class_levels
 	stat_changed.emit( self )
-	emit_signal( "class_upgraded", _class, pc_classes[_class] )
+	class_upgraded.emit(_class, pc_classes[_class])
 
 func get_classes_as_array() -> Array:
 	return pc_classes.keys()

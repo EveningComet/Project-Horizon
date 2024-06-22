@@ -7,7 +7,7 @@
 
 [sub_resource type="Resource" id="Resource_4h84g"]
 script = ExtResource("2_hj147")
-damage_type = 0
+damage_type = 1
 bonus_damage_scale_on_debuffs_present = 0.0
 attacker_heal_percentage = 0.0
 power_scale = 1.0

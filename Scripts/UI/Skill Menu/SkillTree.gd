@@ -32,11 +32,28 @@ func combine_instances_to_nodes(instanced_skills: Array[SkillInstance]) -> void:
 func update_upgradability_status(combatant: PlayerCombatant) -> void:
 	var available_skill_points: int = combatant.available_skill_points
 	for n: SkillNode in existing_skill_nodes:
+		# Criteria that needs to be met to allow upgrading/using a skill
+		var meets_class_level:          bool = false
+		var meets_previous_skill_level: bool = false
+		
 		if n.associated_skill.is_starting_skill == true:
-			n.turn_on()
+			meets_class_level          = true
+			meets_previous_skill_level = true
+		
 		if n.get_parent() is SkillNode:
 			var parent_n: SkillNode = n.get_parent()
 			if parent_n.skill_instance.curr_rank >= n.associated_skill.minimum_rank_of_previous:
-				n.turn_on()
-			else:
-				n.turn_off()
+				meets_previous_skill_level = true
+		
+		# Check if the character class meets the requirement
+		for cc: CharacterClass in combatant.pc_classes.keys():
+			if cc.skills.has(n.associated_skill) == true:
+				# TODO: This is not working properly.
+				var class_level: int = combatant.pc_classes[cc]
+				if class_level >= n.associated_skill.unlocks_at_class_level:
+					meets_class_level = true
+		
+		if meets_class_level == true and meets_previous_skill_level == true:
+			n.turn_on()
+		else:
+			n.turn_off()
