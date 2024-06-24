@@ -121,6 +121,20 @@ func upgrade_class_and_self_handle_upgrades(
 	stat_changed.emit( self )
 	class_upgraded.emit(_class, pc_classes[_class])
 
+## Downgrade the passed class by one.
+func downgrade_class(_class: CharacterClass) -> void:
+	if pc_classes.has(_class) == false:
+		return
+	var downgrading_class: CharacterClass = _class
+	for attribute in get_attributes_increase_for_class(downgrading_class):
+		raise_base_value_by(
+			attribute,
+			-get_attributes_increase_for_class(downgrading_class)[attribute]
+		)
+	pc_classes[_class] -= 1
+	stat_changed.emit(self)
+	class_upgraded.emit(downgrading_class, pc_classes[downgrading_class])
+
 func get_classes_as_array() -> Array:
 	return pc_classes.keys()
 

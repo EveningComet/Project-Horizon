@@ -156,7 +156,6 @@ func on_undo_skill_points_button_pressed() -> void:
 			var skill_node: SkillNode = upgrade_to_remove.skill_node
 			skill_node.downgrade()
 		elif upgrade_to_remove.class_upgraded != null:
-			# TODO: Handle class downgrades.
-			printerr("SkillMenu :: Class downgrades not yet implemented!")
-			current_character
+			current_character.downgrade_class(upgrade_to_remove.class_upgraded)
+			class_changed.emit(upgrade_to_remove.class_upgraded)
 		draft_available_skill_points += 1
