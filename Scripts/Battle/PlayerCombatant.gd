@@ -52,7 +52,7 @@ func initialize_with_class_data(class_data: CharacterClass) -> void:
 	initialize_other_stats()
 	
 	# Setup the relevant skills
-	skill_holder.initialize_for_player_character(class_data)
+	skill_holder.add_character_class_skills(class_data)
 
 ## Add a character class to the player character. The first one will be the
 ## "starting" class.
@@ -61,7 +61,7 @@ func set_pc_class(new_class: CharacterClass) -> void:
 	if pc_classes.size() == 1:
 		initialize_with_class_data( new_class )
 	else:
-		skill_holder.add_from_character_class( new_class )
+		skill_holder.add_character_class_skills( new_class )
 
 ## Return how much experience is required for this character to level up.
 ## Calculation is: 100 * (growth_percent^( current level - 1))
@@ -96,16 +96,16 @@ func level_up() -> void:
 	available_skill_points     += 3
 
 func upgrade_class_to_level(_class: CharacterClass, level: int):
-	if (level != pc_classes[_class]):
+	if level != pc_classes[_class]:
 		pc_classes[_class] = level
 		stat_changed.emit( self )
-		emit_signal( "class_upgraded", _class, level )
+		class_upgraded.emit(_class, level)
 
 ## Upgrade the passed class by the amount.
 func upgrade_class_by(_class: CharacterClass, additional_class_levels: int) -> void:
 	pc_classes[_class] += additional_class_levels
 	stat_changed.emit( self )
-	emit_signal( "class_upgraded", _class, pc_classes[_class] )
+	class_upgraded.emit(_class, pc_classes[_class])
 
 ## Upgrades the class and internally handles boosting the stats.
 func upgrade_class_and_self_handle_upgrades(
@@ -119,7 +119,21 @@ func upgrade_class_and_self_handle_upgrades(
 			)
 	pc_classes[_class] += additional_class_levels
 	stat_changed.emit( self )
-	emit_signal( "class_upgraded", _class, pc_classes[_class] )
+	class_upgraded.emit(_class, pc_classes[_class])
+
+## Downgrade the passed class by one.
+func downgrade_class(_class: CharacterClass) -> void:
+	if pc_classes.has(_class) == false:
+		return
+	var downgrading_class: CharacterClass = _class
+	for attribute in get_attributes_increase_for_class(downgrading_class):
+		raise_base_value_by(
+			attribute,
+			-get_attributes_increase_for_class(downgrading_class)[attribute]
+		)
+	pc_classes[_class] -= 1
+	stat_changed.emit(self)
+	class_upgraded.emit(downgrading_class, pc_classes[downgrading_class])
 
 func get_classes_as_array() -> Array:
 	return pc_classes.keys()

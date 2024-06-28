@@ -1,45 +1,49 @@
 ## Controls all aspects of the skills menu.
 class_name SkillMenuController extends Node
 
-signal skill_points_available
-signal skill_points_depleted
+signal skill_points_available(points: int)
 signal character_changed(character: PlayerCombatant)
 signal class_changed(new_class: CharacterClass)
+
+@export var tree_container: Container
 
 @export var character_tab_bar: TabBar
 @export var class_tabs:  TabBar
 @export var exit_button: Button
-@export var confirm_button: Button
 @export var undo_skill_points_button: Button
 @export var skill_points_label: Label
 @export var canvas: CanvasLayer
-@export var skill_tree_renderer: SkillTreeRenderer
 @export var attributes_menu: AttributesMenu
-@export var class_upgrade_menu: ClassUpgradeMenu
+@export var class_upgrader: ClassUpgrader
 @export var attributes_upgrader: AttributesUpgrader
 
 var characters:= PlayerPartyController.party_members
 var current_character: PlayerCombatant
-var draft_available_skill_points
+var draft_available_skill_points: int = 0:
+	get: return draft_available_skill_points
+	set(value):
+		draft_available_skill_points = value
+		skill_points_available.emit(draft_available_skill_points)
+		update_draft_skill_points_label()
+
+## Stores the recent history of the skill points the player has alloted.
+var alloted_history: Array[UpgradeData] = []
 
 func _ready() -> void:
+	setup()
+
+func setup() -> void:
 	add_tabs_per_character()
-	canvas.visibility_changed.connect( on_visibility_changed )
-	skill_tree_renderer.skill_buttons_finished_rendering.connect(
-		on_skills_finished_spawning
-	)
+	undo_skill_points_button.pressed.connect( on_undo_skill_points_button_pressed )
 	character_tab_bar.tab_changed.connect( on_character_tab_changed )
 	class_tabs.tab_changed.connect( on_character_class_tab_changed )
-	exit_button.button_down.connect( canvas.hide )
-	confirm_button.button_down.connect( confirm_points )
-	undo_skill_points_button.button_down.connect( undo_points )
-	attributes_menu.initialize( character_changed )
+	canvas.visibility_changed.connect( on_visibility_changed )
 	
-	class_upgrade_menu.initialize( 
-		class_changed, skill_points_depleted, skill_points_available
+	# Get the components ready
+	class_upgrader.initialize(
+		character_changed, class_changed, skill_points_available
 	)
-	attributes_upgrader.initialize( character_changed, class_changed )
-	attributes_upgrader.class_upgraded.connect( deduct_one_point )
+	class_upgrader.class_upgraded.connect( on_upgrade_occurred )
 
 func add_tabs_per_character():
 	character_tab_bar.clear_tabs()
@@ -50,13 +54,26 @@ func add_tabs_per_character():
 func on_visibility_changed():
 	if canvas.visible == true:
 		on_character_tab_changed( character_tab_bar.current_tab )
+	else:
+		if current_character != null:
+			current_character.available_skill_points = draft_available_skill_points
+		alloted_history.clear() # Make any previously set upgrades permanent
 
 func on_character_tab_changed(index: int):
 	if PlayerPartyController.has_members() == true:
+		# Refresh the alloted history and delete the old tree(s)
+		alloted_history.clear()
+		if tree_container.get_child_count() > 0:
+			for c in tree_container.get_children():
+				c.queue_free()
+		
+		if current_character != null:
+			current_character.available_skill_points = draft_available_skill_points
 		class_tabs.clear_tabs()
 		current_character = characters[index]
-		set_draft_skill_points( current_character.available_skill_points )
-		character_changed.emit( current_character )
+		draft_available_skill_points = current_character.available_skill_points
+		
+		undo_skill_points_button.disabled = true if draft_available_skill_points == 0 else false
 		
 		# Create the needed tabs for character classes
 		for cc: CharacterClass in current_character.pc_classes:
@@ -67,81 +84,78 @@ func on_character_tab_changed(index: int):
 ## When the player changes a tab related to a character's class, show the
 ## proper skills.
 func on_character_class_tab_changed(index: int) -> void:
-	# Convert the character's stored classes to an array and index that array
-	var classes_as_array: Array[CharacterClass]
-	for class_key: CharacterClass in current_character.pc_classes:
-		classes_as_array.append(class_key)
+	if tree_container.get_child_count() > 0:
+		for c in tree_container.get_children():
+			c.queue_free()
+	
+	var classes_as_array: Array = current_character.pc_classes.keys()
 	var desired_class: CharacterClass = classes_as_array[index]
+	var class_skill_tree: SkillTree = desired_class.skill_tree_prefab.instantiate()
+	await get_tree().process_frame
+	tree_container.add_child(class_skill_tree)
+	var scroll_container = tree_container as ScrollContainer
+	await get_tree().process_frame
+	scroll_container.scroll_vertical = scroll_container.get_v_scroll_bar().max_value
 	
-	# Get the skills of that class and then display the skill instances
-	var skill_instances: Array[SkillInstance] = get_skill_instances_of_class(
-		desired_class
-	)
-	skill_tree_renderer.display_skill_instances(
-		skill_instances
-	)
+	# Hook up the skill instances
+	var instances = get_skill_instances_of_class(desired_class)
+	class_skill_tree.combine_instances_to_nodes(instances)
+	class_skill_tree.update_upgradability_status(current_character)
 	
-	class_changed.emit( desired_class )
+	# Connect to the upgrade events
+	var existing_skill_nodes = class_skill_tree.existing_skill_nodes
+	for n: SkillNode in existing_skill_nodes:
+		n.upgraded.connect( on_upgrade_occurred )
+	
+	# Everything is finished, notify everything that needs to know about the
+	# character and/or class changes
+	character_changed.emit( current_character )
+	class_changed.emit(desired_class)
 
 ## Get the skills of the class for the current character.
 func get_skill_instances_of_class(desired_class: CharacterClass) -> Array[SkillInstance]:
-	var skill_instances: Array[SkillInstance] = []
-	for skill: SkillData in desired_class.skills:
-		var d: Dictionary = current_character.skill_holder.skill_data_instances
-		skill_instances.append( d[skill] )
-	return skill_instances
+	var class_skills: Array[SkillInstance] = []
+	for s: SkillInstance in current_character.skill_holder.skills.keys():
+		if desired_class.skills.has(s.skill) == true:
+			class_skills.append(s)
+	return class_skills
 
-## Fired when the skills tree renderer has finished spawning all the buttons.
-func on_skills_finished_spawning() -> void:
-	if draft_available_skill_points > 0:
-		var stbs = get_tree().get_nodes_in_group(skill_tree_renderer.SKILL_TREE_BUTTON_GROUP_NAME)
-		var skill_buttons: Array[SkillTreeButton]
-		skill_buttons.append_array( stbs )
-		for b in skill_buttons:
-			b.enable_button_if_possible()
-			b.skill_upgraded.connect( on_skill_upgraded )
-	else:
-		get_tree().call_group(skill_tree_renderer.SKILL_TREE_BUTTON_GROUP_NAME, "disable")
-
-func on_skill_upgraded(skill_instance: SkillInstance) -> void:
-	deduct_one_point()
-
-func confirm_points():
-	attributes_upgrader.confirm()
-	get_tree().call_group( skill_tree_renderer.SKILL_TREE_BUTTON_GROUP_NAME, "confirm" )
-	current_character.available_skill_points = draft_available_skill_points
-	# Set this last, as the buttons upgrade based on skill point signal 
-	set_draft_skill_points( current_character.available_skill_points )
-
-func undo_points():
-	attributes_upgrader.undo()
-	get_tree().call_group( skill_tree_renderer.SKILL_TREE_BUTTON_GROUP_NAME, "undo" )
-	# Set this last, as the buttons upgrade based on skill point signal 
-	set_draft_skill_points( current_character.available_skill_points )
-
-func deduct_one_point():
-	set_draft_skill_points( draft_available_skill_points - 1 )
-
-func set_draft_skill_points(new_value: int):
-	draft_available_skill_points = new_value
-	set_draft_skill_points_label()
-	emit_correct_signal()
-	handle_confirm_and_undo()
-
-func set_draft_skill_points_label():
+func update_draft_skill_points_label():
 	skill_points_label.text = "Available skill points: "
 	skill_points_label.text += str( draft_available_skill_points )
 
-func emit_correct_signal():
+## Handle what should happen when an upgrade happens here.
+func on_upgrade_occurred(upgradable: Object) -> void:
 	if draft_available_skill_points == 0:
-		skill_points_depleted.emit()
-	else:
-		skill_points_available.emit()
+		return
+		
+	var upgrade_data: UpgradeData = UpgradeData.new()
+	if upgradable is SkillNode:
+		var skill_node = upgradable as SkillNode
+		if skill_node.skill_instance.curr_rank == skill_node.associated_skill.max_rank:
+			return
+		skill_node.upgrade()
+		upgrade_data.skill_node = skill_node
+		upgrade_data.skill_instance = skill_node.skill_instance
+	if upgradable is ClassUpgrader:
+		upgrade_data.class_upgraded = class_upgrader.current_class
+		current_character.upgrade_class_and_self_handle_upgrades(
+			upgrade_data.class_upgraded, 1
+		)
 	
-func handle_confirm_and_undo() -> void:
-	if draft_available_skill_points == current_character.available_skill_points:
-		confirm_button.disabled           = true
-		undo_skill_points_button.disabled = true
-	else:
-		confirm_button.disabled           = false
-		undo_skill_points_button.disabled = false
+	alloted_history.append(upgrade_data)
+	draft_available_skill_points -= 1
+
+## When the player selects the undo button, revert all the upgrades the player
+## stored. Go through the list of stored upgrades and reverse them.
+func on_undo_skill_points_button_pressed() -> void:
+	# Go through the alloted history and undo the upgrades the player made
+	while alloted_history.is_empty() == false:
+		var upgrade_to_remove = alloted_history.pop_back()
+		if upgrade_to_remove.skill_instance != null:
+			var skill_node: SkillNode = upgrade_to_remove.skill_node
+			skill_node.downgrade()
+		elif upgrade_to_remove.class_upgraded != null:
+			current_character.downgrade_class(upgrade_to_remove.class_upgraded)
+			class_changed.emit(upgrade_to_remove.class_upgraded)
+		draft_available_skill_points += 1

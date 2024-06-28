@@ -6,7 +6,7 @@
 
 [sub_resource type="Resource" id="Resource_ah2oq"]
 script = ExtResource("3_tkjs7")
-cost = 5
+cost = 10
 power_scale = 1.0
 bonus_damage_scale_on_debuffs_present = 0.0
 attacker_heal_percentage = 0.0
@@ -16,16 +16,14 @@ stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
 script = ExtResource("1_4ubh5")
 localization_name = "Emergency Medical Systems"
 localization_description = "A percentage of the character's max health will be healed."
-is_passive = false
-action_type = 0
-skill_type = 0
-num_activations = 1
-minimum_rank_of_previous = 1
-unlocks_at_class_level = 1
 success_chance = 1.0
-is_unlocked_by_default = true
 tiers = Array[ExtResource("3_tkjs7")]([SubResource("Resource_ah2oq")])
-branches = Array[ExtResource("1_4ubh5")]([])
 is_ranged = false
 effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([])
 display_texture = ExtResource("1_v56qg")
+is_passive = false
+action_type = 6
+num_activations = 1
+minimum_rank_of_previous = 1
+unlocks_at_class_level = 1
+is_starting_skill = false

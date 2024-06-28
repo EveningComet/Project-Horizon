@@ -15,6 +15,8 @@ sort_order = 0
 [sub_resource type="Resource" id="Resource_figji"]
 script = ExtResource("1_q4yfk")
 base_damage = 0
+power_scale = 1.0
+status_damage_scaler = 0.0
 damage_type = 0
 stat_modifiers = Array[ExtResource("2_wt74u")]([SubResource("Resource_1h6my")])
 
@@ -24,5 +26,8 @@ localization_name = "Inspired"
 localization_description = "The sky's the limit for you."
 display_texture = ExtResource("1_easrt")
 is_contagious = false
+chance_of_spreading = 0.0
+incubation_time = 0
 on_apply = SubResource("Resource_figji")
+is_negative = false
 duration_in_turns = 1
