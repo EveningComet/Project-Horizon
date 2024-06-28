@@ -20,7 +20,7 @@ var experience_required:     int = get_experience_required( curr_level )
 var total_experience_points: int = 0
 
 ## The points for boosting one of this character's skills or class levels.
-var available_skill_points:     int = 6
+var available_skill_points:     int = 0
 
 ## The points for boosting one of the three core attributes.
 var available_attribute_points: int = 0
