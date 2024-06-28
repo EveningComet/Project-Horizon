@@ -1,22 +1,30 @@
-[gd_resource type="Resource" script_class="StatusEffect" load_steps=7 format=3 uid="uid://buul67l7164jj"]
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=8 format=3 uid="uid://buul67l7164jj"]
 
 [ext_resource type="Script" path="res://Scripts/Character/Status Effect/StatusEffect.gd" id="1_7s4dm"]
 [ext_resource type="Texture2D" uid="uid://cpfkjabev02kd" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Icons/Icon18.png" id="1_tbqd7"]
 [ext_resource type="Script" path="res://Scripts/Character/Status Effect/Status Effect Data/StatusEffectOnApplyData.gd" id="1_wu8ok"]
 [ext_resource type="Script" path="res://Scripts/Character/Status Effect/Status Effect Data/StatusEffectOnTurnTickData.gd" id="2_ihqes"]
 
-[sub_resource type="Resource" id="Resource_7ttbn"]
+[sub_resource type="Resource" id="Resource_hef2n"]
 script = ExtResource("1_wu8ok")
-base_damage = 3
+base_damage = 5
 power_scale = 1.0
 status_damage_scaler = 0.0
 damage_type = 1
 stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
 
-[sub_resource type="Resource" id="Resource_1dhul"]
-script = ExtResource("2_ihqes")
-increase_ratio_per_turn = 0.5
+[sub_resource type="Resource" id="Resource_mavy2"]
+script = ExtResource("1_wu8ok")
 base_damage = 3
+power_scale = 1.0
+status_damage_scaler = 0.0
+damage_type = 4
+stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
+
+[sub_resource type="Resource" id="Resource_u6joi"]
+script = ExtResource("2_ihqes")
+increase_ratio_per_turn = 0.25
+base_damage = 5
 power_scale = 1.0
 status_damage_scaler = 0.0
 damage_type = 1
@@ -30,7 +38,8 @@ display_texture = ExtResource("1_tbqd7")
 is_contagious = false
 chance_of_spreading = 0.0
 incubation_time = 0
-on_apply = SubResource("Resource_7ttbn")
-on_turn_tick = SubResource("Resource_1dhul")
+on_apply = Array[ExtResource("1_wu8ok")]([SubResource("Resource_hef2n"), SubResource("Resource_mavy2")])
+on_turn_tick = Array[ExtResource("2_ihqes")]([SubResource("Resource_u6joi")])
+on_expire = Array[Resource("res://Scripts/Character/Status Effect/Status Effect Data/StatusEffectOnExpireData.gd")]([])
 is_negative = true
 duration_in_turns = 2
