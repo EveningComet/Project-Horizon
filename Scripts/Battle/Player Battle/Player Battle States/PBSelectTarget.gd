@@ -15,14 +15,13 @@ var target_scan_node: Container
 func enter(msgs: Dictionary = {}) -> void:
 	match msgs:
 		{"stored_action": var sa}:
-			if OS.is_debug_build() == true:
-				print("PBSelectTarget :: Entered with action. Action type is %s" % [ActionTypes.ActionTypes.keys()[sa.action_type]])
 			
 			stored_action = sa
 			
 			## Depending on the action type, just move on
 			match stored_action.action_type:
-				ActionTypes.ActionTypes.Defend, ActionTypes.ActionTypes.Flee:
+				ActionTypes.ActionTypes.Self, ActionTypes.ActionTypes.Defend, \
+				ActionTypes.ActionTypes.Flee:
 					execute()
 					return
 			

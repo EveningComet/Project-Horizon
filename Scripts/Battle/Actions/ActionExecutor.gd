@@ -89,9 +89,15 @@ func execute_action(action: StoredAction) -> void:
 						for effect in action_mediator.status_effects_to_apply.keys():
 							if (prng.randf_range(0.0, 1.0) <= action_mediator.status_effects_to_apply[effect]):
 								target.status_effect_holder.add_status_effect(effect)
-						
-						if OS.is_debug_build() == true:
-							print("ActionExecutor :: %s got healed %s" % [target, action_mediator.heal_amount])
+			
+			ActionTypes.ActionTypes.Self:
+				for target: Combatant in action.get_targets():
+					# Check the healing and status effects that have to be done
+					target.heal(action_mediator.heal_amount)
+					for effect in action_mediator.status_effects_to_apply.keys():
+						var effect_chance: float = action_mediator.status_effects_to_apply[effect]
+						if prng.randf_range(0.0, 1.0) <= effect_chance:
+							target.status_effect_holder.add_status_effect(effect)
 			
 			ActionTypes.ActionTypes.Flee:
 				# TODO: Proper running away from a battle.
