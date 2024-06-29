@@ -5,17 +5,21 @@
 [ext_resource type="Script" path="res://Scripts/Character/Status Effect/Status Effect Data/StatusEffectOnApplyData.gd" id="2_isqjg"]
 [ext_resource type="Script" path="res://Scripts/Character/Status Effect/Status Effect Data/StatusEffectOnTurnTickData.gd" id="3_44xq6"]
 
-[sub_resource type="Resource" id="Resource_lxqdp"]
+[sub_resource type="Resource" id="Resource_4yhih"]
 script = ExtResource("2_isqjg")
-base_damage = 1
-damage_type = 2
+base_damage = 5
+power_scale = 1.0
+status_damage_scaler = 0.0
+damage_type = 4
 stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
 
-[sub_resource type="Resource" id="Resource_kqobo"]
+[sub_resource type="Resource" id="Resource_0k216"]
 script = ExtResource("3_44xq6")
-increase_ratio_per_turn = 0.25
-base_damage = 3
-damage_type = 1
+increase_ratio_per_turn = 0.0
+base_damage = 2
+power_scale = 1.0
+status_damage_scaler = 0.0
+damage_type = 4
 stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
 
 [resource]
@@ -26,7 +30,8 @@ display_texture = ExtResource("1_o55p8")
 is_contagious = true
 chance_of_spreading = 0.5
 incubation_time = 2
-on_apply = SubResource("Resource_lxqdp")
-on_turn_tick = SubResource("Resource_kqobo")
+on_apply = Array[ExtResource("2_isqjg")]([SubResource("Resource_4yhih")])
+on_turn_tick = Array[ExtResource("3_44xq6")]([SubResource("Resource_0k216")])
+on_expire = Array[Resource("res://Scripts/Character/Status Effect/Status Effect Data/StatusEffectOnExpireData.gd")]([])
 is_negative = true
 duration_in_turns = 3
