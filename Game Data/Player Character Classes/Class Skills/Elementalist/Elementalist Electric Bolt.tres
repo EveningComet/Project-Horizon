@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=13 format=3 uid="uid://cip1isrto5tff"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=15 format=3 uid="uid://cip1isrto5tff"]
 
 [ext_resource type="Texture2D" uid="uid://fjaj5tl8mrra" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Icons/Icon29.png" id="1_8wdd8"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillData.gd" id="1_65epr"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/Skill Effects/DirectDamage.gd" id="1_81cio"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillTier.gd" id="2_wawhc"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/Validators/TargetAlwaysTrue.gd" id="4_5ok6p"]
 
 [sub_resource type="Resource" id="Resource_ix0ig"]
 script = ExtResource("1_81cio")
@@ -12,6 +13,9 @@ bonus_damage_scale_on_debuffs_present = 0.0
 attacker_heal_percentage = 0.0
 power_scale = 1.0
 use_special_stat = true
+
+[sub_resource type="Resource" id="Resource_it6q4"]
+script = ExtResource("4_5ok6p")
 
 [sub_resource type="Resource" id="Resource_1ag72"]
 script = ExtResource("2_wawhc")
@@ -73,14 +77,15 @@ stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
 script = ExtResource("1_65epr")
 localization_name = "Bolt"
 localization_description = "Fire a bolt of electricity at an enemy."
+display_texture = ExtResource("1_8wdd8")
 success_chance = 1.0
 tiers = Array[ExtResource("2_wawhc")]([SubResource("Resource_1ag72"), SubResource("Resource_gjg4b"), SubResource("Resource_4y872"), SubResource("Resource_qu1y1"), SubResource("Resource_tmg7e"), SubResource("Resource_wq5sv"), SubResource("Resource_h2tlf")])
 is_ranged = true
 effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([SubResource("Resource_ix0ig")])
-display_texture = ExtResource("1_8wdd8")
 is_passive = false
 action_type = 0
 num_activations = 1
+target_validator = SubResource("Resource_it6q4")
 minimum_rank_of_previous = 0
 unlocks_at_class_level = 1
 is_starting_skill = true

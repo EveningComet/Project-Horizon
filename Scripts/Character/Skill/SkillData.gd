@@ -8,6 +8,10 @@ class_name SkillData extends Resource
 ## The description for this skill.
 @export_multiline var localization_description: String = "New description."
 
+## Texture for button in skills menu
+@export var display_texture: Texture2D
+
+@export_category("Definitions")
 ## For skills that need a success chance, what is the base chance of succeeding?
 @export_range(0.0, 1.0) var success_chance: float = 1.0
 
@@ -20,9 +24,6 @@ class_name SkillData extends Resource
 ## Defines what a skill does.
 @export var effects: Array[SkillEffect] = []
 
-## Texture for button in skills menu
-@export var display_texture: Texture2D
-
 ## Does the skill have to be activated?
 @export var is_passive: bool = false
 
@@ -31,6 +32,8 @@ class_name SkillData extends Resource
 
 ## If the skill is not passive, how many times does it activate?
 @export var num_activations: int = 1
+
+@export var target_validator: TargetValidator
 
 @export_category("Unlock Data")
 ## The minimum rank of the previous skill needed to unlock this skill.
@@ -41,7 +44,6 @@ class_name SkillData extends Resource
 
 ## If the skill is unlocked by default
 @export var is_starting_skill: bool = false
-
 
 ## The max rank is determined by the amount of tiers.
 var max_rank: int = 1:
@@ -84,7 +86,9 @@ func get_usable_data(activator: Combatant, upgrade_level: int = 0) -> ActionMedi
 				action_mediator.status_damage_scalers[damage_type] += get_bonus_power_on_debuffs_present(
 					activator, upgrade_level, damage_effect
 				)
-				action_mediator.damage_powers[damage_type] += get_uncalculated_power(activator, damage_effect)
+				action_mediator.damage_powers[damage_type] += get_uncalculated_power(
+					activator, damage_effect
+				)
 			else:
 				action_mediator.damage_data[damage_type] = get_power(
 					activator, upgrade_level, damage_effect
@@ -95,7 +99,9 @@ func get_usable_data(activator: Combatant, upgrade_level: int = 0) -> ActionMedi
 				action_mediator.status_damage_scalers[damage_type] = get_bonus_power_on_debuffs_present(
 					activator, upgrade_level, damage_effect
 				)
-				action_mediator.damage_powers[damage_type] = get_uncalculated_power(activator, damage_effect)
+				action_mediator.damage_powers[damage_type] = get_uncalculated_power(
+					activator, damage_effect
+				)
 	
 		# Check for status effects
 		elif effect is ApplyStatusEffect:

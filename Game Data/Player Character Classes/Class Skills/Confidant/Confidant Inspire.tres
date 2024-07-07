@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=8 format=3 uid="uid://05l5egkpynnr"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=10 format=3 uid="uid://05l5egkpynnr"]
 
 [ext_resource type="Texture2D" uid="uid://d11ivl1jdeph4" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Icons/Icon30.png" id="1_6h8l8"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillData.gd" id="1_qqes4"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/Skill Effects/ApplyStatusEffect.gd" id="2_8hwu2"]
 [ext_resource type="Resource" uid="uid://cbwa3cddmrgx7" path="res://Game Data/Status Effects/Status Effect Inspired.tres" id="3_8an8o"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillTier.gd" id="5_nwpx6"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/Validators/TargetAlwaysTrue.gd" id="5_p2i7l"]
 
 [sub_resource type="Resource" id="Resource_nl2eu"]
 script = ExtResource("2_8hwu2")
@@ -12,6 +13,9 @@ status_effect_to_apply = ExtResource("3_8an8o")
 chance_to_apply = 1.0
 power_scale = 1.0
 use_special_stat = false
+
+[sub_resource type="Resource" id="Resource_fwnfi"]
+script = ExtResource("5_p2i7l")
 
 [sub_resource type="Resource" id="Resource_eofvm"]
 script = ExtResource("5_nwpx6")
@@ -25,14 +29,15 @@ stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
 script = ExtResource("1_qqes4")
 localization_name = "Inspire"
 localization_description = "Don't let their dreams be dreams. Inspire your allies through stirring words."
+display_texture = ExtResource("1_6h8l8")
 success_chance = 1.0
 tiers = Array[ExtResource("5_nwpx6")]([SubResource("Resource_eofvm")])
 is_ranged = false
 effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([SubResource("Resource_nl2eu")])
-display_texture = ExtResource("1_6h8l8")
 is_passive = false
 action_type = 2
 num_activations = 1
+target_validator = SubResource("Resource_fwnfi")
 minimum_rank_of_previous = 0
 unlocks_at_class_level = 1
 is_starting_skill = false

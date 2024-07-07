@@ -1,14 +1,18 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=7 format=3 uid="uid://d2mxjb33dhn0t"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=9 format=3 uid="uid://d2mxjb33dhn0t"]
 
 [ext_resource type="Script" path="res://Scripts/Character/Skill/Skill Effects/DirectHealing.gd" id="1_bloe7"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillData.gd" id="1_g8bhc"]
 [ext_resource type="Texture2D" uid="uid://1po8y2n058vb" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Icons/Icon28.png" id="1_kb60h"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/Validators/TargetAlwaysTrue.gd" id="4_4fbmn"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillTier.gd" id="4_mmovs"]
 
 [sub_resource type="Resource" id="Resource_6354k"]
 script = ExtResource("1_bloe7")
 power_scale = 1.2
 use_special_stat = true
+
+[sub_resource type="Resource" id="Resource_vq64g"]
+script = ExtResource("4_4fbmn")
 
 [sub_resource type="Resource" id="Resource_g4lvy"]
 script = ExtResource("4_mmovs")
@@ -22,14 +26,15 @@ stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
 script = ExtResource("1_g8bhc")
 localization_name = "First Aid"
 localization_description = "Heal an ally."
+display_texture = ExtResource("1_kb60h")
 success_chance = 1.0
 tiers = Array[ExtResource("4_mmovs")]([SubResource("Resource_g4lvy")])
 is_ranged = false
 effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([SubResource("Resource_6354k")])
-display_texture = ExtResource("1_kb60h")
 is_passive = false
 action_type = 2
 num_activations = 1
+target_validator = SubResource("Resource_vq64g")
 minimum_rank_of_previous = 1
 unlocks_at_class_level = 1
 is_starting_skill = true

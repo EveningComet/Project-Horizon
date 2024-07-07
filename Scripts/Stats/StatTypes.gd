@@ -21,6 +21,12 @@ enum stat_types {
 	PhysicalPower,
 	SpecialPower,
 	
+	# Modifiers for damage types
+	HeatMods,
+	ColdMods,
+	ElectricityMods,
+	PsychicMods,
+	
 	# Resistances (Damage Type)
 	# Except for regular damage, the rest are primarily percentage based (0.0-1.0)
 	Defense,

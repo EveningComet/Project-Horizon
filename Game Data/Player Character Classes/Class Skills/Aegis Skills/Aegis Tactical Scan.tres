@@ -1,8 +1,12 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=5 format=3 uid="uid://dllai6a8rfsqh"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=7 format=3 uid="uid://dllai6a8rfsqh"]
 
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillData.gd" id="1_cua74"]
 [ext_resource type="Texture2D" uid="uid://d3rnajtkaw8ms" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Icons/Icon37.png" id="1_ub0nh"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillTier.gd" id="3_aorvb"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/Validators/TargetAlwaysTrue.gd" id="3_wcvjg"]
+
+[sub_resource type="Resource" id="Resource_rpu1h"]
+script = ExtResource("3_wcvjg")
 
 [sub_resource type="Resource" id="Resource_anjyr"]
 script = ExtResource("3_aorvb")
@@ -16,14 +20,15 @@ stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
 script = ExtResource("1_cua74")
 localization_name = "Tactical Scan"
 localization_description = "Use your high tech targeting computer to scan an enemy."
+display_texture = ExtResource("1_ub0nh")
 success_chance = 1.0
 tiers = Array[ExtResource("3_aorvb")]([SubResource("Resource_anjyr")])
 is_ranged = false
 effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([])
-display_texture = ExtResource("1_ub0nh")
 is_passive = false
 action_type = 0
 num_activations = 1
+target_validator = SubResource("Resource_rpu1h")
 minimum_rank_of_previous = 0
 unlocks_at_class_level = 1
 is_starting_skill = false

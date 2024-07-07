@@ -1,14 +1,18 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=7 format=3 uid="uid://by8cb3jap5hqh"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=9 format=3 uid="uid://by8cb3jap5hqh"]
 
 [ext_resource type="Texture2D" uid="uid://bfn1k6ty5eivc" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Icons/Icon38.png" id="1_bgqvg"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillData.gd" id="1_g62jx"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/Skill Effects/DirectHealing.gd" id="1_olgdp"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillTier.gd" id="4_mtunn"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/Validators/TargetAlwaysTrue.gd" id="4_r6kf6"]
 
 [sub_resource type="Resource" id="Resource_3qk50"]
 script = ExtResource("1_olgdp")
 power_scale = 1.0
 use_special_stat = true
+
+[sub_resource type="Resource" id="Resource_i7br3"]
+script = ExtResource("4_r6kf6")
 
 [sub_resource type="Resource" id="Resource_fhmt0"]
 script = ExtResource("4_mtunn")
@@ -22,14 +26,15 @@ stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
 script = ExtResource("1_g62jx")
 localization_name = "Field Medicine"
 localization_description = "Use rudimentary medicine to heal an ally."
+display_texture = ExtResource("1_bgqvg")
 success_chance = 1.0
 tiers = Array[ExtResource("4_mtunn")]([SubResource("Resource_fhmt0")])
 is_ranged = false
 effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([SubResource("Resource_3qk50")])
-display_texture = ExtResource("1_bgqvg")
 is_passive = false
 action_type = 2
 num_activations = 1
+target_validator = SubResource("Resource_i7br3")
 minimum_rank_of_previous = 0
 unlocks_at_class_level = 0
 is_starting_skill = false

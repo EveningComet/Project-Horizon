@@ -1,9 +1,13 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=9 format=3 uid="uid://bwfrxhbnao2tq"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=11 format=3 uid="uid://bwfrxhbnao2tq"]
 
 [ext_resource type="Texture2D" uid="uid://bfn1k6ty5eivc" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Icons/Icon38.png" id="1_8w728"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillData.gd" id="2_wnbug"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillTier.gd" id="3_cq128"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/Validators/TargetAlwaysTrue.gd" id="3_o1chn"]
 [ext_resource type="Script" path="res://Scripts/Stats/StatModifier.gd" id="4_eo2xw"]
+
+[sub_resource type="Resource" id="Resource_c1ld1"]
+script = ExtResource("3_o1chn")
 
 [sub_resource type="Resource" id="Resource_tfm23"]
 script = ExtResource("4_eo2xw")
@@ -39,14 +43,15 @@ stat_modifiers = Array[ExtResource("4_eo2xw")]([SubResource("Resource_htww0")])
 script = ExtResource("2_wnbug")
 localization_name = "Intelligence"
 localization_description = "Increases intelligence."
+display_texture = ExtResource("1_8w728")
 success_chance = 1.0
 tiers = Array[ExtResource("3_cq128")]([SubResource("Resource_32dln"), SubResource("Resource_i7dog")])
 is_ranged = false
 effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([])
-display_texture = ExtResource("1_8w728")
 is_passive = true
 action_type = 6
 num_activations = 1
+target_validator = SubResource("Resource_c1ld1")
 minimum_rank_of_previous = 0
 unlocks_at_class_level = 0
 is_starting_skill = false

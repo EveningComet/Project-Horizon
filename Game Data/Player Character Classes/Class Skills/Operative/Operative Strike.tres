@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=8 format=3 uid="uid://cyhml8pp265nt"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=10 format=3 uid="uid://cyhml8pp265nt"]
 
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillData.gd" id="1_dcyti"]
 [ext_resource type="Texture2D" uid="uid://d3rnajtkaw8ms" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Icons/Icon37.png" id="1_qy246"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/Skill Effects/DirectDamage.gd" id="2_dqh1k"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillTier.gd" id="3_lxnlo"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/Validators/TargetAlwaysTrue.gd" id="4_nesic"]
 
 [sub_resource type="Resource" id="Resource_7dih3"]
 script = ExtResource("2_dqh1k")
@@ -12,6 +13,9 @@ bonus_damage_scale_on_debuffs_present = 0.0
 attacker_heal_percentage = 0.0
 power_scale = 1.0
 use_special_stat = false
+
+[sub_resource type="Resource" id="Resource_0p45b"]
+script = ExtResource("4_nesic")
 
 [sub_resource type="Resource" id="Resource_nhkvm"]
 script = ExtResource("3_lxnlo")
@@ -33,14 +37,15 @@ stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
 script = ExtResource("1_dcyti")
 localization_name = "Strike"
 localization_description = "Attack the enemy. More damage will be dealt if they have a debuff."
+display_texture = ExtResource("1_qy246")
 success_chance = 1.0
 tiers = Array[ExtResource("3_lxnlo")]([SubResource("Resource_nhkvm"), SubResource("Resource_hrc8n")])
 is_ranged = false
 effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([SubResource("Resource_7dih3")])
-display_texture = ExtResource("1_qy246")
 is_passive = false
 action_type = 0
 num_activations = 1
+target_validator = SubResource("Resource_0p45b")
 minimum_rank_of_previous = 0
 unlocks_at_class_level = 0
 is_starting_skill = true

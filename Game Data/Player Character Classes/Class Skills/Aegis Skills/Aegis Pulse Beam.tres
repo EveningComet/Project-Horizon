@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=13 format=3 uid="uid://cklqful7fhtp6"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=15 format=3 uid="uid://cklqful7fhtp6"]
 
 [ext_resource type="Script" path="res://Scripts/Character/Skill/Skill Effects/DirectDamage.gd" id="1_2lgx2"]
 [ext_resource type="Texture2D" uid="uid://qd1gmfqfgvyb" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Icons/Icon35.png" id="1_hxbul"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillData.gd" id="1_m3w6m"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/Skill Effects/ApplyStatusEffect.gd" id="4_blwco"]
 [ext_resource type="Resource" uid="uid://buul67l7164jj" path="res://Game Data/Status Effects/Status Effect Burned.tres" id="5_vow2x"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/Validators/TargetAlwaysTrue.gd" id="6_4wxt2"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillTier.gd" id="7_81a3n"]
 
 [sub_resource type="Resource" id="Resource_gy3qy"]
@@ -21,6 +22,9 @@ status_effect_to_apply = ExtResource("5_vow2x")
 chance_to_apply = 0.5
 power_scale = 1.0
 use_special_stat = false
+
+[sub_resource type="Resource" id="Resource_dqgdo"]
+script = ExtResource("6_4wxt2")
 
 [sub_resource type="Resource" id="Resource_ffbvh"]
 script = ExtResource("7_81a3n")
@@ -58,14 +62,15 @@ stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
 script = ExtResource("1_m3w6m")
 localization_name = "Pulse Beam"
 localization_description = "Fire a laser beam at the enemy. It will hit twice."
+display_texture = ExtResource("1_hxbul")
 success_chance = 1.0
 tiers = Array[ExtResource("7_81a3n")]([SubResource("Resource_ffbvh"), SubResource("Resource_kd176"), SubResource("Resource_vryq4"), SubResource("Resource_j8ti0")])
 is_ranged = true
 effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([SubResource("Resource_gy3qy"), SubResource("Resource_oksc7")])
-display_texture = ExtResource("1_hxbul")
 is_passive = false
 action_type = 0
 num_activations = 2
+target_validator = SubResource("Resource_dqgdo")
 minimum_rank_of_previous = 0
 unlocks_at_class_level = 1
 is_starting_skill = true

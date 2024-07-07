@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://00yy0k8hbey1"]
+[gd_scene load_steps=7 format=3 uid="uid://00yy0k8hbey1"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Skill Menu/SkillTree.gd" id="1_iim7m"]
 [ext_resource type="PackedScene" uid="uid://bngujmgvwnby5" path="res://Scenes/UI/Skill Menu/Skill Node.tscn" id="2_d0un1"]
 [ext_resource type="Resource" uid="uid://d2mxjb33dhn0t" path="res://Game Data/Player Character Classes/Class Skills/Confidant/Confidant First Aid.tres" id="3_6e8lo"]
 [ext_resource type="Resource" uid="uid://bwfrxhbnao2tq" path="res://Game Data/Player Character Classes/Class Skills/Confidant/Confidant Intelligence.tres" id="3_mlst5"]
 [ext_resource type="Resource" uid="uid://05l5egkpynnr" path="res://Game Data/Player Character Classes/Class Skills/Confidant/Confidant Inspire.tres" id="4_784na"]
+[ext_resource type="Resource" uid="uid://db0w6j47ggkor" path="res://Game Data/Player Character Classes/Class Skills/Confidant/Confidant Revive.tres" id="6_0kimm"]
 
 [node name="Confidant Skill Tree" type="Control"]
 custom_minimum_size = Vector2(1000, 1080)
@@ -21,7 +22,7 @@ grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("1_iim7m")
 
-[node name="Skill Node" parent="." instance=ExtResource("2_d0un1")]
+[node name="Intelligence" parent="." instance=ExtResource("2_d0un1")]
 layout_mode = 0
 offset_left = 231.0
 offset_top = 840.0
@@ -58,3 +59,11 @@ offset_bottom = -140.0
 grow_horizontal = 2
 grow_vertical = 0
 associated_skill = ExtResource("4_784na")
+
+[node name="Revive" parent="First Aid" instance=ExtResource("2_d0un1")]
+layout_mode = 0
+offset_left = 5.0
+offset_top = -300.0
+offset_right = 95.0
+offset_bottom = -210.0
+associated_skill = ExtResource("6_0kimm")

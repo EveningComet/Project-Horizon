@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=9 format=3 uid="uid://db0w6j47ggkor"]
+
+[ext_resource type="Script" path="res://Scripts/Character/Skill/SkillData.gd" id="1_4gvcw"]
+[ext_resource type="Texture2D" uid="uid://1po8y2n058vb" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Icons/Icon28.png" id="1_il2rq"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/Skill Effects/DirectHealing.gd" id="2_hb4gn"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/SkillTier.gd" id="4_60j45"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/Validators/TargetDeadValidator.gd" id="4_lhryp"]
+
+[sub_resource type="Resource" id="Resource_h2ary"]
+script = ExtResource("2_hb4gn")
+power_scale = 1.0
+use_special_stat = true
+
+[sub_resource type="Resource" id="Resource_yuclq"]
+script = ExtResource("4_lhryp")
+
+[sub_resource type="Resource" id="Resource_4hn63"]
+script = ExtResource("4_60j45")
+cost = 10
+power_scale = 0.5
+bonus_damage_scale_on_debuffs_present = 0.0
+attacker_heal_percentage = 0.0
+stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
+
+[resource]
+script = ExtResource("1_4gvcw")
+localization_name = "Revive"
+localization_description = "Make an ally with no hp get back up."
+display_texture = ExtResource("1_il2rq")
+success_chance = 1.0
+tiers = Array[ExtResource("4_60j45")]([SubResource("Resource_4hn63")])
+is_ranged = false
+effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([SubResource("Resource_h2ary")])
+is_passive = false
+action_type = 2
+num_activations = 1
+target_validator = SubResource("Resource_yuclq")
+minimum_rank_of_previous = 0
+unlocks_at_class_level = 1
+is_starting_skill = false

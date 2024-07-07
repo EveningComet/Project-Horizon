@@ -1,8 +1,12 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=5 format=3 uid="uid://et3jymc3h2tu"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=7 format=3 uid="uid://et3jymc3h2tu"]
 
 [ext_resource type="Texture2D" uid="uid://b1etw4u6yt2ch" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Icons/Icon33.png" id="1_jbcfa"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillData.gd" id="1_pjbi5"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillTier.gd" id="3_65aq8"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/Validators/TargetAlwaysTrue.gd" id="3_ebtrn"]
+
+[sub_resource type="Resource" id="Resource_b28am"]
+script = ExtResource("3_ebtrn")
 
 [sub_resource type="Resource" id="Resource_gmtok"]
 script = ExtResource("3_65aq8")
@@ -16,14 +20,15 @@ stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
 script = ExtResource("1_pjbi5")
 localization_name = "Stun"
 localization_description = "A non-lethal beam, powerful enough to cause disorientation."
+display_texture = ExtResource("1_jbcfa")
 success_chance = 1.0
 tiers = Array[ExtResource("3_65aq8")]([SubResource("Resource_gmtok")])
 is_ranged = false
 effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([])
-display_texture = ExtResource("1_jbcfa")
 is_passive = false
 action_type = 0
 num_activations = 1
+target_validator = SubResource("Resource_b28am")
 minimum_rank_of_previous = 1
 unlocks_at_class_level = 3
 is_starting_skill = false

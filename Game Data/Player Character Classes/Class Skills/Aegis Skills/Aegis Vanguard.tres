@@ -1,8 +1,12 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=5 format=3 uid="uid://48fsmsqsnkt0"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=7 format=3 uid="uid://48fsmsqsnkt0"]
 
 [ext_resource type="Texture2D" uid="uid://qd1gmfqfgvyb" path="res://Imported Assets/UI/Wenrexa UI Kit #4/Icons/Icon35.png" id="1_dirbo"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillData.gd" id="2_62rrr"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillTier.gd" id="3_p3xws"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/Validators/TargetAlwaysTrue.gd" id="3_v7bux"]
+
+[sub_resource type="Resource" id="Resource_cahmi"]
+script = ExtResource("3_v7bux")
 
 [sub_resource type="Resource" id="Resource_4wsoe"]
 script = ExtResource("3_p3xws")
@@ -16,14 +20,15 @@ stat_modifiers = Array[Resource("res://Scripts/Stats/StatModifier.gd")]([])
 script = ExtResource("2_62rrr")
 localization_name = "Vanguard"
 localization_description = "Deploy a shield that protects all allies for a few turns."
+display_texture = ExtResource("1_dirbo")
 success_chance = 1.0
 tiers = Array[ExtResource("3_p3xws")]([SubResource("Resource_4wsoe")])
 is_ranged = false
 effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([])
-display_texture = ExtResource("1_dirbo")
 is_passive = false
 action_type = 1
 num_activations = 1
+target_validator = SubResource("Resource_cahmi")
 minimum_rank_of_previous = 1
 unlocks_at_class_level = 5
 is_starting_skill = false
