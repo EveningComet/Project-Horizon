@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Project Horizon"
 config/description="A project intended for testing JRPG style combat. It has a sci-fi theme."
-run/main_scene="res://Scenes/UI/Homebase/Homebase Home Menu.tscn"
+run/main_scene="res://Scenes/UI/Main Menu/Main Menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
