@@ -27,18 +27,16 @@ stat_modifiers = Array[ExtResource("5_g8ejg")]([])
 script = ExtResource("3_6smvp")
 localization_name = "Heal"
 localization_description = "Heal a friend."
+success_chance = 1.0
+tiers = Array[ExtResource("4_iax00")]([SubResource("Resource_irdfy")])
+is_ranged = false
+effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([SubResource("Resource_eopbh")])
 is_passive = false
 action_type = 2
-skill_type = 2
 num_activations = 1
 minimum_rank_of_previous = 0
 unlocks_at_class_level = 0
-success_chance = 1.0
-is_unlocked_by_default = true
-tiers = Array[ExtResource("4_iax00")]([SubResource("Resource_irdfy")])
-branches = Array[ExtResource("3_6smvp")]([])
-is_ranged = false
-effects = Array[Resource("res://Scripts/Character/Skill/Skill Effects/SkillEffect.gd")]([SubResource("Resource_eopbh")])
+is_starting_skill = true
 
 [sub_resource type="Resource" id="Resource_6p1d0"]
 script = ExtResource("5_g8ejg")
@@ -56,7 +54,7 @@ sort_order = 0
 
 [sub_resource type="Resource" id="Resource_l81bw"]
 script = ExtResource("5_g8ejg")
-stat_changing = 13
+stat_changing = 17
 stat_modifier_type = 0
 value = -4.0
 sort_order = 0
