@@ -38,8 +38,9 @@ layout_mode = 2
 text = "Quit
 "
 
-[node name="MainMenuController" type="Node" parent="." node_paths=PackedStringArray("new_game_button", "quit_button")]
+[node name="MainMenuController" type="Node" parent="." node_paths=PackedStringArray("button_holder", "new_game_button", "quit_button")]
 script = ExtResource("1_hvoyk")
 homebase_scene = "res://Scenes/UI/Homebase/Homebase Home Menu.tscn"
+button_holder = NodePath("../Control/VBoxContainer")
 new_game_button = NodePath("../Control/VBoxContainer/New Game Button")
 quit_button = NodePath("../Control/VBoxContainer/Quit")
