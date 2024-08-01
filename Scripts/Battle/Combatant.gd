@@ -85,8 +85,13 @@ func initialize_other_stats() -> void:
 		true
 	)
 	
+	# Initialize the powers
 	stats[StatTypes.stat_types.PhysicalPower] = Stat.new( 0, true )
 	stats[StatTypes.stat_types.SpecialPower]  = Stat.new( 0, true )
+	stats[StatTypes.stat_types.HeatMods]      = Stat.new(0, true)
+	stats[StatTypes.stat_types.ColdMods]      = Stat.new(0, true)
+	stats[StatTypes.stat_types.ElectricityMods] = Stat.new(0, true)
+	stats[StatTypes.stat_types.PsychicMods]     = Stat.new(0, true)
 	
 	# Initialize the resistances for damage types
 	for damage_type in StatTypes.damage_to_res_map:

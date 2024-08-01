@@ -1,5 +1,6 @@
 ## A class that stores variables related to different types of stats.
 class_name StatTypes
+# TODO: Rename this to StatHelper.
 
 enum stat_types {
 	# Attributes
@@ -18,10 +19,10 @@ enum stat_types {
 	Evasion,              # (Dodge)      = Vitality  + Expertise and bonuses
 	Speed,                # (Vitality + Will and bonuses) / 2
 	CriticalHitChance,
-	PhysicalPower,
-	SpecialPower,
 	
 	# Modifiers for damage types
+	PhysicalPower,
+	SpecialPower,
 	HeatMods,
 	ColdMods,
 	ElectricityMods,
@@ -50,6 +51,26 @@ enum DamageTypes {
 	True ## Ignores resistance.
 }
 
+enum PowerTypes {
+	PhysicalPower,
+	SpecialPower,
+	HeatMods,
+	ColdMods,
+	ElectricityMods,
+	PsychicMods
+}
+
+## Quick accessor for looping through the different damage types.
+static var power_types_to_stat_map: Dictionary = {
+	PowerTypes.PhysicalPower: stat_types.PhysicalPower,
+	PowerTypes.SpecialPower: stat_types.SpecialPower,
+	PowerTypes.HeatMods: stat_types.HeatMods,
+	PowerTypes.ColdMods: stat_types.ColdMods,
+	PowerTypes.ElectricityMods: stat_types.ElectricityMods,
+	PowerTypes.PsychicMods: stat_types.PsychicMods
+	# TODO: Include the true type?
+}
+
 ## Easy accessor for returning the resistance for damage types.
 static var damage_to_res_map: Dictionary = {
 	DamageTypes.Base: stat_types.Defense,
@@ -62,9 +83,11 @@ static var damage_to_res_map: Dictionary = {
 # Below function and variable should be static. This is a workaround.
 # Because Godot Editor will complain about static function not found
 # Even though function is declared and code runs without any runtime errors
+# TODO: Convert to static
 func attributes() -> Array[stat_types]:
 	return [ stat_types.Vitality, stat_types.Expertise, stat_types.Will ]
 
+# TODO: Convert to static.
 var stat_types_to_string:= {
 	stat_types.Vitality : "Vitality",
 	stat_types.Expertise : "Expertise",
